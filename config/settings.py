@@ -12,6 +12,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 # Dashboard Configuration
 DASHBOARD_CONFIG = {
     'title': 'NHA Healthcare Facilities Dashboard',
+    'icon': '🏥',
     'subtitle': 'Comprehensive analysis and visualization of healthcare infrastructure across India',
     'layout': 'wide',
     'initial_sidebar_state': 'expanded',
@@ -19,6 +20,36 @@ DASHBOARD_CONFIG = {
         'About': 'NHA Healthcare Facilities Dashboard - Comprehensive analysis and visualization of healthcare infrastructure across India'
     }
 }
+
+# Data settings
+DATA_DIR = PROJECT_ROOT / "data"
+USE_DEDUPLICATED_DATA = False  # Set to True to use deduplicated dataset by default
+
+# Performance settings
+MAX_ROWS_DISPLAY = 1000
+MAP_SAMPLE_SIZE = 2000  # Maximum number of points to show on map for performance
+SEARCH_RESULTS_LIMIT = 500
+
+# UI settings
+SIDEBAR_EXPANDED = True
+SHOW_PROGRESS_BAR = True
+
+# Cache settings
+CACHE_TTL = 3600  # 1 hour in seconds
+
+# Map settings
+DEFAULT_MAP_CENTER = [20.5937, 78.9629]  # India center
+DEFAULT_MAP_ZOOM = 5
+
+# Feature flags
+ENABLE_ADVANCED_SEARCH = True
+ENABLE_DATA_EXPORT = True
+ENABLE_MAP_CLUSTERING = True
+ENABLE_ANALYTICS_DASHBOARD = True
+
+# Search settings
+MIN_SEARCH_LENGTH = 3
+SEARCH_DEBOUNCE_MS = 300
 
 # Data Settings
 DATA_SETTINGS = {
