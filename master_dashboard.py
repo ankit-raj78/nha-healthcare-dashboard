@@ -1,0 +1,982 @@
+#!/usr/bin/env python3
+"""
+Master Healthcare Facility Dashboard
+=====================================
+Streamlit dashboard for analyzing 393K healthcare facilities
+merged from 9 government datasets.
+
+Run: streamlit run master_dashboard.py
+"""
+
+import os
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+try:
+    import folium
+    from folium import plugins
+    from streamlit_folium import st_folium
+    FOLIUM_OK = True
+except ImportError:
+    FOLIUM_OK = False
+
+DATA_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(DATA_DIR, "healthcare_master_dataset.csv")
+
+SOURCE_NAMES = ["NHA", "PHC", "PMGSY", "PMJAY", "NIN", "CDAC_BB", "CHC", "CGHS", "NHP"]
+SOURCE_FLAGS = [f"in_{s.lower()}" for s in SOURCE_NAMES]
+
+KEEP_COLS = [
+    "master_id", "source_datasets", "facility_name", "latitude", "longitude",
+    "state", "district", "address", "pincode",
+    "facility_type", "ownership", "phone", "email",
+    "specialties", "num_beds", "is_24x7", "abdm_enabled",
+] + SOURCE_FLAGS + [
+    "M1_emp", "M2_emp", "M3_emp", "M4_emp", "M5_emp",
+    "M6_emp", "M7_emp", "M8_emp", "M10_emp",
+    "S1_emp", "S2_emp", "S3_emp", "S4_emp", "S5_emp",
+    "S6_emp", "S7_emp", "S8_emp", "S9_emp", "S10_emp",
+    "S11_emp", "S12_emp", "S13_emp", "S14_emp", "S15_emp", "S16_emp",
+]
+
+SPECIALTY_LABELS = {
+    "M1_emp": "General Medicine", "M2_emp": "General Surgery",
+    "M3_emp": "Obstetrics & Gynaecology", "M4_emp": "Paediatrics",
+    "M5_emp": "Orthopaedics", "M6_emp": "Ophthalmology",
+    "M7_emp": "ENT", "M8_emp": "Dermatology", "M10_emp": "Psychiatry",
+    "S1_emp": "Cardiology", "S2_emp": "Cardiothoracic Surgery",
+    "S3_emp": "Neurology", "S4_emp": "Neurosurgery",
+    "S5_emp": "Urology", "S6_emp": "Nephrology",
+    "S7_emp": "Gastroenterology", "S8_emp": "Pulmonology",
+    "S9_emp": "Endocrinology", "S10_emp": "Oncology (Medical)",
+    "S11_emp": "Oncology (Surgical)", "S12_emp": "Plastic Surgery",
+    "S13_emp": "Burns", "S14_emp": "Neonatology",
+    "S15_emp": "Interventional Radiology", "S16_emp": "Emergency Medicine",
+}
+
+FACILITY_COLORS = {
+    "Hospital": "#e74c3c", "Primary Health Centre": "#3498db",
+    "Community Health Centre": "#2ecc71", "Sub Centre": "#f39c12",
+    "Pharmacy": "#9b59b6", "Clinic/Dispensary": "#e67e22",
+    "Blood Bank": "#c0392b", "Medical College": "#1abc9c",
+    "Health And Wellness Centre": "#16a085", "Diagnostic Laboratory": "#8e44ad",
+    "AYUSH Dispensary": "#d35400", "AYUSH Hospital": "#c0392b",
+}
+
+OWNERSHIP_COLORS = {
+    "Government": "#27ae60", "Private": "#8e44ad", "PPP": "#f39c12",
+    "Trust": "#3498db", "Charitable": "#1abc9c",
+}
+
+COLOR_PALETTE = [
+    "#3498db", "#e74c3c", "#2ecc71", "#f39c12", "#9b59b6",
+    "#1abc9c", "#e67e22", "#34495e", "#16a085", "#c0392b",
+]
+
+
+# ===================================================================
+# Data Loading
+# ===================================================================
+
+@st.cache_data
+def load_data():
+    """Load master dataset with only useful columns for dashboards."""
+    df_full = pd.read_csv(DATA_FILE, low_memory=False)
+    available = [c for c in KEEP_COLS if c in df_full.columns]
+    df = df_full[available].copy()
+
+    # Ensure boolean flags
+    for flag in SOURCE_FLAGS:
+        if flag in df.columns:
+            df[flag] = df[flag].fillna(False).astype(bool)
+
+    # Pre-compute source count
+    df["n_sources"] = df["source_datasets"].str.count(r"\|").fillna(0).astype(int) + 1
+
+    # Clean lat/lon
+    df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
+    df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
+
+    return df
+
+
+@st.cache_data
+def load_full_data():
+    """Load complete master dataset with all 147 columns (for Full Dataset tab)."""
+    return pd.read_csv(DATA_FILE, low_memory=False)
+
+
+# ===================================================================
+# Sidebar Filters
+# ===================================================================
+
+def render_sidebar(df):
+    """Render sidebar filters. Returns filtered dataframe."""
+    st.sidebar.header("Filters")
+
+    # State filter
+    all_states = sorted(df["state"].dropna().unique().tolist())
+    selected_states = st.sidebar.multiselect("State", all_states, default=[])
+
+    # District filter — cascaded from state
+    if selected_states:
+        avail_districts = sorted(
+            df[df["state"].isin(selected_states)]["district"].dropna().unique().tolist()
+        )
+    else:
+        avail_districts = sorted(df["district"].dropna().unique().tolist())
+    selected_districts = st.sidebar.multiselect("District", avail_districts, default=[])
+
+    # Facility type
+    all_types = sorted(df["facility_type"].dropna().unique().tolist())
+    selected_types = st.sidebar.multiselect("Facility Type", all_types, default=[])
+
+    # Ownership
+    all_ownership = sorted(df["ownership"].dropna().unique().tolist())
+    selected_ownership = st.sidebar.multiselect("Ownership", all_ownership, default=[])
+
+    # Source dataset
+    selected_sources = st.sidebar.multiselect("Source Dataset", SOURCE_NAMES, default=[])
+
+    # Apply filters
+    mask = pd.Series(True, index=df.index)
+    if selected_states:
+        mask &= df["state"].isin(selected_states)
+    if selected_districts:
+        mask &= df["district"].isin(selected_districts)
+    if selected_types:
+        mask &= df["facility_type"].isin(selected_types)
+    if selected_ownership:
+        mask &= df["ownership"].isin(selected_ownership)
+    if selected_sources:
+        source_mask = pd.Series(False, index=df.index)
+        for src in selected_sources:
+            flag = f"in_{src.lower()}"
+            if flag in df.columns:
+                source_mask |= df[flag]
+        mask &= source_mask
+
+    filtered = df[mask]
+    st.sidebar.markdown("---")
+    st.sidebar.metric("Showing", f"{len(filtered):,} / {len(df):,}")
+    return filtered
+
+
+# ===================================================================
+# Tab 1: Overview
+# ===================================================================
+
+def render_overview(df, df_all):
+    """KPI cards and summary charts."""
+
+    # --- KPI Row ---
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Total Facilities", f"{len(df):,}")
+    c2.metric("States / UTs", df["state"].nunique())
+    c3.metric("Facility Types", df["facility_type"].nunique())
+    gov_pct = (
+        100 * (df["ownership"] == "Government").sum() / len(df) if len(df) else 0
+    )
+    c4.metric("Government %", f"{gov_pct:.1f}%")
+    multi_src = (df["n_sources"] > 1).sum()
+    c5.metric("Multi-Source Records", f"{multi_src:,}")
+
+    st.markdown("---")
+
+    # --- Row 2: Facility type + Ownership ---
+    col_l, col_r = st.columns(2)
+
+    with col_l:
+        ftype = df["facility_type"].value_counts().head(12)
+        fig = px.bar(
+            x=ftype.values, y=ftype.index, orientation="h",
+            title="Top 12 Facility Types",
+            labels={"x": "Count", "y": ""},
+            color=ftype.values, color_continuous_scale="Blues",
+        )
+        fig.update_layout(height=420, showlegend=False, yaxis=dict(categoryorder="total ascending"))
+        fig.update_coloraxes(showscale=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_r:
+        own = df["ownership"].value_counts()
+        fig = px.pie(
+            values=own.values, names=own.index,
+            title="Ownership Distribution",
+            color_discrete_sequence=COLOR_PALETTE, hole=0.4,
+        )
+        fig.update_traces(textposition="inside", textinfo="percent+label")
+        fig.update_layout(height=420)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # --- Row 3: State-wise ---
+    state_counts = df["state"].value_counts()
+    fig = px.bar(
+        x=state_counts.index, y=state_counts.values,
+        title="Facilities by State",
+        labels={"x": "State", "y": "Count"},
+        color=state_counts.values, color_continuous_scale="Greens",
+    )
+    fig.update_layout(height=450, xaxis_tickangle=-45, showlegend=False)
+    fig.update_coloraxes(showscale=False)
+    st.plotly_chart(fig, use_container_width=True)
+
+    # --- Row 4: Source dataset contribution ---
+    src_data = []
+    for src, flag in zip(SOURCE_NAMES, SOURCE_FLAGS):
+        if flag in df.columns:
+            total = df[flag].sum()
+            # multi = those also in another source
+            multi = (df[flag] & (df["n_sources"] > 1)).sum()
+            unique = total - multi
+            src_data.append({"Source": src, "Unique": int(unique), "Shared": int(multi)})
+    if src_data:
+        src_df = pd.DataFrame(src_data)
+        fig = go.Figure()
+        fig.add_trace(go.Bar(name="Unique to this source", x=src_df["Source"], y=src_df["Unique"], marker_color="#3498db"))
+        fig.add_trace(go.Bar(name="Shared with other sources", x=src_df["Source"], y=src_df["Shared"], marker_color="#e74c3c"))
+        fig.update_layout(
+            barmode="stack", title="Source Dataset Contributions",
+            yaxis_title="Facilities", height=400,
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+
+# ===================================================================
+# Tab 2: Geographic Map
+# ===================================================================
+
+def render_map(df):
+    """Interactive Folium map with clustering."""
+    if not FOLIUM_OK:
+        st.warning("Install `folium` and `streamlit-folium` for map support.")
+        return
+
+    col1, col2 = st.columns([3, 1])
+    with col2:
+        color_by = st.radio("Color by", ["Facility Type", "Ownership"], index=0)
+        show_heatmap = st.checkbox("Show heatmap instead", value=False)
+        max_pts = st.slider("Max points on map", 1000, 10000, 5000, step=1000)
+
+    # Filter to valid coordinates
+    geo = df.dropna(subset=["latitude", "longitude"])
+    geo = geo[(geo["latitude"].between(6, 38)) & (geo["longitude"].between(68, 98))]
+
+    if len(geo) == 0:
+        st.info("No facilities with valid coordinates match the current filters.")
+        return
+
+    # Sample for performance
+    if len(geo) > max_pts:
+        geo = geo.sample(max_pts, random_state=42)
+
+    center_lat = geo["latitude"].mean()
+    center_lon = geo["longitude"].mean()
+
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=5, tiles="CartoDB positron")
+
+    if show_heatmap:
+        heat_data = geo[["latitude", "longitude"]].values.tolist()
+        plugins.HeatMap(heat_data, radius=12, blur=8, max_zoom=10).add_to(m)
+    else:
+        cluster = plugins.MarkerCluster(name="Facilities")
+        colors_map = FACILITY_COLORS if color_by == "Facility Type" else OWNERSHIP_COLORS
+        col_key = "facility_type" if color_by == "Facility Type" else "ownership"
+
+        for _, row in geo.iterrows():
+            val = str(row.get(col_key, ""))
+            color = colors_map.get(val, "#95a5a6")
+            popup_html = (
+                f"<b>{row.get('facility_name', 'N/A')}</b><br>"
+                f"Type: {row.get('facility_type', 'N/A')}<br>"
+                f"Ownership: {row.get('ownership', 'N/A')}<br>"
+                f"State: {row.get('state', '')}, District: {row.get('district', '')}<br>"
+                f"Sources: {row.get('source_datasets', '')}"
+            )
+            folium.CircleMarker(
+                location=[row["latitude"], row["longitude"]],
+                radius=5, color=color, fill=True,
+                fillColor=color, fillOpacity=0.7, weight=1,
+                popup=folium.Popup(popup_html, max_width=300),
+                tooltip=str(row.get("facility_name", "")),
+            ).add_to(cluster)
+        cluster.add_to(m)
+
+    folium.LayerControl().add_to(m)
+
+    with col1:
+        st_folium(m, width=900, height=550)
+    st.caption(f"Showing {len(geo):,} facilities on map")
+
+
+# ===================================================================
+# Tab 3: Analytics
+# ===================================================================
+
+def render_analytics(df):
+    """Deep analytics charts."""
+
+    # --- Facility Type vs Ownership heatmap ---
+    st.subheader("Facility Type vs Ownership")
+    if "facility_type" in df.columns and "ownership" in df.columns:
+        matrix = pd.crosstab(df["facility_type"], df["ownership"])
+        # Keep top 12 types for readability
+        top_types = df["facility_type"].value_counts().head(12).index
+        matrix = matrix.loc[matrix.index.isin(top_types)]
+        fig = px.imshow(
+            matrix, text_auto=True, color_continuous_scale="Blues",
+            title="Facility Type vs Ownership (top 12 types)",
+            labels=dict(x="Ownership", y="Facility Type", color="Count"),
+        )
+        fig.update_layout(height=500)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # --- State-wise by facility type (stacked bar) ---
+    st.subheader("State-wise Facility Type Breakdown")
+    top_states = df["state"].value_counts().head(15).index
+    top_ftypes = df["facility_type"].value_counts().head(6).index
+    sub = df[df["state"].isin(top_states)]
+    sub_top = sub[sub["facility_type"].isin(top_ftypes)]
+    if not sub_top.empty:
+        ct = sub_top.groupby(["state", "facility_type"]).size().reset_index(name="count")
+        fig = px.bar(
+            ct, x="state", y="count", color="facility_type",
+            title="Top 15 States — Facility Type Mix",
+            labels={"state": "State", "count": "Count", "facility_type": "Type"},
+            color_discrete_sequence=COLOR_PALETTE,
+        )
+        fig.update_layout(height=480, xaxis_tickangle=-45, barmode="stack")
+        st.plotly_chart(fig, use_container_width=True)
+
+    # --- ABDM & 24/7 coverage ---
+    st.subheader("ABDM & 24/7 Coverage by State")
+    if "abdm_enabled" in df.columns and "is_24x7" in df.columns:
+        state_grp = df[df["state"].isin(top_states)].groupby("state")
+        abdm_pct = state_grp.apply(
+            lambda g: 100 * (g["abdm_enabled"].astype(str).str.lower() == "yes").sum() / len(g)
+            if len(g) > 0 else 0
+        ).reset_index(name="ABDM %")
+        h247_pct = state_grp.apply(
+            lambda g: 100 * (g["is_24x7"].astype(str).str.lower() == "yes").sum() / len(g)
+            if len(g) > 0 else 0
+        ).reset_index(name="24/7 %")
+        merged = abdm_pct.merge(h247_pct, on="state")
+        fig = go.Figure()
+        fig.add_trace(go.Bar(name="ABDM Enabled %", x=merged["state"], y=merged["ABDM %"], marker_color="#2ecc71"))
+        fig.add_trace(go.Bar(name="24/7 Open %", x=merged["state"], y=merged["24/7 %"], marker_color="#3498db"))
+        fig.update_layout(barmode="group", height=420, yaxis_title="%", xaxis_tickangle=-45)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # --- Specialty coverage ---
+    st.subheader("Specialty Coverage")
+    spec_cols = [c for c in SPECIALTY_LABELS if c in df.columns]
+    if spec_cols:
+        spec_counts = {}
+        for col in spec_cols:
+            spec_counts[SPECIALTY_LABELS.get(col, col)] = int((df[col] == 1).sum())
+        spec_df = pd.DataFrame(list(spec_counts.items()), columns=["Specialty", "Facilities"])
+        spec_df = spec_df.sort_values("Facilities", ascending=True)
+        fig = px.bar(
+            spec_df, x="Facilities", y="Specialty", orientation="h",
+            title="Number of Facilities per Specialty (PMJAY empanelment)",
+            color="Facilities", color_continuous_scale="Reds",
+        )
+        fig.update_layout(height=600, showlegend=False)
+        fig.update_coloraxes(showscale=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # --- Coverage gaps: bottom 15 states ---
+    st.subheader("States with Fewest Facilities")
+    bottom = df["state"].value_counts().tail(15).sort_values()
+    fig = px.bar(
+        x=bottom.values, y=bottom.index, orientation="h",
+        title="Bottom 15 States/UTs by Facility Count",
+        labels={"x": "Facilities", "y": "State"},
+        color=bottom.values, color_continuous_scale="Reds_r",
+    )
+    fig.update_layout(height=450, showlegend=False)
+    fig.update_coloraxes(showscale=False)
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# ===================================================================
+# Tab 4: Cross-Dataset Analysis
+# ===================================================================
+
+def render_cross_dataset(df):
+    """Source dataset overlap and enrichment analysis."""
+
+    # --- Source overlap matrix ---
+    st.subheader("Source Dataset Overlap Matrix")
+    st.caption("Number of facilities shared between each pair of datasets")
+    flags_available = [f for f in SOURCE_FLAGS if f in df.columns]
+    names_available = [SOURCE_NAMES[SOURCE_FLAGS.index(f)] for f in flags_available]
+
+    overlap = pd.DataFrame(0, index=names_available, columns=names_available)
+    for i, fi in enumerate(flags_available):
+        for j, fj in enumerate(flags_available):
+            overlap.iloc[i, j] = int((df[fi] & df[fj]).sum())
+
+    fig = px.imshow(
+        overlap, text_auto=True, color_continuous_scale="YlOrRd",
+        title="Facility Overlap Between Datasets",
+        labels=dict(color="Shared"),
+    )
+    fig.update_layout(height=500)
+    st.plotly_chart(fig, use_container_width=True)
+
+    # --- Records by number of sources ---
+    st.subheader("Records by Number of Sources")
+    col_l, col_r = st.columns(2)
+    with col_l:
+        src_dist = df["n_sources"].value_counts().sort_index()
+        fig = px.bar(
+            x=src_dist.index.astype(str), y=src_dist.values,
+            title="How many datasets does each facility appear in?",
+            labels={"x": "Number of Sources", "y": "Facilities"},
+            color=src_dist.values, color_continuous_scale="Viridis",
+        )
+        fig.update_layout(height=350, showlegend=False)
+        fig.update_coloraxes(showscale=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_r:
+        st.markdown("**Breakdown**")
+        total = len(df)
+        for n_src in sorted(src_dist.index):
+            cnt = src_dist[n_src]
+            pct = 100 * cnt / total
+            st.write(f"- **{n_src} source{'s' if n_src > 1 else ''}**: {cnt:,} ({pct:.1f}%)")
+
+    # --- Per-source enrichment ---
+    st.subheader("Data Enrichment by Source")
+    st.caption("What unique information does each source contribute?")
+    enrich_fields = {
+        "phone": "Phone Number",
+        "email": "Email",
+        "specialties": "Specialties",
+        "num_beds": "Bed Count",
+        "pincode": "Pincode",
+        "address": "Address",
+    }
+    enrich_data = []
+    for src, flag in zip(SOURCE_NAMES, SOURCE_FLAGS):
+        if flag not in df.columns:
+            continue
+        src_df = df[df[flag]]
+        row = {"Source": src, "Total": len(src_df)}
+        for field, label in enrich_fields.items():
+            if field in src_df.columns:
+                row[label] = int(src_df[field].notna().sum())
+            else:
+                row[label] = 0
+        enrich_data.append(row)
+    if enrich_data:
+        enrich_df = pd.DataFrame(enrich_data)
+        st.dataframe(enrich_df, use_container_width=True, hide_index=True)
+
+    # --- Source coverage by state (heatmap) ---
+    st.subheader("Program Coverage by State")
+    st.caption("Which programs have facilities in which states")
+    coverage = []
+    for src, flag in zip(SOURCE_NAMES, SOURCE_FLAGS):
+        if flag not in df.columns:
+            continue
+        state_counts = df[df[flag]].groupby("state").size()
+        for state, cnt in state_counts.items():
+            coverage.append({"Source": src, "State": state, "Count": cnt})
+    if coverage:
+        cov_df = pd.DataFrame(coverage)
+        pivot = cov_df.pivot_table(index="State", columns="Source", values="Count", fill_value=0)
+        # Normalize to % of state total for readability
+        pivot_pct = pivot.div(pivot.sum(axis=1), axis=0) * 100
+
+        # Show top 20 states
+        top_20 = df["state"].value_counts().head(20).index
+        pivot_show = pivot.loc[pivot.index.isin(top_20)]
+        fig = px.imshow(
+            pivot_show, text_auto=".0f", color_continuous_scale="Blues",
+            title="Facility Count per Source per State (top 20 states)",
+            labels=dict(color="Count"),
+        )
+        fig.update_layout(height=600)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+# ===================================================================
+# Tab 5: Data Explorer
+# ===================================================================
+
+def render_data_explorer(df):
+    """Searchable, sortable data table."""
+
+    # Text search
+    search = st.text_input("Search facility name", "", placeholder="Type to search...")
+    if search.strip():
+        df = df[df["facility_name"].str.contains(search.strip(), case=False, na=False)]
+
+    # Column selector
+    display_cols = [
+        "facility_name", "state", "district", "facility_type",
+        "ownership", "source_datasets", "latitude", "longitude",
+        "address", "pincode", "phone", "specialties",
+        "is_24x7", "abdm_enabled", "n_sources",
+    ]
+    available = [c for c in display_cols if c in df.columns]
+    selected_cols = st.multiselect(
+        "Columns to display", available, default=available[:10]
+    )
+    if not selected_cols:
+        selected_cols = available[:5]
+
+    st.write(f"**{len(df):,} facilities** matching current filters")
+
+    # Show table (limit to 2000 for performance)
+    show_df = df[selected_cols].head(2000)
+    st.dataframe(show_df, use_container_width=True, height=500)
+
+    if len(df) > 2000:
+        st.caption("Showing first 2,000 rows. Download CSV for full data.")
+
+    # Download
+    csv = df[selected_cols].to_csv(index=False)
+    st.download_button(
+        "Download filtered data (CSV)",
+        data=csv,
+        file_name="master_facilities_filtered.csv",
+        mime="text/csv",
+    )
+
+
+# ===================================================================
+# Tab 6: District Deep Dive
+# ===================================================================
+
+def render_district_dive(df):
+    """State → District drill-down analysis."""
+
+    col_sel, _ = st.columns([1, 2])
+    with col_sel:
+        states = sorted(df["state"].dropna().unique().tolist())
+        sel_state = st.selectbox("Select a State", states, index=0)
+
+    state_df = df[df["state"] == sel_state]
+    st.write(f"**{sel_state}**: {len(state_df):,} facilities")
+
+    # District summary table
+    dist_summary = (
+        state_df.groupby("district")
+        .agg(
+            Facilities=("master_id", "count"),
+            Types=("facility_type", "nunique"),
+            Government=("ownership", lambda x: (x == "Government").sum()),
+            Private=("ownership", lambda x: (x == "Private").sum()),
+            Sources=("n_sources", "mean"),
+        )
+        .reset_index()
+        .sort_values("Facilities", ascending=False)
+    )
+    dist_summary["Sources"] = dist_summary["Sources"].round(1)
+    dist_summary = dist_summary.rename(columns={"district": "District", "Sources": "Avg Sources"})
+
+    st.subheader(f"District Breakdown — {sel_state}")
+    st.dataframe(dist_summary, use_container_width=True, hide_index=True, height=350)
+
+    # District bar chart
+    top_dist = dist_summary.head(20)
+    fig = px.bar(
+        top_dist, x="District", y="Facilities",
+        title=f"Top 20 Districts in {sel_state}",
+        color="Facilities", color_continuous_scale="Teal",
+    )
+    fig.update_layout(height=400, xaxis_tickangle=-45)
+    fig.update_coloraxes(showscale=False)
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Program coverage in this state
+    st.subheader(f"Program Coverage in {sel_state}")
+    prog_counts = {}
+    for src, flag in zip(SOURCE_NAMES, SOURCE_FLAGS):
+        if flag in state_df.columns:
+            prog_counts[src] = int(state_df[flag].sum())
+    if prog_counts:
+        prog_df = pd.DataFrame(list(prog_counts.items()), columns=["Program", "Facilities"])
+        prog_df = prog_df[prog_df["Facilities"] > 0].sort_values("Facilities", ascending=True)
+        fig = px.bar(
+            prog_df, x="Facilities", y="Program", orientation="h",
+            title=f"Source Programs Active in {sel_state}",
+            color="Facilities", color_continuous_scale="Purples",
+        )
+        fig.update_layout(height=350)
+        fig.update_coloraxes(showscale=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # District deep-dive: select a district
+    st.markdown("---")
+    districts = sorted(state_df["district"].dropna().unique().tolist())
+    sel_district = st.selectbox("Drill into a District", districts, index=0)
+    dist_df = state_df[state_df["district"] == sel_district]
+    st.write(f"**{sel_district}**: {len(dist_df):,} facilities")
+
+    # Facility type mix for this district
+    col_a, col_b = st.columns(2)
+    with col_a:
+        ftype = dist_df["facility_type"].value_counts()
+        fig = px.pie(
+            values=ftype.values, names=ftype.index,
+            title=f"Facility Types in {sel_district}",
+            color_discrete_sequence=COLOR_PALETTE, hole=0.35,
+        )
+        fig.update_traces(textposition="inside", textinfo="percent+label")
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_b:
+        own = dist_df["ownership"].value_counts()
+        fig = px.pie(
+            values=own.values, names=own.index,
+            title=f"Ownership in {sel_district}",
+            color_discrete_sequence=COLOR_PALETTE[3:], hole=0.35,
+        )
+        fig.update_traces(textposition="inside", textinfo="percent+label")
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # Map for this district
+    if FOLIUM_OK:
+        geo = dist_df.dropna(subset=["latitude", "longitude"])
+        if len(geo) > 0:
+            sample = geo.sample(min(len(geo), 2000), random_state=42)
+            center = [sample["latitude"].mean(), sample["longitude"].mean()]
+            m = folium.Map(location=center, zoom_start=11, tiles="CartoDB positron")
+            for _, row in sample.iterrows():
+                color = FACILITY_COLORS.get(str(row.get("facility_type", "")), "#95a5a6")
+                folium.CircleMarker(
+                    location=[row["latitude"], row["longitude"]],
+                    radius=5, color=color, fill=True,
+                    fillColor=color, fillOpacity=0.7, weight=1,
+                    tooltip=str(row.get("facility_name", "")),
+                ).add_to(m)
+            st_folium(m, width=800, height=400)
+
+    # Facility table for this district
+    show_cols = [c for c in ["facility_name", "facility_type", "ownership", "address", "source_datasets"] if c in dist_df.columns]
+    st.dataframe(dist_df[show_cols].head(500), use_container_width=True, hide_index=True)
+
+
+# ===================================================================
+# Tab 7: Full Dataset & Column Dictionary
+# ===================================================================
+
+COLUMN_DICTIONARY = {
+    # Identity & Provenance
+    "master_id": ("Identity", "Unique UUID assigned to each facility in the master dataset"),
+    "source_datasets": ("Identity", "Pipe-separated list of source datasets this facility appears in (e.g. NHA|PMJAY|CHC)"),
+    "source_ids": ("Identity", "Original IDs from source datasets (Facility ID, Hospital_Id, FACILITY_ID, etc.)"),
+    # Core Facility Info
+    "facility_name": ("Core", "Name of the healthcare facility as recorded in the primary source"),
+    "facility_name_clean": ("Core", "Uppercased, transliterated, punctuation-removed version of the name used for deduplication matching"),
+    "latitude": ("Core", "Geographic latitude coordinate (WGS84)"),
+    "longitude": ("Core", "Geographic longitude coordinate (WGS84)"),
+    "state": ("Core", "Standardized state/UT name (36 unique values, canonical spelling)"),
+    "state_code": ("Core", "LGD (Local Government Directory) numeric state code from NHA"),
+    "district": ("Core", "District name (1,071 unique districts)"),
+    "district_code": ("Core", "LGD numeric district code from NHA"),
+    "address": ("Core", "Street-level address of the facility"),
+    "pincode": ("Core", "6-digit Indian postal code (available for ~9% of records)"),
+    # Classification
+    "facility_type": ("Classification", "Standardized facility type: Hospital, PHC, CHC, Sub Centre, Pharmacy, Medical College, Blood Bank, etc."),
+    "facility_subtype": ("Classification", "More specific sub-type from PMGSY dataset (e.g. Bedded Hospital)"),
+    "ownership": ("Classification", "Facility ownership: Government, Private, PPP, Trust, Charitable"),
+    # Contact
+    "phone": ("Contact", "Phone/contact number (from PMJAY, CGHS, CDAC_BB, NHP, NIN sources)"),
+    "email": ("Contact", "Email address (from PMJAY, CDAC_BB sources)"),
+    # Clinical
+    "specialties": ("Clinical", "Merged specialty codes/names from NHA, PMJAY, CGHS (pipe-separated)"),
+    "num_beds": ("Clinical", "Number of beds (primarily from NHP medical colleges)"),
+    "is_24x7": ("Clinical", "Whether the facility operates 24/7 (Yes/No, from NHA)"),
+    "abdm_enabled": ("Clinical", "Whether ABDM (Ayushman Bharat Digital Mission) is enabled (Yes/No, from NHA)"),
+    # Source Flags
+    "in_nha": ("Source Flag", "True if facility is in the NHA national registry (323K records)"),
+    "in_phc": ("Source Flag", "True if facility is in the PHC (Primary Health Centre) dataset"),
+    "in_pmgsy": ("Source Flag", "True if facility is in PMGSY (Pradhan Mantri Gram Sadak Yojana) dataset"),
+    "in_pmjay": ("Source Flag", "True if facility is empanelled under PMJAY (Ayushman Bharat)"),
+    "in_nin": ("Source Flag", "True if facility is in the NIN (National Inventory for NCD) dataset"),
+    "in_cdac_bb": ("Source Flag", "True if facility is a blood bank from the CDAC dataset"),
+    "in_chc": ("Source Flag", "True if facility is in the CHC (Community Health Centre) dataset"),
+    "in_cghs": ("Source Flag", "True if facility is empanelled under CGHS (Central Govt Health Scheme)"),
+    "in_nhp": ("Source Flag", "True if facility is in NHP (National Health Portal — medical colleges)"),
+    # Specialty Binary (empanelled)
+    "M1_emp": ("Specialty", "1 if empanelled for General Medicine, 0 otherwise"),
+    "M2_emp": ("Specialty", "1 if empanelled for General Surgery, 0 otherwise"),
+    "M3_emp": ("Specialty", "1 if empanelled for Obstetrics & Gynaecology, 0 otherwise"),
+    "M4_emp": ("Specialty", "1 if empanelled for Paediatrics, 0 otherwise"),
+    "M5_emp": ("Specialty", "1 if empanelled for Orthopaedics, 0 otherwise"),
+    "M6_emp": ("Specialty", "1 if empanelled for Ophthalmology, 0 otherwise"),
+    "M7_emp": ("Specialty", "1 if empanelled for ENT, 0 otherwise"),
+    "M8_emp": ("Specialty", "1 if empanelled for Dermatology, 0 otherwise"),
+    "M10_emp": ("Specialty", "1 if empanelled for Psychiatry, 0 otherwise"),
+    "S1_emp": ("Specialty", "1 if empanelled for Cardiology, 0 otherwise"),
+    "S2_emp": ("Specialty", "1 if empanelled for Cardiothoracic Surgery, 0 otherwise"),
+    "S3_emp": ("Specialty", "1 if empanelled for Neurology, 0 otherwise"),
+    "S4_emp": ("Specialty", "1 if empanelled for Neurosurgery, 0 otherwise"),
+    "S5_emp": ("Specialty", "1 if empanelled for Urology, 0 otherwise"),
+    "S6_emp": ("Specialty", "1 if empanelled for Nephrology, 0 otherwise"),
+    "S7_emp": ("Specialty", "1 if empanelled for Gastroenterology, 0 otherwise"),
+    "S8_emp": ("Specialty", "1 if empanelled for Pulmonology, 0 otherwise"),
+    "S9_emp": ("Specialty", "1 if empanelled for Endocrinology, 0 otherwise"),
+    "S10_emp": ("Specialty", "1 if empanelled for Oncology (Medical), 0 otherwise"),
+    "S11_emp": ("Specialty", "1 if empanelled for Oncology (Surgical), 0 otherwise"),
+    "S12_emp": ("Specialty", "1 if empanelled for Plastic Surgery, 0 otherwise"),
+    "S13_emp": ("Specialty", "1 if empanelled for Burns, 0 otherwise"),
+    "S14_emp": ("Specialty", "1 if empanelled for Neonatology, 0 otherwise"),
+    "S15_emp": ("Specialty", "1 if empanelled for Interventional Radiology, 0 otherwise"),
+    "S16_emp": ("Specialty", "1 if empanelled for Emergency Medicine, 0 otherwise"),
+    # NHA verifier columns
+    "source_id": ("NHA", "Original facility/hospital ID from the source dataset"),
+    "Name verifier": ("NHA", "Verification status of facility name in NHA (Verified/Not Verified/Absent)"),
+    "Address verifier": ("NHA", "Verification status of address in NHA"),
+    "Google Maps Link": ("NHA", "Google Maps URL for the facility location"),
+    "Facility Type verifier": ("NHA", "Verification status of facility type in NHA"),
+    "Ownership verifier": ("NHA", "Verification status of ownership in NHA"),
+    "n_sources": ("Computed", "Number of source datasets this facility appears in (1-5)"),
+    # Specialty Upgraded columns
+    "M1_upg": ("Specialty Upgrade", "1 if upgraded for General Medicine under PMJAY"),
+    "M2_upg": ("Specialty Upgrade", "1 if upgraded for General Surgery under PMJAY"),
+    "M3_upg": ("Specialty Upgrade", "1 if upgraded for Obstetrics & Gynaecology under PMJAY"),
+    "M4_upg": ("Specialty Upgrade", "1 if upgraded for Paediatrics under PMJAY"),
+    "M5_upg": ("Specialty Upgrade", "1 if upgraded for Orthopaedics under PMJAY"),
+    "M6_upg": ("Specialty Upgrade", "1 if upgraded for Ophthalmology under PMJAY"),
+    "M7_upg": ("Specialty Upgrade", "1 if upgraded for ENT under PMJAY"),
+    "M8_upg": ("Specialty Upgrade", "1 if upgraded for Dermatology under PMJAY"),
+    "M10_upg": ("Specialty Upgrade", "1 if upgraded for Psychiatry under PMJAY"),
+    "S1_upg": ("Specialty Upgrade", "1 if upgraded for Cardiology under PMJAY"),
+    "S2_upg": ("Specialty Upgrade", "1 if upgraded for Cardiothoracic Surgery under PMJAY"),
+    "S3_upg": ("Specialty Upgrade", "1 if upgraded for Neurology under PMJAY"),
+    "S4_upg": ("Specialty Upgrade", "1 if upgraded for Neurosurgery under PMJAY"),
+    "S5_upg": ("Specialty Upgrade", "1 if upgraded for Urology under PMJAY"),
+    "S6_upg": ("Specialty Upgrade", "1 if upgraded for Nephrology under PMJAY"),
+    "S7_upg": ("Specialty Upgrade", "1 if upgraded for Gastroenterology under PMJAY"),
+    "S10_upg": ("Specialty Upgrade", "1 if upgraded for Oncology (Medical) under PMJAY"),
+    "S11_upg": ("Specialty Upgrade", "1 if upgraded for Oncology (Surgical) under PMJAY"),
+    "S12_upg": ("Specialty Upgrade", "1 if upgraded for Plastic Surgery under PMJAY"),
+    "S13_upg": ("Specialty Upgrade", "1 if upgraded for Burns under PMJAY"),
+    "S14_upg": ("Specialty Upgrade", "1 if upgraded for Neonatology under PMJAY"),
+    "S15_upg": ("Specialty Upgrade", "1 if upgraded for Interventional Radiology under PMJAY"),
+    "S16_upg": ("Specialty Upgrade", "1 if upgraded for Emergency Medicine under PMJAY"),
+    # PHC/CHC residual
+    "BLOCK_ID": ("PHC/CHC", "Block identifier from PHC/CHC source datasets"),
+    "HAB_ID": ("PHC/CHC", "Habitation identifier from PHC/CHC source datasets"),
+    "FAC_CATEGO": ("PHC/CHC", "Facility category (always 'Medical') from PHC/CHC datasets"),
+    # PMGSY residual
+    "Sr. No. ": ("PMGSY", "Serial number from PMGSY source dataset"),
+    "HABITATION_NAME": ("PMGSY", "Name of the habitation (village/hamlet) from PMGSY"),
+    "HAB_CODE": ("PMGSY", "Habitation code from PMGSY"),
+    "FILE_UPLOAD_DATE": ("PMGSY", "Date when the record was uploaded in PMGSY portal"),
+    "MASTER_FACILITY_CATEGORY_NAME": ("PMGSY", "Master facility category (always 'Medical') from PMGSY"),
+    "Postcode_py": ("PMGSY/CGHS", "Pincode extracted via geocoding (from PMGSY or CGHS)"),
+    "address_py": ("PMGSY/PMJAY", "Address string used for geocoding validation"),
+    "Hospital Name": ("PMGSY", "Geocoded hospital name from PMGSY"),
+    "Street/Locality": ("PMGSY", "Street/locality from geocoding in PMGSY"),
+    "Habitation": ("PMGSY", "Habitation name from geocoding in PMGSY"),
+    "Block": ("PMGSY", "Block name from geocoding in PMGSY"),
+    "City/District": ("PMGSY", "City/district from geocoding in PMGSY"),
+    "State": ("PMGSY/PMJAY", "Raw state name from geocoding (not standardized)"),
+    "Country": ("PMGSY/PMJAY", "Country from geocoding (always India)"),
+    # PMJAY residual
+    "Sr No": ("PMJAY", "Serial number from PMJAY source dataset"),
+    "Manual Hospital Name": ("PMJAY", "Manually verified hospital name in PMJAY"),
+    "Hospital Address": ("PMJAY", "Hospital address as recorded in PMJAY"),
+    "Types of Employees": ("PMJAY", "Types of employees (mostly empty)"),
+    "gmaps_Accuracy": ("PMJAY", "Google Maps geocoding accuracy level (ROOFTOP, APPROXIMATE, etc.)"),
+    "Specialities_Upgraded_or_Empanelled": ("PMJAY", "Combined specialty text for empanelment/upgrade"),
+    "Test extract": ("PMJAY", "Test extraction field (mostly empty)"),
+    "is_RU": ("PMJAY", "Rural (R) or Urban (U) classification"),
+    "Auto Score": ("PMJAY/CGHS", "Automated address matching score from geocoding validation"),
+    "Road": ("PMJAY", "Road name from geocoding"),
+    "Locality": ("PMJAY", "Locality from geocoding"),
+    "District": ("PMJAY", "District from geocoding (different from main 'district' column)"),
+    "City": ("PMJAY", "City from geocoding"),
+    "Zipcode": ("PMJAY", "Zipcode from geocoding"),
+    # NIN residual
+    "Non filled numbering": ("NIN", "Non-filled numbering sequence from NIN"),
+    "SrNo": ("NIN", "Serial number from NIN source dataset"),
+    "Manual Health Facility Name": ("NIN", "Manually entered facility name in NIN"),
+    "Notes": ("NIN", "Coder notes from NIN data entry"),
+    "street": ("NIN", "Street name from NIN"),
+    "landmark": ("NIN", "Landmark near the facility from NIN"),
+    "locality": ("NIN", "Locality name from NIN"),
+    "altitude": ("NIN", "Altitude in meters from NIN"),
+    "Manual_Address": ("NIN", "Manually entered address in NIN"),
+    "Manual_Pincode": ("NIN", "Manually entered pincode in NIN"),
+    "Manually_added": ("NIN", "Whether the record was manually added in NIN"),
+    "Coder": ("NIN", "Name/ID of the data entry coder in NIN"),
+    # CDAC_BB residual
+    "dist_name": ("CDAC_BB", "Standardized district name from CDAC blood bank dataset"),
+    # CGHS residual
+    "Empanelment_Type": ("CGHS", "Type of empanelment under CGHS (Full/Partial)"),
+    "Submitted_Date": ("CGHS", "Application submission date for CGHS empanelment"),
+    "Status_Updated_Date": ("CGHS", "Date when empanelment status was last updated in CGHS"),
+    "Application_Status": ("CGHS", "Current application status in CGHS"),
+    "OnBoarded_For_Convergence_Scheme": ("CGHS", "Whether onboarded for convergence scheme in CGHS"),
+    "Levenshtein Distance": ("CGHS", "Levenshtein distance score from address validation in CGHS"),
+    "Jaro Wrinkler Distance": ("CGHS", "Jaro-Winkler distance score from address validation"),
+    "Jaccard Distance": ("CGHS", "Jaccard distance score from address validation"),
+    "Cosine Distance": ("CGHS", "Cosine similarity score from address validation"),
+    "Monge Elkan Distance": ("CGHS", "Monge-Elkan distance score from address validation"),
+    "BWTRLENCD Distance": ("CGHS", "Block-weighted token ratio + Levenshtein combined distance"),
+    "Monge Elkan Distance*10": ("CGHS", "Monge-Elkan distance scaled by 10x"),
+    # NHP residual
+    "S.\n  No.": ("NHP", "Serial number from NHP source dataset"),
+    "Given Address": ("NHP", "Original address as given in NHP"),
+    "Admission Intake": ("NHP", "Annual admission intake for medical colleges from NHP"),
+    "Accrediation": ("NHP", "Accreditation status of the medical college (mostly empty)"),
+    "Domains": ("NHP", "Clinical domains offered (mostly empty)"),
+    "Source Sheet Name": ("NHP", "Source spreadsheet tab name from NHP"),
+}
+
+
+def render_full_dataset(df_full):
+    """Full dataset view with column dictionary."""
+
+    st.subheader("Column Dictionary")
+    st.caption("Explanation of every column in the master dataset")
+
+    # Build dictionary table
+    dict_rows = []
+    for col in df_full.columns:
+        non_null = int(df_full[col].notna().sum())
+        pct = 100 * non_null / len(df_full)
+        nuniq = int(df_full[col].nunique())
+        if col in COLUMN_DICTIONARY:
+            group, desc = COLUMN_DICTIONARY[col]
+        else:
+            group, desc = ("Other", "—")
+        dict_rows.append({
+            "Column": col,
+            "Group": group,
+            "Description": desc,
+            "Non-Null": f"{non_null:,} ({pct:.1f}%)",
+            "Unique": f"{nuniq:,}",
+            "Dtype": str(df_full[col].dtype),
+        })
+    dict_df = pd.DataFrame(dict_rows)
+
+    # Group filter
+    groups = ["All"] + sorted(dict_df["Group"].unique().tolist())
+    sel_group = st.selectbox("Filter by column group", groups, index=0)
+    if sel_group != "All":
+        dict_df = dict_df[dict_df["Group"] == sel_group]
+
+    st.dataframe(dict_df, use_container_width=True, hide_index=True, height=450)
+    st.caption(f"{len(dict_df)} columns shown — {len(df_full.columns)} total in dataset")
+
+    # --- Full data table ---
+    st.markdown("---")
+    st.subheader("Full Dataset")
+    st.write(f"**{len(df_full):,} rows x {len(df_full.columns)} columns**")
+
+    # Search
+    search = st.text_input("Search by facility name", "", key="full_search",
+                           placeholder="Type to filter rows...")
+    view_df = df_full
+    if search.strip():
+        view_df = view_df[
+            view_df["facility_name"].str.contains(search.strip(), case=False, na=False)
+        ]
+        st.write(f"**{len(view_df):,}** matches")
+
+    # Column selector
+    all_cols = list(df_full.columns)
+    default_cols = [c for c in [
+        "master_id", "source_datasets", "facility_name", "state", "district",
+        "facility_type", "ownership", "latitude", "longitude", "address",
+        "pincode", "phone", "email", "specialties", "is_24x7", "abdm_enabled",
+    ] if c in all_cols]
+    show_all = st.checkbox("Show all columns", value=False)
+    if show_all:
+        selected = all_cols
+    else:
+        selected = st.multiselect("Columns to display", all_cols, default=default_cols,
+                                  key="full_cols")
+    if not selected:
+        selected = default_cols
+
+    # Paginated display
+    page_size = 1000
+    total_rows = len(view_df)
+    total_pages = max(1, (total_rows + page_size - 1) // page_size)
+    page = st.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1)
+    start = (page - 1) * page_size
+    end = min(start + page_size, total_rows)
+    st.caption(f"Rows {start + 1:,} – {end:,} of {total_rows:,} (page {page}/{total_pages})")
+
+    st.dataframe(view_df[selected].iloc[start:end], use_container_width=True, height=550)
+
+    # Download full filtered data
+    csv = view_df[selected].to_csv(index=False)
+    st.download_button(
+        "Download displayed data (CSV)",
+        data=csv,
+        file_name="master_dataset_full.csv",
+        mime="text/csv",
+        key="full_download",
+    )
+
+
+# ===================================================================
+# Main
+# ===================================================================
+
+def main():
+    st.set_page_config(
+        page_title="Healthcare Master Dashboard",
+        page_icon="🏥",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+
+    st.markdown(
+        "<h1 style='text-align:center; color:#1f77b4;'>Healthcare Master Data Dashboard</h1>"
+        "<p style='text-align:center; color:#666;'>393K facilities from 9 government datasets</p>",
+        unsafe_allow_html=True,
+    )
+
+    with st.spinner("Loading master dataset..."):
+        df_all = load_data()
+
+    if df_all is None or df_all.empty:
+        st.error("Failed to load dataset. Ensure healthcare_master_dataset.csv exists.")
+        return
+
+    df = render_sidebar(df_all)
+
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+        "Overview", "Geographic Map", "Analytics",
+        "Cross-Dataset Analysis", "Data Explorer", "District Deep Dive",
+        "Full Dataset & Columns",
+    ])
+
+    with tab1:
+        render_overview(df, df_all)
+    with tab2:
+        render_map(df)
+    with tab3:
+        render_analytics(df)
+    with tab4:
+        render_cross_dataset(df)
+    with tab5:
+        render_data_explorer(df)
+    with tab6:
+        render_district_dive(df)
+    with tab7:
+        df_full = load_full_data()
+        render_full_dataset(df_full)
+
+
+if __name__ == "__main__":
+    main()

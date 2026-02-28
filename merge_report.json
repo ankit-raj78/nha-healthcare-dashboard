@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-02-28T08:12:48.170969",
+  "total_rows": 393086,
+  "total_columns": 147,
+  "per_dataset": {
+    "NHA": {
+      "loaded": 323460,
+      "matched": 0,
+      "new": 323460
+    },
+    "PHC": {
+      "loaded": 31958,
+      "matched": 1114,
+      "new": 30844
+    },
+    "PMGSY": {
+      "loaded": 13702,
+      "matched": 1000,
+      "new": 12702
+    },
+    "PMJAY": {
+      "loaded": 11284,
+      "matched": 1857,
+      "new": 9427
+    },
+    "NIN": {
+      "loaded": 10530,
+      "matched": 1679,
+      "new": 8851
+    },
+    "CDAC_BB": {
+      "loaded": 5679,
+      "matched": 130,
+      "new": 5549
+    },
+    "CHC": {
+      "loaded": 4237,
+      "matched": 4108,
+      "new": 129
+    },
+    "CGHS": {
+      "loaded": 1983,
+      "matched": 566,
+      "new": 1417
+    },
+    "NHP": {
+      "loaded": 999,
+      "matched": 292,
+      "new": 707
+    }
+  }
+}
