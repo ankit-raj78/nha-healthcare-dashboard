@@ -69,8 +69,8 @@ specialty data/
 *.tmp
 *.temp
 
-# Streamlit config
-.streamlit/
+# Streamlit config (keep .streamlit/config.toml for deploy settings)
+# .streamlit/  -- included for Streamlit Cloud
 
 # PNG images
 *.png
