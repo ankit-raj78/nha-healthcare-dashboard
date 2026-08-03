@@ -5,24 +5,34 @@ DuckDB database you can query in plain English.
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...        # or: ant auth login
-./ask.py "how many facilities are in Bihar?"
-./ask.py                                    # interactive
+
+./launch.sh                                 # web dashboard
+./ask.py "how many facilities are in Bihar?" # one-shot CLI
+./ask.py --sql                              # interactive, showing the SQL
 ```
 
 The model writes SQL; **DuckDB produces the numbers**. Aggregations are never
 guessed by the LLM — that's why this is a hybrid text-to-SQL agent rather than a
-vector RAG over the rows.
+vector RAG over the rows. Every answer shows the SQL it ran, so you can check it.
+
+Model: `claude-opus-5` with adaptive thinking ($5 / $25 per MTok).
 
 ## Layout
 
 | Path | What |
 |---|---|
-| `ask.py` | Natural-language query agent (Claude Opus 5 + tool use) |
+| `agent.py` | Shared core — schema card, SQL guardrails, model config |
+| `dashboard.py` | Streamlit UI (chat, SQL audit trail, maps, CSV export) |
+| `ask.py` | CLI |
+| `launch.sh` | Builds the DB if missing, then starts the dashboard |
 | `datasets/` | The 10 source CSVs — untracked, 124 MB |
 | `eda/` | Per-dataset profiles, the plan, and the gap register |
 | `eda/build_v0.py` | Ingests all 10 CSVs → `db/facilities_v0.duckdb` |
 | `db/` | Built database — untracked, regenerate with the script above |
 | `archive/` | Superseded prior work (see below) |
+
+`ask.py` and `dashboard.py` both import `agent.py`, so the schema card and
+guardrails cannot drift between the two interfaces.
 
 Start with **[eda/00_PLAN.md](eda/00_PLAN.md)** for the architecture,
 **[eda/02_PHASE1_FINDINGS.md](eda/02_PHASE1_FINDINGS.md)** for what the data
@@ -62,6 +72,10 @@ Doesn't work yet:
 
 District-level numbers are approximate until the LGD crosswalk lands — there are
 1,051 distinct district spellings for ~790 real districts.
+
+**NHA state labels are unreliable.** Of 52 NHA rows labelled Goa, only 1 is
+actually inside Goa; every other source is correct. NHA is 77% of all records, so
+state-filtered queries inherit this. Scope beyond Goa is not yet established.
 
 ## Privacy
 

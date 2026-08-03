@@ -140,6 +140,40 @@ Sparse fields that limit both matching and answers.
 
 ---
 
+## Gap 6a — NHA state labels disagree with NHA coordinates  🔴 HIGH
+
+Found while smoke-testing the query agent, and not visible from single-dataset EDA.
+
+Query `state = 'GOA'` and NHA returns facilities at 24.75°N / 79.5°E — Madhya
+Pradesh. Checked against Goa's real bounding box (14.8–15.9°N, 73.6–74.4°E):
+
+| source | rows labelled GOA | actually in Goa |
+|---|---:|---:|
+| **NHA** | **52** | **1** |
+| PMJAY | 17 | 17 |
+| NIN | 9 | 9 |
+| CDAC_BB | 5 | 5 |
+| CGHS | 1 | 1 |
+| NHP | 1 | 1 |
+
+Every other source is perfect; NHA is wrong on 51 of 52. Two things follow:
+
+1. **`state` and `latitude/longitude` are independently unreliable in NHA** — the
+   largest dataset, 77% of all records. Any state-filtered query against NHA
+   inherits this.
+2. **NHA's Goa coverage is separately suspect** — 52 rows for an entire state, out
+   of 261,905, is implausibly low for a national registry.
+
+Whether this is confined to Goa or is a broader label/coordinate misalignment is
+**not yet established** — a median-distance test across all states is confounded
+by genuinely large states (Rajasthan is 800km across), so it produced no clean
+signal. Establishing the true scope needs the district boundary polygons from
+Gap 6 — that's now the load-bearing reason to fetch them, not just a nice-to-have.
+
+**Impact on Phase 3:** geo-primary blocking assumes the coordinate is right. Where
+state and coordinate disagree, neither can be trusted, and the record needs a
+third signal (pincode, address tokens) to break the tie.
+
 ## Gap 6 — Geo trust on 16.4% of records  🟡 MEDIUM
 
 285,630 of 341,720 records (83.6%) pass the geo trust test; **56,090 do not** — centroid stacking,
