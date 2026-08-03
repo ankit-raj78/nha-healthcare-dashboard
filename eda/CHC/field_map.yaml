@@ -1,0 +1,175 @@
+dataset_key: CHC
+source_file: 21_June_2024_AM_CHC.csv
+n_rows: 4237
+n_cols: 9
+
+# Read contract. Identical to the PHC file in every structural respect: CRLF line
+# endings, NO trailing newline on the last data line (so `wc -l` reports 4237 =
+# 4238 physical lines - 1 = 1 header + 4237 data rows), no BOM, zero non-ASCII
+# bytes, no embedded newlines. 20 FAC_DESC values are RFC-quoted for an embedded
+# comma; the default C engine reads them correctly.
+read_kwargs:
+  filepath_or_buffer: 21_June_2024_AM_CHC.csv
+  encoding: utf-8
+  sep: ","
+  dtype: str
+  keep_default_na: false
+  na_values: []
+
+source_column_map:
+  STATE_NAME:
+    canonical: state_raw
+    confidence: high
+    transform: "strip, title_case, normalize_lgd"
+    notes: >-
+      29 distinct values - the SAME 29 as the PHC file, zero states unique to
+      either file. All match LGD state/UT names verbatim except 'Tamilnadu'
+      (98 rows; LGD spells it 'Tamil Nadu'). Delhi, Goa, Puducherry, Chandigarh,
+      A&N Islands, Lakshadweep and DNH&DD are absent entirely.
+
+  DISTRICT_NAME:
+    canonical: district_raw
+    confidence: high
+    transform: "strip, repair_truncation, normalize_lgd"
+    flags: [truncated, placeholder_values]
+    notes: >-
+      596 distinct values. Same 25-character hard truncation as PHC, marked with a
+      literal '*': 'North Twenty Four Pargan*' (3 rows), 'South Twenty Four
+      Pargan*' (1), 'Sri Potti Sriramulu Nell*' (6) - 10 rows total. 1 row carries
+      the placeholder 'Unknown' (West Bengal, FACILITY_ID 824289). 6 district
+      names occur in 2 states each (Aurangabad, Balrampur, Bijapur, Bilaspur,
+      Hamirpur, Pratapgarh) - never key on district without state.
+
+  BLOCK_ID:
+    canonical: block_lgd_code
+    confidence: medium
+    transform: "cast_int"
+    flags: [unverified_code_authority]
+    notes: >-
+      2644 distinct integers in [1, 8145]. Verified: 0 blocks span more than one
+      state or district, here or in the PHC+CHC union (6252 blocks). 2506 of the
+      2644 (94.78%) also appear in the PHC file, always denoting the same district
+      - the two files share one block namespace. MEDIUM confidence only: these are
+      not the LGD block codes (wrong magnitude), issuing authority unknown - see
+      questions.md. Note the discriminative power difference vs PHC: because CHCs
+      are sparse, BLOCK_ID alone isolates 43.62% of CHC rows but only 3.42% of PHC
+      rows.
+
+  HAB_ID:
+    canonical: village_lgd_code
+    confidence: low
+    transform: "cast_int"
+    flags: [unverified_code_authority, not_unique]
+    notes: >-
+      4174 distinct integers in [349, 1428938]. 126 rows (2.97%) share a HAB_ID
+      with one other row (63 HAB_IDs, max repeat 2). Verified to nest perfectly
+      inside BLOCK_ID and district across the union - 0 violations over 35189 ids.
+      376 HAB_IDs (9.01% of CHC's distinct habitations) also appear in the PHC
+      file; in all 376 cases the state, district AND BLOCK_ID agree, and the
+      median PHC-CHC distance at those habitations is 60 m - i.e. the same village
+      has both a PHC and a CHC. LOW confidence on the canonical mapping because
+      the code's authority is unverified.
+
+  FACILITY_ID:
+    canonical: source_facility_id
+    confidence: high
+    transform: "cast_int, prefix_with_dataset_key"
+    notes: >-
+      Unique across all 4237 rows (verified). Integers in [1389, 1058927].
+      Shares a namespace with the PHC file: 21 FACILITY_IDs appear in both, and in
+      all 21 cases every one of the 9 columns is byte-identical. These are not
+      collisions - they are the same facility written to both files. Prefix
+      accordingly or the union will create 21 spurious duplicate entities.
+
+  FAC_DESC:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_whitespace, strip_trailing_punctuation"
+    flags: [low_information, whitespace_defects]
+    notes: >-
+      1967 distinct values over 4237 rows; length 1-69, mean 19.6. Like PHC, this
+      column is mostly the facility TYPE, not a name: 729 rows (17.21%) are <=3
+      characters ('CHC' 558, 'chc' 150, 'Chc' 8, 'HSC' 10, 'HC' 1, 'c' 1,
+      'hpc' 1), and 2395 rows (56.53%) retain zero tokens after generic
+      facility-type words are stripped. Defects: 5 rows with leading/trailing
+      whitespace including literal tabs (FACILITY_ID 158411 = '\t Govt Community
+      Health Center Hampasagar', 24834 = 'Community Health Centre\t\t'), 101 rows
+      with internal double spaces, 1 trailing '.', 20 concatenated no-space names.
+      Misspellings are pervasive: comunity, cummunity, cmmunity, Cammunity,
+      Communty, helth, heath, healt, Helath.
+
+  FAC_CATEGO:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Constant 'Medical' for all 4237 rows - and identically constant 'Medical'
+      across all 31958 PHC rows. It carries no information and, critically, it
+      does NOT distinguish CHC from PHC. Not a usable coded vocabulary.
+    flags: [constant, junk]
+
+  Longitude:
+    canonical: longitude
+    confidence: high
+    transform: "cast_float"
+    notes: >-
+      All 4237 values parse as float. Zero nulls, zeros, or blanks. Range
+      [68.8313, 96.7995] - entirely inside India. 3529 rows carry 8 decimal
+      places; 13 rows (0.31%) carry <=4 dp.
+
+  Latitude:
+    canonical: latitude
+    confidence: high
+    transform: "cast_float"
+    notes: >-
+      All 4237 values parse as float. Zero nulls/zeros/blanks. Range
+      [8.2036, 34.5012]. 0 out of bbox, 0 plausibly swapped. Best column in the
+      file.
+
+proposed_new_fields:
+  - name: block_id_source
+    reason: >-
+      BLOCK_ID is a real national block namespace (proven: 0 multi-district blocks
+      over 6252 union blocks) but is not the LGD block code and has no documented
+      authority. It deserves its own raw column rather than being aliased into
+      block_lgd_code and creating a false join key.
+  - name: habitation_id_source
+    reason: >-
+      HAB_ID nests perfectly inside BLOCK_ID and district but is finer-grained
+      than a revenue village, so village_lgd_code is a strained fit. Keep the raw
+      id with an authority tag.
+  - name: facility_tier_inferred
+    reason: >-
+      The ONLY thing making this file "CHC" is the filename. The schema is
+      byte-identical to the PHC file and FAC_CATEGO is the same constant. The
+      tier must be materialised as a column at load time or it is lost. It is
+      also not fully reliable: 39 rows (0.92%) are named as sub-centres and 10 are
+      named exactly 'HSC'.
+  - name: source_split_confidence
+    reason: >-
+      All 5 rows in either file whose FAC_DESC contains both a PHC-token and a
+      CHC-token appear in BOTH files, as do all 10 rows named exactly 'HSC'. The
+      PHC/CHC split was evidently a keyword rule over FAC_DESC that emitted
+      ambiguous rows twice. Flag those 21 rows so downstream code does not trust
+      their tier.
+
+unmapped_columns: []
+
+drop_columns:
+  - FAC_CATEGO   # constant 'Medical'
+
+candidate_primary_key:
+  column: FACILITY_ID
+  is_unique: true
+  caveat: >-
+    Unique within this file. Shares its namespace with PHC (21 overlapping ids,
+    all identical rows). FACILITY_ID is unique across the 36174-row deduplicated
+    PHC+CHC union, so it is a safe PK for the union too.
+
+duplicate_policy:
+  exact_rows: 0
+  near_dupe_name_plus_exact_coord: 1     # removable, keep-first
+  near_dupe_name_plus_coord_110m: 22     # removable, keep-first
+  recommendation: >-
+    Do NOT dedupe on (district, name) - that would wrongly remove 1476 rows,
+    because 'CHC' is the name for a sixth of the file. Dedupe on normalised-name
+    plus coordinate within ~110 m only.

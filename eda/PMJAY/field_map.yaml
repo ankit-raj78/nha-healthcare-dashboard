@@ -1,0 +1,426 @@
+# Harmonization contract for the PMJAY dataset.
+# Source: 18_MAY_23_SRK_PMJAY_validated_and_standardized.csv  (11284 rows x 78 cols)
+# Read with: encoding='utf-8-sig', dtype=str, keep_default_na=False, na_values=['']
+#
+# Dataset-level constants to stamp on every row (not present as columns):
+#   scheme_membership: PMJAY
+#   source_snapshot_date: 2023-05-18   # from the filename; NOT confirmed in-band, see questions.md
+#   record_status: validated_and_standardized   # from the filename
+
+dataset_key: PMJAY
+
+source_column_map:
+
+  # ---------------- identity ----------------
+  Sr No:
+    canonical: source_facility_id
+    confidence: low
+    transform: "cast_int"
+    notes: >-
+      Unique across all 11284 rows but positional (1..11285 with 253 absent), not a
+      PMJAY-issued facility ID. Safe as a within-file surrogate key ONLY; must not be
+      treated as stable across snapshots. This dataset has no source-issued ID.
+
+  Hospital Name:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_ws"
+    notes: >-
+      PREFER THIS over Manual Hospital Name for entity resolution. It retains the
+      location qualifier and collides on only 7.90% of rows vs 13.20% for the manual
+      column. 4881 rows are ALL CAPS - case-fold before comparison, do not treat as signal.
+
+  Manual Hospital Name:
+    canonical: facility_name_alt
+    confidence: medium
+    transform: "strip, collapse_ws"
+    notes: >-
+      Human title-cased cleanup, BUT the trailing location qualifier was stripped in
+      1189 rows (10.54%), which makes it strictly less distinctive. Keep as an alias
+      for display and fuzzy recall; do not block on it.
+
+  # ---------------- classification ----------------
+  Hospital Type:
+    canonical: facility_ownership_raw
+    confidence: high
+    transform: "map: {Public, Private (For Profit), Private (Not for Profit)}"
+    notes: >-
+      Despite the name this encodes OWNERSHIP, not facility type (PHC/CHC/etc.).
+      271 rows (2.40%) null. There is NO facility_type_raw column in this dataset -
+      type must be inferred from the name string if needed.
+
+  # ---------------- address ----------------
+  Hospital Address:
+    canonical: address_raw
+    confidence: high
+    transform: "strip, collapse_ws"
+    notes: >-
+      Raw portal address, pattern '<addr>, <city>, <DISTRICT>, <STATE>' with the admin
+      tail upper-cased. This is the closest thing to an original source address.
+      1063 rows share a value with another row (124 groups).
+
+  Manual Hospital Address:
+    canonical: address_cleaned
+    confidence: high
+    transform: "strip, collapse_ws"
+    notes: >-
+      Human-cleaned, title-cased. The best-formed human address in the file. Uses the
+      proposed new field address_cleaned rather than overwriting address_raw, because
+      both are genuinely present and their lineage differs.
+
+  address_py:
+    canonical: address_geocoded
+    confidence: high
+    disposition: keep_as_provenance
+    transform: "strip"
+    notes: >-
+      Raw reverse-geocoder output (OSM/Nominatim fingerprint - 421 rows carry
+      Devanagari/Urdu script or diacritics). Road/City/District/State/Zipcode are all
+      parsed from this. Keep for provenance, never as the user-facing address.
+
+  Formatted Address:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Fully derived rendering. Assembled as Manual Hospital Name + Road + Locality +
+      City + District + State + Country + Zipcode; every component appears verbatim in
+      100% of sampled rows. Carries zero information not already in its inputs.
+
+  Road:
+    canonical: street
+    confidence: medium
+    transform: "strip"
+    notes: "Geocoder-parsed. Only 40.70% fill."
+
+  Locality:
+    canonical: locality
+    confidence: low
+    transform: "strip"
+    notes: >-
+      Geocoder-derived but CONCATENATED from several OSM fields - only 25.7% of values
+      appear verbatim in address_py. 95.15% fill. Noisy; treat as a search aid, not a
+      structured field.
+
+  City:
+    canonical: city
+    confidence: low
+    transform: "strip, title"
+    notes: >-
+      Mixes city and district granularity (values like 'Dakshina Kannada district').
+      Agrees with Manual District on only 70.42% of rows. Do not use to populate
+      district_raw.
+
+  Country:
+    canonical: country
+    confidence: high
+    transform: "constant"
+    notes: "Constant 'India' for all 11284 rows."
+
+  Zipcode:
+    canonical: pincode
+    confidence: high
+    transform: "cast_str, zfill(6)"
+    notes: >-
+      PREFERRED pincode source. It is exactly pincode_py filtered to valid 6-digit
+      values: the 6-digit subset of pincode_py is precisely the non-null set of Zipcode
+      and they agree on 100% of those 10374 rows. Geocoder-derived, so it reflects the
+      geocoded point, not a PMJAY-declared pincode.
+
+  pincode_py:
+    canonical: pincode
+    confidence: low
+    disposition: prefer_Zipcode
+    transform: "cast_str; treat '0' as null; reject non-6-digit"
+    notes: >-
+      Same value as Zipcode but polluted: 875 rows are the sentinel '0' and 35 hold
+      non-Indian postcodes (US ZIPs such as 43614, 90025) from mis-geocoded rows.
+      Only 10374 of 11284 (91.94%) are usable.
+
+  # ---------------- admin geo ----------------
+  Manual state:
+    canonical: state_raw
+    confidence: high
+    transform: "upper, strip, normalize_lgd"
+    notes: >-
+      The single most reliable column in the file: 36 distinct values, 0 null, all
+      uppercase, all clean LGD-style names, no stray whitespace. Note DAMAN AND DIU and
+      DADRA AND NAGAR HAVELI appear separately (pre-2020 merger), and Ladakh is absent -
+      both consistent with a pre-2020 admin vintage.
+
+  Manual District:
+    canonical: district_raw
+    confidence: high
+    transform: "upper, strip, collapse_ws, normalize_lgd"
+    notes: >-
+      622 distinct, 37 null (0.33%). MIXED CASE - mostly uppercase but a minority are
+      title case ('Banaskantha', 'Sabarkantha', 'Surendra Nagar'). Must be case-folded
+      before any join or the same district will split into two keys.
+
+  State:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Geocoder output, redundant with and worse than Manual state. 45 distinct values
+      including Delhi sub-districts ('West Delhi', 'Dwarka Tehsil', 'Kapashera Tehsil')
+      and a stray city ('Bahadurgarh'). Disagrees with Manual state on 266 rows.
+      Retain only if a geocode-drift diagnostic is wanted.
+
+  District:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Geocoder output, only 28.15% fill and 115 distinct values (vs 622 in Manual
+      District). Suffixed ' District'. Strictly dominated by Manual District.
+
+  # ---------------- point geo ----------------
+  API Latitude:
+    canonical: latitude
+    confidence: high
+    transform: "cast_float; null if outside bbox lat 6-38"
+    notes: >-
+      AUTHORITATIVE. 11281/11284 (99.97%) inside the India bbox; 0 nulls, 0 zeros,
+      0 swapped. Only 3 rows out of bbox (134, 6383, 8355).
+
+  API Longitude:
+    canonical: longitude
+    confidence: high
+    transform: "cast_float; null if outside bbox lon 68-98"
+    notes: "Pairs with API Latitude."
+
+  gmaps_Latitude:
+    canonical: latitude_alt
+    confidence: low
+    disposition: keep_as_fallback
+    transform: "cast_float; null if outside bbox"
+    notes: >-
+      Google re-geocode. WORSE than API: 38 rows land outside India (US, Europe,
+      Australia) because the geocoder matched the facility NAME ('Boston Hospital',
+      'American Oncology Institute'). Use only for the 3 rows where API is out of bbox
+      and gmaps is not. NEVER average with API - they disagree by >500 km on 192 rows.
+
+  gmaps_Longitude:
+    canonical: longitude_alt
+    confidence: low
+    disposition: keep_as_fallback
+    notes: "Pairs with gmaps_Latitude."
+
+  gmaps_Accuracy:
+    canonical: geo_accuracy
+    confidence: medium
+    transform: "upper"
+    notes: >-
+      Applies to the gmaps pair only, NOT to API lat/lon. Google classes ROOFTOP,
+      RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE - plus 115 rows of
+      'Awesome Tables', which is a tool name, not an accuracy class. The classes do not
+      predict accuracy here: ROOFTOP rows have the single worst API-vs-gmaps
+      disagreement (max 14706 km, mean 370 km).
+
+  # ---------------- clinical ----------------
+  Specialities Empanelled:
+    canonical: specialty_code_empanelled
+    confidence: high
+    transform: "split(','), strip, drop '-NA-' sentinel"
+    notes: >-
+      AUTHORITATIVE specialty source. Holds comma-separated M#/S# CODES, not names.
+      It is a strict superset of the 23 _emp one-hot columns. 143 rows are the
+      sentinel string '-NA-' (0 true nulls) meaning no empanelled specialty.
+
+  Specialities Upgraded:
+    canonical: specialty_code_upgraded
+    confidence: high
+    transform: "split(','), strip, drop '-NA-' sentinel"
+    notes: >-
+      Same vocabulary. 4542 true nulls + 3720 '-NA-' = 8262 rows with no upgrade.
+      Authoritative over the _upg one-hot columns.
+
+  Specialities_Upgraded_or_Empanelled:
+    canonical: null
+    disposition: drop
+    reason: >-
+      CORRUPT. It is a raw string concatenation of Empanelled + Upgraded with NO
+      delimiter (11141/11284 exact match), producing unparseable values like
+      'S1, M1, M7S5', 'S3-NA-' and 'S1S1'. Null on exactly the 143 rows where
+      Empanelled == '-NA-'. Reconstruct from the two source columns instead.
+
+  # 23 _emp one-hot columns: M1 M2 M3 M4 M5 M6 M7 M8 M10 S1 S2 S3 S4 S5 S6 S7 S10 S11
+  #                          S12 S13 S14 S15 S16   (note: no M9, and NO S8/S9 column)
+  M1_emp:  &emp_flag
+    canonical: specialty_code_empanelled
+    confidence: medium
+    disposition: drop_prefer_text
+    reason: >-
+      LOSSY one-hot of 'Specialities Empanelled'. After removing S8 and S9 (which have
+      no flag column at all) the flags reconstruct the text column on 11284/11284 rows
+      exactly - so they add nothing, and they silently drop S8/S9 for 3246 rows (28.77%).
+      Derive the one-hot from the text column instead.
+  M2_emp:  *emp_flag
+  M3_emp:  *emp_flag
+  M4_emp:  *emp_flag
+  M5_emp:  *emp_flag
+  M6_emp:  *emp_flag
+  M7_emp:  *emp_flag
+  M8_emp:  *emp_flag
+  M10_emp: *emp_flag
+  S1_emp:  *emp_flag
+  S2_emp:  *emp_flag
+  S3_emp:  *emp_flag
+  S4_emp:  *emp_flag
+  S5_emp:  *emp_flag
+  S6_emp:  *emp_flag
+  S7_emp:  *emp_flag
+  S10_emp: *emp_flag
+  S11_emp: *emp_flag
+  S12_emp: *emp_flag
+  S13_emp: *emp_flag
+  S14_emp: *emp_flag
+  S15_emp: *emp_flag
+  S16_emp: *emp_flag
+
+  M1_upg:  &upg_flag
+    canonical: specialty_code_upgraded
+    confidence: medium
+    disposition: drop_prefer_text
+    reason: >-
+      LOSSY one-hot of 'Specialities Upgraded'. Same S8/S9 gap - drops those codes for
+      489 rows (4.33%). Reconstructs the text column exactly once S8/S9 are excluded.
+  M2_upg:  *upg_flag
+  M3_upg:  *upg_flag
+  M4_upg:  *upg_flag
+  M5_upg:  *upg_flag
+  M6_upg:  *upg_flag
+  M7_upg:  *upg_flag
+  M8_upg:  *upg_flag
+  M10_upg:
+    canonical: null
+    disposition: drop
+    reason: "Constant 0 for all 11284 rows - M10 never appears as an upgraded specialty."
+  S1_upg:  *upg_flag
+  S2_upg:  *upg_flag
+  S3_upg:  *upg_flag
+  S4_upg:  *upg_flag
+  S5_upg:  *upg_flag
+  S6_upg:  *upg_flag
+  S7_upg:  *upg_flag
+  S10_upg: *upg_flag
+  S11_upg: *upg_flag
+  S12_upg: *upg_flag
+  S13_upg: *upg_flag
+  S14_upg: *upg_flag
+  S15_upg: *upg_flag
+  S16_upg: *upg_flag
+
+  # ---------------- contact (PII) ----------------
+  Hospital E-Mail:
+    canonical: email
+    confidence: medium
+    transform: "lower, strip; reject values matching ^-?\\d+\\.\\d+$"
+    pii: true
+    notes: >-
+      10964 non-null but 60 rows contain a LATITUDE instead of an email (see issues.md
+      DEFECT 2). 433 addresses are shared across facilities - these are TPA and
+      district-office inboxes (nithia.d@vidalhealthtpa.com on 54 rows), so email is NOT
+      a facility identifier and must not be used as a match key.
+
+  Hospital Contact:
+    canonical: phone
+    confidence: low
+    transform: "digits_only; reject '-NA-', '0', values matching ^\\d+\\.\\d+$"
+    pii: true
+    notes: >-
+      Only 94.29% are valid 10-digit Indian mobiles. 390 rows are '-NA-', 38 are '0',
+      60 hold a LONGITUDE, and there are placeholder values ('9898989898' on 48 rows,
+      '2222222222' on 34). Unusable as a match key.
+
+  # ---------------- other ----------------
+  is_RU:
+    canonical: urban_rural
+    confidence: high
+    transform: "lower; map {urban, rural}"
+    notes: "CONFIRMED rural/urban classifier. urban=8400, rural=2876, 8 null."
+
+  Auto Score:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Prior-pipeline artifact: a geocode-confidence score measuring string similarity
+      between Manual Hospital Address and address_py (SequenceMatcher corr 0.812,
+      Jaccard corr 0.726). Range 0.490-0.917, evidently thresholded at ~0.49 since no
+      value falls below it. It scores the GEOCODE, not any cross-dataset match - do not
+      mistake it for an entity-resolution confidence.
+
+  Types of Employees:
+    canonical: null
+    disposition: drop
+    reason: "100% null across all 11284 rows. Header with no data."
+
+  Test extract:
+    canonical: null
+    disposition: drop
+    reason: >-
+      Scratch column. 8 non-null rows (indices 19-26) holding '<DISTRICT>, <STATE>'
+      copied from Manual District/Manual state - a spreadsheet formula dragged down
+      eight rows and left in the export.
+
+proposed_new_fields:
+  - name: address_cleaned
+    reason: >-
+      This dataset carries two genuinely distinct human addresses with different
+      lineage - 'Hospital Address' (raw portal export, upper-cased admin tail) and
+      'Manual Hospital Address' (human-normalised, title case). The vocabulary has only
+      one address_raw slot. Collapsing them loses the provenance distinction that makes
+      the manual one trustworthy. Other datasets are likely to have the same raw/cleaned
+      split.
+
+  - name: address_geocoded
+    reason: >-
+      'address_py' is machine-generated reverse-geocoder output, not a source address.
+      It must be kept for provenance (it explains where Road/City/State/Zipcode came
+      from) but must never be surfaced to a user as the facility's address, and must
+      never be matched against another dataset's address_raw. It needs its own slot so
+      the distinction survives harmonization.
+
+  - name: latitude_alt / longitude_alt
+    reason: >-
+      Two independently sourced coordinate pairs exist per row and they disagree by
+      more than 500 km on 192 rows. The canonical vocabulary has a single latitude /
+      longitude slot. Keeping the second pair under an _alt name preserves the
+      disagreement as a data-quality signal instead of silently discarding it, and
+      lets the 3 rows where only gmaps is valid be recovered.
+
+  - name: urban_rural
+    reason: >-
+      'is_RU' is a confirmed rural/urban classification of the facility's location.
+      It fits none of the existing groups - it is not a facility_category (that
+      describes the facility), not admin geo (it is not a named place). It is a useful
+      query dimension and several other government datasets carry the same flag.
+
+unmapped_columns:
+  # Present in the file, deliberately given no canonical field.
+  - Formatted Address                     # derived rendering of other columns
+  - Specialities_Upgraded_or_Empanelled   # corrupt delimiter-free concatenation
+  - Auto Score                            # prior-pipeline geocode confidence
+  - Types of Employees                    # 100% empty
+  - Test extract                          # 8-row spreadsheet scratch
+  - State                                 # geocoder duplicate of Manual state
+  - District                              # geocoder duplicate of Manual District
+  - M10_upg                               # constant 0
+
+fields_this_dataset_cannot_supply:
+  # Named explicitly so the harmonizer does not go looking for them.
+  - facility_type_raw        # only ownership is present, in 'Hospital Type'
+  - facility_category_raw
+  - bed_count                # bed counts appear only inside name strings, e.g. '100 Bed Combined Hospital'
+  - admission_intake
+  - is_24x7
+  - abdm_enabled
+  - accreditation
+  - specialty_list           # codes only; no decoded specialty names anywhere in the file
+  - website
+  - subdistrict_raw
+  - block_raw
+  - village_raw
+  - state_lgd_code
+  - district_lgd_code
+  - altitude
+  - geo_source               # not a column; API vs gmaps must be stamped by the loader
+  - source_snapshot_date     # only inferable from the filename

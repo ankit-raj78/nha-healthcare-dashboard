@@ -1,0 +1,446 @@
+{
+  "dataset_key": "CDAC_BB_B",
+  "source_file": "CDAC_BB_DATASET - Sheet1.csv",
+  "read_kwargs": {
+    "encoding": "utf-8",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [
+      ""
+    ],
+    "sep": ","
+  },
+  "n_rows": 5889,
+  "n_cols": 10,
+  "raw_line_count": 5890,
+  "row_count_explanation": "raw_line_count counts physical lines including the header. n_rows = raw_line_count - 1. There are no embedded newlines inside quoted fields (verified: newline-character count == physical line count), no BOM, CRLF line endings, no Unnamed:N columns, no trailing all-empty column. Naive pd.read_csv is correct; dtype=str is required to stop pandas from coercing Phone/coords and from turning the literal string 'NA' in Address into NaN.",
+  "columns": [
+    {
+      "name": "State",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 36,
+      "examples": [
+        "Andaman and Nicobar Islands",
+        "Andra Pradesh",
+        "Arunachal Pradesh"
+      ],
+      "value_counts": {
+        "Tamil Nadu": 657,
+        "Uttar Pradesh": 579,
+        "Maharashtra": 574,
+        "Karnataka": 491,
+        "Rajasthan": 399,
+        "Gujrat": 382,
+        "Andra Pradesh": 326,
+        "Telangana": 321,
+        "Madhya Pradesh": 262,
+        "Kerala": 260,
+        "Punjab": 222,
+        "West Bengal": 218,
+        "Chattisgarh": 181,
+        "Bihar": 171,
+        "Haryana": 145,
+        "Odisha": 132,
+        "Jharkhand": 105,
+        "Assam": 88,
+        "Delhi": 79,
+        "Uttarakhand": 76,
+        "Jammu and Kasmir": 66,
+        "Himachal Pradesh": 25,
+        "Tripura": 21,
+        "Meghalaya": 19,
+        "Puducherry": 18,
+        "Mizoram": 15,
+        "Nagaland": 13,
+        "Arunachal Pradesh": 13,
+        "Manipur": 11,
+        "Chandigarh": 6,
+        "Goa": 5,
+        "Ladakh": 3,
+        "Daman and Diu": 2,
+        "Andaman and Nicobar Islands": 2,
+        "Lakshwadeep": 1,
+        "Dadra and Nagar Haveli": 1
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": ""
+    },
+    {
+      "name": "Name",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 5539,
+      "examples": [
+        "G.B.Pant Hospital Atlanta Point Blood Centre",
+        "Pillar Health Centre",
+        "Aapadbandhu Blood bank"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [
+        "pii_possible"
+      ],
+      "notes": "facility name; some contain a person's name",
+      "length_dist": {
+        "min": 3,
+        "p25": 20,
+        "median": 30,
+        "p75": 42,
+        "max": 100
+      }
+    },
+    {
+      "name": "Address",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 5312,
+      "examples": [
+        "DHS Annexe Building Near Rear Gate, Port Blair , Dist. South Andaman",
+        "Lamba Line, Post Box No:526, Junglighat Post. PortBlair, Port Blair, Dist. South Andaman",
+        "DNO 21-1-190, 1st Floor, Chirala Prakasam A.P, Chirala, Dist. Bapatla"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [],
+      "notes": "always ends '<place>, Dist. <district>'",
+      "length_dist": {
+        "min": 11,
+        "p25": 38,
+        "median": 67,
+        "p75": 95,
+        "max": 265
+      }
+    },
+    {
+      "name": "Latitude",
+      "dtype": "object(str)",
+      "non_null": 5864,
+      "null_pct": 0.425,
+      "n_distinct": 5152,
+      "examples": [
+        "11.62338",
+        "11.64985",
+        "15.84532"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "primary point geo",
+      "numeric_summary": {
+        "parseable": 5864,
+        "min": 1.662981,
+        "p01": 8.548821,
+        "p25": 16.16808,
+        "median": 21.635640000000002,
+        "p75": 26.3505675,
+        "p99": 32.9379617,
+        "max": 54.3972,
+        "mean": 20.889196186446963
+      },
+      "length_dist": {
+        "min": 5,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "Longitude",
+      "dtype": "object(str)",
+      "non_null": 5864,
+      "null_pct": 0.425,
+      "n_distinct": 5117,
+      "examples": [
+        "92.72648",
+        "92.72946",
+        "80.37238"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "primary point geo",
+      "numeric_summary": {
+        "parseable": 5864,
+        "min": 18.2252,
+        "p01": 70.76442,
+        "p25": 75.78689,
+        "median": 77.677295,
+        "p75": 80.3207175,
+        "p99": 93.5724103,
+        "max": 103.5999,
+        "mean": 78.65491426377729
+      },
+      "length_dist": {
+        "min": 5,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "Phone",
+      "dtype": "object(str)",
+      "non_null": 5413,
+      "null_pct": 8.083,
+      "n_distinct": 1326,
+      "examples": [
+        "9434266561, 9434200000",
+        "9679535438, 03192-233193, 09531922669",
+        "9.12E+09"
+      ],
+      "value_counts": {},
+      "semantic_role": "phone",
+      "flags": [
+        "pii"
+      ],
+      "notes": "heavily corrupted by Excel scientific notation",
+      "numeric_summary": {
+        "parseable": 4320,
+        "min": -23000000.0,
+        "p01": 0.0,
+        "p25": 513250000.0,
+        "median": 8850000000.0,
+        "p75": 9582500000.0,
+        "p99": 9990000000.0,
+        "max": 920000000000.0,
+        "mean": 7282747569.433796
+      },
+      "length_dist": {
+        "min": 1,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 42
+      }
+    },
+    {
+      "name": "Email",
+      "dtype": "object(str)",
+      "non_null": 4188,
+      "null_pct": 28.884,
+      "n_distinct": 3933,
+      "examples": [
+        "bbgbpantportblair@gmail.com",
+        "pillar.portblair@gmail.com",
+        "aapadbandhubbchirala@gmail.com"
+      ],
+      "value_counts": {},
+      "semantic_role": "email",
+      "flags": [
+        "pii"
+      ],
+      "notes": "",
+      "length_dist": {
+        "min": 12,
+        "p25": 22,
+        "median": 25,
+        "p75": 29,
+        "max": 41
+      }
+    },
+    {
+      "name": "Category",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 4,
+      "examples": [
+        "Govt.",
+        "Charitable/Vol",
+        "Private"
+      ],
+      "value_counts": {
+        "Govt.": 2787,
+        "Private": 1691,
+        "Charitable/Vol": 1308,
+        "Red Cross": 103
+      },
+      "semantic_role": "facility_ownership_raw",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "4-value ownership code"
+    },
+    {
+      "name": "new_longitude",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 3865,
+      "examples": [
+        "92.73976",
+        "92.73905",
+        "79.5"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [
+        "derived",
+        "redundant_with:Longitude"
+      ],
+      "notes": "prior geocoding pass; axis-swapped for rows >=5469; 344 rows invalid in both orientations",
+      "numeric_summary": {
+        "parseable": 5889,
+        "min": -157.862,
+        "p01": -88.308168,
+        "p25": 74.74506,
+        "median": 77.32202,
+        "p75": 79.97713,
+        "p99": 94.57456959999999,
+        "max": 150.9509,
+        "mean": 68.70591439378502
+      },
+      "length_dist": {
+        "min": 2,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 8
+      }
+    },
+    {
+      "name": "new_latitude",
+      "dtype": "object(str)",
+      "non_null": 5889,
+      "null_pct": 0.0,
+      "n_distinct": 3861,
+      "examples": [
+        "11.67572",
+        "11.66454",
+        "15.5"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [
+        "derived",
+        "redundant_with:Latitude"
+      ],
+      "notes": "prior geocoding pass; axis-swapped for rows >=5469; 344 rows invalid in both orientations",
+      "numeric_summary": {
+        "parseable": 5889,
+        "min": -36.0801,
+        "p01": 8.188047,
+        "p25": 16.71781,
+        "median": 22.84375,
+        "p75": 28.35236,
+        "p99": 80.86772,
+        "max": 92.79819,
+        "mean": 25.82107820190185
+      },
+      "length_dist": {
+        "min": 2,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 8
+      }
+    }
+  ],
+  "duplicates": {
+    "exact": 1,
+    "near_dupe_name_geo": 213,
+    "dup_on_name_address": 213,
+    "dup_on_normalized_name": 387,
+    "method": "exact = duplicated() over all source columns; near_dupe_name_geo = duplicated() over (lowercased alnum-normalized Name, Latitude rounded to 3dp, Longitude rounded to 3dp) ~= same name within ~110 m"
+  },
+  "geo_quality": {
+    "column_pair": "Latitude/Longitude",
+    "valid_in_india": 5859,
+    "null": 25,
+    "zero": 0,
+    "out_of_bbox": 5,
+    "possibly_swapped": 0,
+    "valid_pct": 99.491,
+    "new_lat_lon_pair": {
+      "valid_as_labelled": 5119,
+      "valid_only_if_axes_swapped": 426,
+      "invalid_in_both_orientations": 344,
+      "swap_block_starts_at_row_index": 5469
+    }
+  },
+  "candidate_primary_key": {
+    "column": null,
+    "is_unique": false,
+    "notes": "No single column is unique. Name has 350 duplicate rows; Email is null in 1701 rows and duplicated 1955 times. The tightest composite tried, (Name, Address, Latitude, Longitude), still has 3 duplicate rows -> this dataset has NO usable source primary key; one must be synthesised."
+  },
+  "coded_vocabularies": {
+    "Category": [
+      "Charitable/Vol",
+      "Govt.",
+      "Private",
+      "Red Cross"
+    ],
+    "State": [
+      "Andaman and Nicobar Islands",
+      "Andra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chandigarh",
+      "Chattisgarh",
+      "Dadra and Nagar Haveli",
+      "Daman and Diu",
+      "Delhi",
+      "Goa",
+      "Gujrat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu and Kasmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Ladakh",
+      "Lakshwadeep",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Puducherry",
+      "Punjab",
+      "Rajasthan",
+      "Tamil Nadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "Name_facility_type_tokens": {
+      "BSU": 1449,
+      "BSC": 107,
+      "SGH": 13,
+      "DHH": 9,
+      "SDH": 126,
+      "CHC": 434,
+      "PHC": 3,
+      "RH": 98,
+      "GH": 9,
+      "MCH": 6,
+      "ESI": 6,
+      "AIIMS": 14,
+      "IRCS": 7
+    }
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_name_pct": 100.0,
+    "has_geo_pct": 99.575,
+    "has_valid_india_geo_pct": 99.491,
+    "has_district": false,
+    "district_parseable_from_address_pct": 99.983,
+    "has_state_pct": 100.0,
+    "has_pincode": false,
+    "unmatchable_row_pct": 0.0,
+    "blocking_key_viable": true
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "schema_identical": true,
+  "FACILITY_ID_phc_distinct": 31958,
+  "FACILITY_ID_chc_distinct": 4237,
+  "FACILITY_ID_intersection": 21,
+  "FACILITY_ID_phc_range": [
+    43,
+    1059598
+  ],
+  "FACILITY_ID_chc_range": [
+    1389,
+    1058927
+  ],
+  "HAB_ID_phc_distinct": 31391,
+  "HAB_ID_chc_distinct": 4174,
+  "HAB_ID_intersection": 376,
+  "HAB_ID_phc_range": [
+    167,
+    1429223
+  ],
+  "HAB_ID_chc_range": [
+    349,
+    1428938
+  ],
+  "BLOCK_ID_phc_distinct": 6114,
+  "BLOCK_ID_chc_distinct": 2644,
+  "BLOCK_ID_intersection": 2506,
+  "BLOCK_ID_phc_range": [
+    1,
+    8147
+  ],
+  "BLOCK_ID_chc_range": [
+    1,
+    8145
+  ],
+  "colliding_fid_same_state": 21,
+  "colliding_fid_same_district": 21,
+  "colliding_fid_identical_point": 21,
+  "colliding_fid_median_km": 0.0,
+  "colliding_hab_same_district": 376,
+  "colliding_hab_n": 376,
+  "colliding_hab_median_km": 0.06,
+  "block_multistate_PHC": 0,
+  "block_multidistrict_PHC": 0,
+  "n_blocks_PHC": 6114,
+  "block_multistate_CHC": 0,
+  "block_multidistrict_CHC": 0,
+  "n_blocks_CHC": 2644,
+  "block_multistate_UNION": 0,
+  "block_multidistrict_UNION": 0,
+  "n_blocks_UNION": 6252,
+  "hab_multidistrict_UNION": 0,
+  "hab_multiblock_UNION": 0,
+  "exact_row_overlap": 21,
+  "overlap_identical_coordinate": 31,
+  "overlap_FACILITY_ID": 21,
+  "overlap_HAB_ID": 376,
+  "overlap_HAB_ID_+_coordinate": 23,
+  "overlap_district_+_normalised_name": 12,
+  "overlap_points_3dp": 181,
+  "overlap_points_2dp": 332,
+  "fac_catego_phc": [
+    "Medical"
+  ],
+  "fac_catego_chc": [
+    "Medical"
+  ],
+  "fac_catego_disjoint": false,
+  "PHC_name_tokens": {
+    "phc_like": 30832,
+    "chc_like": 6,
+    "subcentre": 1403,
+    "hospital": 312,
+    "dispensary": 5,
+    "wellness": 43,
+    "urban": 22,
+    "ayush": 129,
+    "veterinary": 4,
+    "school": 9,
+    "anganwadi": 0
+  },
+  "CHC_name_tokens": {
+    "phc_like": 7,
+    "chc_like": 4090,
+    "subcentre": 39,
+    "hospital": 63,
+    "dispensary": 0,
+    "wellness": 0,
+    "urban": 0,
+    "ayush": 4,
+    "veterinary": 0,
+    "school": 1,
+    "anganwadi": 0
+  },
+  "PHC_rows_named_chc_only": 1,
+  "CHC_rows_named_phc_only": 2,
+  "PHC_name_neither": 1125,
+  "CHC_name_neither": 145,
+  "PHC_geo_gt100km_from_district_median": 192,
+  "PHC_geo_gt200km_from_district_median": 1,
+  "PHC_geo_gt500km_from_district_median": 0,
+  "CHC_geo_gt100km_from_district_median": 30,
+  "CHC_geo_gt200km_from_district_median": 1,
+  "CHC_geo_gt500km_from_district_median": 0,
+  "PHC_geo_gt600km_from_state_median": 0,
+  "CHC_geo_gt600km_from_state_median": 0,
+  "PHC_placeholder_district_rows": 32,
+  "PHC_name_len_le2": 4,
+  "CHC_placeholder_district_rows": 1,
+  "CHC_name_len_le2": 2,
+  "states_absent_PHC": [
+    "Andaman And Nicobar Islands",
+    "Chandigarh",
+    "Dadra And Nagar Haveli And Daman And Diu",
+    "Delhi",
+    "Goa",
+    "Lakshadweep",
+    "Puducherry",
+    "Tamil Nadu"
+  ],
+  "states_absent_CHC": [
+    "Andaman And Nicobar Islands",
+    "Chandigarh",
+    "Dadra And Nagar Haveli And Daman And Diu",
+    "Delhi",
+    "Goa",
+    "Lakshadweep",
+    "Puducherry",
+    "Tamil Nadu"
+  ],
+  "states_nonstandard_PHC": [
+    "Tamilnadu"
+  ],
+  "states_nonstandard_CHC": [
+    "Tamilnadu"
+  ],
+  "PHC_truncated_district_rows": 226,
+  "CHC_truncated_district_rows": 10,
+  "PHC_block_state_district_singleton_pct": 0.01,
+  "PHC_block_state_district_name_singleton_pct": 38.56,
+  "PHC_block_block_id_singleton_pct": 3.42,
+  "PHC_block_block_id_name_singleton_pct": 46.75,
+  "PHC_block_hab_id_singleton_pct": 96.54,
+  "CHC_block_state_district_singleton_pct": 1.7,
+  "CHC_block_state_district_name_singleton_pct": 53.32,
+  "CHC_block_block_id_singleton_pct": 43.62,
+  "CHC_block_block_id_name_singleton_pct": 76.89,
+  "CHC_block_hab_id_singleton_pct": 97.03,
+  "PHC_geocell_singleton_pct": 94.87,
+  "CHC_geocell_singleton_pct": 95.68,
+  "PHC_pct_name_zero_information": 61.92,
+  "PHC_pct_rows_uniquely_keyed_by_district_plus_placeword": 35.17,
+  "CHC_pct_name_zero_information": 56.53,
+  "CHC_pct_rows_uniquely_keyed_by_district_plus_placeword": 41.92
+}

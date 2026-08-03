@@ -1,0 +1,197 @@
+n _emp cols: 23 ['M1_emp', 'M10_emp', 'M2_emp', 'M3_emp', 'M4_emp', 'M5_emp', 'M6_emp', 'M7_emp', 'M8_emp', 'S1_emp', 'S10_emp', 'S11_emp', 'S12_emp', 'S13_emp', 'S14_emp', 'S15_emp', 'S16_emp', 'S2_emp', 'S3_emp', 'S4_emp', 'S5_emp', 'S6_emp', 'S7_emp']
+n _upg cols: 23 ['M1_upg', 'M10_upg', 'M2_upg', 'M3_upg', 'M4_upg', 'M5_upg', 'M6_upg', 'M7_upg', 'M8_upg', 'S1_upg', 'S10_upg', 'S11_upg', 'S12_upg', 'S13_upg', 'S14_upg', 'S15_upg', 'S16_upg', 'S2_upg', 'S3_upg', 'S4_upg', 'S5_upg', 'S6_upg', 'S7_upg']
+emp code names: ['M1', 'M10', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'S1', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7']
+upg code names: ['M1', 'M10', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'S1', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7']
+emp set == upg set: True
+
+=== binary column value domains ===
+Counter({('0', '1'): 45, ('0',): 1})
+
+=== text column raw distinct values (top) ===
+
+-- Specialities Empanelled: non-null=11284 distinct=3878
+Specialities Empanelled
+S3                                                                                                       786
+M8, M1, M2, S8, S7, S12, M3, M7, M4, S16, S6, S10, S11, M6, M5, S15, S9, S14, S13, S5, S4, S3, S2, S1    433
+S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8    415
+S4                                                                                                       338
+S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M2, M3, S12, M1, M8, M7, S3, S2, S1    318
+S1                                                                                                       303
+M1, M7                                                                                                   251
+M1, M7, S4                                                                                               240
+S5                                                                                                       233
+M1, M7, S4, S1                                                                                           191
+
+-- Specialities Upgraded: non-null=6742 distinct=774
+Specialities Upgraded
+-NA-          3720
+M1, M7         207
+S4             157
+S7             133
+S4, M1, M7     123
+S3              95
+S5              83
+S1              74
+M1, S7          53
+S6              45
+
+-- Specialities_Upgraded_or_Empanelled: non-null=11141 distinct=5464
+Specialities_Upgraded_or_Empanelled
+M8, M1, M2, S8, S7, S12, M3, M7, M4, S16, S6, S10, S11, M6, M5, S15, S9, S14, S13, S5, S4, S3, S2, S1        334
+S3-NA-                                                                                                       321
+S3                                                                                                           307
+S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8        272
+S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M2, M3, S12, M1, M8, M7, S3, S2, S1        237
+S4-NA-                                                                                                       129
+S1-NA-                                                                                                       125
+S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8-NA-    116
+S4                                                                                                           110
+M2, M1, M7, S4, S1-NA-                                                                                       103
+
+=== token vocabulary of Specialities Empanelled (26 distinct tokens) ===
+   'M1'             7745
+   'S1'             7570
+   'M7'             7430
+   'S4'             7391
+   'S5'             5881
+   'M2'             5193
+   'S3'             4480
+   'S2'             4337
+   'S7'             3923
+   'S16'            3584
+   'S8'             3246
+   'S6'             3204
+   'S10'            3009
+   'S11'            3009
+   'S9'             3002
+   'S12'            2914
+   'M3'             2856
+   'S14'            2822
+   'S15'            2497
+   'M5'             2470
+   'S13'            2304
+   'M4'             2185
+   'M8'             2160
+   'M6'             2124
+   '-NA-'           143
+   'M10'            25
+
+=== token vocabulary of Specialities Upgraded (25 distinct tokens) ===
+   '-NA-'           3720
+   'M1'             1612
+   'M7'             1331
+   'S4'             1067
+   'S7'             892
+   'S1'             832
+   'M2'             739
+   'S5'             671
+   'S16'            567
+   'S2'             538
+   'S3'             537
+   'S8'             489
+   'S6'             483
+   'M3'             473
+   'S10'            423
+   'S11'            423
+   'S9'             381
+   'S14'            342
+   'S12'            308
+   'S15'            290
+   'M5'             281
+   'S13'            190
+   'M8'             156
+   'M4'             149
+   'M6'             126
+
+non-code tokens in Specialities Empanelled: {'-NA-': 143}
+
+non-code tokens in Specialities Upgraded: {'-NA-': 3720}
+
+=== reconstruction: text col vs binary flags ===
+
+Specialities Empanelled vs _emp flags: exact set match 8038/11284 = 71.234%
+  mismatches: 3246
+   row 19: text='M8, M1, M2, S8, S7, S12, M7, S16, M6, M5, S5, S3, S2, S1' -> ['M1', 'M2', 'M5', 'M6', 'M7', 'M8', 'S1', 'S12', 'S16', 'S2', 'S3', 'S5', 'S7', 'S8'] | flags=['M1', 'M2', 'M5', 'M6', 'M7', 'M8', 'S1', 'S12', 'S16', 'S2', 'S3', 'S5', 'S7']
+   row 23: text='S12, M1, M7, S6, S10, S11, M6, M5, S15, S8, S9, S7, S14, S13, S5, S4, S3, S2, S1' -> ['M1', 'M5', 'M6', 'M7', 'S1', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M5', 'M6', 'M7', 'S1', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7']
+   row 28: text='M1, M2, S8, S12, M3, M7, S10, S11, S15, S9, S7, S14, S5, S4, S1' -> ['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S12', 'S14', 'S15', 'S4', 'S5', 'S7', 'S8', 'S9'] | flags=['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S12', 'S14', 'S15', 'S4', 'S5', 'S7']
+   row 51: text='M1, M7, S6, S16, S10, S11, S8, S9, S7, S14, S5, S4, S3, S2, S1, M2, M3, S12' -> ['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S12', 'S14', 'S16', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S12', 'S14', 'S16', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7']
+   row 55: text='M1, M2, S8, M3, M7, S6, S10, S11, S9, S7, S14, S5, S4, S2, S1' -> ['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S14', 'S2', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M2', 'M3', 'M7', 'S1', 'S10', 'S11', 'S14', 'S2', 'S4', 'S5', 'S6', 'S7']
+   row 58: text='M2, M1, M7, S16, S6, S8, S9, S5, S4, S2, S1' -> ['M1', 'M2', 'M7', 'S1', 'S16', 'S2', 'S4', 'S5', 'S6', 'S8', 'S9'] | flags=['M1', 'M2', 'M7', 'S1', 'S16', 'S2', 'S4', 'S5', 'S6']
+   row 65: text='M1, M7, S6, S8, S9, S7, S5, S1' -> ['M1', 'M7', 'S1', 'S5', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M7', 'S1', 'S5', 'S6', 'S7']
+   row 66: text='M1, M7, S6, S15, S8, S9, S7, S5, S4, S2, S1' -> ['M1', 'M7', 'S1', 'S15', 'S2', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M7', 'S1', 'S15', 'S2', 'S4', 'S5', 'S6', 'S7']
+  of mismatches: text superset of flags=3246, text subset of flags=0
+
+Specialities Upgraded vs _upg flags: exact set match 10795/11284 = 95.666%
+  mismatches: 489
+   row 34: text='S8, S9, M3' -> ['M3', 'S8', 'S9'] | flags=['M3']
+   row 59: text='S8, S9, S10, S11, M1, M7, S7, M2, S6' -> ['M1', 'M2', 'M7', 'S10', 'S11', 'S6', 'S7', 'S8', 'S9'] | flags=['M1', 'M2', 'M7', 'S10', 'S11', 'S6', 'S7']
+   row 78: text='M1, M7, S8, S9, M3, S7, M2' -> ['M1', 'M2', 'M3', 'M7', 'S7', 'S8', 'S9'] | flags=['M1', 'M2', 'M3', 'M7', 'S7']
+   row 80: text='S16, S8, S9' -> ['S16', 'S8', 'S9'] | flags=['S16']
+   row 82: text='S8, S9, M1, M2, S5' -> ['M1', 'M2', 'S5', 'S8', 'S9'] | flags=['M1', 'M2', 'S5']
+   row 88: text='M1, S7, M2, S8, M7, S1' -> ['M1', 'M2', 'M7', 'S1', 'S7', 'S8'] | flags=['M1', 'M2', 'M7', 'S1', 'S7']
+   row 90: text='S8, S9, S7' -> ['S7', 'S8', 'S9'] | flags=['S7']
+   row 120: text='S1, S4, S8, S9, M1, M7' -> ['M1', 'M7', 'S1', 'S4', 'S8', 'S9'] | flags=['M1', 'M7', 'S1', 'S4']
+  of mismatches: text superset of flags=489, text subset of flags=0
+
+=== Specialities_Upgraded_or_Empanelled provenance ===
+equals E+U (naive concat): 11141 / 11284
+equals U+E: 4589 / 11284
+equals E+', '+U: 4542 / 11284
+comb null count: 143
+
+rows where comb is null: E/U values
+   row 106: E='-NA-' U='S10, S11, S16, M1'
+   row 136: E='-NA-' U='M1, S1, S2, S3, S5, S7, S8, S9, S15, S10, S11, S6, M7, M2'
+   row 160: E='-NA-' U='S4'
+   row 182: E='-NA-' U='S12'
+   row 297: E='-NA-' U='S1, S4, M1, M7'
+
+sample comb vs parts:
+   row 0: E='S1, M1, M7' U='S5' -> comb='S1, M1, M7S5'
+   row 1: E='S3, M1, M7, M2' U='-NA-' -> comb='S3, M1, M7, M2-NA-'
+   row 2: E='M1, M7, S4' U='' -> comb='M1, M7, S4'
+   row 3: E='S1, S3, S5' U='' -> comb='S1, S3, S5'
+   row 4: E='S3' U='-NA-' -> comb='S3-NA-'
+   row 5: E='M1, S7, S12, M7, M4, S10, S11, M5, S3, S1' U='-NA-' -> comb='M1, S7, S12, M7, M4, S10, S11, M5, S3, S1-NA-'
+
+=== empanelled vs upgraded coverage ===
+has any _emp=1: 11132 (98.65%)
+has any _upg=1: 3001 (26.60%)
+both: 2857   emp-only: 8275   upg-only: 144   neither: 8
+
+_emp count per row: mean=7.90 max=22 min=0
+_upg count per row: mean=1.10 max=22 min=0
+
+_upg ⊆ _emp per row: 8998/11284 = 79.74%
+rows violating subset: 2286 first: [0, 6, 8, 12, 14]
+   row 0: emp=['M1', 'M7', 'S1'] upg=['S5']
+   row 6: emp=['M1', 'M7'] upg=['M1', 'M7', 'S1']
+   row 8: emp=['M1', 'M7'] upg=['M1', 'S10', 'S11', 'S2', 'S4', 'S7']
+   row 12: emp=['M1', 'M7', 'S1', 'S16', 'S4'] upg=['M1', 'S10', 'S11', 'S2', 'S4', 'S7']
+   row 14: emp=['M1', 'M7'] upg=['M6', 'S16', 'S4']
+
+=== per-code prevalence (emp / upg) ===
+code     emp=1    emp%   upg=1    upg%
+M1        7745  68.64%    1612  14.29%
+M10         25   0.22%       0   0.00%
+M2        5193  46.02%     739   6.55%
+M3        2856  25.31%     473   4.19%
+M4        2185  19.36%     149   1.32%
+M5        2470  21.89%     281   2.49%
+M6        2124  18.82%     126   1.12%
+M7        7430  65.85%    1331  11.80%
+M8        2160  19.14%     156   1.38%
+S1        7570  67.09%     832   7.37%
+S10       3009  26.67%     423   3.75%
+S11       3009  26.67%     423   3.75%
+S12       2914  25.82%     308   2.73%
+S13       2304  20.42%     190   1.68%
+S14       2822  25.01%     342   3.03%
+S15       2497  22.13%     290   2.57%
+S16       3584  31.76%     567   5.02%
+S2        4337  38.43%     538   4.77%
+S3        4480  39.70%     537   4.76%
+S4        7391  65.50%    1067   9.46%
+S5        5881  52.12%     671   5.95%
+S6        3204  28.39%     483   4.28%
+S7        3923  34.77%     892   7.90%

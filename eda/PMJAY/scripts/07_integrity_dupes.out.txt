@@ -1,0 +1,200 @@
+====================================================================== 
+Sr No
+ ======================================================================
+max: 11285 n rows: 11284 missing values in 1..max: [253]
+is monotonic increasing: True
+  row 251: Sr No=252 name='Ajwani Eye Hospital Pvt. Ltd.'
+  row 252: Sr No=254 name='AKAL EYE HOSPITAL'
+
+====================================================================== 
+FIELD SHIFT / MISALIGNMENT
+ ======================================================================
+E-Mail that is a bare decimal number : 60
+Contact that is a bare decimal number: 60
+both on same row                     : 60
+either                               : 60
+
+Do those decimals look like the row's own lat/lon?
+  of 60 rows with both numeric: email≈API lat (<1 deg): 60, contact≈API lon (<1 deg): 60
+
+  full row dump for first 4 suspects (key columns):
+
+  --- row 319 ---
+    Sr No                      = '321'
+    Hospital Name              = 'AMAL HOSPITALS'
+    Manual Hospital Name       = 'Amal Hospitals'
+    Hospital Type              = 'Private (For Profit)'
+    Manual Hospital Address    = 'Perumalpuram Post Office Thikkoti, Kozhikode, Kerala'
+    API Latitude               = '11.4951664'
+    API Longitude              = '75.6238949'
+    Hospital Address           = 'AMAL HOSPITALS PERUMALPURAM PO THIKKOTI, KOZHIKODE, KERALA'
+    Hospital E-Mail            = '11.506853'
+    Hospital Contact           = '75.6249378'
+    Specialities Empanelled    = 'M1, M7'
+    Manual District            = 'KOZHIKODE'
+    Manual state               = 'KERALA'
+
+  --- row 320 ---
+    Sr No                      = '322'
+    Hospital Name              = 'AMALTAS INSTITUTE OF MEDICAL SCIENCES BANGAR DEWAS'
+    Manual Hospital Name       = 'Amaltas Institute Of Medical Sciences Bangar Dewas'
+    Hospital Type              = 'Private (Not for Profit)'
+    Manual Hospital Address    = 'Dewas Ujjain Highway, Dewas, Madhya Pradesh'
+    API Latitude               = '23.0013903'
+    API Longitude              = '75.9983057'
+    Hospital Address           = '10th KM, Dewas Ujjain Highway, DEWAS, MADHYA PRADESH'
+    Hospital E-Mail            = '23.1764665'
+    Hospital Contact           = '75.7885163'
+    Specialities Empanelled    = 'S5, S3, S2, S1, M2, M1, M7, S4'
+    Manual District            = 'DEWAS'
+    Manual state               = 'MADHYA PRADESH'
+
+  --- row 321 ---
+    Sr No                      = '323'
+    Hospital Name              = 'aman care center'
+    Manual Hospital Name       = 'Aman Care Center'
+    Hospital Type              = 'Private (For Profit)'
+    Manual Hospital Address    = 'Silver Estate Gate Near Mahanagar Pilipheet Bypass Road, Bareilly, Uttar Pradesh'
+    API Latitude               = '28.3902671'
+    API Longitude              = '79.4590456'
+    Hospital Address           = 'Silver estate gate near mahanagar pilipheet bypass road, BAREILLY, UTTAR PRADESH'
+    Hospital E-Mail            = '28.3902671'
+    Hospital Contact           = '79.4590456'
+    Specialities Empanelled    = 'S7, M1, S1, S4'
+    Manual District            = 'BAREILLY'
+    Manual state               = 'UTTAR PRADESH'
+
+  --- row 322 ---
+    Sr No                      = '324'
+    Hospital Name              = 'AMAN HOSPITAL'
+    Manual Hospital Name       = 'Aman Hospital'
+    Hospital Type              = 'Private (Not for Profit)'
+    Manual Hospital Address    = 'DC Road, Hoshiarpur, Punjab'
+    API Latitude               = '31.519133'
+    API Longitude              = '75.9225755'
+    Hospital Address           = 'DC ROAD, HOSHIARPUR, PUNJAB'
+    Hospital E-Mail            = '31.519133'
+    Hospital Contact           = '75.9225755'
+    Specialities Empanelled    = 'M3, M1, M2, S8, S9'
+    Manual District            = 'HOSHIARPUR'
+    Manual state               = 'PUNJAB'
+
+  suspect rows: value of 'Specialities Empanelled' (should be codes):
+    row 319: 'M1, M7'
+    row 320: 'S5, S3, S2, S1, M2, M1, M7, S4'
+    row 321: 'S7, M1, S1, S4'
+    row 322: 'M3, M1, M2, S8, S9'
+    row 323: 'S1, S4'
+    row 324: 'S5, S4, S1'
+    row 325: 'S6, S4, S1, M2, M1, M7, S5, S8, S7, S12, M3, S10, S11, S9'
+    row 326: 'M1, M2, S1, S8, S9, S7, S14, S5, S4, S2, M7, S6, S10, S11'
+    row 327: 'M2, S1, M1, M7, S4'
+    row 328: 'M1, M7, S4, S2, S1'
+
+====================================================================== 
+PINCODE LINEAGE
+ ======================================================================
+pincode_py 6-digit: 10374  Zipcode non-null: 10374
+6-digit set == Zipcode-present set: True
+rows where they differ: 0
+
+non-6-digit pincode_py: 910
+  value '0': 875
+  US-ZIP-looking (5 digit) : 29
+  4-digit or other         : 6 ['2215', '3301', '2199', '2115', '6081', '3348']
+
+gmaps point outside India bbox: 38
+  of those, pincode_py not 6-digit: 38
+  non-6-digit pincode rows whose gmaps IS in India: 872
+
+  examples of non-6-digit pincode:
+    row 15: pincode_py='0' Zipcode=nan gmaps=(26.3291358,90.2608306) state='ASSAM'
+    row 21: pincode_py='0' Zipcode=nan gmaps=(27.1011846,82.3809333) state='UTTAR PRADESH'
+    row 30: pincode_py='0' Zipcode=nan gmaps=(21.660653,82.8023823) state='CHHATTISGARH'
+    row 57: pincode_py='0' Zipcode=nan gmaps=(25.1399395,81.9371778) state='UTTAR PRADESH'
+    row 58: pincode_py='0' Zipcode=nan gmaps=(25.1399395,81.9371778) state='UTTARAKHAND'
+    row 75: pincode_py='0' Zipcode=nan gmaps=(24.2635106,83.9241376) state='JHARKHAND'
+    row 94: pincode_py='0' Zipcode=nan gmaps=(23.5167717,85.2961738) state='JHARKHAND'
+    row 150: pincode_py='0' Zipcode=nan gmaps=(30.2479446,76.8539072) state='HARYANA'
+
+pincode first-digit vs Manual state (spot check of impossible combos):
+  checked 10374, consistent 10185 (98.18%), inconsistent 189
+  examples: [(78, '243122', 'HIMACHAL PRADESH'), (80, '401403', 'HARYANA'), (81, '401403', 'PUNJAB'), (86, '250609', 'HIMACHAL PRADESH'), (156, '122001', 'ASSAM'), (258, '110075', 'JHARKHAND'), (264, '272135', 'CHHATTISGARH'), (297, '390001', 'KARNATAKA'), (303, '277001', 'BIHAR'), (327, '391200', 'HARYANA')]
+
+====================================================================== 
+DUPLICATES
+ ======================================================================
+exact duplicate rows (all 78 cols): 0
+exact duplicate rows ignoring Sr No : 0
+  rows involved: 0
+
+normalised Hospital Name: distinct=10739 dup rows=545
+
+normalised Manual Hospital Name: distinct=10277 dup rows=1007
+
+-- near dupes on (normalised name, rounded geo) --
+  name + API geo @4dp (~11 m): dup rows=23 groups=23
+  name + API geo @3dp (~110 m): dup rows=25 groups=25
+  name + API geo @2dp (~1.1 km): dup rows=33 groups=33
+
+-- near dupes on (normalised name, district, state) --
+  dup rows=190 groups=120
+  largest groups:
+    29x 'UPHC SURAT MUNICIPAL COMMISSION|SURAT|GUJARAT' rows=[10248, 10249, 10250, 10251]
+        row 10248: HN='SMCU-PHC ATHWA (PANAS) U.H.C.' lat=21.1623546 email=nan
+        row 10249: HN='SMCU-PHC B.P. U.H.C.' lat=21.2049055 email=nan
+        row 10250: HN='SMCU-PHC BHESTAN UHC' lat=21.1034507 email=nan
+    9x 'UPHC MATERNITY HOME SURAT MUNICIPAL COMMISSION|SURAT|GUJARAT' rows=[10245, 10246, 10247, 10252]
+        row 10245: HN='SMCU-PHC ADAJAN U.H.C. & MAT. HOME' lat=21.1959098 email=nan
+        row 10246: HN='SMCU-PHC ALTHAN U.H.C. & MAT. HOME' lat=21.1610358 email=nan
+        row 10247: HN='SMCU-PHC ASARAWALA U.H.C. & MAT. HOME' lat=21.2043727 email=nan
+    6x 'TALUK HEALTH|MANDYA|KARNATAKA' rows=[11021, 11022, 11023, 11024]
+        row 11021: HN='THC KR Pete' lat=12.4572089 email=amoghkrp@gmail.com
+        row 11022: HN='THC Maddur' lat=12.5870409 email=amoghmaddur@gmail.com
+        row 11023: HN='THC Malavalli' lat=12.3731327 email=amomalavalli@gmail.com
+    5x 'SAMUHIK AAROGYA KENDRA|BHARUCH|GUJARAT' rows=[9358, 9359, 9360, 9361]
+        row 9358: HN='SAMUHIK AAROGYA KENDRA, AMOD' lat=21.9942159 email=bharuch.amod@rediffmail.com
+        row 9359: HN='SAMUHIK AAROGYA KENDRA, JAMBUSAR' lat=21.7037245 email=bharuch.jambusar@rediffmail.com
+        row 9360: HN='SAMUHIK AAROGYA KENDRA, PALEJ' lat=21.9207932 email=bharuch.palej@rediffmail.com
+    5x 'TALUK HEAD QUARTERS|ERNAKULAM|KERALA' rows=[10896, 11070, 11074, 11077]
+        row 10896: HN='Taluk Head Quarters Hospital, Perumbavoor' lat=10.116005 email=rsbyperumbavoor@gmail.com
+        row 11070: HN='THQH FORTKOCHI' lat=9.9657787 email=thqhkochi@gmail.com
+        row 11074: HN='THQH KOTHAMANGALAM (CHC KOTHAMANGALAM)' lat=10.0602601 email=prothqhkothamangalam@gmail.com
+    5x 'TALUK HEAD QUARTERS|PALAKKAD|KERALA' rows=[10893, 10894, 10897, 10899]
+        row 10893: HN='Taluk Head Quarters Hospital Ottapalam' lat=10.7766702 email=rsbythqhottappalam@gmail.com
+        row 10894: HN='Taluk Head Quarters hospital pattambi' lat=10.8057301 email=pro.thqhpattambi@gmail.com
+        row 10897: HN='TALUK HEAD QUARTERS HOSPITAL, ALATHUR' lat=10.6453971 email=pro.thqhalathur@gmail.com
+
+-- near dupes on geo alone (identical API point) --
+  rows sharing an API point: 2967
+
+====================================================================== 
+ER READINESS
+ ======================================================================
+has usable name          : 11284 (100.00%)
+has usable geo (API|gmaps): 11284 (100.00%)
+has district             : 11247 (99.67%)
+has state                : 11284 (100.00%)
+has valid 6-digit pincode: 10374 (91.94%)
+
+name+geo+district+state (full blocking key): 11247 (99.67%)
+unmatchable (missing any of the four)      : 37 (0.33%)
+name+state only                            : 11284 (100.00%)
+
+rows failing the blocking key, by which component:
+  no name    : 0
+  no geo     : 0
+  no district: 37
+  no state   : 0
+    row 591: name=True geo=True dist=False state=True | 'ARALAGUPPE MALLEGOWDA District Hosp'
+    row 757: name=True geo=True dist=False state=True | 'ASHRAYA MULTISPECIALITY HOSPITAL'
+    row 894: name=True geo=True dist=False state=True | 'Bakin Pertin General Hospital'
+    row 927: name=True geo=True dist=False state=True | 'Bangalore Cancer Centre, Bangalore '
+    row 954: name=True geo=True dist=False state=True | 'Barjalenga MPHC'
+    row 1090: name=True geo=True dist=False state=True | 'Bikrampur BPHC'
+    row 1228: name=True geo=True dist=False state=True | 'Cachar Cancer Hospital And Research'
+    row 3078: name=True geo=True dist=False state=True | 'COMMUNITY HEALTH CENTRE KALASA'
+
+name distinctiveness: 9794 names unique, 483 names shared by >1 row
+  most generic names: {'SADAR': 40, 'TALUK HEAD QUARTERS': 35, 'UPHC SURAT MUNICIPAL COMMISSION': 29, 'TALUK': 24, 'TALUKA': 23, 'SUB DIVISIONAL': 23, 'DISTRICT': 20, 'EYE Q VISION': 18}
+  empty after normalisation: 0

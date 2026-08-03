@@ -1,0 +1,212 @@
+dataset_key: PMGSY
+source_file: 21_JULY_23_SRK_PMGSY_validated_homogenized.csv
+
+# Read contract. The header carries a UTF-8 BOM and the first column name is
+# literally "Sr. No. " WITH a trailing space. Do not str.strip() the header.
+read:
+  encoding: utf-8-sig          # strips the EF BB BF BOM
+  dtype: str                   # HAB_CODE / Pincode / LATITUDE must not become numeric
+  keep_default_na: false
+  na_values: [""]
+  sep: ","
+  quotechar: '"'
+  engine: c
+  post_read:
+    - "dropna(how='all')  # drops 2 trailing all-comma records -> 13700 rows"
+    - "reset_index(drop=True)"
+  expected_shape: [13700, 24]
+
+grain:
+  one_row_is: facility
+  qualifier: one health facility situated in one PMGSY habitation
+  is_habitation_facility_link_table: false
+  natural_key_note: >-
+    HAB_CODE is a habitation key, not a facility key. 1016 HAB_CODEs carry 2..48 rows,
+    and inside a repeated code every facility name and coordinate is distinct.
+
+source_column_map:
+
+  "Sr. No. ":
+    canonical: null
+    disposition: keep_as_ordinal
+    proposed_canonical: source_row_ordinal
+    confidence: high
+    reason: "1..13700 no gaps. Spreadsheet row number, not a source system id. Only unique column in the file; use it to build the surrogate key but never to join across snapshots."
+
+  STATE_NAME:
+    canonical: state_raw
+    confidence: high
+    transform: "strip, collapse_ws, title, normalize_lgd"
+    notes: "29 values. Needs LGD mapping for 'Tamilnadu'->Tamil Nadu, 'Pondicherry'->Puducherry, 'Jammu And Kashmir'->Jammu and Kashmir."
+
+  DISTRICT_NAME:
+    canonical: district_raw
+    confidence: high
+    transform: "strip, collapse_ws, normalize_lgd_district"
+    notes: "663 values with heavy pre-rename/misspelling drift (Jalor, Sangali, Gurgaon, Belgaum, Nowgaon, G.B. Nagar, Lakhimpur-Kherii). Do not join on this string raw."
+
+  BLOCK_NAME:
+    canonical: block_raw
+    confidence: high
+    transform: "strip, collapse_ws"
+
+  HABITATION_NAME:
+    canonical: village_raw
+    confidence: medium
+    transform: "strip_nbsp, strip, collapse_ws"
+    notes: "PMGSY habitation is finer than a revenue village; village_raw is the closest canonical fit but is not exactly the same concept. 7 values have a leading U+00A0."
+
+  HAB_CODE:
+    canonical: null
+    proposed_canonical: habitation_code
+    confidence: high
+    transform: "strip, zero_pad? (unknown - see questions.md)"
+    notes: "Numeric OMMAS/PMGSY habitation code, 349..1429221. Carry through as provenance; it is the only join key back to the PMGSY/OMMAS habitation master."
+
+  MASTER_FACILITY_DESC:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_ws, unescape_newline"
+    notes: "Free text. 29.91% of values are a bare facility-type word with no proper noun."
+
+  ADDRESS:
+    canonical: address_raw
+    confidence: high
+    transform: "strip, collapse_ws, replace_newline_with_space"
+    notes: "Low value: 60.9% are <=12 chars, 39.1% repeat HABITATION_NAME verbatim."
+
+  FILE_UPLOAD_DATE:
+    canonical: source_snapshot_date
+    confidence: high
+    transform: "to_date('%d-%b-%y')"
+    notes: "Per-row upload date, not a single snapshot date for the file. 63 nulls (all Tamil Nadu)."
+
+  MASTER_FACILITY_CATEGORY_NAME:
+    canonical: facility_category_raw
+    confidence: high
+    transform: "strip"
+    notes: "Constant 'Medical'. Zero information within this file; keep only as evidence the extract was pre-filtered to health infrastructure."
+
+  SUB_CATEGORY:
+    canonical: facility_type_raw
+    confidence: medium
+    transform: "strip, map_to_facility_type_codebook"
+    notes: "Only {Bedded Hospital, Community Health Centre}. Disagrees with the facility name on ~40% of CHC rows. Treat as a weak prior, not ground truth."
+
+  LATITUDE:
+    canonical: latitude
+    confidence: high
+    transform: "to_float"
+
+  LONGITUDE:
+    canonical: longitude
+    confidence: high
+    transform: "to_float"
+
+  Postcode_py:
+    canonical: pincode
+    confidence: medium
+    transform: "strip"
+    flags: [derived]
+    notes: >-
+      Output of a Python reverse-geocoding pass, not source-declared. Corroborated by address_py on
+      11304/13700 rows (agreement 100% there). The other 2396 rows have an uncorroborated pincode and
+      443 of those fail a within-district prefix sanity check. Emit alongside a pincode_confidence flag.
+
+  address_py:
+    canonical: null
+    proposed_canonical: address_geocoded
+    confidence: high
+    transform: "strip"
+    flags: [derived]
+    notes: "Reverse-geocoded formatted address from (LATITUDE, LONGITUDE). The only independent locational evidence in the file; keep it, it is what validates the coordinates. 333 rows contain non-Latin script from OSM local-name tags."
+
+  "Hospital Name":
+    canonical: null
+    disposition: drop
+    reason: "Exact copy of MASTER_FACILITY_DESC on 13699/13700 rows (only Sr. No. 8 differs: 'phcbededhospital' vs 'phc beded hospital'). Not geocoder output despite sitting inside the geocoder block."
+
+  "Street/Locality":
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to ADDRESS on 13700/13700 rows."
+
+  Habitation:
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to HABITATION_NAME on 13700/13700 rows."
+
+  Block:
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to BLOCK_NAME on 13700/13700 rows."
+
+  "City/District":
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to DISTRICT_NAME on 13700/13700 rows. Column name is misleading - it holds a district, never a city."
+
+  State:
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to STATE_NAME on 13700/13700 rows."
+
+  Country:
+    canonical: country
+    confidence: high
+    transform: "const 'India'"
+    flags: [constant]
+
+  Pincode:
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to Postcode_py on 13700/13700 rows. Keep Postcode_py as the single pincode source."
+
+  "Formatted Address":
+    canonical: null
+    disposition: drop
+    flags: [derived]
+    reason: >-
+      Deterministic concatenation, reproduced byte-exactly on 13700/13700 rows by
+      join(', ', [Hospital Name, Street/Locality, Habitation, Block (omitted when
+      lower(Block)==lower(Habitation)), City/District, State, Country, Pincode]).
+      Adds no information and propagates the same embedded newlines and NBSPs.
+
+proposed_new_fields:
+  - name: habitation_code
+    for_column: HAB_CODE
+    reason: >-
+      The vocabulary has state_lgd_code and district_lgd_code but nothing below district. PMGSY keys
+      facilities to habitations via a numeric OMMAS habitation code; forcing it into
+      source_facility_id would be wrong (it is not unique per facility - 1016 codes carry up to 48
+      rows) and forcing it into village_lgd_code would be wrong (a habitation is finer than a
+      revenue village and the code space is OMMAS's, not LGD's).
+  - name: address_geocoded
+    for_column: address_py
+    reason: >-
+      address_raw is already taken by the human-entered ADDRESS. address_py is a machine-produced
+      reverse geocode of the coordinate and must stay distinguishable, because its provenance
+      (derived from lat/lon) makes it useless as independent evidence FOR the lat/lon, but very
+      useful as evidence about the surrounding admin geography.
+  - name: pincode_confidence
+    for_column: Postcode_py
+    reason: >-
+      The pincode is 100% populated but only 82.51% of it is corroborated by the geocoder's own
+      address string. Downstream needs to know which 17.49% is a fallback guess; without this flag a
+      pincode-based blocking key will silently mis-block ~443 rows.
+  - name: source_row_ordinal
+    for_column: "Sr. No. "
+    reason: "Needed to reconstruct the surrogate key and to point back at a row in the original CSV in issue reports; it is not a source_facility_id."
+
+unmapped_columns: []
+
+entity_resolution:
+  blocking_key: "normalize_lgd(state_raw) + normalize_lgd(district_raw) + round(latitude,3) + round(longitude,3)"
+  blocking_key_viable: true
+  scorer_fields: [facility_name_raw, latitude, longitude, pincode, block_raw, village_raw]
+  do_not_block_on:
+    - facility_name_raw   # 29.53% of rows are a bare type word ('CHC', 'Dispensary')
+    - address_raw         # 60.9% are <=12 chars, 39.1% restate the habitation
+    - pincode             # 17.49% uncorroborated
+  unmatchable_row_pct_by_name: 29.53
+  unmatchable_row_pct_by_geo: 0.0

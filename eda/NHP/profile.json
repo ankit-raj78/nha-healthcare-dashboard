@@ -1,0 +1,855 @@
+{
+  "dataset_key": "NHP",
+  "source_file": "8_JULY_23_SRK_NHP_validated_and_standardized.csv",
+  "read_kwargs": {
+    "encoding": "utf-8-sig",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [
+      ""
+    ],
+    "post_read": [
+      "df = df.rename(columns={'S.\\n  No.': 'S. No.'})",
+      "df = df.drop(columns=[c for c in df.columns if c.startswith('Unnamed:')])",
+      "df = df.dropna(how='all').reset_index(drop=True)   # removes 351 trailing blank rows",
+      "for c in TEXT_COLS: df[c] = df[c].str.replace(r'\\s+', ' ', regex=True).str.strip()"
+    ],
+    "note": "Default pd.read_csv() already parses the embedded newlines correctly (quoting is well-formed). No engine='python', sep or quoting overrides needed. The only things naive reads get wrong are: keeping 351 blank rows, keeping 10 empty Unnamed columns, and the literal newline inside the first column name."
+  },
+  "n_rows": 648,
+  "n_cols": 19,
+  "n_cols_raw": 29,
+  "n_logical_csv_records": 999,
+  "n_blank_trailing_records": 351,
+  "raw_line_count": 1350,
+  "row_count_explanation": "`wc -l` reports 1350 because it counts LF bytes. The file uses CRLF as the record separator (1000 CRLF pairs = 1 header + 999 data records) and additionally contains 350 bare LF characters inside quoted fields (1 in the header cell 'S.\\n  No.', 349 in data cells). Accounting: header 1 record = 2 physical lines; 648 populated data records = 997 physical lines; 351 trailing all-blank records = 351 physical lines. Total 2 + 997 + 351 = 1350, which equals wc -l = 1350. Of the 999 CSV records, 351 are entirely empty ',,,,...' rows at the end of the file (records 649..999, contiguous), an Excel export artifact. True data row count is 648.",
+  "encoding_notes": {
+    "bom": "UTF-8 BOM (EF BB BF) present at byte 0; must read with encoding='utf-8-sig' or the first column name becomes '\\ufeffS.\\n  No.'.",
+    "line_terminator": "CRLF for records, bare LF for in-field soft wraps.",
+    "header_anomaly": "Column 0 is literally 'S.\\n  No.' -- a newline and two spaces inside the header cell.",
+    "nbsp_or_zero_width": "none found (0 cells contain NBSP, zero-width space, or tab)"
+  },
+  "whitespace_artifact": {
+    "pattern": "LF followed by exactly two spaces ('\\n  ')",
+    "occurrences_in_file": 350,
+    "runs_of_2plus_spaces_not_preceded_by_newline": 0,
+    "rows_affected": 188,
+    "rows_affected_pct": 29.01,
+    "by_column": {
+      "Hospital Name": 73,
+      "Given Address": 188,
+      "Standardized Address": 78,
+      "City": 7
+    },
+    "normalization_rule": "re.sub(r'\\s+', ' ', value).strip()",
+    "rule_is_lossless": "Every run of 2+ spaces in the file is immediately preceded by a newline (verified: 0 counterexamples), so collapsing all whitespace runs to a single space cannot merge two genuinely-separate tokens. Applying the rule reduces distinct Hospital Name values from 527 to 526 (one pair differed only by the artifact); casefolding after it changes nothing further.",
+    "changed_by_rule": {
+      "Hospital Name": 73,
+      "Given Address": 188,
+      "Standardized Address": 78,
+      "City": 7,
+      "State": 0,
+      "Country": 0,
+      "Type": 0,
+      "Source Sheet Name": 0,
+      "address_py": 0
+    }
+  },
+  "columns": [
+    {
+      "name": "S.\n  No.",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 648,
+      "examples": [
+        "1",
+        "2",
+        "3"
+      ],
+      "value_counts": {},
+      "semantic_role": "source_facility_id",
+      "flags": [
+        "row_number",
+        "positional_only"
+      ],
+      "notes": "Excel serial 1..648, contiguous, unique and complete. Not a stable external identifier; usable only as a within-snapshot surrogate key.",
+      "numeric": {
+        "parseable": 648,
+        "unparseable": 0,
+        "min": 1.0,
+        "max": 648.0,
+        "mean": 324.5,
+        "p25": 162.75,
+        "p50": 324.5,
+        "p75": 486.25,
+        "p95": 615.65,
+        "zeros": 0
+      }
+    },
+    {
+      "name": "Hospital Name",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 527,
+      "examples": [
+        "Andaman & Nicobar Islands Institute of Medical\n  Sciences",
+        "ACSR Government Medical College",
+        "All India Institute of Medical Sciences, Mangalagiri"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [],
+      "notes": "Names of medical colleges/institutes. 73/648 carry an embedded newline+2spaces soft-wrap artifact; 68 show truncation or abbreviation ('Colleg', 'Instt.', trailing comma). 114 rows (17.59%) carry a fully generic name.",
+      "text_length": {
+        "min": 3,
+        "p25": 26,
+        "p50": 37,
+        "p75": 49,
+        "p95": 64,
+        "max": 148
+      },
+      "rows_with_embedded_newline": 73
+    },
+    {
+      "name": "Latitude",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 643,
+      "examples": [
+        "11.67276",
+        "14.4226",
+        "16.44456"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "All 648 numeric, all inside India bbox. 3-6 decimal places. 7 rows share coordinates with another row (city/state-centroid fallback suspected).",
+      "numeric": {
+        "parseable": 648,
+        "unparseable": 0,
+        "min": 8.174342,
+        "max": 34.13615,
+        "mean": 20.3254,
+        "p25": 14.373222499999999,
+        "p50": 21.030965000000002,
+        "p75": 25.747475,
+        "p95": 30.2497665,
+        "zeros": 0
+      }
+    },
+    {
+      "name": "Longitude",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 644,
+      "examples": [
+        "92.74607",
+        "79.9612",
+        "80.58478"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "Same as Latitude.",
+      "numeric": {
+        "parseable": 648,
+        "unparseable": 0,
+        "min": 69.62931,
+        "max": 94.94054,
+        "mean": 78.9333,
+        "p25": 75.9088275,
+        "p50": 78.02260000000001,
+        "p75": 80.31946,
+        "p95": 88.3550375,
+        "zeros": 0
+      }
+    },
+    {
+      "name": "Given Address",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 648,
+      "examples": [
+        "Andaman & Nicobar Islands Institute of Medical\n  Sciences, Port Blair Andaman & Nicobar Islands",
+        "ACSR Government Medical College Nellore Andhra Pradesh",
+        "All India Institute of Medical Sciences, Mangalagiri, Vijayawada Andhra Pradesh"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [
+        "derived",
+        "redundant_with:Hospital Name+City+State"
+      ],
+      "notes": "Not an independent address. 509/648 exactly equal '<Hospital Name>, <City> <State>'; 631/648 contain City; 648/648 end with State; only 27 rows contain any token not already present in name+city+state. No pincode, no street.",
+      "text_length": {
+        "min": 17,
+        "p25": 48,
+        "p50": 58,
+        "p75": 69,
+        "p95": 88,
+        "max": 170
+      },
+      "rows_with_embedded_newline": 188
+    },
+    {
+      "name": "Standardized Address",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 648,
+      "examples": [
+        "Andaman & Nicobar Islands Institute of Medical\n  Sciences, Port Blair, Andaman & Nicobar Islands, India, 744101.",
+        "ACSR Government Medical College, Nellore, Andhra Pradesh, India, 524004.",
+        "All India Institute of Medical Sciences, Mangalagiri, Vijayawada, Andhra Pradesh, India, 522503."
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [
+        "derived",
+        "redundant_with:Hospital Name+City+State+Country+Postcode"
+      ],
+      "notes": "100% mechanically reconstructable as '<Hospital Name>, <City>, <State>, India, <Postcode>.' (648/648 exact match). Carries zero information beyond its component columns. Display string only.",
+      "text_length": {
+        "min": 34,
+        "p25": 65,
+        "p50": 76,
+        "p75": 87,
+        "p95": 105,
+        "max": 186
+      },
+      "rows_with_embedded_newline": 78
+    },
+    {
+      "name": "City",
+      "dtype": "object(str)",
+      "non_null": 647,
+      "non_null_all_999_records": 647,
+      "null_pct": 0.15,
+      "n_distinct": 429,
+      "examples": [
+        "Port Blair",
+        "Nellore",
+        "Vijayawada"
+      ],
+      "value_counts": {},
+      "semantic_role": "city",
+      "flags": [],
+      "notes": "429 distinct. Free-text city/town, NOT an LGD district. 1 null, 7 values carry the newline artifact. Only proxy available for district-level blocking.",
+      "text_length": {
+        "min": 2,
+        "p25": 6,
+        "p50": 8,
+        "p75": 9,
+        "p95": 13,
+        "max": 59
+      },
+      "rows_with_embedded_newline": 7
+    },
+    {
+      "name": "State",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 33,
+      "examples": [
+        "Andaman & Nicobar Islands",
+        "Andhra Pradesh",
+        "Arunachal Pradesh"
+      ],
+      "value_counts": {
+        "Tamil Nadu": 71,
+        "Utttar Pradesh": 67,
+        "Karnataka": 67,
+        "Maharashtra": 63,
+        "Telangana": 41,
+        "Gujarat": 36,
+        "Kerala": 32,
+        "Andhra Pradesh": 32,
+        "West Bengal": 32,
+        "Rajasthan": 30,
+        "Madhya Pradesh": 25,
+        "Bihar": 20,
+        "Odisha": 15,
+        "Chattisgarh": 14,
+        "Haryana": 13,
+        "Punjab": 12,
+        "Assam": 10,
+        "Delhi": 10,
+        "Jammu & Kashmir": 10,
+        "Jharkhand": 9,
+        "Puducherry": 9,
+        "Uttarakhand": 8,
+        "Himachal Pradesh": 8,
+        "Manipur": 4,
+        "Tripura": 2,
+        "Arunachal Pradesh": 1,
+        "Goa": 1,
+        "Mizoram": 1,
+        "Sikkim": 1,
+        "Meghalaya": 1,
+        "Chandigarh": 1,
+        "Dadra and Nagar Haveli": 1,
+        "Andaman & Nicobar Islands": 1
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": "33 distinct, clean of whitespace artifacts, but contains misspellings: 'Utttar Pradesh' (67 rows), 'Chattisgarh' (14). Needs LGD normalization."
+    },
+    {
+      "name": "Country",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "India"
+      ],
+      "value_counts": {
+        "India": 648
+      },
+      "semantic_role": "country",
+      "flags": [
+        "constant"
+      ],
+      "notes": "Constant 'India' on all 648 rows."
+    },
+    {
+      "name": "Postcode",
+      "dtype": "object(str)",
+      "non_null": 646,
+      "non_null_all_999_records": 646,
+      "null_pct": 0.31,
+      "n_distinct": 602,
+      "examples": [
+        "744101",
+        "524004",
+        "522503"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode",
+      "flags": [],
+      "notes": "646/648 non-null; 645 are clean 6-digit; 1 is '380 006' (embedded space); 2 null."
+    },
+    {
+      "name": "Type",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 5,
+      "examples": [
+        "Govt.",
+        "Private",
+        "Society"
+      ],
+      "value_counts": {
+        "Govt.": 337,
+        "Trust": 204,
+        "Private": 69,
+        "Society": 29,
+        "Govt-Society": 9
+      },
+      "semantic_role": "facility_ownership_raw",
+      "flags": [],
+      "notes": "5-value ownership enum. Trailing period on 'Govt.' only."
+    },
+    {
+      "name": "Admission Intake",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 21,
+      "examples": [
+        "114",
+        "175",
+        "125"
+      ],
+      "value_counts": {
+        "150": 259,
+        "100": 146,
+        "250": 77,
+        "200": 60,
+        "125": 35,
+        "120": 22,
+        "175": 11,
+        "180": 9,
+        "50": 8,
+        "0": 5,
+        "110": 3,
+        "240": 2,
+        "60": 2,
+        "170": 2,
+        "245": 1,
+        "225": 1,
+        "114": 1,
+        "62": 1,
+        "132": 1,
+        "177": 1,
+        "128": 1
+      },
+      "semantic_role": "admission_intake",
+      "flags": [],
+      "notes": "Annual MBBS seat intake. 100% fill on real rows, 100% integer-parseable, no thousands separators. 5 rows are 0 (missing encoded as zero).",
+      "numeric": {
+        "parseable": 648,
+        "unparseable": 0,
+        "min": 0.0,
+        "max": 250.0,
+        "mean": 151.2546,
+        "p25": 107.5,
+        "p50": 150.0,
+        "p75": 171.25,
+        "p95": 250.0,
+        "zeros": 5
+      }
+    },
+    {
+      "name": "No. of beds in attached Hospital",
+      "dtype": "object(str)",
+      "non_null": 468,
+      "non_null_all_999_records": 468,
+      "null_pct": 27.78,
+      "n_distinct": 232,
+      "examples": [
+        "545",
+        "750",
+        "960"
+      ],
+      "value_counts": {},
+      "semantic_role": "bed_count",
+      "flags": [],
+      "notes": "72.22% fill. 466/468 parse as integers; 2 are free text ('500 + 50 (floating)', 'Na'). 2 rows are 0.",
+      "numeric": {
+        "parseable": 466,
+        "unparseable": 2,
+        "min": 0.0,
+        "max": 5702.0,
+        "mean": 902.3047,
+        "p25": 545.0,
+        "p50": 750.0,
+        "p75": 1127.5,
+        "p95": 2036.0,
+        "zeros": 2
+      }
+    },
+    {
+      "name": "Accrediation",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Header misspelled ('Accrediation'). 100% empty across all 999 CSV records. Intended canonical target would be `accreditation`."
+    },
+    {
+      "name": "Domains",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "100% empty. Meaning undetermined -- see questions.md."
+    },
+    {
+      "name": "Contact",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant",
+        "would_be_pii"
+      ],
+      "notes": "100% empty. Would have been phone/contact PII if populated; no PII is actually present in this file."
+    },
+    {
+      "name": "Source Sheet Name",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "NHP_Medical_Colleges"
+      ],
+      "value_counts": {
+        "NHP_Medical_Colleges": 648
+      },
+      "semantic_role": "source_sheet_name",
+      "flags": [
+        "constant"
+      ],
+      "notes": "Constant 'NHP_Medical_Colleges' on all 648 rows. Confirms this extract is a single source sheet of NHP medical colleges."
+    },
+    {
+      "name": "Postcode_py",
+      "dtype": "object(str)",
+      "non_null": 646,
+      "non_null_all_999_records": 646,
+      "null_pct": 0.31,
+      "n_distinct": 602,
+      "examples": [
+        "744101",
+        "524004",
+        "522503"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode",
+      "flags": [
+        "redundant_with:Postcode",
+        "derived"
+      ],
+      "notes": "Byte-identical to Postcode on 648/648 rows including the two nulls and the malformed '380 006'. Drop."
+    },
+    {
+      "name": "address_py",
+      "dtype": "object(str)",
+      "non_null": 648,
+      "non_null_all_999_records": 648,
+      "null_pct": 0.0,
+      "n_distinct": 644,
+      "examples": [
+        "GB Pant Road, 744101, Port Blair, Andaman and Nicobar Islands, India",
+        "Raja Rajeshwari Temple, GNT Rd, 524004, GNT Rd, Nellore, Andhra Pradesh, India",
+        "Mid Valley City, Adj to APSP 6th Battalion, 522 503, Adj to APSP 6th Battalion, Amaravati Capital City, Andhra Pradesh, India"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [
+        "derived",
+        "reverse_geocoded"
+      ],
+      "notes": "Reverse-geocoded from Latitude/Longitude by a prior Python step. Only column with street-level detail, but unreliable as a facility address: 241/648 (37.2%) share zero 4+char tokens with the facility name, 117 mention 'Blood Bank', and 4 pairs of distinct facilities share an identical value.",
+      "text_length": {
+        "min": 13,
+        "p25": 60,
+        "p50": 90,
+        "p75": 113,
+        "p95": 153,
+        "max": 255
+      },
+      "rows_with_embedded_newline": 0
+    },
+    {
+      "name": "Unnamed: 19",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 20",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 21",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 22",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 23",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 24",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 25",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 26",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 27",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    },
+    {
+      "name": "Unnamed: 28",
+      "dtype": "object(str)",
+      "non_null": 0,
+      "non_null_all_999_records": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "empty",
+        "constant"
+      ],
+      "notes": "Trailing all-empty column produced by an Excel export with 29 comma positions. 0 non-null across all 999 CSV records."
+    }
+  ],
+  "duplicates": {
+    "exact": 0,
+    "exact_excluding_row_number": 0,
+    "near_dupe_name_geo": 0,
+    "dupe_normalized_name": 122,
+    "distinct_normalized_names": 526,
+    "names_occurring_more_than_once": 18,
+    "dupe_name_plus_state": 82,
+    "rows_sharing_exact_coordinates_with_another_row": 7,
+    "rows_sharing_exact_address_py_with_another_row": 8,
+    "method": "exact = pandas .duplicated() over all 19 real columns after whitespace normalization; near_dupe_name_geo = duplicated on (casefolded whitespace-normalized Hospital Name, lat rounded 2dp, lon rounded 2dp)"
+  },
+  "geo_quality": {
+    "denominator": 648,
+    "valid_in_india": 648,
+    "null": 0,
+    "zero": 0,
+    "out_of_bbox": 0,
+    "possibly_swapped": 0,
+    "lat_range": [
+      8.174342,
+      34.13615
+    ],
+    "lon_range": [
+      69.62931,
+      94.94054
+    ],
+    "decimal_places_distribution": {
+      "5": 573,
+      "4": 43,
+      "3": 8,
+      "6": 24
+    },
+    "distinct_coordinate_pairs": 644,
+    "rows_on_a_shared_coordinate": 7,
+    "shared_coordinates": {
+      "12.98323,77.60422": 2,
+      "13.08268,80.27072": 2,
+      "11.12712,78.65689": 3
+    },
+    "note": "Geo is the strongest field in this dataset: 648/648 present, numeric, and inside the India bbox, none zero, none swapped. The only defect is 7 rows on 3 shared coordinate pairs, at least one of which (11.12712, 78.65689) is the widely-published centroid of Tamil Nadu, indicating a geocoder falling back to state/city centroid. All 351 blank records have no geo, so geo coverage is 648/999 = 64.86% if the blank rows are counted."
+  },
+  "candidate_primary_key": {
+    "column": "S. No.",
+    "is_unique": true,
+    "is_complete": true,
+    "is_contiguous_1_to_N": true,
+    "caveat": "Positional row number, not a stable external ID. It will not survive a re-export of the source sheet. Recommend minting a surrogate key 'NHP:' || `S. No.` for provenance only.",
+    "other_unique_complete_columns": [
+      "Given Address",
+      "Standardized Address"
+    ],
+    "note": "Given Address and Standardized Address are also unique+complete but both are derived concatenations of name/city/state/pincode, so their uniqueness is an accident of the name+city combination, not an identifier."
+  },
+  "coded_vocabularies": {
+    "Type": [
+      "Govt-Society",
+      "Govt.",
+      "Private",
+      "Society",
+      "Trust"
+    ],
+    "Source Sheet Name": [
+      "NHP_Medical_Colleges"
+    ],
+    "State": [
+      "Andaman & Nicobar Islands",
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chandigarh",
+      "Chattisgarh",
+      "Dadra and Nagar Haveli",
+      "Delhi",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Odisha",
+      "Puducherry",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telangana",
+      "Tripura",
+      "Uttarakhand",
+      "Utttar Pradesh",
+      "West Bengal"
+    ],
+    "note": "No opaque codes (no M1_emp/S3_upg/FAC_CATEGO-style columns). `Type` is a 5-value plain-language ownership enum and needs no external codebook, only a mapping to canonical ownership values. No LGD state/district codes are present anywhere in the file."
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_geo_pct": 100.0,
+    "has_district": false,
+    "has_city_pct": 99.85,
+    "has_state_pct": 100.0,
+    "has_pincode_pct": 99.69,
+    "unmatchable_row_pct": 0.0,
+    "blocking_key_viable": true,
+    "generic_name_row_pct": 17.59,
+    "note": "Every row has name + lat/lon + state + pincode and 647/648 have a city, so 0% of rows are strictly unmatchable and (name, geo) or (name, state, pincode) blocking is viable. There is NO district column -- City is a town name, not an LGD district, so a (name, district) blocking key requires an external city->district lookup. The real ER risk is not missing data but name ambiguity: 114 rows (17.59%) carry a name like 'Government Medical College' that is only disambiguated by geo/city."
+  },
+  "facility_type_finding": {
+    "claim": "This dataset is medical colleges, not general hospitals.",
+    "evidence": {
+      "Source Sheet Name is constant 'NHP_Medical_Colleges'": 648,
+      "names containing 'college'": 454,
+      "names containing 'medical college'": 441,
+      "names containing 'institut'": 170,
+      "names containing 'academy'/'university'/'school of medic'": 16,
+      "names matching NONE of college/institute/academy/university/school/AIIMS/ESIC": 28,
+      "rows with a non-null Admission Intake (MBBS seat count)": 648,
+      "Admission Intake values that are multiples of 50": 555
+    },
+    "conclusion": "facility_type_raw is not a column; it must be injected as the constant 'MEDICAL_COLLEGE' for all 648 rows. The 28 names that match no institution keyword are abbreviated/truncated forms ('GMC', 'Fathima Instt. of Medical Sciences', 'Dr. Vasantrao Pawar Med. Col. Hosp. & Research Centr'), not a different facility class -- every one still carries an Admission Intake, which only a teaching institution has."
+  }
+}

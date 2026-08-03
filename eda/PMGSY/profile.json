@@ -1,0 +1,822 @@
+{
+  "dataset_key": "PMGSY",
+  "source_file": "21_JULY_23_SRK_PMGSY_validated_homogenized.csv",
+  "read_kwargs": {
+    "encoding": "utf-8-sig",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [
+      ""
+    ],
+    "sep": ",",
+    "quotechar": "\"",
+    "engine": "c"
+  },
+  "post_read_steps": [
+    "df = df.dropna(how='all')  # removes 2 trailing all-empty records (physical lines 14899-14900, literally ',,,,,,,,,,,,,,,,,,,,,,,')",
+    "reset_index(drop=True)",
+    "NOTE: do NOT strip the header -- the first column name is literally 'Sr. No. ' with a trailing space, and the file starts with a UTF-8 BOM (EF BB BF) which encoding='utf-8-sig' removes."
+  ],
+  "n_rows": 13700,
+  "n_cols": 24,
+  "raw_line_count": 14900,
+  "row_count_explanation": "wc -l = 14900. The csv module yields 13703 logical records = 1 header + 13700 data rows + 2 trailing all-empty records. The 1197 extra physical lines are exactly the 1197 newline characters embedded inside quoted fields (322 rows carry a newline inside ADDRESS / Street/Locality / Formatted Address, e.g. Sr. No. 56 ADDRESS = 'Govt Hospital\\nPunganur'). 13703 + 1197 = 14900. True logical row count is 13700.",
+  "columns": [
+    {
+      "name": "Sr. No. ",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 13700,
+      "examples": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "row_number",
+        "unique"
+      ],
+      "notes": "1..13700 with no gaps; the file's only unique column, but it is a positional ordinal, not a stable source identifier. Header literally contains a trailing space.",
+      "text_length": {
+        "min": 1,
+        "p50": 4.0,
+        "mean": 4.19,
+        "max": 5
+      }
+    },
+    {
+      "name": "STATE_NAME",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 29,
+      "examples": [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 2718,
+        "Kerala": 1225,
+        "Maharashtra": 1161,
+        "Rajasthan": 882,
+        "Assam": 691,
+        "West Bengal": 678,
+        "Karnataka": 604,
+        "Gujarat": 476,
+        "Punjab": 476,
+        "Madhya Pradesh": 476,
+        "Odisha": 475,
+        "Bihar": 458,
+        "Tamilnadu": 457,
+        "Andhra Pradesh": 456,
+        "Haryana": 446,
+        "Jharkhand": 364,
+        "Uttarakhand": 332,
+        "Telangana": 308,
+        "Chhattisgarh": 233,
+        "Jammu And Kashmir": 230,
+        "Himachal Pradesh": 213,
+        "Arunachal Pradesh": 114,
+        "Meghalaya": 63,
+        "Manipur": 62,
+        "Tripura": 56,
+        "Ladakh": 15,
+        "Sikkim": 14,
+        "Mizoram": 9,
+        "Pondicherry": 8
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": "29 distinct. Non-LGD spellings: 'Tamilnadu' (LGD: Tamil Nadu), 'Pondicherry' (LGD: Puducherry), 'Jammu And Kashmir'. Goa, Nagaland, Delhi and all other UTs absent."
+    },
+    {
+      "name": "DISTRICT_NAME",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 663,
+      "examples": [
+        "Krishna",
+        "Y S R Kadapa",
+        "Guntur",
+        "Chittoor",
+        "Visakhapatnam"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [],
+      "notes": "663 distinct. Pre-rename / misspelled variants throughout (Jalor->Jalore, Sangali->Sangli, Gurgaon->Gurugram, Belgaum->Belagavi, G.B. Nagar->Gautam Buddha Nagar).",
+      "text_length": {
+        "min": 3,
+        "p50": 8.0,
+        "mean": 8.42,
+        "max": 25
+      }
+    },
+    {
+      "name": "BLOCK_NAME",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 4443,
+      "examples": [
+        "Chatrai",
+        "Chennur",
+        "Bellamkonda",
+        "Gudipala",
+        "Anandapuram"
+      ],
+      "value_counts": {},
+      "semantic_role": "block_raw",
+      "flags": [],
+      "notes": "4443 distinct PMGSY block names. 879 rows have BLOCK_NAME == DISTRICT_NAME.",
+      "text_length": {
+        "min": 2,
+        "p50": 8.0,
+        "mean": 8.28,
+        "max": 25
+      }
+    },
+    {
+      "name": "HABITATION_NAME",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 11607,
+      "examples": [
+        "Chatrai",
+        "Chennur",
+        "Chandrajupalem",
+        "CHAVATANTHANGAL H W",
+        "Chandaka"
+      ],
+      "value_counts": {},
+      "semantic_role": "village_raw",
+      "flags": [],
+      "notes": "11607 distinct. PMGSY habitation, finer than a revenue village. 1465 rows (10.69%) have HABITATION_NAME == BLOCK_NAME (block-HQ habitations). 7 values carry a leading U+00A0.",
+      "text_length": {
+        "min": 1,
+        "p50": 9.0,
+        "mean": 9.76,
+        "max": 49
+      }
+    },
+    {
+      "name": "HAB_CODE",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 12092,
+      "examples": [
+        "209083",
+        "214338",
+        "203720",
+        "211799",
+        "200826"
+      ],
+      "value_counts": {},
+      "semantic_role": "proposed:habitation_code",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "PMGSY/OMMAS habitation code, all numeric, 3-7 digits, range 349..1429221. NOT unique: 12092 distinct over 13700 rows; 1016 codes carry 2..48 rows. Never spans more than one state/district/habitation name, so it identifies the HABITATION, not the facility.",
+      "numeric_summary": {
+        "min": 349.0,
+        "max": 1429221.0,
+        "n_codes_with_multiple_rows": 1016,
+        "max_rows_per_code": 48
+      },
+      "text_length": {
+        "min": 3,
+        "p50": 6.0,
+        "mean": 6.19,
+        "max": 7
+      }
+    },
+    {
+      "name": "MASTER_FACILITY_DESC",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 8851,
+      "examples": [
+        "bedded hospital",
+        "Community Health Centre",
+        "beded hospital",
+        "hospital bedded",
+        "hospital"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [],
+      "notes": "Free-text facility name entered by field staff. 8851 raw / 8172 normalised distinct. 4046 rows (29.53%) are nothing but a generic facility-type word (24-token generic list in scripts/05_deep.py; a wider variant list gives 4098 / 29.91%). 5723 rows (41.77%) have <=2 tokens.",
+      "text_length": {
+        "min": 2,
+        "p50": 20.0,
+        "mean": 20.26,
+        "max": 90
+      }
+    },
+    {
+      "name": "ADDRESS",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 12346,
+      "examples": [
+        "chatrai",
+        "Dr no 14/365,KOR  colony, chennur",
+        "chandrajupalem",
+        "chittoor district",
+        "main Road side"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [],
+      "notes": "Very thin: 60.90% are <=12 chars, 39.14% are byte-identical to HABITATION_NAME, only 224 rows contain a digit. 322 rows contain a literal newline.",
+      "text_length": {
+        "min": 2,
+        "p50": 10.0,
+        "mean": 14.28,
+        "max": 127
+      }
+    },
+    {
+      "name": "FILE_UPLOAD_DATE",
+      "dtype": "string",
+      "non_null": 13637,
+      "null_pct": 0.4599,
+      "n_distinct": 633,
+      "examples": [
+        "03-Sep-19",
+        "04-Sep-19",
+        "13-Aug-19",
+        "04-Aug-19",
+        "28-Aug-19"
+      ],
+      "value_counts": {},
+      "semantic_role": "source_snapshot_date",
+      "flags": [],
+      "notes": "%d-%b-%y. Parses 13637/13700; 63 nulls, all Tamil Nadu. Range 2019-01-09 .. 2022-11-26; 72.83% of rows (9978) are Aug-Dec 2019.",
+      "date_summary": {
+        "format": "%d-%b-%y",
+        "parsed": 13637,
+        "unparsed_non_null": 0,
+        "min": "2019-01-09",
+        "max": "2022-11-26",
+        "by_year": {
+          "2019": 10006,
+          "2020": 3126,
+          "2021": 504,
+          "2022": 1
+        }
+      },
+      "text_length": {
+        "min": 9,
+        "p50": 9.0,
+        "mean": 9.0,
+        "max": 9
+      }
+    },
+    {
+      "name": "MASTER_FACILITY_CATEGORY_NAME",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "Medical"
+      ],
+      "value_counts": {
+        "Medical": 13700
+      },
+      "semantic_role": "facility_category_raw",
+      "flags": [
+        "constant"
+      ],
+      "notes": "Constant 'Medical' for all 13700 rows. In the wider PMGSY facility master this column also takes Education/Transport/etc values; this extract has already been filtered to Medical, so no schools/roads are present as a CATEGORY -- but see issues.md, a handful of non-health rows survive in the free-text name."
+    },
+    {
+      "name": "SUB_CATEGORY",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "Bedded Hospital",
+        "Community Health Centre"
+      ],
+      "value_counts": {
+        "Bedded Hospital": 7307,
+        "Community Health Centre": 6393
+      },
+      "semantic_role": "facility_type_raw",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "Only 2 values. This is PMGSY's own coarse label and it frequently disagrees with the facility name: 2546 of 6393 'Community Health Centre' rows have no CHC/community-health token in the name, and 89 of them are literally named 'hospital'."
+    },
+    {
+      "name": "LATITUDE",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 13669,
+      "examples": [
+        "16.99992649",
+        "14.55763912",
+        "16.52947574",
+        "13.13154818",
+        "17.92266521"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "Field-collected point, 8 decimal places on 81.3% of rows. 100% inside India's bbox, no zeros, no nulls.",
+      "numeric_summary": {
+        "count": 13700.0,
+        "mean": 22.604937,
+        "std": 6.382687,
+        "min": 8.119397,
+        "1%": 8.674742,
+        "25%": 18.399256,
+        "50%": 24.705099,
+        "75%": 27.084168,
+        "99%": 33.678298,
+        "max": 34.664816
+      },
+      "text_length": {
+        "min": 5,
+        "p50": 11.0,
+        "mean": 10.68,
+        "max": 11
+      }
+    },
+    {
+      "name": "LONGITUDE",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 13668,
+      "examples": [
+        "80.86482122",
+        "78.79598499",
+        "80.00726098",
+        "79.11406796",
+        "83.36154449"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "See LATITUDE.",
+      "numeric_summary": {
+        "count": 13700.0,
+        "mean": 80.10217,
+        "std": 5.562675,
+        "min": 68.712492,
+        "1%": 71.664984,
+        "25%": 76.052455,
+        "50%": 78.622225,
+        "75%": 83.213959,
+        "99%": 95.310967,
+        "max": 96.799548
+      },
+      "text_length": {
+        "min": 6,
+        "p50": 11.0,
+        "mean": 10.7,
+        "max": 11
+      }
+    },
+    {
+      "name": "Postcode_py",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 7251,
+      "examples": [
+        "521214",
+        "516162",
+        "522411",
+        "517132",
+        "515301"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode",
+      "flags": [
+        "derived"
+      ],
+      "notes": "Reverse-geocoder output (the _py suffix marks a Python geocoding pass). Byte-identical to 'Pincode' on 13700/13700 rows. Trustworthy only on the 11304 rows where address_py also echoes the same 6-digit token.",
+      "text_length": {
+        "min": 6,
+        "p50": 6.0,
+        "mean": 6.0,
+        "max": 6
+      }
+    },
+    {
+      "name": "address_py",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 11306,
+      "examples": [
+        "Burugagudem, Chatrai, Eluru District, Andhra Pradesh, 521214, India",
+        "Chennur, YSR District, Andhra Pradesh, 516162, India",
+        "Rajupalem - Amaravathi Road, Avuluvdripalem, Krosuru, Palnadu District, Andhra Pradesh, 522411, India",
+        "NH40, Gopalapuram, Chittoor, Chittoor District, Andhra Pradesh, 517132, India",
+        "Anadapuram Road, Podugupalem, Chandaka, Anandapuram, Visakhapatnam District, Andhra Pradesh, India"
+      ],
+      "value_counts": {},
+      "semantic_role": "proposed:address_geocoded",
+      "flags": [
+        "derived"
+      ],
+      "notes": "Reverse-geocoded formatted address from (LATITUDE, LONGITUDE). 13699/13700 end in 'India'. 333 rows contain Devanagari/Chinese/Urdu script from OSM local-language name tags. This is the ONLY independent evidence about location in the file.",
+      "text_length": {
+        "min": 5,
+        "p50": 70.0,
+        "mean": 76.58,
+        "max": 199
+      }
+    },
+    {
+      "name": "Hospital Name",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 8851,
+      "examples": [
+        "bedded hospital",
+        "Community Health Centre",
+        "beded hospital",
+        "hospital bedded",
+        "hospital"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [
+        "redundant_with:MASTER_FACILITY_DESC"
+      ],
+      "notes": "Copy of MASTER_FACILITY_DESC, identical on 13699/13700 rows (sole exception Sr. No. 8). Not geocoder output. Drop.",
+      "text_length": {
+        "min": 2,
+        "p50": 20.0,
+        "mean": 20.26,
+        "max": 90
+      }
+    },
+    {
+      "name": "Street/Locality",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 12346,
+      "examples": [
+        "chatrai",
+        "Dr no 14/365,KOR  colony, chennur",
+        "chandrajupalem",
+        "chittoor district",
+        "main Road side"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [
+        "redundant_with:ADDRESS"
+      ],
+      "notes": "Byte-identical to ADDRESS on 13700/13700 rows. Drop.",
+      "text_length": {
+        "min": 2,
+        "p50": 10.0,
+        "mean": 14.28,
+        "max": 127
+      }
+    },
+    {
+      "name": "Habitation",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 11607,
+      "examples": [
+        "Chatrai",
+        "Chennur",
+        "Chandrajupalem",
+        "CHAVATANTHANGAL H W",
+        "Chandaka"
+      ],
+      "value_counts": {},
+      "semantic_role": "village_raw",
+      "flags": [
+        "redundant_with:HABITATION_NAME"
+      ],
+      "notes": "Byte-identical to HABITATION_NAME on 13700/13700 rows. Drop.",
+      "text_length": {
+        "min": 1,
+        "p50": 9.0,
+        "mean": 9.76,
+        "max": 49
+      }
+    },
+    {
+      "name": "Block",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 4443,
+      "examples": [
+        "Chatrai",
+        "Chennur",
+        "Bellamkonda",
+        "Gudipala",
+        "Anandapuram"
+      ],
+      "value_counts": {},
+      "semantic_role": "block_raw",
+      "flags": [
+        "redundant_with:BLOCK_NAME"
+      ],
+      "notes": "Byte-identical to BLOCK_NAME on 13700/13700 rows. Drop.",
+      "text_length": {
+        "min": 2,
+        "p50": 8.0,
+        "mean": 8.28,
+        "max": 25
+      }
+    },
+    {
+      "name": "City/District",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 663,
+      "examples": [
+        "Krishna",
+        "Y S R Kadapa",
+        "Guntur",
+        "Chittoor",
+        "Visakhapatnam"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [
+        "redundant_with:DISTRICT_NAME"
+      ],
+      "notes": "Byte-identical to DISTRICT_NAME on 13700/13700 rows. Drop.",
+      "text_length": {
+        "min": 3,
+        "p50": 8.0,
+        "mean": 8.42,
+        "max": 25
+      }
+    },
+    {
+      "name": "State",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 29,
+      "examples": [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 2718,
+        "Kerala": 1225,
+        "Maharashtra": 1161,
+        "Rajasthan": 882,
+        "Assam": 691,
+        "West Bengal": 678,
+        "Karnataka": 604,
+        "Gujarat": 476,
+        "Punjab": 476,
+        "Madhya Pradesh": 476,
+        "Odisha": 475,
+        "Bihar": 458,
+        "Tamilnadu": 457,
+        "Andhra Pradesh": 456,
+        "Haryana": 446,
+        "Jharkhand": 364,
+        "Uttarakhand": 332,
+        "Telangana": 308,
+        "Chhattisgarh": 233,
+        "Jammu And Kashmir": 230,
+        "Himachal Pradesh": 213,
+        "Arunachal Pradesh": 114,
+        "Meghalaya": 63,
+        "Manipur": 62,
+        "Tripura": 56,
+        "Ladakh": 15,
+        "Sikkim": 14,
+        "Mizoram": 9,
+        "Pondicherry": 8
+      },
+      "semantic_role": "state_raw",
+      "flags": [
+        "redundant_with:STATE_NAME"
+      ],
+      "notes": "Byte-identical to STATE_NAME on 13700/13700 rows. Drop."
+    },
+    {
+      "name": "Country",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "India"
+      ],
+      "value_counts": {
+        "India": 13700
+      },
+      "semantic_role": "country",
+      "flags": [
+        "constant"
+      ],
+      "notes": "Constant 'India'."
+    },
+    {
+      "name": "Pincode",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 7251,
+      "examples": [
+        "521214",
+        "516162",
+        "522411",
+        "517132",
+        "515301"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode",
+      "flags": [
+        "redundant_with:Postcode_py",
+        "derived"
+      ],
+      "notes": "Byte-identical to Postcode_py on 13700/13700 rows. Drop one.",
+      "text_length": {
+        "min": 6,
+        "p50": 6.0,
+        "mean": 6.0,
+        "max": 6
+      }
+    },
+    {
+      "name": "Formatted Address",
+      "dtype": "string",
+      "non_null": 13700,
+      "null_pct": 0.0,
+      "n_distinct": 13698,
+      "examples": [
+        "bedded hospital, chatrai, Chatrai, Krishna, Andhra Pradesh, India, 521214",
+        "Community Health Centre, Dr no 14/365,KOR  colony, chennur, Chennur, Y S R Kadapa, Andhra Pradesh, India, 516162",
+        "beded hospital, chandrajupalem, Chandrajupalem, Bellamkonda, Guntur, Andhra Pradesh, India, 522411",
+        "bedded hospital, chittoor district, CHAVATANTHANGAL H W, Gudipala, Chittoor, Andhra Pradesh, India, 517132",
+        "hospital bedded, main Road side, Chandaka, Anandapuram, Visakhapatnam, Andhra Pradesh, India, 515301"
+      ],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "derived"
+      ],
+      "notes": "Deterministic concatenation, reproduced exactly on 13700/13700 rows by: join(', ', [Hospital Name, Street/Locality, Habitation, Block if lower(Block)!=lower(Habitation), City/District, State, Country, Pincode]). Carries zero new information. Drop.",
+      "text_length": {
+        "min": 42,
+        "p50": 92.0,
+        "mean": 94.82,
+        "max": 225
+      }
+    }
+  ],
+  "duplicates": {
+    "exact": 0,
+    "exact_ignoring_row_ordinal": 0,
+    "near_dupe_name_geo": 131,
+    "method": "near_dupe_name_geo = count of row pairs within 150 m (haversine via cKDTree on ECEF coords) whose lowercased alphanumeric-normalised MASTER_FACILITY_DESC has difflib SequenceMatcher ratio >= 0.85. Total pairs within 150 m = 1005; >=0.70 similarity = 285. Other definitions computed: duplicated (normname, LATITUDE, LONGITUDE) = 3; duplicated (LATITUDE, LONGITUDE) = 29; duplicated (normname, latlon rounded to 3dp ~111 m) = 54; duplicated (normname, HAB_CODE) = 21; duplicated (normname, DISTRICT_NAME) = 3066 (this last one is inflated by generic names such as 'CHC' and is NOT a dedup signal).",
+    "rows_sharing_exact_latlon": 56
+  },
+  "geo_quality": {
+    "valid_in_india": 13700,
+    "null": 0,
+    "zero": 0,
+    "out_of_bbox": 0,
+    "possibly_swapped": 0,
+    "lat_min": 8.11939725,
+    "lat_max": 34.66481566,
+    "lon_min": 68.71249167,
+    "lon_max": 96.79954833,
+    "decimal_places_distribution": {
+      "3": 8,
+      "4": 52,
+      "5": 493,
+      "6": 627,
+      "7": 1049,
+      "8": 11138,
+      "9": 333
+    },
+    "note": "Best geo of any column in this file: 100% populated, 100% in-bbox, 0 zeros, 0 swaps, facility-level precision (48 distinct points inside a single HAB_CODE)."
+  },
+  "pincode_quality": {
+    "n_populated": 13700,
+    "all_six_digits": 13700,
+    "leading_zero": 0,
+    "corroborated_by_address_py": 11304,
+    "corroborated_and_agreeing": 11304,
+    "uncorroborated_fallback": 2396,
+    "fallback_failing_district_2digit_prefix_check": 443,
+    "note": "Pincode is 100% populated but only 11304 rows (82.51%) are echoed by the geocoded address_py string; on those 11304 the two agree 100%. Of the 2396 uncorroborated rows, 443 carry a pincode whose first 2 digits do not appear on any corroborated row in the same state+district (control: 11304/11304 corroborated rows pass the same test). Treat the uncorroborated 17.49% as unreliable."
+  },
+  "candidate_primary_key": {
+    "column": "Sr. No. ",
+    "is_unique": true,
+    "note": "'Sr. No. ' is unique (1..13700, no gaps) but it is a spreadsheet row ordinal, not a source system key -- it will not survive a re-extract. HAB_CODE is NOT unique (12092 distinct / 13700 rows, max 48 rows per code) because it identifies a habitation, not a facility. Recommended surrogate: 'PMGSY:' || HAB_CODE || ':' || Sr. No.  , or the composite (HAB_CODE, MASTER_FACILITY_DESC, LATITUDE, LONGITUDE) which is unique across all 13700 rows.",
+    "alternatives_tested": {
+      "HAB_CODE": {
+        "n_distinct": 12092,
+        "is_unique": false
+      },
+      "(HAB_CODE, MASTER_FACILITY_DESC, LATITUDE, LONGITUDE)": {
+        "is_unique": true
+      },
+      "(LATITUDE, LONGITUDE)": {
+        "n_distinct": 13671,
+        "is_unique": false
+      }
+    }
+  },
+  "grain": {
+    "one_row_is": "one health facility, located in one PMGSY habitation",
+    "is_link_table": false,
+    "evidence": [
+      "HAB_CODE repeats: 1016 codes carry 2..48 rows, but within a repeated code the facility NAMES are all different and the lat/lon are all different (e.g. HAB_CODE 440318 = Jagatpur, Bareilly, UP has 48 rows: 'chanderlok hospital', 'medinova hospital', 'khushlok hospital', ... each with its own coordinate). That is many facilities in one habitation, not one facility linked to many habitations.",
+      "A habitation-facility link table would repeat the same facility under different habitations. It does not: only 1 (normalised-name, lat, lon) triple appears under more than one HAB_CODE, and only 7 exact (lat, lon) pairs do.",
+      "HAB_CODE never spans more than one STATE_NAME (0 codes), DISTRICT_NAME (0 codes) or HABITATION_NAME (0 codes), confirming it is a geographic key that is 1:1 with the habitation.",
+      "(HAB_CODE, MASTER_FACILITY_DESC, LATITUDE, LONGITUDE) is unique over all 13700 rows."
+    ]
+  },
+  "coded_vocabularies": {
+    "MASTER_FACILITY_CATEGORY_NAME": [
+      "Medical"
+    ],
+    "SUB_CATEGORY": [
+      "Bedded Hospital",
+      "Community Health Centre"
+    ],
+    "Country": [
+      "India"
+    ],
+    "STATE_NAME": [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu And Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Ladakh",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Odisha",
+      "Pondicherry",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamilnadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "HAB_CODE": "12092 distinct numeric PMGSY/OMMAS habitation codes, range 349..1429221 -- open vocabulary, needs the external OMMAS/LGD habitation master to decode. Not enumerated here."
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_geo_pct": 100.0,
+    "has_district": true,
+    "has_informative_name_pct": 70.47,
+    "unmatchable_row_pct": 29.53,
+    "blocking_key_viable": true,
+    "note": "Geo is the strong signal: 100% of rows carry a usable, facility-precision coordinate, so a geo-radius block (district + 250 m) works for every row. Name is the weak signal: 4046 rows (29.53%) have a name that is only a facility-type word ('CHC', 'bedded hospital', 'Dispensary') and cannot be matched on name at all. Address adds nothing (60.9% of ADDRESS values are <=12 chars and 39.1% just restate the habitation). Pincode is usable on the 82.5% of rows the geocoder corroborates. Recommended blocking key: state_raw + district_raw normalised to LGD + lat/lon rounded to 3dp, with name similarity as the scorer, NOT as the blocker."
+  }
+}

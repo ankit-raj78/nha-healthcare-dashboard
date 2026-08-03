@@ -1,0 +1,1598 @@
+{
+  "n_rows": 323460,
+  "n_cols": 46,
+  "columns": [
+    {
+      "name": "Facility ID",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 258756,
+      "examples": [
+        "114976",
+        "1320",
+        "139",
+        "775",
+        "161",
+        "140"
+      ],
+      "top_10": {
+        "364845": 220,
+        "27626": 36,
+        "455145": 18,
+        "461045": 18,
+        "347642": 18,
+        "142920": 12,
+        "302834": 12,
+        "28962": 9,
+        "387555": 8,
+        "143324": 8
+      },
+      "str_len": {
+        "min": 3,
+        "max": 6,
+        "mean": 5.76,
+        "p50": 6,
+        "p95": 6
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 108.0,
+        "max": 588417.0,
+        "mean": 277350.716657,
+        "p01": 6550.59,
+        "p25": 109827.0,
+        "p50": 270687.5,
+        "p75": 446579.25,
+        "p99": 580469.23,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0
+    },
+    {
+      "name": "hospital_name",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323437,
+      "null_pct": 0.0071,
+      "n_distinct": 217162,
+      "examples": [
+        "APOLLO CLINIC",
+        "AYUSH HOSPITAL",
+        "BISHOP JOHN RICHARDSON HOSPITAL PERKA",
+        "COMMUNITY HEALTH CENTRE BAMBOO FLAT",
+        "COMMUNITY HEALTH CENTRE DIGLIPUR",
+        "COMMUNITY HEALTH CENTRE NANCOWRY"
+      ],
+      "sentinel_like_values": {
+        "NONE": "5",
+        "UNKNOWN": "1"
+      },
+      "top_10": {
+        "HEALTH AND WELLNESS CENTER": 262,
+        "HOSPITAL": 254,
+        "DR CHOPRAS PATH CLINIC": 220,
+        "PHARMACY": 144,
+        "CITY HOSPITAL": 138,
+        "INDIRA IVF HOSPITAL PRIVATE LIMITED": 132,
+        "SANJEEVINI CLINIC": 121,
+        "ASHWINI CLINIC": 105,
+        "PRADHAN MANTRI BHARTIYA JANAUSHADHI KENDRA": 100,
+        "SUB HEALTH CENTER": 98
+      },
+      "str_len": {
+        "min": 1,
+        "max": 138,
+        "mean": 19.85,
+        "p50": 17,
+        "p95": 41
+      },
+      "n_needs_strip": 0
+    },
+    {
+      "name": "Name verifier",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 3
+    },
+    {
+      "name": "Address",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 221620,
+      "examples": [
+        "192, Garacharma Main Road, Port Blair Port Blair South Andamans, Andaman And Nicobar Islands - 744105",
+        "Junglighat, Port Blair South Andamans, Andaman And Nicobar Islands - 744103",
+        "Car Nicobar, Nicobars, Andaman And Nicobar Islands - 744301",
+        "Baboo Flat, Ferrargunj South Andamans, Andaman And Nicobar Islands - 744103",
+        "Ramakrishnagram, Diglipur, North Andaman, North & Middle Andaman, Andaman & Nicobar Islands, North And Middle Andaman, Andaman And Nicobar Islands - 744202",
+        "Nancowry, Nancowry Nicobars, Andaman And Nicobar Islands - 744303"
+      ],
+      "top_10": {
+        "III F 8 RAKESH MARG , NEHRU NAGAR GHAZIABAD Ghaziabad Ghaziabad, Uttar Pradesh - 201001": 220,
+        "Varanasi, Varanasi Sadar Varanasi, Uttar Pradesh - 221002": 123,
+        "Etah, Jalesar Etah, Uttar Pradesh - 207302": 121,
+        "Lucknow, Sadar Lucknow, Uttar Pradesh - 226002": 119,
+        "Sambhal, Sambhal Sambhal, Uttar Pradesh - 244302": 113,
+        "Fatehpur, Fatehpur Fatehpur, Uttar Pradesh - 212601": 105,
+        "Saharanpur, Saharanpur Saharanpur, Uttar Pradesh - 247001": 98,
+        "Churu Churu, Churu Churu, Rajasthan - 331001": 91,
+        "Varanasi, Rajatalab Varanasi, Uttar Pradesh - 221311": 89,
+        "Shamli, Shamli Shamli, Uttar Pradesh - 247776": 87
+      },
+      "str_len": {
+        "min": 30,
+        "max": 276,
+        "mean": 79.39,
+        "p50": 75,
+        "p95": 129
+      },
+      "n_needs_strip": 0
+    },
+    {
+      "name": "Address verifier",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 3
+    },
+    {
+      "name": "Google Maps Link",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 212503,
+      "examples": [
+        "11.618024922619043,92.70831659192436",
+        "11.66,92.73",
+        "11.6542660000,92.7315980000",
+        "11.6541690000,92.7320330000",
+        "13.2461840000,92.9786110000",
+        "11.6539130000,92.7319780000"
+      ],
+      "top_10": {
+        "26.91785800000001,75.80129199999999": 9870,
+        "17.329660,76.833588": 1373,
+        "16.830618,75.711014": 1327,
+        "28.6472799,76.8130644": 923,
+        "15.363709,75.125626": 904,
+        "15.851129,74.498634": 835,
+        "16.429764,74.587471": 483,
+        "15.459199,75.006248": 383,
+        "16.726933,75.061058": 357,
+        "13.932195,75.569519": 330
+      },
+      "str_len": {
+        "min": 3,
+        "max": 39,
+        "mean": 26.71,
+        "p50": 26,
+        "p95": 36
+      },
+      "n_needs_strip": 6
+    },
+    {
+      "name": "Facility Type",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 37,
+      "examples": [
+        "Hospital",
+        "Ayurveda Hospital/ Nursing Home",
+        "Community Health Centre",
+        "Medical College",
+        "Primary Health Centre",
+        "Health and Wellness Centre"
+      ],
+      "value_counts": {
+        "Sub Centre": 107643,
+        "Hospital": 56799,
+        "Pharmacy": 41290,
+        "Primary Health Centre": 27760,
+        "Clinic/ Dispensary": 23819,
+        "Health and Wellness Centre": 19742,
+        "Diagnostic Laboratory": 14865,
+        "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)": 9539,
+        "Community Health Centre": 8091,
+        "Dental Clinic": 4087,
+        "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)": 3785,
+        "Medical College": 1372,
+        "Imaging Center": 1130,
+        "Ayurveda Hospital/ Nursing Home": 1057,
+        "Unani Dispensary/ Clinic/ Polyclinic (OPD only)": 696,
+        "Physiotherapy Clinic": 280,
+        "Dialysis Center": 247,
+        "Blood Bank": 207,
+        "Homeopathy Hospital/ Nursing Home": 200,
+        "Cath Laboratory": 184,
+        "Ayurveda College": 163,
+        "Dental Hospital": 139,
+        "Unani Hospital/ Nursing Home": 91,
+        "Dental College": 66,
+        "Siddha Dispensary/ Clinic/ Polyclinic (OPD only)": 53,
+        "Homeopathy College": 46,
+        "Siddha Hospital/ Nursing Home": 20,
+        "Day Care center": 19,
+        "Physiotherapy Hospital": 19,
+        "Unani College": 16,
+        "Sowa-Rigpa Dispensary/ Clinic/ Polyclinic (OPD only)": 11,
+        "Sanatorium": 7,
+        "Physiotherapy College": 7,
+        "Siddha College": 5,
+        "Sowa-Rigpa College": 3,
+        "Palliative Care": 1,
+        "Infertility Clinic": 1
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 37
+    },
+    {
+      "name": "Facility Type verifier",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 3
+    },
+    {
+      "name": "Ownership",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Private",
+        "Government",
+        "Public-Private-Partnership"
+      ],
+      "value_counts": {
+        "Government": 178537,
+        "Private": 143346,
+        "Public-Private-Partnership": 1577
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 3
+    },
+    {
+      "name": "Ownership verifier",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 3
+    },
+    {
+      "name": "ABDM Enabled",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "No",
+        "Yes"
+      ],
+      "value_counts": {
+        "No": 249220,
+        "Yes": 74240
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "Latitude",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 209952,
+      "examples": [
+        "11.618024922619044",
+        "11.66",
+        "11.654266",
+        "11.654169",
+        "13.246184",
+        "11.653913"
+      ],
+      "sentinel_like_values": {
+        "0.0": "56"
+      },
+      "top_10": {
+        "26.91785800000001": 9870,
+        "17.32966": 1345,
+        "16.830618": 1327,
+        "28.6472799": 923,
+        "15.363709": 904,
+        "15.851129": 835,
+        "16.8263": 692,
+        "16.429764": 483,
+        "15.459199": 383,
+        "16.726933": 357
+      },
+      "str_len": {
+        "min": 1,
+        "max": 21,
+        "mean": 12.75,
+        "p50": 10,
+        "p95": 18
+      },
+      "numeric": {
+        "parses_pct": 99.996,
+        "n_unparseable": 12,
+        "unparseable_examples": [
+          "\u200e24.6673639",
+          "23. 259933",
+          " \u200e26.6827052",
+          "25.44.56.410",
+          "16.5062\u00b0 N",
+          "12.83.32"
+        ],
+        "min": -77.61770960013205,
+        "max": 26213662278.12914,
+        "mean": 197276.925654,
+        "p01": 9.565937779074519,
+        "p25": 16.994725275,
+        "p50": 23.35009,
+        "p75": 26.91785800000001,
+        "p99": 33.647898455916305,
+        "n_zero": 66,
+        "n_negative": 16
+      },
+      "n_needs_strip": 11
+    },
+    {
+      "name": "Longitude",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 206851,
+      "examples": [
+        "92.70831659192436",
+        "92.73",
+        "92.731598",
+        "92.732033",
+        "92.978611",
+        "92.731978"
+      ],
+      "sentinel_like_values": {
+        "0.0": "52"
+      },
+      "top_10": {
+        "75.80129199999999": 9870,
+        "76.833588": 1373,
+        "75.711014": 1327,
+        "76.8130644": 923,
+        "75.125626": 904,
+        "74.498634": 835,
+        "74.587471": 483,
+        "75.006248": 383,
+        "75.061058": 357,
+        "75.569519": 330
+      },
+      "str_len": {
+        "min": 1,
+        "max": 19,
+        "mean": 12.85,
+        "p50": 16,
+        "p95": 17
+      },
+      "numeric": {
+        "parses_pct": 99.997,
+        "n_unparseable": 10,
+        "unparseable_examples": [
+          "76.235703.",
+          "82.41.55.32",
+          "80.6225\u00b0 E",
+          "28.73.0",
+          " "
+        ],
+        "min": -166.16204434539782,
+        "max": 26213662278.12914,
+        "mean": 198011.912197,
+        "p01": 70.45617093000004,
+        "p25": 75.669724,
+        "p50": 77.38181700000004,
+        "p75": 81.147836,
+        "p99": 93.962383,
+        "n_zero": 66,
+        "n_negative": 30
+      },
+      "n_needs_strip": 746
+    },
+    {
+      "name": "24/7",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "yes",
+        "no"
+      ],
+      "value_counts": {
+        "no": 259444,
+        "yes": 64016
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "State_name",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "Andaman and Nicobar",
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chandigarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 62801,
+        "Karnataka": 56885,
+        "Maharashtra": 26502,
+        "Rajasthan": 22276,
+        "Andhra Pradesh": 21289,
+        "Gujarat": 18644,
+        "Madhya Pradesh": 17563,
+        "Bihar": 16562,
+        "Chhattisgarh": 15812,
+        "Kerala": 10208,
+        "Assam": 8652,
+        "Haryana": 6851,
+        "Punjab": 6561,
+        "Jammu and Kashmir": 5822,
+        "Delhi": 5439,
+        "Jharkhand": 4946,
+        "Telangana": 4349,
+        "Himachal Pradesh": 3095,
+        "Tamil Nadu": 2567,
+        "Uttarakhand": 1568,
+        "Tripura": 1101,
+        "Nagaland": 620,
+        "Arunachal Pradesh": 586,
+        "Chandigarh": 574,
+        "Mizoram": 474,
+        "The Dadra and Nagar Haveli and Daman and Diu": 331,
+        "Puducherry": 297,
+        "Manipur": 274,
+        "Andaman and Nicobar": 238,
+        "Ladakh": 237,
+        "Sikkim": 173,
+        "Meghalaya": 96,
+        "Goa": 56,
+        "Odisha": 11
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 34
+    },
+    {
+      "name": "District_name",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 643,
+      "examples": [
+        "south andamans",
+        "nicobars",
+        "north and middle andaman",
+        "krishna",
+        "ananthapuramu",
+        "ntr"
+      ],
+      "top_10": {
+        "belagavi": 6493,
+        "agra": 5297,
+        "dharwad": 5080,
+        "vijayapura": 4273,
+        "jammu": 3840,
+        "mysuru": 3650,
+        "lucknow": 3612,
+        "kalaburagi": 3437,
+        "bagalkote": 3426,
+        "pune": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 29,
+        "mean": 8.11,
+        "p50": 7,
+        "p95": 15
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 643
+    },
+    {
+      "name": "new_state_name",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "Andaman And Nicobar Islands",
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chandigarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 62801,
+        "Karnataka": 56885,
+        "Maharashtra": 26502,
+        "Rajasthan": 22276,
+        "Andhra Pradesh": 21289,
+        "Gujarat": 18644,
+        "Madhya Pradesh": 17563,
+        "Bihar": 16562,
+        "Chhattisgarh": 15812,
+        "Kerala": 10208,
+        "Assam": 8652,
+        "Haryana": 6851,
+        "Punjab": 6561,
+        "Jammu And Kashmir": 5822,
+        "Delhi": 5439,
+        "Jharkhand": 4946,
+        "Telangana": 4349,
+        "Himachal Pradesh": 3095,
+        "Tamil Nadu": 2567,
+        "Uttarakhand": 1568,
+        "Tripura": 1101,
+        "Nagaland": 620,
+        "Arunachal Pradesh": 586,
+        "Chandigarh": 574,
+        "Mizoram": 474,
+        "The Dadra And Nagar Haveli And Daman And Diu": 331,
+        "Puducherry": 297,
+        "Manipur": 274,
+        "Andaman And Nicobar Islands": 238,
+        "Ladakh": 237,
+        "Sikkim": 173,
+        "Meghalaya": 96,
+        "Goa": 56,
+        "Odisha": 11
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 34
+    },
+    {
+      "name": "state_code",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "35.0",
+        "28.0",
+        "12.0",
+        "18.0",
+        "10.0",
+        "4.0"
+      ],
+      "value_counts": {
+        "9.0": 62801,
+        "29.0": 56885,
+        "27.0": 26502,
+        "8.0": 22276,
+        "28.0": 21289,
+        "24.0": 18644,
+        "23.0": 17563,
+        "10.0": 16562,
+        "22.0": 15812,
+        "32.0": 10208,
+        "18.0": 8652,
+        "6.0": 6851,
+        "3.0": 6561,
+        "1.0": 5822,
+        "7.0": 5439,
+        "20.0": 4946,
+        "36.0": 4349,
+        "2.0": 3095,
+        "33.0": 2567,
+        "5.0": 1568,
+        "16.0": 1101,
+        "13.0": 620,
+        "12.0": 586,
+        "4.0": 574,
+        "15.0": 474,
+        "38.0": 331,
+        "34.0": 297,
+        "14.0": 274,
+        "35.0": 238,
+        "37.0": 237,
+        "11.0": 173,
+        "17.0": 96,
+        "30.0": 56,
+        "21.0": 11
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 1.0,
+        "max": 38.0,
+        "mean": 18.86505,
+        "p01": 1.0,
+        "p25": 9.0,
+        "p50": 22.0,
+        "p75": 28.0,
+        "p99": 36.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 34
+    },
+    {
+      "name": "new_district_name",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 615,
+      "examples": [
+        "South Andamans",
+        "Nicobars",
+        "North And Middle Andaman",
+        "Krishna",
+        "Ananthapuramu",
+        "Ntr"
+      ],
+      "top_10": {
+        "Belagavi": 6493,
+        "Agra": 5297,
+        "Dharwad": 5080,
+        "Vijayapura": 4273,
+        "Jammu": 3840,
+        "Mysuru": 3650,
+        "Lucknow": 3612,
+        "Kalaburagi": 3437,
+        "Bagalkote": 3426,
+        "Pune": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 29,
+        "mean": 8.11,
+        "p50": 7,
+        "p95": 15
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 615
+    },
+    {
+      "name": "district_code",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 615,
+      "examples": [
+        "602.0",
+        "603.0",
+        "632.0",
+        "510.0",
+        "502.0",
+        "749.0"
+      ],
+      "top_10": {
+        "527.0": 6493,
+        "118.0": 5297,
+        "536.0": 5080,
+        "530.0": 4273,
+        "5.0": 3840,
+        "545.0": 3650,
+        "162.0": 3612,
+        "538.0": 3437,
+        "524.0": 3426,
+        "490.0": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 5,
+        "mean": 4.87,
+        "p50": 5,
+        "p95": 5
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 1.0,
+        "max": 782.0,
+        "mean": 362.69463,
+        "p01": 5.0,
+        "p25": 150.0,
+        "p50": 422.0,
+        "p75": 530.0,
+        "p99": 754.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 615
+    },
+    {
+      "name": "merged_specialties",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 16282,
+      "null_pct": 94.9663,
+      "n_distinct": 1767,
+      "examples": [
+        "Polytrauma, Orthopaedics",
+        "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+        "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Paediatric surgery, Orthopaedics, General Surgery",
+        "-NA-",
+        "General Medicine, Urology, Paediatric medical management, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, Obstetrics & Gynaecology, General Surgery",
+        "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Urology, Paediatric surgery, Obstetrics & Gynaecology, General Surgery"
+      ],
+      "top_10": {
+        "Opthalmology": 902,
+        "General Surgery": 491,
+        "Orthopaedics": 460,
+        "Obstetrics & Gynaecology": 429,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, General Surgery": 414,
+        "-NA-": 409,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Obstetrics & Gynaecology, General Surgery": 361,
+        "Obstetrics & Gynaecology, General Surgery": 321,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay)": 275,
+        "General Surgery, Otorhinolaryngology, Opthalmology, Obstetrics & Gynaecology, Orthopaedics, Cardio-thoracic & Vascular surgery, Paediatric surgery, Urology, S8, S9, Surgical Oncology, Medical Oncology, Radiation Oncology, Plastic & reconstructive, Burns management, Polytrauma, Oral and Maxillofacial Surgery, Paediatric cancer, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Paediatric medical management, Neo-natal, Cardiology, Mental Disorders Packages": 267
+      },
+      "str_len": {
+        "min": 4,
+        "max": 490,
+        "mean": 152.1,
+        "p50": 123,
+        "p95": 490
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 1767
+    },
+    {
+      "name": "M1_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 312808,
+        "1": 10652
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.032931,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 312808,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M10_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 323456,
+        "1": 4
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 1.2e-05,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 323456,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M2_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 317055,
+        "1": 6405
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.019802,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 317055,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M3_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320516,
+        "1": 2944
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009102,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320516,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M4_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322111,
+        "1": 1349
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004171,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322111,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M5_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321677,
+        "1": 1783
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.005512,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321677,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M6_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322185,
+        "1": 1275
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.003942,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322185,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M7_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313139,
+        "1": 10321
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.031908,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 313139,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "M8_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322064,
+        "1": 1396
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004316,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322064,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S1_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 311975,
+        "1": 11485
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.035507,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 311975,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S10_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009819,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320284,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S11_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009819,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320284,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S12_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320654,
+        "1": 2806
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.008675,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320654,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S13_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321868,
+        "1": 1592
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004922,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321868,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S14_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320875,
+        "1": 2585
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.007992,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320875,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S15_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321518,
+        "1": 1942
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.006004,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321518,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S16_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320044,
+        "1": 3416
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.010561,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 320044,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S2_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318566,
+        "1": 4894
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.01513,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318566,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S3_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 319005,
+        "1": 4455
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.013773,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 319005,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S4_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313420,
+        "1": 10040
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.031039,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 313420,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S5_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 314613,
+        "1": 8847
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.027351,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 314613,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S6_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318915,
+        "1": 4545
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.014051,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318915,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S7_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318673,
+        "1": 4787
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.014799,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318673,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 2
+    },
+    {
+      "name": "S8_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 4090,
+      "null_pct": 98.7355,
+      "n_distinct": 1,
+      "examples": [
+        "1.0"
+      ],
+      "value_counts": {
+        "1.0": 4090
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "p01": 1.0,
+        "p25": 1.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 1
+    },
+    {
+      "name": "S9_emp",
+      "raw_dtype_as_str": "object(read as str)",
+      "non_null": 3623,
+      "null_pct": 98.8799,
+      "n_distinct": 1,
+      "examples": [
+        "1.0"
+      ],
+      "value_counts": {
+        "1.0": 3623
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "unparseable_examples": [],
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "p01": 1.0,
+        "p25": 1.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "n_needs_strip": 0,
+      "n_distinct_after_strip_lower": 1
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+
+--- lat/lon in E-Mail + Contact (n=60) ---
+  row 319 (Sr No 321): Hospital E-Mail='11.506853' | Hospital Contact='75.6249378' | API Latitude='11.4951664' | API Longitude='75.6238949'
+  row 320 (Sr No 322): Hospital E-Mail='23.1764665' | Hospital Contact='75.7885163' | API Latitude='23.0013903' | API Longitude='75.9983057'
+  row 321 (Sr No 323): Hospital E-Mail='28.3902671' | Hospital Contact='79.4590456' | API Latitude='28.3902671' | API Longitude='79.4590456'
+  row 322 (Sr No 324): Hospital E-Mail='31.519133' | Hospital Contact='75.9225755' | API Latitude='31.519133' | API Longitude='75.9225755'
+  full index list: [319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378]
+
+--- S8/S9 present in text, absent from flags (n=3246) ---
+  row 19 (Sr No 20): Specialities Empanelled='M8, M1, M2, S8, S7, S12, M7, S16, M6, M5, S5, S3, S2, S1'
+  row 23 (Sr No 24): Specialities Empanelled='S12, M1, M7, S6, S10, S11, M6, M5, S15, S8, S9, S7, S14, S13, S5, S4, S3, S2, S1'
+  row 28 (Sr No 29): Specialities Empanelled='M1, M2, S8, S12, M3, M7, S10, S11, S15, S9, S7, S14, S5, S4, S1'
+    row 19: flags set = ['M1_emp', 'M2_emp', 'M5_emp', 'M6_emp', 'M7_emp', 'M8_emp', 'S1_emp', 'S12_emp', 'S16_emp', 'S2_emp', 'S3_emp', 'S5_emp', 'S7_emp']
+
+--- corrupt Specialities_Upgraded_or_Empanelled (n=3720) ---
+  row 1 (Sr No 2): Specialities Empanelled='S3, M1, M7, M2' | Specialities Upgraded='-NA-' | Specialities_Upgraded_or_Empanelled='S3, M1, M7, M2-NA-'
+  row 4 (Sr No 5): Specialities Empanelled='S3' | Specialities Upgraded='-NA-' | Specialities_Upgraded_or_Empanelled='S3-NA-'
+  row 5 (Sr No 6): Specialities Empanelled='M1, S7, S12, M7, M4, S10, S11, M5, S3, S1' | Specialities Upgraded='-NA-' | Specialities_Upgraded_or_Empanelled='M1, S7, S12, M7, M4, S10, S11, M5, S3, S1-NA-'
+
+---   concat with no delimiter (n=2879) ---
+  row 0 (Sr No 1): Specialities_Upgraded_or_Empanelled='S1, M1, M7S5'
+  row 6 (Sr No 7): Specialities_Upgraded_or_Empanelled='M1, M7S1, M1, M7'
+  row 8 (Sr No 9): Specialities_Upgraded_or_Empanelled='M1, M7S2, M1, S7, S4, S10, S11'
+
+--- gmaps point outside India (n=38) ---
+  row 174 (Sr No 175): Hospital Name='ADVANCED SPECIALITY HOSPITAL & RESEARCH INSTITUTE' | Manual state='MANIPUR' | gmaps_Latitude='41.6203186' | gmaps_Longitude='-83.5961607' | gmaps_Accuracy='ROOFTOP'
+  row 207 (Sr No 208): Hospital Name='AGRAWAL SURGICAL HOSPITAL & TRAUMA CENTRE' | Manual state='UTTAR PRADESH' | gmaps_Latitude='39.9478844' | gmaps_Longitude='-75.1556228' | gmaps_Accuracy='ROOFTOP'
+  row 246 (Sr No 247): Hospital Name='Ajay Heart Care & Super Speciality Centre' | Manual state='PUNJAB' | gmaps_Latitude='32.4156265' | gmaps_Longitude='-81.7701568' | gmaps_Accuracy='ROOFTOP'
+  row 417 (Sr No 419): Hospital Name='AMERICAN ONCOLOGY INSTITUTE A Unit of CTSI' | Manual state='ANDHRA PRADESH' | gmaps_Latitude='42.3375158' | gmaps_Longitude='-71.1081418' | gmaps_Accuracy='ROOFTOP'
+  row 427 (Sr No 429): Hospital Name='amrapali hospital and truma center' | Manual state='UTTAR PRADESH' | gmaps_Latitude='43.1938516' | gmaps_Longitude='-71.5723953' | gmaps_Accuracy='APPROXIMATE'
+  full index list: [174, 207, 246, 417, 427, 518, 705, 1089, 1111, 1147, 1720, 2767, 3173, 3203, 3365, 3699, 3707, 3770, 4602, 4692, 4733, 4748, 4765, 4805, 4820, 5240, 5642, 5704, 6171, 6786, 7841, 8626, 9773, 9783, 9808, 9879, 10968, 10987]
+
+--- API point outside India (n=3) ---
+  row 134 (Sr No 135): Hospital Name='Acharya Shri Chander College of Medical Sciences and Hospital' | Manual state='JAMMU AND KASHMIR' | API Latitude='43.1938516' | API Longitude='-71.5723953'
+  row 6383 (Sr No 6385): Hospital Name='Nankam Hospital, Nilgiris TN.' | Manual state='TAMIL NADU' | API Latitude='52.1386394' | API Longitude='-0.4667782'
+  row 8355 (Sr No 8357): Hospital Name='Primary Health Centre Orwad' | Manual state='GUJARAT' | API Latitude='43.1938516' | API Longitude='-71.5723953'
+
+--- pincode_py == '0' (n=875) ---
+  row 15 (Sr No 16): pincode_py='0' | Zipcode=nan | Manual state='ASSAM'
+  row 21 (Sr No 22): pincode_py='0' | Zipcode=nan | Manual state='UTTAR PRADESH'
+  row 30 (Sr No 31): pincode_py='0' | Zipcode=nan | Manual state='CHHATTISGARH'
+
+--- pincode_py non-Indian (n=35) ---
+  row 174 (Sr No 175): pincode_py='43614' | Manual state='MANIPUR' | gmaps_Latitude='41.6203186' | gmaps_Longitude='-83.5961607'
+  row 207 (Sr No 208): pincode_py='19107' | Manual state='UTTAR PRADESH' | gmaps_Latitude='39.9478844' | gmaps_Longitude='-75.1556228'
+  row 246 (Sr No 247): pincode_py='30458' | Manual state='PUNJAB' | gmaps_Latitude='32.4156265' | gmaps_Longitude='-81.7701568'
+  row 417 (Sr No 419): pincode_py='2215' | Manual state='ANDHRA PRADESH' | gmaps_Latitude='42.3375158' | gmaps_Longitude='-71.1081418'
+  row 427 (Sr No 429): pincode_py='3301' | Manual state='UTTAR PRADESH' | gmaps_Latitude='43.1938516' | gmaps_Longitude='-71.5723953'
+  full index list: [174, 207, 246, 417, 427, 518, 705, 1089, 1111, 1147, 1720, 2767, 3173, 3203, 3365, 3707, 3770, 4602, 4692, 4733, 4748, 4765, 4805, 4820, 5240, 5642, 5704, 6171, 6786, 8626, 9773, 9783, 9808, 9879, 10968]
+
+--- Manual District not uppercase (n=1056) ---
+  distinct values: ['Alipurduar', 'Amethi', 'Ananthnag', 'Ariyalur', 'Bagpat', 'Banaskantha', 'Bandipur', 'Bijapur(CGH)', 'Biswanath', 'Budgam', 'Cachar', 'Chikamagalur', 'Cooch Behar', 'Dahod', 'Darjiling', 'Dhalai', 'East Midnapur', 'East Sikkim', 'East Singhbhum', 'Gandhi Nagar', 'Giridh', 'Gomati', 'Hazaribag', 'Kachchh', 'Kanyakumari']
+  districts appearing in BOTH cases: ['Karbi Anglong']
+  districts with >1 casing variant: 1 e.g. {'KARBI ANGLONG': ['KARBI ANGLONG', 'Karbi Anglong']}
+
+--- Manual state vs geocoder State disagreement (n=266) ---
+  row 58 (Sr No 59): Manual Hospital Name='Aarogyam Hospital' | Manual state='UTTARAKHAND' | State='Uttar Pradesh' | City='Prayagraj'
+  row 70 (Sr No 71): Manual Hospital Name='Aashirwad Hospital' | Manual state='HARYANA' | State='Punjab' | City='Gurdaspur district'
+  row 78 (Sr No 79): Manual Hospital Name='Aastha Hospital' | Manual state='HIMACHAL PRADESH' | State='Uttar Pradesh' | City='Bareilly'
+  row 80 (Sr No 81): Manual Hospital Name='Aastha Hospital' | Manual state='HARYANA' | State='Maharashtra' | City='Palghar'
+
+--- placeholder phone '-NA-' (n=390) ---
+  row 65 (Sr No 66): Hospital Name='AASHA HOSPITAL' | Hospital Contact='-NA-'
+  row 96 (Sr No 97): Hospital Name='ABC HOSPITALS' | Hospital Contact='-NA-'
+
+--- placeholder phone '9898989898' (n=48) ---
+  row 113 (Sr No 114): Hospital Name='Abhiman Kidney Centre, Madurai TN.' | Hospital Contact='9898989898'
+  row 475 (Sr No 477): Hospital Name='Anbhu Ramachandran Hospital, Sivagangai, TN.' | Hospital Contact='9898989898'
+
+--- placeholder phone '0' (n=38) ---
+  row 124 (Sr No 125): Hospital Name='Abishek Ortho Clinic, Karur TN.' | Hospital Contact='0'
+  row 600 (Sr No 602): Hospital Name='Aravind Eye Hospital, Tirunellvelli TN.' | Hospital Contact='0'
+
+--- shared TPA email (n=54) ---
+  row 113 (Sr No 114): Hospital Name='Abhiman Kidney Centre, Madurai TN.' | Manual District='MADURAI' | Hospital E-Mail='nithia.d@vidalhealthtpa.com'
+  row 475 (Sr No 477): Hospital Name='Anbhu Ramachandran Hospital, Sivagangai, TN.' | Manual District='SIVAGANGA' | Hospital E-Mail='nithia.d@vidalhealthtpa.com'
+  row 536 (Sr No 538): Hospital Name='Apex heart Hospital, Thanjavur, TN.' | Manual District='THANJAVUR' | Hospital E-Mail='nithia.d@vidalhealthtpa.com'
+
+--- typo'd email domain (n=1) ---
+  row 593 (Sr No 595): Hospital Name='Arasan Eye Hospital, Royal Theatre, Erode TN.' | Hospital E-Mail='arasaneyehospital@gmaul.com'
+
+--- Test extract scratch column (n=8) ---
+  row 19 (Sr No 20): Test extract='KOLLAM, KERALA' | Manual District='KOLLAM' | Manual state='KERALA'
+  row 20 (Sr No 21): Test extract='TIRUCHIRAPPALLI, TAMIL NADU' | Manual District='TIRUCHIRAPPALLI' | Manual state='TAMIL NADU'
+  row 21 (Sr No 22): Test extract='BALRAMPUR, UTTAR PRADESH' | Manual District='BALRAMPUR' | Manual state='UTTAR PRADESH'
+  row 22 (Sr No 23): Test extract='JORHAT, ASSAM' | Manual District='JORHAT' | Manual state='ASSAM'
+  row 23 (Sr No 24): Test extract='DAKSHINA KANNADA, KARNATAKA' | Manual District='DAKSHINA KANNADA' | Manual state='KARNATAKA'
+  row 24 (Sr No 25): Test extract='Bareilly, Uttar Pradesh' | Manual District='BAREILLY' | Manual state='UTTAR PRADESH'
+  row 25 (Sr No 26): Test extract='FIROZPUR, PUNJAB' | Manual District='FIROZPUR' | Manual state='PUNJAB'
+  row 26 (Sr No 27): Test extract='COIMBATORE, TAMIL NADU' | Manual District='COIMBATORE' | Manual state='TAMIL NADU'
+
+--- gmaps_Accuracy == 'Awesome Tables' (n=115) ---
+  row 49 (Sr No 50): Hospital Name='AARAIKE SUPER SPECILITY HOSPITAL' | gmaps_Accuracy='Awesome Tables'
+  row 104 (Sr No 105): Hospital Name='abhay kumar mehta' | gmaps_Accuracy='Awesome Tables'
+  row 182 (Sr No 183): Hospital Name='Agadi Hospital and research centre' | gmaps_Accuracy='Awesome Tables'
+
+--- Hospital Type null (n=271) ---
+  row 6 (Sr No 7): Hospital Name='152 bn bsf unit hospital' | Manual state='JAMMU AND KASHMIR'
+  row 8 (Sr No 9): Hospital Name='24 BN SSB' | Manual state='ASSAM'
+  row 9 (Sr No 10): Hospital Name='27 ASSAM RIFLES UNIT HOSPITAL' | Manual state='MANIPUR'
+
+--- is_RU null (n=8) ---
+  row 134 (Sr No 135): Hospital Name='Acharya Shri Chander College of Medical Sciences and Hospital' | Manual state='JAMMU AND KASHMIR'
+  row 1101 (Sr No 1103): Hospital Name='Bishop John Richardson Hospital' | Manual state='ANDAMAN AND NICOBAR ISLANDS'
+  row 2993 (Sr No 2995): Hospital Name='CHC MADHAVPUR GHED' | Manual state='GUJARAT'
+  row 3012 (Sr No 3014): Hospital Name='CHC PERIYE' | Manual state='KERALA'
+  row 6183 (Sr No 6185): Hospital Name='MIMS THANAL DIALYSIS CENTRE' | Manual state='KERALA'
+  row 6383 (Sr No 6385): Hospital Name='Nankam Hospital, Nilgiris TN.' | Manual state='TAMIL NADU'
+  row 8355 (Sr No 8357): Hospital Name='Primary Health Centre Orwad' | Manual state='GUJARAT'
+  row 10744 (Sr No 10746): Hospital Name='SUNSHINE GLOBAL HOSPITAL' | Manual state='GUJARAT'
+
+--- Manual District null (n=37) ---
+  row 591 (Sr No 593): Hospital Name='ARALAGUPPE MALLEGOWDA District HospitalCHIKMAGALUR' | Manual state='KARNATAKA' | City='Chikkamagaluru district'
+  row 757 (Sr No 759): Hospital Name='ASHRAYA MULTISPECIALITY HOSPITAL' | Manual state='KARNATAKA' | City='Chikkamagaluru district'
+  row 894 (Sr No 896): Hospital Name='Bakin Pertin General Hospital' | Manual state='ARUNACHAL PRADESH' | City='East Siang'
+  row 927 (Sr No 929): Hospital Name='Bangalore Cancer Centre, Bangalore TN.' | Manual state='TAMIL NADU' | City='Bangalore Urban'
+  full index list: [591, 757, 894, 927, 954, 1090, 1228, 3078, 3155, 3302, 3407, 4198, 4428, 4437, 4442, 4533, 5173, 5312, 5678, 6040, 6102, 6169, 6410, 6752, 7881, 7891, 9155, 9236, 10163, 10164, 10217, 10340, 10485, 10691, 10729, 10887, 11268]
+
+--- confirmed duplicate pair, specialties differ ---
+  row 6749 (Sr No 6751): 'P K HOSPITAL'
+      emp='M1, M7, S7, S5, S4, S1'
+      email='pkh_kvp@yahoo.in' type='Private (For Profit)'
+  row 6750 (Sr No 6752): 'P K Hospital, Erode TN.'
+      emp='S4'
+      email='pkh_kvp@yahoo.in' type='Private (For Profit)'
+  row 8203 (Sr No 8205): 'Primary Health Centre KADACHH'
+      emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8'
+      email='phckadachha.health.porbandar@gmail.com' type='Public'
+  row 8204 (Sr No 8206): 'Primary Health centre Kadachh'
+      emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M2, M3, S12, M1, M8, M7, S3, S2, S1'
+      email='phcgarej.health.porbandar@gmail.com' type='Public'
+
+--- Manual Hospital Name truncation ---
+  row 20: HN='A G Eye Hospital, Puthur, Trichy TN.' MHN='A G Eye Hospital'
+  row 41: HN='Aakash Hospital, Thiruvallur TN.' MHN='Aakash Hospital'
+  row 10248: HN='SMCU-PHC ATHWA (PANAS) U.H.C.' MHN='UPHC Surat Municipal Commission'
+  row 10249: HN='SMCU-PHC B.P. U.H.C.' MHN='UPHC Surat Municipal Commission'
+
+--- Sr No gap ---
+  row 251 Sr No = 252 | row 252 Sr No = 254
+
+--- ALL CAPS Hospital Name (n=4881) ---
+  row 5 (Sr No 6): Hospital Name='111 SAVE LIFE HOSPITAL' | Manual Hospital Name='111 Save Life Hospital'
+  row 8 (Sr No 9): Hospital Name='24 BN SSB' | Manual Hospital Name='24 BN SSB'
+  row 9 (Sr No 10): Hospital Name='27 ASSAM RIFLES UNIT HOSPITAL' | Manual Hospital Name='27 Assam Rifles Unit Hospital'
+
+--- no empanelled specialty at all (n=143) ---
+  row 106 (Sr No 107): Hospital Name='Abhaya Hospital' | Specialities Empanelled='-NA-' | Specialities Upgraded='S10, S11, S16, M1'
+  row 136 (Sr No 137): Hospital Name='ACHARYASHRI NANESH HOSPITAL' | Specialities Empanelled='-NA-' | Specialities Upgraded='M1, S1, S2, S3, S5, S7, S8, S9, S15, S10, S11, S6, M7, M2'
+  row 160 (Sr No 161): Hospital Name='ADITYA KIDNEY CARE CENTRE' | Specialities Empanelled='-NA-' | Specialities Upgraded='S4'
+
+--- pincode first digit inconsistent with Manual state ---
+  row 78: pincode=243122 Manual state='HIMACHAL PRADESH' City='Bareilly' API=(31.6957348,76.5015592)
+  row 80: pincode=401403 Manual state='HARYANA' City='Palghar' API=(29.3151747,76.3255799)
+  row 81: pincode=401403 Manual state='PUNJAB' City='Palghar' API=(30.8206218,75.17829)
+  row 86: pincode=250609 Manual state='HIMACHAL PRADESH' City='Baghpat' API=(31.8904927,76.9484624)
+  row 156: pincode=122001 Manual state='ASSAM' City='Gurugram' API=(27.4921251,94.9279949)

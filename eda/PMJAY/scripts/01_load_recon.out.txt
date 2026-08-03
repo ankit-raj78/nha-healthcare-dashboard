@@ -1,0 +1,25 @@
+first 4 bytes: b'\xef\xbb\xbfS'
+has utf-8 BOM: True
+file size bytes: 8460333
+count of b'\n': 11285
+count of b'\r\n': 11285
+count of b'\r': 11285
+ends with newline: True
+physical lines (python readlines, universal newline): 11285
+csv.reader header len: 78
+csv.reader data records: 11284
+record field-count histogram: {78: 11284}
+records containing embedded newline: 0 first few: []
+header[0] repr: 'Sr No'
+duplicate header names: []
+headers with leading/trailing whitespace: []
+empty header names: []
+naive read_csv warnings: ['Columns (65) have mixed types. Specify dtype option on import or set low_memory=False.']
+naive shape: (11284, 78)
+naive first col name repr: 'Sr No'
+naive Unnamed cols: []
+recommended read shape: (11284, 78)
+recommended first col repr: 'Sr No'
+all-null columns: ['Types of Employees']
+constant (1 distinct) columns: {'M10_upg': ['0'], 'Country': ['India']}
+columns with thousands-separator numerics: {}

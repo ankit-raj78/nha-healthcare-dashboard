@@ -1,0 +1,164 @@
+dataset_key: CDAC_BB_A
+source_file: 16_MAY_AR_CDAC_BB_DATASET.csv
+n_rows: 5679
+n_cols: 12
+read_kwargs:
+  encoding: utf-8          # no BOM; ASCII + a few U+FFFD replacement chars
+  sep: ","
+  dtype: str               # REQUIRED: stops pandas coercing Phone/coords
+  keep_default_na: false   # REQUIRED: the literal string "NA" is a real Address value (965 rows)
+  na_values: [""]
+
+source_column_map:
+  State:
+    canonical: state_raw
+    confidence: high
+    transform: "strip, upper, expand_abbrev('DADRA & NAGAR HAVE' -> 'DADRA AND NAGAR HAVELI'), '&'->'AND', normalize_lgd"
+    notes: "37 distinct values, all real Indian states/UTs, correctly spelled. One value is
+            truncated at 18 chars: 'DADRA & NAGAR HAVE' (1 row). Values are UPPERCASE — this
+            same uppercasing leaked into Name/Address/Email (see issues.md I-1)."
+
+  Name:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_whitespace, fix_uppercased_state_tokens, titlecase_for_display"
+    notes: "5539 distinct over 5679 rows. 73 rows have an ALL-CAPS state token spliced in
+            ('Lower ASSAM Hospital Blood Centre'); repair from CDAC_BB_B, which has the
+            correct casing for 72 of them. Also encodes an un-keyed facility-type vocabulary:
+            BSU=1448, CHC=433, SDH=125, BSC=107, RH=98, SGH=13, AIIMS=13, DHH=9, IRCS=7."
+
+  Address:
+    canonical: address_raw
+    confidence: high
+    transform: "strip; split on final ', Dist. <X>' to derive district; strip leading 'NA,'/'-,'"
+    notes: "100% of rows end in ', Dist. <district>'. 965 rows are effectively empty
+            ('NA, <place>, Dist. <district>'). Only 93 rows (1.6%) contain a 6-digit pincode.
+            416 of the 422 rows that differ from CDAC_BB_B differ only in the casing of an
+            embedded state name. 47 rows contain U+FFFD mojibake."
+
+  Latitude:
+    canonical: latitude
+    confidence: high
+    transform: "to_float"
+    notes: "PRIMARY point geo. 5679/5679 (100%) inside India's bbox; 0 null, 0 zero,
+            0 axis-swapped. Best geo column in either CDAC file. Median distance to its own
+            district's centroid = 6.3 km, p90 = 43.4 km."
+
+  Longitude:
+    canonical: longitude
+    confidence: high
+    transform: "to_float"
+    notes: "See Latitude."
+
+  Phone:
+    canonical: phone
+    confidence: low
+    transform: "split on ','; strip non-digits; drop tokens that are '0'/'#'/scientific notation"
+    flags: [pii, excel_corrupted]
+    notes: "ONLY 893/5679 rows (15.7%) carry a recoverable number. 3610 rows (63.6%) were
+            destroyed by Excel scientific notation ('9.12E+09' — the last 8 digits are gone
+            and cannot be recovered); 1042 rows are the literal '0'/'0.00E+00'; 168 are
+            '########' (Excel column-too-narrow render) and 3 are '#ERROR!'; 476 are null.
+            Treat as ~84% missing, not as 8% missing."
+
+  Email:
+    canonical: email
+    confidence: medium
+    transform: "strip, lower, validate_rfc_lite"
+    flags: [pii]
+    notes: "3981/5679 non-null (70.1%). 28 are structurally invalid (embedded spaces,
+            missing TLD, 'BSUnamsai0922@123'). 22 rows carry the same uppercase-state-token
+            corruption as Name ('lowerASSAMhospital@yahoo.in'); lowercasing fixes all 22.
+            39 addresses are shared by more than one facility, so email is NOT a key."
+
+  Category:
+    canonical: facility_ownership_raw
+    confidence: high
+    transform: "map to controlled list"
+    flags: [coded_vocabulary]
+    notes: "Complete vocabulary, 4 values: Govt.=2768, Private=1621, Charitable/Vol=1190,
+            Red Cross=100. No nulls."
+
+  new_longitude:
+    canonical: null
+    disposition: drop
+    reason: "prior geocoding pass, demonstrably worse than Latitude/Longitude and internally
+             inconsistent: valid as labelled for rows 0-5468 only; for rows 5469-5678 the
+             column holds a LATITUDE (216 rows); 344 rows (6.1%) are outside India in BOTH
+             orientations (e.g. row 9 = -157.862/21.30623, Honolulu). p90 distance to its own
+             district centroid is 1549 km vs 43 km for Latitude/Longitude."
+    flags: [derived, redundant_with:Longitude, axis_swapped_in_block]
+
+  new_latitude:
+    canonical: null
+    disposition: drop
+    reason: "see new_longitude — same failed geocoding pass, same swap block, same 344 bad rows."
+    flags: [derived, redundant_with:Latitude, axis_swapped_in_block]
+
+  District:
+    canonical: district_raw
+    confidence: high
+    transform: "strip, titlecase, normalize_lgd"
+    notes: "699 distinct. Current (post-2022 reorganisation) district name — e.g. 'Bapatla',
+            'Palnadu', 'NTR', 'Konaseema' for Andhra Pradesh. 100% redundant: it is
+            reproducible for 5677/5679 rows by parsing the trailing 'Dist. <X>' out of
+            Address. Keep it anyway (cheap, and it is already parsed)."
+
+  dist_name:
+    canonical: district_alt_raw     # see proposed_new_fields
+    confidence: medium
+    transform: "strip; strip trailing '*'; treat '*'-terminated values as truncated"
+    flags: [redundant_with:District, truncated]
+    notes: "683 distinct. This is the LEGACY / pre-reorganisation district name and differs
+            from District in 702 rows (Bapatla->Guntur, Kakinada->East Godavari,
+            Gurgaon->Gurugram, Mysore->Mysuru). 43 values are truncated at 24 chars and end
+            in '*': 'Sri Potti Sriramulu Nell*', 'North Twenty Four Pargan*',
+            'South Twenty Four Pargan*'. Genuinely useful as a second district alias for LGD
+            code lookup, but must not be used as the display district."
+
+proposed_new_fields:
+  - name: district_alt_raw
+    reason: "This dataset carries TWO district names per row (District = current, dist_name =
+             legacy/LGD). The canonical vocabulary only has district_raw. Squashing them loses
+             the alias that makes LGD-code joins work across the 702 rows where India renamed
+             or split the district between the two vintages. Proposed semantics: district_raw
+             = the district as of the snapshot; district_alt_raw = any earlier/alternate
+             official name for the same area."
+  - name: facility_subtype_raw
+    reason: "1443 rows (25.4%) are Blood Storage Units, flagged only by a 'BSU' token inside
+             Name (1435 of them Govt.). A BSU is a storage annexe of a licensed blood centre,
+             not an independent blood bank — a downstream 'count the blood banks in state X'
+             query will be ~34% wrong if BSUs are not separable. facility_type_raw is already
+             taken by the hospital/PHC/CHC axis; this is a second axis."
+  - name: geo_source
+    reason: "Latitude/Longitude and new_latitude/new_longitude are two different geocodes of
+             the same facility, produced by different processes with different reliability.
+             Even though we drop new_*, provenance for the surviving coordinate should be
+             recorded ('cdac_portal' vs 'reverse_geocoded')."
+
+unmapped_columns: []
+
+drop_columns: [new_longitude, new_latitude]
+
+record_provenance:
+  source_snapshot_date: "unknown — not present in the data. Filename encodes '16_MAY' and the
+                         file mtime is 2025-06-20; the presence of districts created in the
+                         2022 AP reorganisation (Bapatla, Palnadu, NTR, Konaseema, Eluru,
+                         Kakinada, Anakapalli, Alluri Sitharama Raju, Annamayya, Nandyal,
+                         Sri Sathya Sai, Parvathipuram Manyam, Tirupati) puts the content at
+                         2022 or later. Record as source_snapshot_date: 2025-05 (low confidence)."
+  source_sheet_name: null
+  record_status: null
+
+candidate_primary_key:
+  column: null
+  is_unique: false
+  note: "No column and no tried composite is unique. (Name, Address, Latitude, Longitude)
+         still has 3 duplicate rows. Synthesise a surrogate key:
+         sha1(dataset_key || row_index) and keep row_index as source_facility_id."
+
+entity_resolution:
+  blocking_key: "normalize(State) + normalize(District) + first-3-tokens(Name)"
+  supports_name_geo_district: true
+  usable_rows_pct: 100.0
+  weak_fields: [Phone, Email, new_longitude, new_latitude]

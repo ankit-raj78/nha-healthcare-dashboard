@@ -1,0 +1,659 @@
+{
+  "cols_varying_within_facility_id_group": {
+    "24/7": 58370,
+    "Latitude": 2822,
+    "Longitude": 485,
+    "Google Maps Link": 31,
+    "Name verifier": 29,
+    "Address verifier": 29,
+    "Facility Type verifier": 29,
+    "Ownership verifier": 29,
+    "Address": 13,
+    "ABDM Enabled": 6,
+    "District_name": 3,
+    "new_district_name": 3,
+    "district_code": 3,
+    "hospital_name": 2,
+    "Facility Type": 1,
+    "State_name": 1,
+    "new_state_name": 1,
+    "state_code": 1,
+    "Ownership": 0,
+    "merged_specialties": 0,
+    "M1_emp": 0,
+    "M10_emp": 0,
+    "M2_emp": 0,
+    "M3_emp": 0,
+    "M4_emp": 0,
+    "M5_emp": 0,
+    "M6_emp": 0,
+    "M7_emp": 0,
+    "M8_emp": 0,
+    "S1_emp": 0,
+    "S10_emp": 0,
+    "S11_emp": 0,
+    "S12_emp": 0,
+    "S13_emp": 0,
+    "S14_emp": 0,
+    "S15_emp": 0,
+    "S16_emp": 0,
+    "S2_emp": 0,
+    "S3_emp": 0,
+    "S4_emp": 0,
+    "S5_emp": 0,
+    "S6_emp": 0,
+    "S7_emp": 0,
+    "S8_emp": 0,
+    "S9_emp": 0
+  },
+  "n_dup_id_groups": 62300,
+  "n_groups_with_zero_varying_cols": 3922,
+  "two_row_groups": {
+    "n_groups_size_2": 60541,
+    "n_differing": 56746,
+    "n_byte_identical": 3795,
+    "top_differing_column_sets": {
+      "24/7": 53728,
+      "Latitude + 24/7": 2541,
+      "Longitude + 24/7": 281,
+      "Latitude + Longitude + 24/7": 157,
+      "Name verifier + Address verifier + Facility Type verifier + Ownership verifier + 24/7": 18,
+      "Name verifier + Address verifier + Facility Type verifier + Ownership verifier + Latitude + 24/7": 6,
+      "ABDM Enabled + 24/7": 3,
+      "Google Maps Link + Latitude + Longitude": 2,
+      "Name verifier + Address + Address verifier + Facility Type verifier + Ownership verifier + 24/7": 2,
+      "Address + 24/7": 2,
+      "Address": 1,
+      "Address + ABDM Enabled + 24/7": 1
+    },
+    "examples": [
+      {
+        "facility_id": "100000",
+        "rows": [
+          5591,
+          315504
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100002",
+        "rows": [
+          5600,
+          315611
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100005",
+        "rows": [
+          8819,
+          95053
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100008",
+        "rows": [
+          39434,
+          206954
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100011",
+        "rows": [
+          5626,
+          316569
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100014",
+        "rows": [
+          5628,
+          316639
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100018",
+        "rows": [
+          8572,
+          94692
+        ],
+        "differing_columns": [
+          "Latitude",
+          "24/7"
+        ],
+        "values": {
+          "Latitude": [
+            "22.08888634813709",
+            "22.088886348137095"
+          ],
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      {
+        "facility_id": "100019",
+        "rows": [
+          5659,
+          317655
+        ],
+        "differing_columns": [
+          "24/7"
+        ],
+        "values": {
+          "24/7": [
+            "yes",
+            "no"
+          ]
+        }
+      }
+    ]
+  },
+  "shared_coords": {
+    "n_distinct_coord_pairs": 215652,
+    "n_pairs_shared_by_ge_50_rows": 65,
+    "n_rows_at_a_coord_shared_by_ge_50": 22187,
+    "pct_rows_at_such_coords": 6.859,
+    "n_pairs_shared_by_ge_10_rows": 807,
+    "n_rows_at_coord_shared_by_ge_10": 34787,
+    "top_20": [
+      {
+        "lat": "26.91785800000001",
+        "lon": "75.80129199999999",
+        "n_rows": 9870,
+        "n_distinct_names": 9089,
+        "states": [
+          "Rajasthan"
+        ],
+        "districts": [
+          "Ajmer",
+          "Alwar",
+          "Banswara",
+          "Barmer",
+          "Bharatpur",
+          "Bhilwara"
+        ],
+        "n_distinct_districts": 28,
+        "sample_names": [
+          "10 EEA",
+          "10 GM",
+          "10 H",
+          "10JRK DHANKAWALI"
+        ]
+      },
+      {
+        "lat": "17.32966",
+        "lon": "76.833588",
+        "n_rows": 1345,
+        "n_distinct_names": 993,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Kalaburagi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "A2 PHARMACEUTICAL DISTRIBUTORS",
+          "AADVIK SURGICARE",
+          "AARIZ MEDICAL AND GENERAL STORES",
+          "AAROGYA MEDICAL AND GENERAL STORES"
+        ]
+      },
+      {
+        "lat": "16.830618",
+        "lon": "75.711014",
+        "n_rows": 1327,
+        "n_distinct_names": 1072,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Bidar",
+          "Gadag",
+          "Kalaburagi",
+          "Vijayapura"
+        ],
+        "n_distinct_districts": 4,
+        "sample_names": [
+          "AARADYA MEDICAL AND GENERAL STORES",
+          "ABHAY MEDICALS",
+          "AKSHAY PHARMA AND GENERAL DISTRIBUTORS",
+          "AMAR PHARMA"
+        ]
+      },
+      {
+        "lat": "28.6472799",
+        "lon": "76.8130644",
+        "n_rows": 923,
+        "n_distinct_names": 723,
+        "states": [
+          "Andhra Pradesh",
+          "Arunachal Pradesh",
+          "Assam",
+          "Bihar"
+        ],
+        "districts": [
+          "Agra",
+          "Ahmednagar",
+          "Ajmer",
+          "Alluri Sitharama Raju",
+          "Ambala",
+          "Amravati"
+        ],
+        "n_distinct_districts": 147,
+        "sample_names": [
+          "ANANDBABUHOSPITAL",
+          "BRUNDAVAN HOSPITAL",
+          "CSR HOSPITAL",
+          "DR RAMESH MULI SPECIATY HOSPITAL"
+        ]
+      },
+      {
+        "lat": "15.363709",
+        "lon": "75.125626",
+        "n_rows": 904,
+        "n_distinct_names": 731,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Bidar",
+          "Dharwad",
+          "Ramanagara"
+        ],
+        "n_distinct_districts": 3,
+        "sample_names": [
+          "AANTHARYA MEDICALS",
+          "AARADHYA AGENCY",
+          "AARADYA MEDICAL AND GENERAL STORES",
+          "ACHYUT MEDICAL AND GENERAL STORE"
+        ]
+      },
+      {
+        "lat": "15.851129",
+        "lon": "74.498634",
+        "n_rows": 835,
+        "n_distinct_names": 714,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AADHYA MEDICALS AND GENERAL STORES",
+          "AADHYA PHARMACEUTICAL AND DISTRIBUTORS",
+          "AAKASH MEDICAL AND GENERAL STORES",
+          "AARAV PHARMA"
+        ]
+      },
+      {
+        "lat": "16.429764",
+        "lon": "74.587471",
+        "n_rows": 483,
+        "n_distinct_names": 419,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AADHAR DRUG HOUSE",
+          "AARAVI ENTERPRISES",
+          "AAROGYAM GENERICANT MEDICINE",
+          "AARUSH MEDICAL"
+        ]
+      },
+      {
+        "lat": "15.459199",
+        "lon": "75.006248",
+        "n_rows": 383,
+        "n_distinct_names": 317,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi",
+          "Dharwad"
+        ],
+        "n_distinct_districts": 2,
+        "sample_names": [
+          "AADYA MEDICALS  GENERAL STORES",
+          "ABDUL AGENCY",
+          "ABHAY PHARMA",
+          "ABHI MEDICAL AND GENERAL STORES"
+        ]
+      },
+      {
+        "lat": "16.726933",
+        "lon": "75.061058",
+        "n_rows": 357,
+        "n_distinct_names": 295,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "ADITI ENTERPRISES DRUG DISTRIBUTORS",
+          "ALL IN 1 UNDER 1 ROOF PHARMA",
+          "ALSHIFA PHARMA",
+          "AMMAJESHWARI PHARMA"
+        ]
+      },
+      {
+        "lat": "13.932195",
+        "lon": "75.569519",
+        "n_rows": 330,
+        "n_distinct_names": 322,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Shivamogga"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "A C KERODI MEDICAL AND GENERAL STORES",
+          "ADITYA MEDI SALES",
+          "ADVANI MEDICALS AND GENERAL STORES",
+          "AKKAMAHADEVI PHARMA"
+        ]
+      },
+      {
+        "lat": "15.860581",
+        "lon": "74.510143",
+        "n_rows": 240,
+        "n_distinct_names": 114,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AASHA MEDICINE HOUSE",
+          "AJAY DRUG DISTRIBUTORS",
+          "AKANKSHA SURGICALS",
+          "ALFA  MEDICALS"
+        ]
+      },
+      {
+        "lat": "15.333401",
+        "lon": "75.137814",
+        "n_rows": 239,
+        "n_distinct_names": 114,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi",
+          "Dharwad"
+        ],
+        "n_distinct_districts": 2,
+        "sample_names": [
+          "ADARSHA DISPENSARY",
+          "ADARSH CLINIC",
+          "AL SHIFA CLINIC",
+          "AMANI MEDICAL AND GENERAL STORE"
+        ]
+      },
+      {
+        "lat": "15.140891",
+        "lon": "76.921005",
+        "n_rows": 235,
+        "n_distinct_names": 217,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Ballari"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AADISHANKAR PHARMA",
+          "ACHINTHYA PHARMACETUICALS",
+          "ADITYA MEDISERV",
+          "AHMED AGENCIES"
+        ]
+      },
+      {
+        "lat": "28.65548892417827",
+        "lon": "77.4465674722403",
+        "n_rows": 220,
+        "n_distinct_names": 1,
+        "states": [
+          "Uttar Pradesh"
+        ],
+        "districts": [
+          "Ghaziabad"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "DR CHOPRAS PATH CLINIC"
+        ]
+      },
+      {
+        "lat": "16.159153",
+        "lon": "74.813629",
+        "n_rows": 205,
+        "n_distinct_names": 188,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "ACHYUTH MEDICAL AND GENERAL STORES",
+          "ADHVIK MEDICAL AND GENERAL STORES",
+          "AKASH PHARMACEUTICAL DISTRIBUTOR",
+          "AKSHATA MEDICAL AND GENERAL STORES"
+        ]
+      },
+      {
+        "lat": "16.17988",
+        "lon": "75.702289",
+        "n_rows": 202,
+        "n_distinct_names": 71,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Bagalkote"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AKSHAY MEDICAL AND GENERAL STORES",
+          "ANSHU HEALTH CARE",
+          "ASHWINI MEDICAL AND GENERAL STORES",
+          "BANASHANKARI ENTERPRISES"
+        ]
+      },
+      {
+        "lat": "17.202551",
+        "lon": "76.357628",
+        "n_rows": 196,
+        "n_distinct_names": 129,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Kalaburagi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AARADHYA MEDICAL AND GENERAL STORE",
+          "ABHI MEDICAL AND GENERAL STORES",
+          "ADARSH MEDICAL  GENERAL STORES",
+          "AFZALPUR PHARMACEUTICAL DISTRIBUTORS"
+        ]
+      },
+      {
+        "lat": "15.892708",
+        "lon": "74.521955",
+        "n_rows": 163,
+        "n_distinct_names": 83,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Belagavi"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "AISHWARYA  MEDICALS",
+          "AJIT MEDICALS AND GENERAL STORES",
+          "AJIT MEDICAL STORES",
+          "ANIL MEDICAL AND GENERAL STORES"
+        ]
+      },
+      {
+        "lat": "13.40183",
+        "lon": "78.055099",
+        "n_rows": 163,
+        "n_distinct_names": 154,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Chikkaballapura"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "ADITYA AMRUTHA DISTRIBUTORS",
+          "ADITYA AMRUTHA DISTRIBUTORS GODOWN",
+          "ADITYAAMRUTHA DISTRIBUTORS GODOWN II",
+          "ADITYA AMRUTHA DISTRIBUTORS PHARMA"
+        ]
+      },
+      {
+        "lat": "12.899623",
+        "lon": "74.854757",
+        "n_rows": 151,
+        "n_distinct_names": 110,
+        "states": [
+          "Karnataka"
+        ],
+        "districts": [
+          "Dakshina Kannada"
+        ],
+        "n_distinct_districts": 1,
+        "sample_names": [
+          "ASHA CLINIC",
+          "CANARA CLINC",
+          "CITY DENTAL CLINIC",
+          "COSMOPILITAN DENTAL CLINIC"
+        ]
+      }
+    ]
+  },
+  "junk_name_records": {
+    "n_rows": 129,
+    "value_counts": {
+      "TESTING": 21,
+      "XYZ": 7,
+      "TEST": 7,
+      "TEST FACILITY": 6,
+      "ABC CLINIC": 4,
+      "DUMMY HOSPITAL FOR NHCX INTEGRATION ONLY": 4,
+      "TEST GAURAV CLINIC": 3,
+      "DEMO HOSPITAL": 3,
+      "ABC HOSPITAL": 3,
+      "AAA PMJAY": 2,
+      "ABC DENTAL CLINIC": 2,
+      "TEST DEMO": 2,
+      "ABC CLINC": 2,
+      "TEST FACILITY HOSPITAL": 2,
+      "ABC HOSPITAL AVC DFDSF": 2,
+      "SAMPLE COLLECTION UDAIPUR": 2,
+      "TEST DEMO HOSPITAL 1": 2,
+      "TEST DHIS MAIL AD SMS": 2,
+      "TEST NURSE GUNJAN": 2,
+      "TEST DEMO HOSPITAL 2": 2,
+      "AAA BIOSCIENCES PVT LTD": 2,
+      "ABC DIAGNOSTIC CENTER": 2,
+      "TEST SUBODH CLINIC": 1,
+      "XYZ CLINIC": 1,
+      "DEMO WHOLESALER": 1
+    },
+    "example_rows": [
+      3219,
+      6644,
+      12595,
+      16015,
+      16207,
+      37726,
+      37727,
+      37938,
+      44623,
+      47714,
+      48076,
+      52949,
+      53487,
+      53604,
+      63632
+    ]
+  }
+}

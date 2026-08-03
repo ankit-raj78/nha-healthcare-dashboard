@@ -1,0 +1,498 @@
+{
+  "dataset_key": "CDAC_BB_A",
+  "source_file": "16_MAY_AR_CDAC_BB_DATASET.csv",
+  "read_kwargs": {
+    "encoding": "utf-8",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [
+      ""
+    ],
+    "sep": ","
+  },
+  "n_rows": 5679,
+  "n_cols": 12,
+  "raw_line_count": 5680,
+  "row_count_explanation": "raw_line_count counts physical lines including the header. n_rows = raw_line_count - 1. There are no embedded newlines inside quoted fields (verified: newline-character count == physical line count), no BOM, CRLF line endings, no Unnamed:N columns, no trailing all-empty column. Naive pd.read_csv is correct; dtype=str is required to stop pandas from coercing Phone/coords and from turning the literal string 'NA' in Address into NaN.",
+  "columns": [
+    {
+      "name": "State",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 37,
+      "examples": [
+        "ANDAMAN & NICOBAR",
+        "ANDHRA PRADESH",
+        "ARUNACHAL PRADESH"
+      ],
+      "value_counts": {
+        "TAMIL NADU": 642,
+        "UTTAR PRADESH": 554,
+        "MAHARASHTRA": 536,
+        "KARNATAKA": 469,
+        "RAJASTHAN": 383,
+        "GUJARAT": 340,
+        "TELANGANA": 309,
+        "ANDHRA PRADESH": 306,
+        "MADHYA PRADESH": 261,
+        "KERALA": 258,
+        "PUNJAB": 222,
+        "WEST BENGAL": 209,
+        "CHHATTISGARH": 179,
+        "BIHAR": 169,
+        "HARYANA": 141,
+        "ODISHA": 132,
+        "JHARKHAND": 105,
+        "ASSAM": 86,
+        "DELHI": 77,
+        "UTTARAKHAND": 75,
+        "JAMMU & KASHMIR": 66,
+        "HIMACHAL PRADESH": 25,
+        "TRIPURA": 21,
+        "MEGHALAYA": 19,
+        "PUDUCHERRY": 18,
+        "MIZORAM": 15,
+        "NAGALAND": 13,
+        "ARUNACHAL PRADESH": 13,
+        "MANIPUR": 11,
+        "CHANDIGARH": 6,
+        "GOA": 5,
+        "SIKKIM": 5,
+        "LADAKH": 3,
+        "DAMAN & DIU": 2,
+        "ANDAMAN & NICOBAR": 2,
+        "LAKSHADWEEP": 1,
+        "DADRA & NAGAR HAVE": 1
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": ""
+    },
+    {
+      "name": "Name",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 5539,
+      "examples": [
+        "G.B.Pant Hospital Atlanta Point Blood Centre",
+        "Pillar Health Centre",
+        "Aapadbandhu Blood bank"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [
+        "pii_possible"
+      ],
+      "notes": "facility name; some contain a person's name",
+      "length_dist": {
+        "min": 3,
+        "p25": 20,
+        "median": 29,
+        "p75": 41,
+        "max": 100
+      }
+    },
+    {
+      "name": "Address",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 5313,
+      "examples": [
+        "DHS Annexe Building Near Rear Gate, Port Blair , Dist. South Andaman",
+        "Lamba Line, Post Box No:526, Junglighat Post. PortBlair, Port Blair, Dist. South Andaman",
+        "DNO 21-1-190, 1st Floor, Chirala Prakasam A.P, Chirala, Dist. Bapatla"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [],
+      "notes": "always ends '<place>, Dist. <district>'",
+      "length_dist": {
+        "min": 11,
+        "p25": 37,
+        "median": 66,
+        "p75": 92,
+        "max": 265
+      }
+    },
+    {
+      "name": "Latitude",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 4970,
+      "examples": [
+        "11.62338",
+        "11.64985",
+        "15.84532"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "primary point geo",
+      "numeric_summary": {
+        "parseable": 5679,
+        "min": 8.084351,
+        "p01": 8.548821,
+        "p25": 16.001905,
+        "median": 21.68494,
+        "p75": 26.40556,
+        "p99": 32.9169964,
+        "max": 34.55925,
+        "mean": 20.86609567207255
+      },
+      "length_dist": {
+        "min": 5,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "Longitude",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 4932,
+      "examples": [
+        "92.72648",
+        "92.72946",
+        "80.37238"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "primary point geo",
+      "numeric_summary": {
+        "parseable": 5679,
+        "min": 68.96846,
+        "p01": 70.799612,
+        "p25": 75.80279,
+        "median": 77.70228,
+        "p75": 80.390135,
+        "p99": 93.62753680000003,
+        "max": 96.15785,
+        "mean": 78.74521624115866
+      },
+      "length_dist": {
+        "min": 5,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "Phone",
+      "dtype": "object(str)",
+      "non_null": 5203,
+      "null_pct": 8.382,
+      "n_distinct": 1326,
+      "examples": [
+        "9434266561, 9434200000",
+        "9679535438, 03192-233193, 09531922669",
+        "9.12E+09"
+      ],
+      "value_counts": {},
+      "semantic_role": "phone",
+      "flags": [
+        "pii"
+      ],
+      "notes": "heavily corrupted by Excel scientific notation",
+      "numeric_summary": {
+        "parseable": 4146,
+        "min": -23000000.0,
+        "p01": 0.0,
+        "p25": 0.0,
+        "median": 8790000000.0,
+        "p75": 9567500000.0,
+        "p99": 9990000000.0,
+        "max": 920000000000.0,
+        "mean": 7219958152.424988
+      },
+      "length_dist": {
+        "min": 1,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 42
+      }
+    },
+    {
+      "name": "Email",
+      "dtype": "object(str)",
+      "non_null": 3981,
+      "null_pct": 29.9,
+      "n_distinct": 3933,
+      "examples": [
+        "bbgbpantportblair@gmail.com",
+        "pillar.portblair@gmail.com",
+        "aapadbandhubbchirala@gmail.com"
+      ],
+      "value_counts": {},
+      "semantic_role": "email",
+      "flags": [
+        "pii"
+      ],
+      "notes": "",
+      "length_dist": {
+        "min": 12,
+        "p25": 22,
+        "median": 25,
+        "p75": 29,
+        "max": 41
+      }
+    },
+    {
+      "name": "Category",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 4,
+      "examples": [
+        "Govt.",
+        "Charitable/Vol",
+        "Private"
+      ],
+      "value_counts": {
+        "Govt.": 2768,
+        "Private": 1621,
+        "Charitable/Vol": 1190,
+        "Red Cross": 100
+      },
+      "semantic_role": "facility_ownership_raw",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "4-value ownership code"
+    },
+    {
+      "name": "new_longitude",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 3867,
+      "examples": [
+        "92.73976",
+        "92.73905",
+        "79.5"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [
+        "derived",
+        "redundant_with:Longitude"
+      ],
+      "notes": "prior geocoding pass; axis-swapped for rows >=5469; 344 rows invalid in both orientations",
+      "numeric_summary": {
+        "parseable": 5679,
+        "min": -157.862,
+        "p01": -89.13817999999999,
+        "p25": 75.12033,
+        "median": 77.43398,
+        "p75": 80.14948,
+        "p99": 94.6366822,
+        "max": 150.9509,
+        "mean": 70.49126462094118
+      },
+      "length_dist": {
+        "min": 2,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "new_latitude",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 3863,
+      "examples": [
+        "11.67572",
+        "11.66454",
+        "15.5"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [
+        "derived",
+        "redundant_with:Latitude"
+      ],
+      "notes": "prior geocoding pass; axis-swapped for rows >=5469; 344 rows invalid in both orientations",
+      "numeric_summary": {
+        "parseable": 5679,
+        "min": -36.0801,
+        "p01": 8.188047,
+        "p25": 16.48703,
+        "median": 22.57363,
+        "p75": 27.47416,
+        "p99": 78.57829513160002,
+        "max": 92.79877878,
+        "mean": 23.924118655360097
+      },
+      "length_dist": {
+        "min": 2,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 11
+      }
+    },
+    {
+      "name": "District",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 699,
+      "examples": [
+        "South Andaman",
+        "Bapatla",
+        "Palnadu"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [
+        "redundant_with:Address"
+      ],
+      "notes": "current (post-2022) district; 100% reproducible by parsing 'Dist. X' from Address",
+      "length_dist": {
+        "min": 3,
+        "p25": 6,
+        "median": 8,
+        "p75": 10,
+        "max": 27
+      }
+    },
+    {
+      "name": "dist_name",
+      "dtype": "object(str)",
+      "non_null": 5679,
+      "null_pct": 0.0,
+      "n_distinct": 683,
+      "examples": [
+        "South Andaman",
+        "Guntur",
+        "Krishna"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [
+        "redundant_with:District"
+      ],
+      "notes": "legacy/LGD district spelling; truncated to 24 chars + '*' for 43 rows",
+      "length_dist": {
+        "min": 3,
+        "p25": 6,
+        "median": 8,
+        "p75": 10,
+        "max": 25
+      }
+    }
+  ],
+  "duplicates": {
+    "exact": 1,
+    "near_dupe_name_geo": 5,
+    "dup_on_name_address": 3,
+    "dup_on_normalized_name": 177,
+    "method": "exact = duplicated() over all source columns; near_dupe_name_geo = duplicated() over (lowercased alnum-normalized Name, Latitude rounded to 3dp, Longitude rounded to 3dp) ~= same name within ~110 m"
+  },
+  "geo_quality": {
+    "column_pair": "Latitude/Longitude",
+    "valid_in_india": 5679,
+    "null": 0,
+    "zero": 0,
+    "out_of_bbox": 0,
+    "possibly_swapped": 0,
+    "valid_pct": 100.0,
+    "new_lat_lon_pair": {
+      "valid_as_labelled": 5119,
+      "valid_only_if_axes_swapped": 216,
+      "invalid_in_both_orientations": 344,
+      "swap_block_starts_at_row_index": 5469
+    }
+  },
+  "candidate_primary_key": {
+    "column": null,
+    "is_unique": false,
+    "notes": "No single column is unique. Name has 140 duplicate rows; Email is null in 1698 rows and duplicated 1745 times. The tightest composite tried, (Name, Address, Latitude, Longitude), still has 3 duplicate rows -> this dataset has NO usable source primary key; one must be synthesised."
+  },
+  "coded_vocabularies": {
+    "Category": [
+      "Charitable/Vol",
+      "Govt.",
+      "Private",
+      "Red Cross"
+    ],
+    "State": [
+      "ANDAMAN & NICOBAR",
+      "ANDHRA PRADESH",
+      "ARUNACHAL PRADESH",
+      "ASSAM",
+      "BIHAR",
+      "CHANDIGARH",
+      "CHHATTISGARH",
+      "DADRA & NAGAR HAVE",
+      "DAMAN & DIU",
+      "DELHI",
+      "GOA",
+      "GUJARAT",
+      "HARYANA",
+      "HIMACHAL PRADESH",
+      "JAMMU & KASHMIR",
+      "JHARKHAND",
+      "KARNATAKA",
+      "KERALA",
+      "LADAKH",
+      "LAKSHADWEEP",
+      "MADHYA PRADESH",
+      "MAHARASHTRA",
+      "MANIPUR",
+      "MEGHALAYA",
+      "MIZORAM",
+      "NAGALAND",
+      "ODISHA",
+      "PUDUCHERRY",
+      "PUNJAB",
+      "RAJASTHAN",
+      "SIKKIM",
+      "TAMIL NADU",
+      "TELANGANA",
+      "TRIPURA",
+      "UTTAR PRADESH",
+      "UTTARAKHAND",
+      "WEST BENGAL"
+    ],
+    "Name_facility_type_tokens": {
+      "BSU": 1448,
+      "BSC": 107,
+      "SGH": 13,
+      "DHH": 9,
+      "SDH": 125,
+      "CHC": 433,
+      "PHC": 3,
+      "RH": 98,
+      "GH": 9,
+      "MCH": 6,
+      "ESI": 5,
+      "AIIMS": 13,
+      "IRCS": 7
+    }
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_name_pct": 100.0,
+    "has_geo_pct": 100.0,
+    "has_valid_india_geo_pct": 100.0,
+    "has_district": true,
+    "district_parseable_from_address_pct": 99.982,
+    "has_state_pct": 100.0,
+    "has_pincode": false,
+    "unmatchable_row_pct": 0.0,
+    "blocking_key_viable": true
+  }
+}

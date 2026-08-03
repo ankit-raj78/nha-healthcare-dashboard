@@ -1,0 +1,388 @@
+====================================================================== 
+NAME FAMILY
+ ======================================================================
+Hospital Name        non-null=11284 distinct=11031
+Manual Hospital Name non-null=11284 distinct=10376
+exactly equal      : 2766 (24.51%)
+equal after normalise: 8333 (73.85%)
+case/punct-only diff : 5567
+substantively differ : 2951 (26.15%)
+
+examples of substantive disagreement:
+  row 1: HN='100 Bed Combind Hospital Sirauli Gauspur Barabanki'
+          MHN='100 Bed Combined Hospital'
+  row 2: HN='100 BED districtCOMBIND HOSPITAL CHICHOLI AURAIYA'
+          MHN='100 Bed District Combined Hospital'
+  row 3: HN='100 BEDED COMBINED District Hospital'
+          MHN='100 Bedded Combined District Hospital'
+  row 4: HN='100 Beded Combined Hospital Chhibramau Kannauj'
+          MHN='100 Bedded Combined Hospital'
+  row 7: HN='200 Beded District Hospital Gora Bazar Ghazipur'
+          MHN='200 Bedded District Hospital'
+  row 12: HN='50 BEDDED CH. CRPF. RAMPUR'
+          MHN='50 Bedded CRPF. Hospital'
+  row 16: HN='7 Med India Private Limited'
+          MHN='7 Med India Pvt. Ltd.'
+  row 17: HN='7 Med India Private Limited'
+          MHN='7 Med India Pvt. Ltd.'
+  row 20: HN='A G Eye Hospital, Puthur, Trichy TN.'
+          MHN='A G Eye Hospital'
+  row 26: HN='A R Ortho Hospital Pollachi, Coimbatore, TN.'
+          MHN='A R Ortho Hospital'
+  row 28: HN='A. J. Hospital, Trichy TN.'
+          MHN='A. J. Hospital'
+  row 30: HN='a.d vaishnav smriti chikitsalay bhatgaon'
+          MHN='A.D. Vaishnav Smriti Chikitsalay'
+
+length: Hospital Name p50=22, Manual p50=19
+  Hospital Name: all-upper=4881 contains digit=0 leading/trailing ws=0 non-ascii=0 len>100=1
+  Manual Hospital Name: all-upper=18 contains digit=0 leading/trailing ws=0 non-ascii=0 len>100=0
+
+====================================================================== 
+ADDRESS FAMILY
+ ======================================================================
+column                     non_null   fill%  distinct  len_p50
+Hospital Address              11284 100.00%     10221       49
+Manual Hospital Address       11284 100.00%      9645       42
+address_py                    11284 100.00%      8882       76
+Formatted Address             11284 100.00%     11015       99
+Road                           4593  40.70%      1876       11
+Locality                      10737  95.15%      6901       23
+District                       3176  28.15%       115       17
+City                          11244  99.65%       699        8
+State                         11244  99.65%        45        9
+Country                       11284 100.00%         1        5
+Zipcode                       10374  91.94%      4345        6
+pincode_py                    11284 100.00%      4381        6
+
+-- pairwise equality among the 4 full-address columns --
+  Hospital Address         == Manual Hospital Address : exact      1  norm   6385
+  Hospital Address         == address_py              : exact      0  norm      0
+  Hospital Address         == Formatted Address       : exact      0  norm      0
+  Manual Hospital Address  == address_py              : exact      0  norm      0
+  Manual Hospital Address  == Formatted Address       : exact      0  norm      0
+  address_py               == Formatted Address       : exact      0  norm      0
+
+-- does Hospital Address == Manual Hospital Address + ', India'? --
+  HA == MHA + ', India': 1 / 11284
+  HA startswith MHA    : 19
+  HA contains MHA      : 30
+
+-- sample rows, all address columns --
+
+  row 0:
+    Hospital Address           = 'Chaibasa, Tungri, Chaibasa, Jharkhand, India'
+    Manual Hospital Address    = 'Chaibasa, Tungri, Chaibasa, Jharkhand'
+    address_py                 = 'Gayatary Seva Sadan, Tambo Road, Tāmbo, Chaibasa, Pashchimi Singhbhum, Jharkhand, 833201, India'
+    Formatted Address          = 'Gayatri Sevasadan, Tambo Road , Pashchimi Singhbhum , Jharkhand , India , 833201'
+    Road                       = 'Tambo Road'
+    Locality                   = 'Gayatary Seva Sadan Tāmbo Chaibasa'
+    District                   = nan
+    City                       = 'Pashchimi Singhbhum'
+    State                      = 'Jharkhand'
+    Country                    = 'India'
+    Zipcode                    = '833201'
+    pincode_py                 = '833201'
+
+  row 1:
+    Hospital Address           = '100 Bed Combined Hospital Sirauli Gauspur, Barabanki, BARABANKI, UTTAR PRADESH'
+    Manual Hospital Address    = 'Sirauli Gauspur, Barabanki, Uttar Pradesh'
+    address_py                 = 'NH727H, Barabanki, Nawabganj, Barabanki, Uttar Pradesh, 225001, India'
+    Formatted Address          = '100 Bed Combined Hospital, NH727H , Nawabganj Barabanki , Barabanki , Uttar Pradesh , India , 225001'
+    Road                       = 'NH727H'
+    Locality                   = 'Nawabganj Barabanki'
+    District                   = nan
+    City                       = 'Barabanki'
+    State                      = 'Uttar Pradesh'
+    Country                    = 'India'
+    Zipcode                    = '225001'
+    pincode_py                 = '225001'
+
+  row 500:
+    Hospital Address           = 'konka road, ranchi, RANCHI, JHARKHAND'
+    Manual Hospital Address    = 'Konka Road, Ranchi, Jharkhand'
+    address_py                 = 'Anjuman Hospital, RATAN TAKIES, Konkā, Ranchi, Kanke, Ranchi, Jharkhand, 834001, India'
+    Formatted Address          = 'Anjuman Islamia Hospital, RATAN TAKIES Konkā Kanke Ranchi , Ranchi , Jharkhand , India , 834001'
+    Road                       = nan
+    Locality                   = 'RATAN TAKIES Konkā Kanke Ranchi'
+    District                   = nan
+    City                       = 'Ranchi'
+    State                      = 'Jharkhand'
+    Country                    = 'India'
+    Zipcode                    = '834001'
+    pincode_py                 = '834001'
+
+  row 5000:
+    Hospital Address           = 'ring road darripara, SURGUJA, CHHATTISGARH'
+    Manual Hospital Address    = 'Ring Road Darripara, Surguja, Chhattisgarh'
+    address_py                 = 'Jeevan Jyoti Hospital, NH43, امبیکاپور, Ambikapur Tahsil, Surguja District, Chhattisgarh, 497001, India'
+    Formatted Address          = 'Jeevan Jyoti, NH43 , امبیکاپور Ambikapur Tahsil , Surguja  , Surguja District , Chhattisgarh , India , 497001'
+    Road                       = 'NH43'
+    Locality                   = 'امبیکاپور Ambikapur Tahsil'
+    District                   = 'Surguja District'
+    City                       = 'Surguja'
+    State                      = 'Chhattisgarh'
+    Country                    = 'India'
+    Zipcode                    = '497001'
+    pincode_py                 = '497001'
+
+-- 'State' (geocoder) vs 'Manual state' --
+  exact equal: 0
+  equal upper: 10978
+  of 11244 rows with both: agree=10978 (97.63%)
+  disagreement examples:
+    row 58: Manual state='UTTARAKHAND' State='Uttar Pradesh'
+    row 70: Manual state='HARYANA' State='Punjab'
+    row 78: Manual state='HIMACHAL PRADESH' State='Uttar Pradesh'
+    row 80: Manual state='HARYANA' State='Maharashtra'
+    row 81: Manual state='PUNJAB' State='Maharashtra'
+    row 86: Manual state='HIMACHAL PRADESH' State='Uttar Pradesh'
+    row 156: Manual state='ASSAM' State='Haryana'
+    row 204: Manual state='MADHYA PRADESH' State='Chhattisgarh'
+    row 258: Manual state='JHARKHAND' State='West Delhi'
+    row 264: Manual state='CHHATTISGARH' State='Uttar Pradesh'
+
+-- 'District' (geocoder) vs 'Manual District' vs 'City' --
+  rows with both Manual District and District: 3175
+    agree (after stripping ' District'): 2240
+  rows with both Manual District and City: 11207
+    agree: 7892 (70.42%)
+  City disagreement examples:
+    row 0: Manual District='WEST SINGHBHUM' City='Pashchimi Singhbhum'
+    row 6: Manual District='RAJAURI' City='Rajouri district'
+    row 10: Manual District='BELAGAVI' City='Belgaum district'
+    row 13: Manual District='BAGALKOT' City='Bagalkote district'
+    row 15: Manual District='DHEMAJI' City='Dhubri'
+    row 16: Manual District='JHAJJAR' City='Bahadurgarh'
+    row 17: Manual District='GURUGRAM' City='Bahadurgarh'
+    row 23: Manual District='DAKSHINA KANNADA' City='Dakshina Kannada district'
+    row 27: Manual District='Sabarkantha' City='Sabar Kantha'
+    row 31: Manual District='Palamau' City='Palamu'
+
+====================================================================== 
+ADMIN GEO
+ ======================================================================
+Manual state: 36 distinct, 0 null
+Manual state
+GUJARAT                        2162
+UTTAR PRADESH                  1786
+CHHATTISGARH                    887
+TAMIL NADU                      656
+KARNATAKA                       655
+PUNJAB                          643
+JHARKHAND                       610
+ANDHRA PRADESH                  596
+BIHAR                           589
+HARYANA                         465
+MADHYA PRADESH                  459
+KERALA                          335
+ASSAM                           296
+MEGHALAYA                       155
+UTTARAKHAND                     139
+MAHARASHTRA                     131
+RAJASTHAN                       128
+HIMACHAL PRADESH                128
+JAMMU AND KASHMIR                83
+NAGALAND                         75
+MIZORAM                          73
+TRIPURA                          45
+NCT OF DELHI                     37
+WEST BENGAL                      27
+MANIPUR                          26
+PUDUCHERRY                       20
+CHANDIGARH                       19
+GOA                              17
+TELANGANA                        11
+ODISHA                           10
+SIKKIM                            6
+ARUNACHAL PRADESH                 5
+ANDAMAN AND NICOBAR ISLANDS       3
+DAMAN AND DIU                     3
+DADRA AND NAGAR HAVELI            3
+LAKSHADWEEP                       1
+
+Manual state formatting: all upper? True | any with stray whitespace: 0
+
+'State' (geocoder): 45 distinct
+State
+Gujarat                                     2165
+Uttar Pradesh                               1808
+Chhattisgarh                                 862
+Tamil Nadu                                   659
+Karnataka                                    654
+Punjab                                       612
+Jharkhand                                    607
+Andhra Pradesh                               594
+Bihar                                        575
+Haryana                                      458
+Madhya Pradesh                               456
+Kerala                                       333
+Assam                                        297
+Meghalaya                                    149
+Maharashtra                                  146
+Uttarakhand                                  143
+Rajasthan                                    136
+Himachal Pradesh                             124
+Jammu and Kashmir                             82
+Nagaland                                      74
+Mizoram                                       72
+Tripura                                       45
+NaN                                           40
+West Bengal                                   29
+Manipur                                       26
+Puducherry                                    19
+Goa                                           17
+Chandigarh                                    17
+Telangana                                     14
+Odisha                                        10
+West Delhi                                     9
+New Delhi                                      7
+Sikkim                                         6
+Central Delhi                                  6
+Dadra and Nagar Haveli and Daman and Diu       6
+Arunachal Pradesh                              5
+South East Delhi                               4
+North West Delhi                               3
+East Delhi                                     3
+Andaman and Nicobar Islands                    3
+Dwarka Tehsil                                  3
+North Delhi                                    2
+South Delhi                                    1
+Lakshadweep                                    1
+Kapashera Tehsil                               1
+Bahadurgarh                                    1
+
+Manual District: 622 distinct, 37 null
+  top 20:
+Manual District
+AHMEDABAD         222
+Banaskantha       180
+SURAT             166
+RAIPUR            148
+LUCKNOW           142
+VARANASI          135
+ALLAHABAD         134
+RAJKOT            112
+KANPUR NAGAR      112
+BHAVNAGAR         101
+RANCHI             99
+MAHESANA           95
+Sabarkantha        92
+BAREILLY           90
+PATNA              82
+BHOPAL             82
+VADODARA           82
+VALSAD             82
+GUNTUR             80
+Surendra Nagar     80
+  all upper? False
+  districts containing digits: ['North 24 Parganas']
+  district w/ leading/trailing ws: 0
+  suspicious short districts: ['DIU', 'Leh', 'MAU', 'MON', 'UNA']
+
+'District' (geocoder): 115 distinct, fill 28.15%
+District
+Ahmedabad District        226
+Banas Kantha District     172
+Bhavnagar District        102
+Vadodara District          98
+Mahesana District          97
+Sabar Kantha District      95
+Bareilly District          91
+Patna District             84
+Surendranagar District     81
+Kheda District             78
+Coimbatore District        72
+Dahod District             72
+Erode District             64
+Korba District             60
+Chennai District           59
+
+====================================================================== 
+PINCODE
+ ======================================================================
+
+pincode_py: non-null=11284 (100.00%) distinct=4381
+  exactly 6 digits: 10374 / 11284
+  NOT 6 digits    : 910 e.g. ['0', '43614', '19107', '30458', '2215', '3301', '17403', '90025', '33308', '73112', '2199', '66763', '67005', '64804', '44646']
+  leading digit distribution: {'1': 1295, '2': 1873, '3': 2007, '4': 1276, '5': 1223, '6': 1009, '7': 630, '8': 1061}
+  leading digit 0 (invalid for India): 0
+  value range: 110001 .. 881103
+
+Zipcode: non-null=10374 (91.94%) distinct=4345
+  exactly 6 digits: 10374 / 10374
+  NOT 6 digits    : 0 e.g. []
+  leading digit distribution: {'1': 1295, '2': 1873, '3': 2007, '4': 1276, '5': 1223, '6': 1009, '7': 630, '8': 1061}
+  leading digit 0 (invalid for India): 0
+  value range: 110001 .. 881103
+
+pincode_py vs Zipcode agreement:
+  both present=10374 equal=10374 (100.00%)
+
+====================================================================== 
+CONTACT / PII
+ ======================================================================
+E-Mail: non-null=10964 distinct=10531
+  RFC-ish valid: 10858  invalid: 106
+  invalid examples: ['11.506853', '23.1764665', '28.3902671', '31.519133', '25.5962845', '31.221691', '25.4379166', '22.3102559', '29.6813352', '31.2834721', '30.3336376', '25.2827961']
+  duplicated emails (shared across facilities): 433; top: {'nithia.d@vidalhealthtpa.com': 54, 'dporsbyvalsad@gmail.com': 43, 'rsbybalrampur@gmail.com': 29, 'dporsbyvadodara@gmail.com': 27, 'dporsbymorvi@gmail.com': 23}
+  domains: [('gmail.com', 8001), ('yahoo.com', 703), ('rediffmail.com', 448), ('yahoo.co.in', 289), ('yahoo.in', 287), ('hotmail.com', 101), ('nic.in', 57), ('vidalhealthtpa.com', 55)]
+
+Contact: non-null=11248 distinct=10248
+  digit-length distribution: {0: 391, 1: 38, 5: 11, 7: 1, 8: 14, 9: 70, 10: 10710, 11: 12, 21: 1}
+  valid 10-digit Indian mobile: 10606 (94.29%)
+  non-conforming examples: ['4332260969', '2222222222', '-NA-', '0', '3812353112', '75.6249378', '75.7885163', '79.4590456', '75.9225755', '83.5842775', '75.195912', '81.8425827']
+  duplicated numbers: 1000; top: {'-NA-': 390, '9898989898': 48, '0': 38, '2222222222': 34, '9907890261': 26}
+
+====================================================================== 
+SUSPICIOUS COLUMNS
+ ======================================================================
+-- Types of Employees --
+  non-null=0 -> COMPLETELY EMPTY
+
+-- Test extract --
+  non-null=8 (0.0709%)
+  all non-null rows:
+    row 19: 'KOLLAM, KERALA' | Manual District='KOLLAM' | Manual state='KERALA' | City='Kollam' | State='Kerala'
+    row 20: 'TIRUCHIRAPPALLI, TAMIL NADU' | Manual District='TIRUCHIRAPPALLI' | Manual state='TAMIL NADU' | City='Tiruchirappalli' | State='Tamil Nadu'
+    row 21: 'BALRAMPUR, UTTAR PRADESH' | Manual District='BALRAMPUR' | Manual state='UTTAR PRADESH' | City='Balrampur' | State='Uttar Pradesh'
+    row 22: 'JORHAT, ASSAM' | Manual District='JORHAT' | Manual state='ASSAM' | City='Jorhat' | State='Assam'
+    row 23: 'DAKSHINA KANNADA, KARNATAKA' | Manual District='DAKSHINA KANNADA' | Manual state='KARNATAKA' | City='Dakshina Kannada district' | State='Karnataka'
+    row 24: 'Bareilly, Uttar Pradesh' | Manual District='BAREILLY' | Manual state='UTTAR PRADESH' | City='Bareilly' | State='Uttar Pradesh'
+    row 25: 'FIROZPUR, PUNJAB' | Manual District='FIROZPUR' | Manual state='PUNJAB' | City='Firozpur' | State='Punjab'
+    row 26: 'COIMBATORE, TAMIL NADU' | Manual District='COIMBATORE' | Manual state='TAMIL NADU' | City='Coimbatore' | State='Tamil Nadu'
+
+-- is_RU --
+is_RU
+urban    8400
+rural    2876
+NaN         8
+  null rows: [134, 1101, 2993, 3012, 6183, 6383, 8355, 10744]
+    row 134: 'Acharya Shri Chander College of Medical ' state='JAMMU AND KASHMIR'
+    row 1101: 'Bishop John Richardson Hospital' state='ANDAMAN AND NICOBAR ISLANDS'
+    row 2993: 'CHC MADHAVPUR GHED' state='GUJARAT'
+    row 3012: 'CHC PERIYE' state='KERALA'
+    row 6183: 'MIMS THANAL DIALYSIS CENTRE' state='KERALA'
+    row 6383: 'Nankam Hospital, Nilgiris TN.' state='TAMIL NADU'
+    row 8355: 'Primary Health Centre Orwad' state='GUJARAT'
+    row 10744: 'SUNSHINE GLOBAL HOSPITAL' state='GUJARAT'
+
+-- Hospital Type --
+Hospital Type
+Public                      5289
+Private (For Profit)        5052
+Private (Not for Profit)     672
+NaN                          271
+  null: 271 (2.40%)
+
+-- Country --
+Country
+India    11284
+
+====================================================================== 
+Sr No
+ ======================================================================
+  non-null=11284 distinct=11284 is_unique=True
+  numeric parse ok=11284 min=1 max=11285
+  is contiguous 1..n: False
+  equals row index+1: 252/11284

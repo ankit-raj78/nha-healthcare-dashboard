@@ -1,76 +1,38 @@
-# Data files (too large for GitHub — regenerate with master_merger.py)
-*.csv
+# ---------------------------------------------------------------- source data
+# The 10 raw CSVs live in datasets/ and are NOT tracked: 124 MB total, and
+# 1_MAR_AR_2025_NHA...csv alone is 102 MB — over GitHub's 100 MB per-file hard
+# limit. Use Git LFS if these must be versioned.
+datasets/
 
-# Keep small CSVs that are outputs/reports
-!sample_matches.csv
+# ------------------------------------------------------------------- built db
+# Regenerate with:  .venv/bin/python eda/build_v0.py
+db/*.duckdb
 
-# Python
+# ---------------------------------------------------------- archived old work
+archive/
+
+# ------------------------------------------------------------------- EDA data
+# Keep the analysis artifacts (profile.json, field_map.yaml, *.md) — they are
+# the Phase 1 deliverable. Exclude only bulky per-dataset samples.
+eda/**/sample_*.csv
+
+# ---------------------------------------------------------------------- Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
 *.egg-info/
-*.egg
-dist/
-build/
-.installed.cfg
-MANIFEST
-
-# Virtual environments
-venv/
 .venv/
+venv/
 env/
-ENV/
-
-# Jupyter
 .ipynb_checkpoints/
+.pytest_cache/
 
-# OS
+# -------------------------------------------------------------------- scratch
+BB/
+full bakchodi ppt/
+
+# ------------------------------------------------------------------------- OS
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
 *.swp
-*.swo
-
-# Logs
-*.log
-
-# Streamlit old app (separate project)
-streamlit/
-
-# Other data directories
-bloodbank/
-specialty data/
-
-# Text reports
-*.txt
-!requirements.txt
-
-# JSON data (keep merge_report)
-*.json
-!merge_report.json
-
-# Claude plans
-.claude/
-
-# Cache
-.cache/
-.pytest_cache/
-
-# AI/ML models
-*.pkl
-*.joblib
-*.h5
-
-# Temporary files
-*.tmp
-*.temp
-
-# Streamlit config (keep .streamlit/config.toml for deploy settings)
-# .streamlit/  -- included for Streamlit Cloud
-
-# PNG images
-*.png

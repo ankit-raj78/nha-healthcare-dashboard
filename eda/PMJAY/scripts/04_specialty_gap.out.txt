@@ -1,0 +1,45 @@
+text vocabulary: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M10', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16']
+flag column codes: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M10', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16']
+IN TEXT BUT NO FLAG COLUMN: ['S8', 'S9']
+FLAG COLUMN BUT NEVER IN TEXT: []
+
+_emp: codes present in text but flag=0 -> {'S8': 3246, 'S9': 3002}
+  after dropping ['S8', 'S9'] from text, exact match: 11284/11284 = 100.000%
+  residual mismatches: 0 []
+
+_upg: codes present in text but flag=0 -> {'S8': 489, 'S9': 381}
+  after dropping ['S8', 'S9'] from text, exact match: 11284/11284 = 100.000%
+  residual mismatches: 0 []
+
+rows whose Specialities Empanelled mentions S8 or S9: 3246 (28.77%)
+
+rows whose Specialities Upgraded mentions S8 or S9: 489 (4.33%)
+
+=== suspicious co-occurrence ===
+Specialities Empanelled: S10=3009 S11=3009 both=3009 S10only=0 S11only=0
+Specialities Upgraded: S10=423 S11=423 both=423 S10only=0 S11only=0
+Specialities Empanelled: S8=3246 S9=3002 both=3002 S8only=244 S9only=0
+Specialities Upgraded: S8=489 S9=381 both=381 S8only=108 S9only=0
+
+=== '-NA-' sentinel ===
+Specialities Empanelled: contains '-NA-'=143, value is exactly '-NA-'=143, true null=0
+   '-NA-' mixed with real codes: 0 e.g. []
+Specialities Upgraded: contains '-NA-'=3720, value is exactly '-NA-'=3720, true null=4542
+   '-NA-' mixed with real codes: 0 e.g. []
+
+rows with Empanelled=='-NA-': 143, of which all _emp flags 0: 143
+rows with all _emp flags 0: 152
+   row 106: E-text='-NA-'
+   row 136: E-text='-NA-'
+   row 160: E-text='-NA-'
+   row 169: E-text='S8, S9'
+   row 182: E-text='-NA-'
+   row 297: E-text='-NA-'
+   row 743: E-text='-NA-'
+   row 766: E-text='-NA-'
+
+=== combined col: exact rule ===
+comb == E+U where both non-null: 11141 / 11284
+comb null exactly when E=='-NA-': 11284 / 11284
+count E=='-NA-': 143  count comb null: 143
+non-code tokens in combined col (top 15): [('S1-NA-', 1418), ('S4-NA-', 470), ('S3-NA-', 403), ('M7-NA-', 376), ('S5-NA-', 179), ('M7S1', 145), ('M8-NA-', 143), ('M2-NA-', 140), ('M7S4', 139), ('S16-NA-', 138), ('S1S4', 138), ('S1M1', 137), ('S1S1', 132), ('S4S4', 103), ('S2-NA-', 99)]

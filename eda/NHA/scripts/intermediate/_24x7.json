@@ -1,0 +1,34 @@
+{
+  "hypothesis_test": {
+    "n_dup_id_groups": 62300,
+    "groups_where_24x7_has_both_yes_and_no": 58370,
+    "groups_where_24x7_constant": 3930,
+    "pct_dup_groups_explained_by_24x7_split": 93.69
+  },
+  "collapse_after_dropping_24x7": {
+    "n_rows_before": 323460,
+    "n_distinct_rows_ignoring_24x7": 261905,
+    "n_rows_eliminated": 61555,
+    "facility_id_unique_after_collapse": false,
+    "n_ids_still_repeated": 3146,
+    "n_rows_after_collapse": 261905
+  },
+  "24x7_reliability": {
+    "overall_value_counts": {
+      "no": 259444,
+      "yes": 64016
+    },
+    "n_yes_rows": 64016,
+    "n_facilities_with_a_yes_row": 63308,
+    "n_facilities_with_a_no_row": 253818,
+    "n_facilities_with_both": 58370,
+    "n_facilities_total": 258756,
+    "pct_facilities_with_contradictory_24x7": 22.56
+  },
+  "control_columns_varying_in_dup_groups": {
+    "ABDM Enabled": 6,
+    "Ownership": 0,
+    "Facility Type": 1,
+    "new_state_name": 1
+  }
+}

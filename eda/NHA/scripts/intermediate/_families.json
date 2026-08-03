@@ -1,0 +1,777 @@
+{
+  "verifiers": {
+    "all_four_identical_rowwise": true,
+    "n_rows_where_any_differ": 0,
+    "value_counts": {
+      "Name verifier": {
+        "Green": "281386",
+        "Orange": "28615",
+        "Blue": "13459"
+      },
+      "Address verifier": {
+        "Green": "281386",
+        "Orange": "28615",
+        "Blue": "13459"
+      },
+      "Facility Type verifier": {
+        "Green": "281386",
+        "Orange": "28615",
+        "Blue": "13459"
+      },
+      "Ownership verifier": {
+        "Green": "281386",
+        "Orange": "28615",
+        "Blue": "13459"
+      }
+    }
+  },
+  "verifier_vs_ownership": {
+    "Government": {
+      "Blue": 1208,
+      "Green": 166448,
+      "Orange": 10881
+    },
+    "Private": {
+      "Blue": 12231,
+      "Green": 114358,
+      "Orange": 16757
+    },
+    "Public-Private-Partnership": {
+      "Blue": 20,
+      "Green": 580,
+      "Orange": 977
+    }
+  },
+  "verifier_vs_abdm": {
+    "No": {
+      "Blue": 10379,
+      "Green": 213464,
+      "Orange": 25377
+    },
+    "Yes": {
+      "Blue": 3080,
+      "Green": 67922,
+      "Orange": 3238
+    }
+  },
+  "verifier_vs_facility_type_top": {
+    "Blue": {
+      "Sub Centre": 242,
+      "Hospital": 1412,
+      "Pharmacy": 1231,
+      "Primary Health Centre": 94,
+      "Health and Wellness Centre": 77,
+      "Clinic/ Dispensary": 4076,
+      "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)": 143,
+      "Diagnostic Laboratory": 5719,
+      "Community Health Centre": 45,
+      "Dental Clinic": 135,
+      "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)": 99,
+      "Imaging Center": 18
+    },
+    "Green": {
+      "Sub Centre": 104214,
+      "Hospital": 44807,
+      "Pharmacy": 38080,
+      "Primary Health Centre": 25805,
+      "Health and Wellness Centre": 18188,
+      "Clinic/ Dispensary": 16735,
+      "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)": 8413,
+      "Diagnostic Laboratory": 7886,
+      "Community Health Centre": 6778,
+      "Dental Clinic": 3175,
+      "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)": 2861,
+      "Imaging Center": 978
+    },
+    "Orange": {
+      "Sub Centre": 3187,
+      "Hospital": 10580,
+      "Pharmacy": 1979,
+      "Primary Health Centre": 1861,
+      "Health and Wellness Centre": 1477,
+      "Clinic/ Dispensary": 3008,
+      "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)": 983,
+      "Diagnostic Laboratory": 1260,
+      "Community Health Centre": 1268,
+      "Dental Clinic": 777,
+      "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)": 825,
+      "Imaging Center": 134
+    }
+  },
+  "facility_id": {
+    "n_rows": 323460,
+    "n_distinct": 258756,
+    "is_unique": false,
+    "n_ids_appearing_more_than_once": 62300,
+    "n_rows_involved_in_dup_ids": 127004,
+    "max_repeat": 220,
+    "repeat_count_histogram": {
+      "1": 196456,
+      "2": 60541,
+      "3": 1533,
+      "4": 186,
+      "5": 6,
+      "6": 1,
+      "8": 25,
+      "9": 1,
+      "12": 2,
+      "18": 3,
+      "36": 1,
+      "220": 1
+    },
+    "all_numeric": true,
+    "min": 108,
+    "max": 588417,
+    "n_blank": 0,
+    "example_dup_ids": [
+      "364845",
+      "27626",
+      "455145",
+      "461045",
+      "347642"
+    ],
+    "dup_id_groups_fully_identical_rows": 3922,
+    "n_dup_id_groups": 62300
+  },
+  "state_name_distinct": [
+    "Andaman and Nicobar",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chandigarh",
+    "Chhattisgarh",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu and Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Ladakh",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Puducherry",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "The Dadra and Nagar Haveli and Daman and Diu",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand"
+  ],
+  "new_state_name_distinct": [
+    "Andaman And Nicobar Islands",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chandigarh",
+    "Chhattisgarh",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu And Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Ladakh",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Puducherry",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "The Dadra And Nagar Haveli And Daman And Diu",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand"
+  ],
+  "state_code_distinct": [
+    "1.0",
+    "10.0",
+    "11.0",
+    "12.0",
+    "13.0",
+    "14.0",
+    "15.0",
+    "16.0",
+    "17.0",
+    "18.0",
+    "2.0",
+    "20.0",
+    "21.0",
+    "22.0",
+    "23.0",
+    "24.0",
+    "27.0",
+    "28.0",
+    "29.0",
+    "3.0",
+    "30.0",
+    "32.0",
+    "33.0",
+    "34.0",
+    "35.0",
+    "36.0",
+    "37.0",
+    "38.0",
+    "4.0",
+    "5.0",
+    "6.0",
+    "7.0",
+    "8.0",
+    "9.0"
+  ],
+  "state_agreement": {
+    "exact_equal": 317069,
+    "equal_casefold_nospace": 323222
+  },
+  "state_mismatch_pairs": {
+    "Andaman and Nicobar || Andaman And Nicobar Islands": 238
+  },
+  "state_code_to_new_state": {
+    "1.0": [
+      "Jammu And Kashmir"
+    ],
+    "10.0": [
+      "Bihar"
+    ],
+    "11.0": [
+      "Sikkim"
+    ],
+    "12.0": [
+      "Arunachal Pradesh"
+    ],
+    "13.0": [
+      "Nagaland"
+    ],
+    "14.0": [
+      "Manipur"
+    ],
+    "15.0": [
+      "Mizoram"
+    ],
+    "16.0": [
+      "Tripura"
+    ],
+    "17.0": [
+      "Meghalaya"
+    ],
+    "18.0": [
+      "Assam"
+    ],
+    "2.0": [
+      "Himachal Pradesh"
+    ],
+    "20.0": [
+      "Jharkhand"
+    ],
+    "21.0": [
+      "Odisha"
+    ],
+    "22.0": [
+      "Chhattisgarh"
+    ],
+    "23.0": [
+      "Madhya Pradesh"
+    ],
+    "24.0": [
+      "Gujarat"
+    ],
+    "27.0": [
+      "Maharashtra"
+    ],
+    "28.0": [
+      "Andhra Pradesh"
+    ],
+    "29.0": [
+      "Karnataka"
+    ],
+    "3.0": [
+      "Punjab"
+    ],
+    "30.0": [
+      "Goa"
+    ],
+    "32.0": [
+      "Kerala"
+    ],
+    "33.0": [
+      "Tamil Nadu"
+    ],
+    "34.0": [
+      "Puducherry"
+    ],
+    "35.0": [
+      "Andaman And Nicobar Islands"
+    ],
+    "36.0": [
+      "Telangana"
+    ],
+    "37.0": [
+      "Ladakh"
+    ],
+    "38.0": [
+      "The Dadra And Nagar Haveli And Daman And Diu"
+    ],
+    "4.0": [
+      "Chandigarh"
+    ],
+    "5.0": [
+      "Uttarakhand"
+    ],
+    "6.0": [
+      "Haryana"
+    ],
+    "7.0": [
+      "Delhi"
+    ],
+    "8.0": [
+      "Rajasthan"
+    ],
+    "9.0": [
+      "Uttar Pradesh"
+    ]
+  },
+  "district_agreement": {
+    "exact_equal": 0,
+    "equal_casefold_nospace": 322593,
+    "n_distinct_old": 643,
+    "n_distinct_new": 615,
+    "n_distinct_district_code": 615
+  },
+  "district_mismatch_examples": [
+    {
+      "row": 2794,
+      "District_name": "Not Found",
+      "new_district_name": "Ntr",
+      "state": "Andhra Pradesh"
+    },
+    {
+      "row": 3034,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3035,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3042,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3043,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3045,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3056,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3058,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3062,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3073,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3084,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3085,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3090,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3092,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3094,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3099,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3104,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3124,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3132,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    },
+    {
+      "row": 3133,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "state": "Arunachal Pradesh"
+    }
+  ],
+  "district_mismatch_top_pairs": {
+    "anoopgarh || Anupgarh": 330,
+    "nadia || Narmada": 92,
+    "una || Anjaw": 91,
+    "lahul and spiti || Lahaul And Spiti": 61,
+    "dehradun || Mau": 47,
+    "nainital || Mainpuri": 44,
+    "jangoan || North Goa": 41,
+    "mandi || Gandhinagar": 26,
+    "rohtak || North East": 22,
+    "srinagar || Ramanagara": 16,
+    "haridwar || Shahdara": 12,
+    "rampur || Balrampur-Ramanujganj": 9,
+    "ramban || Ramanagara": 7,
+    "sanchor || North Goa": 6,
+    "buldhana || South Goa": 6,
+    "baran || Nabarangpur": 6,
+    "mahe || Mahesana": 6,
+    "pali || Arvalli": 5,
+    "uttara kannada || South Goa": 3,
+    "mau || Mamit": 3,
+    "yanam || Hanumakonda": 3,
+    "kota || Koraput": 3,
+    "Not Found || Ntr": 2,
+    "karaikal || Ariyalur": 2,
+    "jaipur || Jajapur": 2,
+    "hapur || Raipur": 2,
+    "diu || Gandhinagar": 2,
+    "dimapur || Lakhimpur": 2,
+    "samba || Mohla-Manpur-Ambagarh Chouki": 2,
+    "dhar || Dhamtari": 2
+  },
+  "district_code_maps_to_multiple_names": 0,
+  "district_name_maps_to_multiple_codes": 0,
+  "district_name_multi_code_examples": {},
+  "n_distinct_state_district_code_pairs": 615,
+  "geo": {
+    "lat_blank": 0,
+    "lon_blank": 0,
+    "lat_unparseable_nonblank": 12,
+    "lon_unparseable_nonblank": 10,
+    "lat_bad_examples": [
+      "\u200e24.6673639",
+      "23. 259933",
+      " \u200e26.6827052",
+      "25.44.56.410",
+      "16.5062\u00b0 N",
+      "12.83.32"
+    ],
+    "lon_bad_examples": [
+      "76.235703.",
+      "82.41.55.32",
+      "80.6225\u00b0 E",
+      "28.73.0",
+      " "
+    ],
+    "lat_min": -77.61770960013205,
+    "lat_max": 26213662278.12914,
+    "lon_min": -166.16204434539782,
+    "lon_max": 26213662278.12914,
+    "both_null": 6,
+    "either_null": 16,
+    "exactly_one_null": 10,
+    "zero_zero": 66,
+    "lat_zero": 66,
+    "lon_zero": 66,
+    "valid_in_india_bbox": 322156,
+    "possibly_swapped": 342,
+    "out_of_bbox_nonnull_nonzero": 1222,
+    "out_of_bbox_examples": [
+      {
+        "row": 1162,
+        "lat": 77.600594,
+        "lon": 14.681888,
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY ANANTAPUR"
+      },
+      {
+        "row": 1163,
+        "lat": 79.100327,
+        "lon": 13.217176,
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY CHITTOOR"
+      },
+      {
+        "row": 1164,
+        "lat": 80.436539,
+        "lon": 16.306652,
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY GUNTUR"
+      },
+      {
+        "row": 1165,
+        "lat": 78.037277,
+        "lon": 15.828126,
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY KURNOOL"
+      },
+      {
+        "row": 3023,
+        "lat": 38.960489,
+        "lon": 39.6927249,
+        "state": "Andhra Pradesh",
+        "name": "YAZALI SUB CENTRE"
+      },
+      {
+        "row": 4263,
+        "lat": 89.97435,
+        "lon": 26.020699,
+        "state": "Assam",
+        "name": "NIKSHAY DHUBRI"
+      },
+      {
+        "row": 5995,
+        "lat": 84.666222,
+        "lon": 25.244019,
+        "state": "Bihar",
+        "name": "NIKSHAY ARWAL"
+      },
+      {
+        "row": 5996,
+        "lat": 85.313118,
+        "lon": 25.096075,
+        "state": "Bihar",
+        "name": "NIKSHAY AURANGABAD"
+      },
+      {
+        "row": 5997,
+        "lat": 86.919838,
+        "lon": 24.887419,
+        "state": "Bihar",
+        "name": "NIKSHAY BANKA"
+      },
+      {
+        "row": 5998,
+        "lat": 83.977745,
+        "lon": 25.564711,
+        "state": "Bihar",
+        "name": "NIKSHAY BUXAR"
+      },
+      {
+        "row": 5999,
+        "lat": 85.896004,
+        "lon": 26.111868,
+        "state": "Bihar",
+        "name": "NIKSHAY DARBHANGA"
+      },
+      {
+        "row": 6000,
+        "lat": 84.443329,
+        "lon": 26.468548,
+        "state": "Bihar",
+        "name": "NIKSHAY GOPALGANJ"
+      },
+      {
+        "row": 8529,
+        "lat": 39.65506511200636,
+        "lon": 50.0458688536994,
+        "state": "Chhattisgarh",
+        "name": "PHC MADDED"
+      },
+      {
+        "row": 12325,
+        "lat": 1.7524914875102129,
+        "lon": 17.934313478698982,
+        "state": "Chhattisgarh",
+        "name": "UMAMEMORIAL SURGICAL AND ENDOSCOPIC NURS"
+      },
+      {
+        "row": 21175,
+        "lat": 15.927171587206033,
+        "lon": 66.53751033534002,
+        "state": "Karnataka",
+        "name": "ASHWINI CLINIC"
+      },
+      {
+        "row": 21261,
+        "lat": 1.3713,
+        "lon": 103.835602,
+        "state": "Karnataka",
+        "name": "AVENUE SUPERMARTS LIMITED"
+      },
+      {
+        "row": 21430,
+        "lat": 45.98848,
+        "lon": 95.582718,
+        "state": "Karnataka",
+        "name": "BANU MEDICALS AND GENERAL STORES"
+      },
+      {
+        "row": 21582,
+        "lat": 46.398701,
+        "lon": 25.142401,
+        "state": "Karnataka",
+        "name": "BHAGIRATHI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21605,
+        "lat": 1.3385,
+        "lon": 103.774498,
+        "state": "Karnataka",
+        "name": "BHAIRAV MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21606,
+        "lat": 1.3385,
+        "lon": 103.774498,
+        "state": "Karnataka",
+        "name": "BHAIRAV MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21672,
+        "lat": 45.544613,
+        "lon": -76.123566,
+        "state": "Karnataka",
+        "name": "BHAVANI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 22724,
+        "lat": 39.398399,
+        "lon": 28.510944,
+        "state": "Karnataka",
+        "name": "FURQAN MEDICAL CENTRE"
+      },
+      {
+        "row": 22829,
+        "lat": 60.591282,
+        "lon": 24.87262,
+        "state": "Karnataka",
+        "name": "GAYATRI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 22849,
+        "lat": 1.372,
+        "lon": 103.837303,
+        "state": "Karnataka",
+        "name": "GEETHA MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 23219,
+        "lat": 1.3713,
+        "lon": 103.835602,
+        "state": "Karnataka",
+        "name": "HEAL HEALTHCARE"
+      }
+    ],
+    "lat_precision_decimals_hist": {
+      "6": "100591",
+      "15": "63594",
+      "14": "50301",
+      "13": "40594",
+      "7": "23391",
+      "5": "20101",
+      "4": "15040",
+      "2": "4750",
+      "8": "1559",
+      "3": "1378",
+      "10": "998",
+      "12": "523",
+      "1": "470",
+      "9": "93",
+      "11": "54",
+      "16": "10",
+      "18": "1"
+    }
+  },
+  "gmaps_link": {
+    "n_blank": 0,
+    "n_looks_like_bare_latlon": 323440,
+    "n_starts_http": 0,
+    "examples_nonlatlon": [
+      "\u200e24.6673639,81.8766548",
+      "23.834866,76.235703.",
+      "23. 259933,77.412613",
+      " \u200e26.6827052,84.0497813",
+      "25.44.56.410,82.41.55.32",
+      "16.5062\u00b0 N,80.6225\u00b0 E",
+      "17.70309329262216, 4,83.18585354257804",
+      "12.83.32,28.73.0",
+      "16.1637999,74.8199885,21",
+      "15.8693936,74.4866269,21",
+      "27.182597717100556, ,78.01800471271476",
+      "26.4434669,80,,80.2821897,19",
+      "26.210161338547195, , 84.3548238744555"
+    ],
+    "n_comparable": 323440,
+    "n_lat_exact_match": 316249,
+    "n_lat_match_6dp": 323436,
+    "n_lat_match_4dp": 323439,
+    "n_lon_match_4dp": 323440,
+    "max_abs_deg_diff": 1.0658141036401503e-14,
+    "n_diff_gt_0001deg": 0
+  }
+}

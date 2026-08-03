@@ -1,0 +1,287 @@
+{
+  "bijection_test": {
+    "M1_emp": {
+      "token": "General Medicine",
+      "n_flag1": 10652,
+      "n_token_present": 10652,
+      "flag1_and_token": 10652,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M2_emp": {
+      "token": "Paediatric medical management",
+      "n_flag1": 6405,
+      "n_token_present": 6405,
+      "flag1_and_token": 6405,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M3_emp": {
+      "token": "Neo-natal",
+      "n_flag1": 2944,
+      "n_token_present": 2944,
+      "flag1_and_token": 2944,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M4_emp": {
+      "token": "Paediatric cancer",
+      "n_flag1": 1349,
+      "n_token_present": 1349,
+      "flag1_and_token": 1349,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M5_emp": {
+      "token": "Medical Oncology",
+      "n_flag1": 1783,
+      "n_token_present": 1783,
+      "flag1_and_token": 1783,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M6_emp": {
+      "token": "Radiation Oncology",
+      "n_flag1": 1275,
+      "n_token_present": 1275,
+      "flag1_and_token": 1275,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M7_emp": {
+      "token": "Emergency Room Packages (Care requiring less than 12 hrs stay)",
+      "n_flag1": 10321,
+      "n_token_present": 10321,
+      "flag1_and_token": 10321,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M8_emp": {
+      "token": "Mental Disorders Packages",
+      "n_flag1": 1396,
+      "n_token_present": 1396,
+      "flag1_and_token": 1396,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "M10_emp": {
+      "token": "OPD Diagnostic",
+      "n_flag1": 4,
+      "n_token_present": 4,
+      "flag1_and_token": 4,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S1_emp": {
+      "token": "General Surgery",
+      "n_flag1": 11485,
+      "n_token_present": 11485,
+      "flag1_and_token": 11485,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S2_emp": {
+      "token": "Otorhinolaryngology",
+      "n_flag1": 4894,
+      "n_token_present": 4894,
+      "flag1_and_token": 4894,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S3_emp": {
+      "token": "Opthalmology",
+      "n_flag1": 4455,
+      "n_token_present": 4455,
+      "flag1_and_token": 4455,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S4_emp": {
+      "token": "Obstetrics & Gynaecology",
+      "n_flag1": 10040,
+      "n_token_present": 10040,
+      "flag1_and_token": 10040,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S5_emp": {
+      "token": "Orthopaedics",
+      "n_flag1": 8847,
+      "n_token_present": 8847,
+      "flag1_and_token": 8847,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S6_emp": {
+      "token": "Polytrauma",
+      "n_flag1": 4545,
+      "n_token_present": 4545,
+      "flag1_and_token": 4545,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S7_emp": {
+      "token": "Urology",
+      "n_flag1": 4787,
+      "n_token_present": 4787,
+      "flag1_and_token": 4787,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S8_emp": {
+      "token": "S8",
+      "n_flag1": 4090,
+      "n_token_present": 4090,
+      "flag1_and_token": 4090,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S9_emp": {
+      "token": "S9",
+      "n_flag1": 3623,
+      "n_token_present": 3623,
+      "flag1_and_token": 3623,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S10_emp": {
+      "token": "Plastic & reconstructive",
+      "n_flag1": 3176,
+      "n_token_present": 3176,
+      "flag1_and_token": 3176,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S11_emp": {
+      "token": "Burns management",
+      "n_flag1": 3176,
+      "n_token_present": 3176,
+      "flag1_and_token": 3176,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S12_emp": {
+      "token": "Cardiology",
+      "n_flag1": 2806,
+      "n_token_present": 2806,
+      "flag1_and_token": 2806,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S13_emp": {
+      "token": "Cardio-thoracic & Vascular surgery",
+      "n_flag1": 1592,
+      "n_token_present": 1592,
+      "flag1_and_token": 1592,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S14_emp": {
+      "token": "Paediatric surgery",
+      "n_flag1": 2585,
+      "n_token_present": 2585,
+      "flag1_and_token": 2585,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S15_emp": {
+      "token": "Surgical Oncology",
+      "n_flag1": 1942,
+      "n_token_present": 1942,
+      "flag1_and_token": 1942,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    },
+    "S16_emp": {
+      "token": "Oral and Maxillofacial Surgery",
+      "n_flag1": 3416,
+      "n_token_present": 3416,
+      "flag1_and_token": 3416,
+      "flag1_not_token": 0,
+      "token_not_flag1": 0,
+      "set_equality_exact": true
+    }
+  },
+  "all_exact": true,
+  "s10_s11": {
+    "columns_identical_rowwise": true,
+    "n_disagree": 0,
+    "tokens_always_cooccur": true,
+    "note": "If both are true, S10 vs S11 cannot be told apart from this dataset alone - the assignment above is by ordinal position only."
+  },
+  "s8_s9_raw": {
+    "S8_emp_distinct_raw": [
+      "",
+      "1.0"
+    ],
+    "S9_emp_distinct_raw": [
+      "",
+      "1.0"
+    ],
+    "S8_emp_n_blank": 319370,
+    "S9_emp_n_blank": 319837,
+    "S9_implies_S8": true,
+    "note": "S8_emp/S9_emp store blank instead of 0 for the negative case, unlike every other flag column which stores literal 0. merged_specialties carries the literal strings 'S8'/'S9' - the upstream decoder failed to resolve these two codes to names."
+  },
+  "na_token": {
+    "n_rows": 409,
+    "all_have_zero_flags": true,
+    "is_sole_token": true
+  },
+  "merged_specialties_is_ordinal_join": {
+    "n_tested": 15873,
+    "n_exact_string_match": 2525,
+    "separator_inferred": "|",
+    "mismatch_examples": [
+      {
+        "row": 55,
+        "actual": "Polytrauma, Orthopaedics",
+        "reconstructed": "Orthopaedics|Polytrauma"
+      },
+      {
+        "row": 63,
+        "actual": "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+        "reconstructed": "General Surgery|Otorhinolaryngology|Obstetrics & Gynaecology|Orthopaedics|Polytrauma|Urology|S8|S9|Plastic & reconstructive|Burns management"
+      },
+      {
+        "row": 64,
+        "actual": "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Paediatric surgery, Orthopaedics, General Surgery",
+        "reconstructed": "General Surgery|Orthopaedics|Polytrauma|Urology|S8|S9|Plastic & reconstructive|Burns management|Paediatric surgery"
+      },
+      {
+        "row": 72,
+        "actual": "General Medicine, Urology, Paediatric medical management, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, Obstetrics & Gynaecology, General Surgery",
+        "reconstructed": "General Medicine|Paediatric medical management|Emergency Room Packages (Care requiring less than 12 hrs stay)|General Surgery|Obstetrics & Gynaecology|Orthopaedics|Polytrauma|Urology"
+      },
+      {
+        "row": 83,
+        "actual": "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Urology, Paediatric surgery, Obstetrics & Gynaecology, General Surgery",
+        "reconstructed": "General Medicine|Paediatric medical management|Emergency Room Packages (Care requiring less than 12 hrs stay)|General Surgery|Obstetrics & Gynaecology|Urology|Paediatric surgery"
+      }
+    ]
+  }
+}

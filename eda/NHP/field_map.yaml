@@ -1,0 +1,275 @@
+dataset_key: NHP
+source_file: 8_JULY_23_SRK_NHP_validated_and_standardized.csv
+
+# Read contract. Default pd.read_csv parses this file correctly -- the quoting is
+# well-formed despite the embedded newlines. Only encoding + post-read cleanup are needed.
+read:
+  encoding: utf-8-sig            # REQUIRED: file starts with a UTF-8 BOM
+  dtype: str
+  keep_default_na: false
+  na_values: [""]
+  post_read:
+    - "rename column 'S.\\n  No.' -> 'S. No.'   # header cell literally contains LF + 2 spaces"
+    - "drop columns matching ^Unnamed: (19|2[0-8])$   # 10 all-empty trailing columns"
+    - "df.dropna(how='all')  # drops 351 trailing all-blank records; 999 -> 648 real rows"
+    - "apply WS_NORM to every text column BEFORE any matching or hashing"
+
+# The single most important transform for this dataset.
+transforms:
+  WS_NORM:
+    rule: 're.sub(r"\s+", " ", value).strip()'
+    why: >
+      Text cells contain a soft-wrap artifact of the exact form LF + two spaces ("\n  "),
+      350 occurrences, affecting 188 of 648 rows (29.01%). Verified lossless: there are
+      ZERO runs of 2+ spaces in the file that are not immediately preceded by a newline,
+      so collapsing whitespace runs cannot merge separate tokens. Applying it reduces
+      distinct Hospital Name values 527 -> 526.
+    apply_to: [Hospital Name, Given Address, Standardized Address, City, State, Type, Postcode, address_py]
+
+source_column_map:
+
+  "S.\n  No.":
+    canonical: source_facility_id
+    confidence: medium
+    transform: "rename to 'S. No.'; emit as 'NHP:' || value"
+    notes: >
+      Excel serial 1..648, unique and complete, but positional only -- it is a row number,
+      not a stable external identifier. Safe as a within-snapshot surrogate key for
+      provenance; NOT safe to join on across re-exports.
+
+  Hospital Name:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "WS_NORM"
+    notes: >
+      648/648 populated. 73 values carry the LF+2space artifact. 526 distinct after
+      normalization -- 114 rows (17.59%) carry a fully generic name
+      ("Government Medical College" x82, "All India Institute of Medical Sciences" x16,
+      "GMERS Medical College" x6, ...). 68 values show truncation or abbreviation
+      ("Al-Ameen Medical Colleg", "Instt.", "Med. Col.", trailing comma).
+      Do NOT block on name alone.
+
+  Latitude:
+    canonical: latitude
+    confidence: high
+    transform: "to_float"
+    notes: "648/648 numeric, all inside India bbox, none zero, none swapped."
+
+  Longitude:
+    canonical: longitude
+    confidence: high
+    transform: "to_float"
+    notes: "Same as Latitude."
+
+  Given Address:
+    canonical: null
+    disposition: drop
+    reason: >
+      Derived, not an independent address. 509/648 are exactly
+      "<Hospital Name>, <City> <State>"; 631/648 contain City; 648/648 end with State;
+      only 27 rows contain a single token not already present in name+city+state.
+      Contains no street and no pincode. Keeping it would double-count the name in any
+      TF-IDF / embedding pipeline.
+
+  Standardized Address:
+    canonical: address_display
+    confidence: high
+    disposition: keep_as_display_only
+    transform: "WS_NORM; strip trailing '.'"
+    reason: >
+      100% mechanically reconstructable (648/648 exact match) as
+      "<Hospital Name>, <City>, <State>, India, <Postcode>." -- verified in code. It adds
+      zero information over its component columns. Keep only if a human-readable one-line
+      address string is wanted; never treat as evidence of a street address.
+
+  City:
+    canonical: city
+    confidence: high
+    transform: "WS_NORM; title-case"
+    notes: >
+      429 distinct, 647/648 populated. This is a town/city name, NOT an LGD district.
+      A district-level blocking key requires an external city -> district lookup.
+
+  State:
+    canonical: state_raw
+    confidence: high
+    transform: "WS_NORM; upper; normalize_lgd"
+    notes: >
+      33 distinct, no whitespace artifacts. Contains misspellings that MUST be corrected
+      before any state-based blocking: "Utttar Pradesh" (67 rows, three t's) ->
+      "Uttar Pradesh"; "Chattisgarh" (14) -> "Chhattisgarh". Also uses "&" for "and"
+      ("Jammu & Kashmir", "Andaman & Nicobar Islands") while "Dadra and Nagar Haveli"
+      spells it out. No LGD codes present.
+
+  Country:
+    canonical: country
+    confidence: high
+    transform: "constant"
+    notes: "Constant 'India' on all 648 rows. Safe to drop and re-inject."
+
+  Postcode:
+    canonical: pincode
+    confidence: high
+    transform: "strip; remove internal spaces; validate ^\\d{6}$"
+    notes: >
+      646/648 populated; 645 clean 6-digit; 1 malformed "380 006" (row S.No 92);
+      2 null (S.No 419, 423). No leading-zero pincodes, so string/int round-trip is safe
+      here, but keep as string on principle.
+
+  Postcode_py:
+    canonical: null
+    disposition: drop
+    reason: "Byte-identical to Postcode on 648/648 rows, including both nulls and the malformed '380 006'. Pure duplicate."
+
+  Type:
+    canonical: facility_ownership_raw
+    confidence: high
+    transform: "strip trailing '.'; map_ownership_enum"
+    enum:
+      "Govt.": 337
+      "Trust": 204
+      "Private": 69
+      "Society": 29
+      "Govt-Society": 9
+    notes: >
+      This is ownership/sector, not facility type. Suggested canonical mapping:
+      Govt. -> PUBLIC; Trust -> PRIVATE_TRUST; Private -> PRIVATE; Society -> PRIVATE_SOCIETY;
+      Govt-Society -> PPP. The Trust/Society/Private split is finer than most other
+      datasets carry -- confirm the target enum before flattening.
+
+  Admission Intake:
+    canonical: admission_intake
+    confidence: high
+    transform: "to_int; treat 0 as NULL"
+    notes: >
+      Annual MBBS seat intake. 648/648 populated, 648/648 parse as clean integers, no
+      thousands separators. Range 0-250, median 150, 555/648 are multiples of 50.
+      5 rows are 0 and are almost certainly missing-encoded-as-zero, not genuinely
+      zero-intake colleges (see issues.md).
+
+  No. of beds in attached Hospital:
+    canonical: bed_count
+    confidence: high
+    transform: "to_int(errors=coerce); treat 0 as NULL"
+    notes: >
+      468/648 populated (72.22%). 466 parse cleanly; 2 do not:
+      "500 + 50 (floating)" (S.No 83) and "Na" (S.No 358). No thousands separators.
+      Range 0-5702, median 750, p95 2036. Median beds/intake ratio is 5.0, consistent
+      with NMC teaching-hospital norms.
+
+  Accrediation:
+    canonical: null
+    disposition: drop
+    reason: "100% empty across all 999 CSV records. Header is misspelled ('Accrediation'). Intended target would have been `accreditation`."
+
+  Domains:
+    canonical: null
+    disposition: drop
+    reason: "100% empty across all 999 CSV records. Meaning cannot be determined from the data -- see questions.md."
+
+  Contact:
+    canonical: null
+    disposition: drop
+    reason: "100% empty across all 999 CSV records. Would have been phone/contact PII; none is present."
+
+  Source Sheet Name:
+    canonical: source_sheet_name
+    confidence: high
+    transform: "constant"
+    notes: >
+      Constant "NHP_Medical_Colleges" on all 648 rows. This is the provenance flag that
+      confirms the whole file is one NHP medical-colleges sheet -- keep it, it is the
+      evidence for the injected facility_type_raw below.
+
+  address_py:
+    canonical: address_reverse_geocoded    # see proposed_new_fields
+    confidence: low
+    transform: "WS_NORM"
+    notes: >
+      Reverse-geocoded from Latitude/Longitude by a prior Python step. It is the ONLY
+      column in this file with street-level detail, but it does not reliably describe the
+      facility: 241/648 (37.2%) share zero 4+char tokens with the Hospital Name, 117
+      mention "Blood Bank", 249 mention "Hospital" (often a different one), and 4 pairs of
+      distinct facilities carry an identical value. Useful for locality/street enrichment
+      with a low-confidence flag; NEVER use as a matching key.
+
+  "Unnamed: 19":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 20":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 21":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 22":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 23":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 24":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 25":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 26":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 27":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+  "Unnamed: 28":  {canonical: null, disposition: drop, reason: "all-empty trailing column"}
+
+# Values that must be injected because they are facts about the file, not columns in it.
+injected_constants:
+  facility_type_raw:
+    value: MEDICAL_COLLEGE
+    confidence: high
+    evidence: >
+      Source Sheet Name is constant "NHP_Medical_Colleges" (648/648); 454/648 names contain
+      "college", 441 contain "medical college", 170 contain "institut"; 648/648 rows carry an
+      Admission Intake (MBBS seat count), which only a teaching institution has. The 28 names
+      matching no institution keyword are abbreviations ("GMC", "Med. Col."), not a different
+      facility class.
+    note: >
+      No other dataset in this set should be assigned MEDICAL_COLLEGE by default. This is the
+      only file whose facility_type is uniform and distinct.
+  source_snapshot_date:
+    value: "2023-07-08"
+    confidence: low
+    evidence: "Parsed from the filename prefix '8_JULY_23_SRK_' only. Nothing inside the file dates it. Verify with a human."
+
+proposed_new_fields:
+  - name: address_reverse_geocoded
+    maps_from: address_py
+    reason: >
+      `address_raw` in the canonical vocabulary implies an address asserted by the source about
+      the facility. address_py is the opposite: a geocoder's description of a point, derived
+      from lat/lon, which in 37.2% of rows names a different establishment entirely. Mapping it
+      to address_raw would silently poison address-based matching. It needs its own name and a
+      provenance flag so a consumer can choose to trust it or not.
+  - name: address_display
+    maps_from: Standardized Address
+    reason: >
+      A pre-rendered one-line human-readable address that is 100% derivable from other columns.
+      It is not `address_raw` (it asserts nothing new) and it is not `derived`-and-droppable
+      either if the downstream UI wants a ready display string. Distinguishing "display string"
+      from "evidence" prevents it being fed into a matcher.
+  - name: name_is_generic
+    maps_from: "derived at harmonization time from Hospital Name"
+    reason: >
+      17.59% of rows in this dataset (and, from the shape of the names, likely other government
+      datasets too) carry a non-discriminating name such as "Government Medical College".
+      A boolean flag lets the entity resolver downweight name similarity for exactly those rows
+      instead of producing 82-way false-positive clusters.
+
+unmapped_columns: []
+
+fields_this_dataset_cannot_supply:
+  - district_raw          # no district column; City is a town name
+  - subdistrict_raw
+  - block_raw
+  - village_raw
+  - state_lgd_code
+  - district_lgd_code
+  - street                # only recoverable, unreliably, from address_py
+  - locality
+  - landmark
+  - phone                 # Contact column exists but is 100% empty
+  - email
+  - website
+  - specialty_list
+  - accreditation         # Accrediation column exists but is 100% empty
+  - abdm_enabled
+  - scheme_membership
+  - empanelment_type
+  - empanelment_status
+  - is_24x7
+  - geo_source
+  - geo_accuracy
+  - facility_category_raw
+  - record_status

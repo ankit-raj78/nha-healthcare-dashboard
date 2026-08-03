@@ -1,0 +1,1198 @@
+{
+  "dataset_key": "NIN",
+  "source_file": "22_MAY_22_AP_NIN.csv",
+  "read_kwargs": {
+    "encoding": "utf-8-sig",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [
+      ""
+    ],
+    "engine": "c"
+  },
+  "read_notes": "MUST use encoding='utf-8-sig': the file starts with a UTF-8 BOM and the first header cell is EMPTY, so without the BOM strip the first column name becomes '\\ufeff'. Line terminator is CRLF; pandas' C engine handles it. dtype=str + keep_default_na=False + na_values=[''] is required to (a) stop pandas coercing pincode/SrNo/lat/lon to float and printing them in scientific notation, (b) stop it turning the literal strings 'NA'/'null' into NaN, and (c) preserve leading zeros. Do NOT use index_col=0 - the first column is a stale pandas index with 106 gaps and is not a usable key.",
+  "n_rows": 10327,
+  "n_rows_as_parsed": 10530,
+  "n_cols": 25,
+  "raw_line_count": 10612,
+  "row_count_explanation": "wc -l reports 10612 physical lines. csv.reader returns 10531 records (10530 data + 1 header): the gap of 81 is caused by 81 cells containing an embedded CRLF inside a quoted field (all of them in District_Name / Taluka_Name, value 'Almora\\\\\\n' and one 'Chilakaluripet\\\\\\n H/O.Purushotha Patnam Mandal'). Of those 10530 parsed rows, 203 are completely empty in all 24 data columns and carry only a stale pandas index in column 1 - 200 form a contiguous trailing block (positions 10330-10529) and 3 are interior (positions 4789, 5740, 6444). TRUE LOGICAL ROW COUNT = 10327. (10612 - 81 embedded newlines - 1 header - 203 empty = 10327.)",
+  "columns": [
+    {
+      "name": "Unnamed: 0",
+      "raw_header": "",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10530,
+      "null_pct": 0.0,
+      "n_distinct": 10327,
+      "examples": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "value_counts": {},
+      "semantic_role": "junk",
+      "flags": [
+        "junk",
+        "derived",
+        "constant_free"
+      ],
+      "notes": "Header is a BOM-only empty string; pandas renames it 'Unnamed: 0'. It is a pandas RangeIndex written out by a previous `df.to_csv()`: strictly increasing 0..10635, unique, but with 106 gaps -> 106 rows were deleted after that export. Carries no facility information. Keep only as `source_row_order` provenance if desired.",
+      "numeric_summary": {
+        "min": 0.0,
+        "max": 10435.0,
+        "mean": 5191.17982,
+        "p1": 103.26,
+        "p25": 2591.5,
+        "p50": 5190.0,
+        "p75": 7790.5,
+        "p99": 10306.74,
+        "n_numeric": 10327
+      }
+    },
+    {
+      "name": "Non filled numbering",
+      "raw_header": "Non filled numbering",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 623,
+      "non_null_all_parsed_rows": 623,
+      "null_pct": 93.97,
+      "n_distinct": 623,
+      "examples": [
+        "3",
+        "4",
+        "9",
+        "11",
+        "12"
+      ],
+      "value_counts": {},
+      "semantic_role": "curation_seq",
+      "flags": [
+        "derived",
+        "sparse"
+      ],
+      "notes": "Sequence 3..731, unique, monotonic, present on exactly the 623 rows that also have a Manual Health Facility Name. A work-queue counter for the manual-curation batch ('records that were NOT filled and had to be researched'). Prior-pipeline artifact, not a facility attribute.",
+      "numeric_summary": {
+        "min": 3.0,
+        "max": 731.0,
+        "mean": 356.841091,
+        "p1": 15.219999999999999,
+        "p25": 174.5,
+        "p50": 353.0,
+        "p75": 531.5,
+        "p99": 719.78,
+        "n_numeric": 623
+      }
+    },
+    {
+      "name": "SrNo",
+      "raw_header": "SrNo",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 10327,
+      "examples": [
+        "1",
+        "4",
+        "16",
+        "20",
+        "21"
+      ],
+      "value_counts": {},
+      "semantic_role": "source_facility_id",
+      "flags": [
+        "candidate_primary_key"
+      ],
+      "notes": "Unique across all 10327 real rows, integer 1..192898 -> this file is a ~5.4% subset of a much larger parent register keyed by the same SrNo. Not file-ordered (not monotonic). Best available source PK; also the join key back to the parent system.",
+      "numeric_summary": {
+        "min": 1.0,
+        "max": 192898.0,
+        "mean": 71533.57829,
+        "p1": 304.04,
+        "p25": 9120.5,
+        "p50": 58725.0,
+        "p75": 126963.5,
+        "p99": 190507.8,
+        "n_numeric": 10327
+      }
+    },
+    {
+      "name": "Health Facility Name",
+      "raw_header": "Health Facility Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 10000,
+      "examples": [
+        "Chunawadh",
+        "CHUNAWADH KOTHI",
+        "COMMUNITY HEALTH CENTER",
+        "Kumbakonam",
+        "NEEDAMANGALAM"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [],
+      "notes": "Auto/original name. 100% filled on real rows, 10000 distinct of 10327. 43.2% of values contain no facility-type keyword at all (bare place names like 'Chunawadh', 'KODAVASAL') - the facility type lives in `Facility Type`, not the name.",
+      "length_distribution": {
+        "min": 3,
+        "p50": 13.0,
+        "mean": 16.14,
+        "p95": 33.0,
+        "max": 89
+      }
+    },
+    {
+      "name": "Manual Health Facility Name",
+      "raw_header": "Manual Health Facility Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 623,
+      "non_null_all_parsed_rows": 623,
+      "null_pct": 93.97,
+      "n_distinct": 617,
+      "examples": [
+        "Jyothi Health",
+        "CHC Piler  ",
+        "CHC Addanki ",
+        "PHC Kunda ",
+        "CHC Kunda "
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_alt",
+      "flags": [
+        "sparse",
+        "curated"
+      ],
+      "notes": "Human-researched name, present on 6.03% of rows. Where both are present they disagree 56.8% of the time after normalization - the manual value is a rewrite into 'CHC <Place>' / 'SDH <Place>' house style. Authoritative where present.",
+      "length_distribution": {
+        "min": 5,
+        "p50": 16.0,
+        "mean": 18.74,
+        "p95": 35.0,
+        "max": 62
+      }
+    },
+    {
+      "name": "Notes",
+      "raw_header": "Notes",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 156,
+      "non_null_all_parsed_rows": 156,
+      "null_pct": 98.49,
+      "n_distinct": 66,
+      "examples": [
+        "UPHC DARBHANGA  UFWC present but geo coordinate can't find",
+        "Same as row 702",
+        "named Primary Health Centre,Islampur on google",
+        "named OPD Sardar Hospital Sasaram as per google ",
+        "not found"
+      ],
+      "value_counts": {},
+      "semantic_role": "curation_note",
+      "flags": [
+        "free_text",
+        "sparse",
+        "derived"
+      ],
+      "notes": "Coder free text on 1.51% of rows. 66 distinct values. Semi-structured: 81 rows are a 'NF'/'not found' family meaning the facility could not be located; 26 are 'Listed as <type>' map-label observations; ~14 are 'name as per google-<name>' provenance; several record borrowed geo ('geo cordinates for Balipura BPHC used for Harchura TE') and 2 flag duplicates ('Duplicate or SR No. 85112', 'Same as row 702').",
+      "length_distribution": {
+        "min": 2,
+        "p50": 9.0,
+        "mean": 19.38,
+        "p95": 52.25,
+        "max": 76
+      }
+    },
+    {
+      "name": "Address",
+      "raw_header": "Address",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 8244,
+      "non_null_all_parsed_rows": 8244,
+      "null_pct": 20.17,
+      "n_distinct": 6266,
+      "examples": [
+        "BIJALI BOARD K SAMANEY",
+        "NEAR GOVT SCHOOL K PASS M.",
+        "No. 123, Dist Hqrs Hospital,",
+        "Government Hospital",
+        "Govt Hospital"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "79.83% filled but polluted with sentinels: 188 '\\N', 124 '0', 96 '-', 1 'na'. Median length 12 chars - it is really an address *fragment* (often just the town or the facility type), not a full address.",
+      "length_distribution": {
+        "min": 1,
+        "p50": 12.0,
+        "mean": 14.11,
+        "p95": 35.0,
+        "max": 100
+      }
+    },
+    {
+      "name": "street",
+      "raw_header": "street",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 8118,
+      "non_null_all_parsed_rows": 8118,
+      "null_pct": 21.39,
+      "n_distinct": 6899,
+      "examples": [
+        "GALII NO 1",
+        "NAHAR K NAJDHIK",
+        "STREET NO 1",
+        "College Road,",
+        "Periyar Street"
+      ],
+      "value_counts": {},
+      "semantic_role": "street",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "78.61% filled; 229 '\\N', 12 '-', 7 '0'.",
+      "length_distribution": {
+        "min": 1,
+        "p50": 13.0,
+        "mean": 15.3,
+        "p95": 32.0,
+        "max": 100
+      }
+    },
+    {
+      "name": "landmark",
+      "raw_header": "landmark",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 7222,
+      "non_null_all_parsed_rows": 7222,
+      "null_pct": 30.07,
+      "n_distinct": 6051,
+      "examples": [
+        "Near Court",
+        "Near Taluk office",
+        "Near ByP.U.E.School  Vellakulam Main Road",
+        "Near Boys Higher sec. school",
+        "Near Bus stand"
+      ],
+      "value_counts": {},
+      "semantic_role": "landmark",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "69.93% filled; 23 '\\N', 6 '-', 2 '0'.",
+      "length_distribution": {
+        "min": 1,
+        "p50": 16.0,
+        "mean": 18.07,
+        "p95": 35.0,
+        "max": 98
+      }
+    },
+    {
+      "name": "locality",
+      "raw_header": "locality",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 8034,
+      "non_null_all_parsed_rows": 8034,
+      "null_pct": 22.2,
+      "n_distinct": 5938,
+      "examples": [
+        "Kumbakonam",
+        "Needamangalam",
+        "Kodavasal",
+        "Valangaiman",
+        "Nannilam"
+      ],
+      "value_counts": {},
+      "semantic_role": "locality",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "77.80% filled; 23 '\\N', 8 '0', 2 '-'. Values are a mix of neighbourhood names, city names and the literal words 'Urban'/'Rural'.",
+      "length_distribution": {
+        "min": 1,
+        "p50": 10.0,
+        "mean": 11.94,
+        "p95": 27.0,
+        "max": 100
+      }
+    },
+    {
+      "name": "pincode",
+      "raw_header": "pincode",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 9302,
+      "non_null_all_parsed_rows": 9302,
+      "null_pct": 9.93,
+      "n_distinct": 5685,
+      "examples": [
+        "335022",
+        "612001",
+        "614404",
+        "612601",
+        "612804"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode",
+      "flags": [],
+      "notes": "90.07% filled and every single non-null value is exactly 6 digits with a valid Indian leading digit 1-8. The cleanest column in the file."
+    },
+    {
+      "name": "landline_number",
+      "raw_header": "landline_number",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 6196,
+      "non_null_all_parsed_rows": 6196,
+      "null_pct": 40.0,
+      "n_distinct": 5872,
+      "examples": [
+        "1542763669",
+        "4352430501",
+        "04367-260218",
+        "436626214",
+        "4374264459"
+      ],
+      "value_counts": {},
+      "semantic_role": "phone",
+      "flags": [
+        "pii",
+        "dirty"
+      ],
+      "notes": "60.00% filled. 34 '0', 27 '-', 23 '\\N'. Mixed formats (with/without STD code, hyphenated, comma-separated multiples in 141 rows). 832 values (13.4%) are 10-digit numbers starting 6-9, i.e. personal MOBILE numbers, and 2 cells contain an email address instead of a number. Treat as PII."
+    },
+    {
+      "name": "latitude",
+      "raw_header": "latitude",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10301,
+      "non_null_all_parsed_rows": 10301,
+      "null_pct": 0.25,
+      "n_distinct": 9034,
+      "examples": [
+        "29.08210684",
+        "29.845661",
+        "29.8210684",
+        "10.96929",
+        "10.7700535"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "97.83% non-null on real rows; all non-null values parse as float. 68 are exactly 0. Decimal precision varies 0-9 places (75 values have no decimal part).",
+      "numeric_summary": {
+        "min": 0.0,
+        "max": 88.112797,
+        "mean": 20.486729,
+        "p1": 8.1751055,
+        "p25": 12.7873996,
+        "p50": 21.80494,
+        "p75": 26.459199,
+        "p99": 32.558076,
+        "n_numeric": 10301
+      }
+    },
+    {
+      "name": "longitude",
+      "raw_header": "longitude",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10302,
+      "non_null_all_parsed_rows": 10302,
+      "null_pct": 0.24,
+      "n_distinct": 9014,
+      "examples": [
+        "73.7273276",
+        "73.761024",
+        "79.385643",
+        "79.41564",
+        "79.478826"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "97.83% non-null; 69 exactly 0; min -115.20 and max 118.66 confirm out-of-India junk exists.",
+      "numeric_summary": {
+        "min": -115.201119,
+        "max": 118.657281,
+        "mean": 78.272173,
+        "p1": 26.5,
+        "p25": 76.62062452500001,
+        "p50": 78.007676895,
+        "p75": 80.99475701749999,
+        "p99": 93.9208695583,
+        "n_numeric": 10302
+      }
+    },
+    {
+      "name": "altitude",
+      "raw_header": "altitude",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 2304,
+      "examples": [
+        "0",
+        "32.2586",
+        "24.89",
+        "19",
+        "30.82"
+      ],
+      "value_counts": {},
+      "semantic_role": "altitude",
+      "flags": [
+        "dirty",
+        "mostly_sentinel"
+      ],
+      "notes": "REAL values, not junk - but 62.20% are the sentinel 0 and 23 are '\\N', leaving only 3881 rows (37.6%) with a real elevation. Non-zero range 0.26-5985 m, median 175 m, and the state-level medians are geographically correct (J&K 1589 m, Uttarakhand 1320 m, Meghalaya 1019 m, Delhi ~0). Fill is source-batch dependent (97.9% non-zero in Tamil Nadu, 0.16% in Delhi, 0% in Chandigarh/Goa/Tripura/Puducherry) so 0 means 'not captured', not 'sea level'. A handful are wrong (three Auraiya UP facilities carry 2700 m; the true elevation there is ~130 m).",
+      "numeric_summary": {
+        "min": 0.0,
+        "max": 5985.0,
+        "mean": 104.881976,
+        "p1": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 96.6385,
+        "p99": 1539.8799999999974,
+        "n_numeric": 10304
+      }
+    },
+    {
+      "name": "Facility Type",
+      "raw_header": "Facility Type",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 13,
+      "examples": [
+        "Community Health Center",
+        "Others",
+        "District Hospital",
+        "Sub-District Hospital",
+        "Medical Colleges Hospital"
+      ],
+      "value_counts": {
+        "Community Health Center": 4786,
+        "Others": 2382,
+        "Sub-District Hospital": 927,
+        "Dispensaries": 748,
+        "District Hospital": 645,
+        "<100 Bedded Hospital": 183,
+        "Medical Colleges Hospital": 166,
+        "Civil Hospital/General Hospital": 117,
+        "Maternity Home": 110,
+        "Post Partum Unit": 105,
+        "Referral Hospital": 80,
+        "100-500 Bedded Hospital": 64,
+        ">500 Bedded Hospital": 14
+      },
+      "semantic_role": "facility_type_raw",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "100% filled, closed vocabulary of 13 values. Mixes function ('Community Health Center', 'Dispensaries') with bed-size bands ('<100 Bedded Hospital', '100-500 Bedded Hospital', '>500 Bedded Hospital') on one axis, so it is not a clean taxonomy. 'Others' (2382 rows, 23%) is mostly private hospitals/nursing homes."
+    },
+    {
+      "name": "State_Name",
+      "raw_header": "State_Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "Rajasthan",
+        "Tamil Nadu",
+        "Chhattisgarh",
+        "Haryana",
+        "West Bengal"
+      ],
+      "value_counts": {
+        "Tamil Nadu": 2736,
+        "Rajasthan": 971,
+        "Uttar Pradesh": 789,
+        "Maharashtra": 714,
+        "Delhi": 619,
+        "Karnataka": 544,
+        "Odisha": 541,
+        "Madhya Pradesh": 476,
+        "West Bengal": 452,
+        "Jharkhand": 265,
+        "Assam": 246,
+        "Andhra Pradesh": 236,
+        "Punjab": 219,
+        "Haryana": 192,
+        "Chhattisgarh": 182,
+        "Telengana": 173,
+        "Bihar": 161,
+        "Gujarat": 159,
+        "Himachal Pradesh": 152,
+        "Uttarakhand": 126,
+        "Meghalaya": 66,
+        "Chandigarh": 48,
+        "Tripura": 47,
+        "Jammu & Kashmir": 41,
+        "Mizoram": 40,
+        "Arunachal Pradesh": 33,
+        "Nagaland": 32,
+        "Manipur": 22,
+        "Dadra & Nagar Haveli": 16,
+        "Puducherry": 11,
+        "Goa": 9,
+        "Daman & Diu": 4,
+        "Sikkim": 4,
+        "Kerala": 1
+      },
+      "semantic_role": "state_raw",
+      "flags": [
+        "coded_vocabulary"
+      ],
+      "notes": "100% filled, 34 distinct, consistently cased and spelled - except 'Telengana' (173 rows) which is the wrong spelling of Telangana. Coverage is very uneven: Tamil Nadu 2736 rows vs Kerala 1 row."
+    },
+    {
+      "name": "District_Name",
+      "raw_header": "District_Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 623,
+      "examples": [
+        "Ganganagar",
+        "Thanjavur",
+        "Thiruvarur",
+        "Kanker",
+        "Erode"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "100% filled but 6 rows hold the sentinel '\\N'. 623 distinct; 468 rows use a 'X District' suffix (34 distinct, all Andhra Pradesh / Telangana) while the rest do not; 38 rows carry a literal backslash+newline ('Almora\\\\\\n'); one case collision ('Balrampur' vs 'BALRAMPUR')."
+    },
+    {
+      "name": "Taluka_Name",
+      "raw_header": "Taluka_Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 3428,
+      "examples": [
+        "Ganganagar",
+        "Kumbakonam",
+        "Mannargudi",
+        "Kodavasal",
+        "Valangaiman"
+      ],
+      "value_counts": {},
+      "semantic_role": "subdistrict_raw",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "100% raw fill but 859 rows (8.32%) are the sentinel '\\N', so real fill is 91.68%. 3427 real distinct values."
+    },
+    {
+      "name": "Block_Name",
+      "raw_header": "Block_Name",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 10327,
+      "non_null_all_parsed_rows": 10327,
+      "null_pct": 0.0,
+      "n_distinct": 3556,
+      "examples": [
+        "Ganganagar",
+        "Kumbakonam MPTY",
+        "Needamangalam",
+        "Kodavasal",
+        "Valangaiman"
+      ],
+      "value_counts": {},
+      "semantic_role": "block_raw",
+      "flags": [
+        "dirty"
+      ],
+      "notes": "100% raw fill but 2460 rows (23.82%) are '\\N', so real fill is 76.18%. Often a corporation/municipality name ('COIMBATORE CORPN') rather than a rural block."
+    },
+    {
+      "name": "Manual_Address",
+      "raw_header": "Manual_Address",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 530,
+      "non_null_all_parsed_rows": 530,
+      "null_pct": 94.87,
+      "n_distinct": 513,
+      "examples": [
+        "Dr.Ch.Siva Jyothi Siva Jyothi Clinic A: KVP Colony, Guntur, Andhra Pradesh",
+        "Padmavathi Nagar, Pileru, Andhra Pradesh",
+        "Indira Nagar, Addanki, Andhra Pradesh ",
+        "Kunda - Pratapgarh Rd, Hiraganj, Jagapur, Uttar Pradesh ",
+        "Kunda, Pratapgarh, NH-24B, Lucknow Allahabad Road, Kunda, Kunda, Uttar Pradesh 230204"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_alt",
+      "flags": [
+        "sparse",
+        "curated"
+      ],
+      "notes": "5.13% filled. Google-Maps-style formatted addresses ending in the state name ('DMCH Rd, Allalpatti, Laheriasarai, Darbhanga, Bihar'), median 32 chars vs 12 for `Address`. Where both are filled (125 rows) they agree 0% of the time - `Address` in those rows is usually a sentinel or a single town word. Authoritative where present.",
+      "length_distribution": {
+        "min": 6,
+        "p50": 32.0,
+        "mean": 38.55,
+        "p95": 80.0,
+        "max": 110
+      }
+    },
+    {
+      "name": "Manual_Pincode",
+      "raw_header": "Manual_Pincode",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 525,
+      "non_null_all_parsed_rows": 525,
+      "null_pct": 94.92,
+      "n_distinct": 443,
+      "examples": [
+        "522003",
+        "517214",
+        "523201",
+        "230204",
+        "855102"
+      ],
+      "value_counts": {},
+      "semantic_role": "pincode_alt",
+      "flags": [
+        "sparse",
+        "curated",
+        "dirty"
+      ],
+      "notes": "5.08% filled. 519 of 525 are clean 6-digit pincodes; 6 are not ('#REF!' - an Excel formula error - plus 4 values that are a state name with or without a pincode, e.g. 'Karnataka 585331', 'Assam'). Disagrees with `pincode` on 50 of the 161 rows where both are filled (31%)."
+    },
+    {
+      "name": "Manually_added",
+      "raw_header": "Manually_added",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 526,
+      "non_null_all_parsed_rows": 526,
+      "null_pct": 94.91,
+      "n_distinct": 5,
+      "examples": [
+        "Y",
+        "Yes",
+        "Yes ",
+        "yes",
+        "yes "
+      ],
+      "value_counts": {
+        "<NULL>": 9801,
+        "Yes": 481,
+        "yes": 25,
+        "yes ": 12,
+        "Yes ": 5,
+        "Y": 3
+      },
+      "semantic_role": "is_manually_curated",
+      "flags": [
+        "sparse",
+        "dirty"
+      ],
+      "notes": "5.09% filled. Raw values are 5 case/whitespace variants of yes ('Yes' 481, 'yes' 25, 'yes ' 12, 'Yes ' 5, 'Y' 3); there is no 'No' - blank means not manually added. Boolean-with-nulls."
+    },
+    {
+      "name": "Coder",
+      "raw_header": "Coder",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 600,
+      "non_null_all_parsed_rows": 600,
+      "null_pct": 94.19,
+      "n_distinct": 9,
+      "examples": [
+        "sid",
+        "Shalmali",
+        "Tanmay",
+        "Sweta",
+        "Mallika"
+      ],
+      "value_counts": {
+        "<NULL>": 9727,
+        "Tanmay": 357,
+        "Shalmali": 175,
+        "mallika ": 18,
+        "Mallika ": 17,
+        "mallika": 15,
+        "Mallika": 7,
+        "Sweta": 6,
+        "sid": 4,
+        "Tanmay ": 1
+      },
+      "semantic_role": "curated_by",
+      "flags": [
+        "sparse",
+        "pii",
+        "dirty"
+      ],
+      "notes": "5.81% filled. 9 raw values collapsing to 5 people by first name: tanmay 358, shalmali 175, mallika 57, sweta 6, sid 4. Internal staff identifiers - low-sensitivity PII (first names of employees, no contact detail), but they are personal data and should not appear in a public/queryable canonical table."
+    },
+    {
+      "name": "Unnamed: 23",
+      "raw_header": "Unnamed: 23",
+      "dtype": "string (read as str; see read_kwargs)",
+      "non_null": 0,
+      "non_null_all_parsed_rows": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": [],
+      "value_counts": {
+        "<NULL>": 10327
+      },
+      "semantic_role": "junk",
+      "flags": [
+        "junk",
+        "constant",
+        "empty"
+      ],
+      "notes": "Zero non-null values in all 10530 parsed rows. A trailing comma artifact of the export. Drop."
+    }
+  ],
+  "duplicates": {
+    "exact": 0,
+    "exact_ignoring_srno": 13,
+    "near_dupe_name_geo": 104,
+    "near_dupe_name_district": 176,
+    "rows_in_name_geo_groups": 208,
+    "rows_in_name_district_groups": 350,
+    "shared_coord_pairs_different_names": 426,
+    "rows_on_shared_coords": 1293,
+    "notional_prefixed_rows": 74,
+    "notional_prefix_states": {
+      "Rajasthan": 73,
+      "Jharkhand": 1
+    },
+    "near_dupe_name_district_after_stripping_NOTIONAL": 239,
+    "notional_note": "74 facility names begin with the literal word 'NOTIONAL' (73 Rajasthan, 1 Jharkhand). Meaning unknown - see questions.md Q10. Stripping the prefix raises the name+district near-dupe count from 176 to 239 (+63). Proof it conceals real duplicates: SrNo 89661 'Gingla CHC' (Udaipur, latitude=0) carries Notes='Duplicate or SR No. 85112', and SrNo 85112 is in this file as 'NOTIONAL Gingla CHC', same district, valid geo. Strip the prefix into a separate flag before any name matching.",
+    "coder_flagged_duplicates": [
+      {
+        "SrNo": "89661",
+        "name": "Gingla CHC",
+        "note": "Duplicate or SR No. 85112",
+        "resolves_to_SrNo": "85112",
+        "resolved_name": "NOTIONAL Gingla CHC",
+        "status": "resolved"
+      },
+      {
+        "SrNo": "3508",
+        "name": "Sub Divisional Hospital Biraul",
+        "note": "Same as row 702",
+        "status": "unresolved - 'row 702' matches no SrNo, positional index or Non-filled-numbering value"
+      }
+    ],
+    "method": "exact = duplicated() on all 24 data columns. exact_ignoring_srno excludes SrNo and 'Non filled numbering'. near_dupe_name_geo = duplicated() on lowercased/punct-stripped facility name + lat/lon rounded to 3 decimals, restricted to the 10106 rows with geo inside the India bbox. near_dupe_name_district = same normalized name + raw District_Name over all rows. Counts are EXTRA rows (keep='first'); *_groups counts are total rows involved."
+  },
+  "geo_quality": {
+    "valid_in_india": 10106,
+    "valid_in_india_pct": 97.86,
+    "null": 26,
+    "both_null": 25,
+    "zero": 68,
+    "out_of_bbox": 85,
+    "possibly_swapped": 42,
+    "partition_note": "The five buckets are mutually exclusive and sum to n_rows.",
+    "lat_min": 0.0,
+    "lat_max": 88.112797,
+    "lon_min": -115.201119,
+    "lon_max": 118.657281,
+    "coord_pairs_shared_by_more_than_one_facility": 426,
+    "rows_on_shared_coords": 1293,
+    "worst_shared_coord": {
+      "latlon": "11.664325,78.1460142",
+      "n_rows": 57
+    }
+  },
+  "candidate_primary_key": {
+    "column": "SrNo",
+    "is_unique": true,
+    "non_null": 10327,
+    "n_rows": 10327,
+    "min": 1,
+    "max": 192898,
+    "note": "Unique and 100% populated on all 10327 real rows. Range 1..192898 means this file is a ~5.4% extract of a much larger parent register that uses the same numbering. Recommended source PK: NIN:<SrNo>. The first column (BOM-only header) is also unique but is a stale pandas index with 106 gaps - do not use it."
+  },
+  "coded_vocabularies": {
+    "Facility Type": [
+      "100-500 Bedded Hospital",
+      "<100 Bedded Hospital",
+      ">500 Bedded Hospital",
+      "Civil Hospital/General Hospital",
+      "Community Health Center",
+      "Dispensaries",
+      "District Hospital",
+      "Maternity Home",
+      "Medical Colleges Hospital",
+      "Others",
+      "Post Partum Unit",
+      "Referral Hospital",
+      "Sub-District Hospital"
+    ],
+    "State_Name": [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chandigarh",
+      "Chhattisgarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "Delhi",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Puducherry",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telengana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "Manually_added_raw": [
+      "Y",
+      "Yes",
+      "Yes ",
+      "yes",
+      "yes "
+    ],
+    "Coder_raw": [
+      "Mallika",
+      "Mallika ",
+      "Shalmali",
+      "Sweta",
+      "Tanmay",
+      "Tanmay ",
+      "mallika",
+      "mallika ",
+      "sid"
+    ]
+  },
+  "auto_vs_manual_pairs": {
+    "Health Facility Name|Manual Health Facility Name": {
+      "auto_filled": 10327,
+      "auto_filled_pct": 100.0,
+      "manual_filled": 623,
+      "manual_filled_pct": 6.03,
+      "both_filled": 623,
+      "manual_only": 0,
+      "auto_only": 9704,
+      "agree_exact": 198,
+      "agree_normalized": 269,
+      "disagree_normalized": 354,
+      "disagree_pct_of_both_filled": 56.82,
+      "rows_where_auto_is_sentinel_and_manual_filled": 0
+    },
+    "Address|Manual_Address": {
+      "auto_filled": 8244,
+      "auto_filled_pct": 79.83,
+      "manual_filled": 530,
+      "manual_filled_pct": 5.13,
+      "both_filled": 125,
+      "manual_only": 405,
+      "auto_only": 8119,
+      "agree_exact": 0,
+      "agree_normalized": 0,
+      "disagree_normalized": 125,
+      "disagree_pct_of_both_filled": 100.0,
+      "rows_where_auto_is_sentinel_and_manual_filled": 13
+    },
+    "pincode|Manual_Pincode": {
+      "auto_filled": 9302,
+      "auto_filled_pct": 90.07,
+      "manual_filled": 525,
+      "manual_filled_pct": 5.08,
+      "both_filled": 161,
+      "manual_only": 364,
+      "auto_only": 9141,
+      "agree_exact": 111,
+      "agree_normalized": 111,
+      "disagree_normalized": 50,
+      "disagree_pct_of_both_filled": 31.06,
+      "rows_where_auto_is_sentinel_and_manual_filled": 0
+    },
+    "recommendation": "COALESCE(manual, auto) for all three pairs. The manual column is the later human-verified value: it is only ever populated on rows a coder worked, and on those rows the auto value is frequently a sentinel ('0', '\\N') or a bare town word. It is never populated where the auto value is absent-and-good. Keep both, expose the auto value as *_raw for audit."
+  },
+  "curation_workflow": {
+    "rows_with_any_curation_marker": 628,
+    "rows_with_any_curation_marker_pct": 6.08,
+    "manually_added_non_null": 526,
+    "manually_added_pct": 5.09,
+    "manually_added_raw_values": {
+      "Yes": 481,
+      "yes": 25,
+      "yes ": 12,
+      "Yes ": 5,
+      "Y": 3
+    },
+    "manually_added_normalized": {
+      "yes": 523,
+      "y": 3
+    },
+    "coder_non_null": 600,
+    "coder_pct": 5.81,
+    "coder_raw_values": {
+      "Tanmay": 357,
+      "Shalmali": 175,
+      "mallika ": 18,
+      "Mallika ": 17,
+      "mallika": 15,
+      "Mallika": 7,
+      "Sweta": 6,
+      "sid": 4,
+      "Tanmay ": 1
+    },
+    "coder_normalized": {
+      "tanmay": 358,
+      "shalmali": 175,
+      "mallika": 57,
+      "sweta": 6,
+      "sid": 4
+    },
+    "distinct_coders": [
+      "mallika",
+      "shalmali",
+      "sid",
+      "sweta",
+      "tanmay"
+    ],
+    "n_distinct_coders": 5,
+    "coder_x_manually_added": {
+      "mallika": {
+        "y": 0,
+        "yes": 57
+      },
+      "shalmali": {
+        "y": 0,
+        "yes": 175
+      },
+      "sid": {
+        "y": 3,
+        "yes": 0
+      },
+      "sweta": {
+        "y": 0,
+        "yes": 6
+      },
+      "tanmay": {
+        "y": 0,
+        "yes": 285
+      }
+    },
+    "coder_present_but_manually_added_blank": 74,
+    "note": "'Non filled numbering' and 'Manual Health Facility Name' have identical non-null masks (623 rows). Coder is filled on 600 rows and Manually_added on 526, so the three markers are not co-extensive; 628 rows carry at least one curation marker (6.08%). Coder='tanmay' has 73 rows with a blank Manually_added - Coder is the more reliable 'a human touched this row' flag.",
+    "coder_is_pii": true,
+    "coder_pii_assessment": "YES - PII, low sensitivity. The values are the first names of 5 identifiable internal staff (tanmay, shalmali, mallika, sweta, sid) with no contact detail attached. It is employee-attribution metadata, not facility data. Retain it in the internal provenance table for audit/quality attribution; exclude it from any user-facing or LLM-queryable view, or replace with an opaque coder_id."
+  },
+  "admin_hierarchy": {
+    "State_Name": {
+      "raw_non_null": 10327,
+      "raw_non_null_pct": 100.0,
+      "real_non_null": 10327,
+      "real_non_null_pct": 100.0,
+      "sentinel_backslash_N": 0,
+      "n_distinct_real": 34
+    },
+    "District_Name": {
+      "raw_non_null": 10327,
+      "raw_non_null_pct": 100.0,
+      "real_non_null": 10321,
+      "real_non_null_pct": 99.94,
+      "sentinel_backslash_N": 6,
+      "n_distinct_real": 622
+    },
+    "Taluka_Name": {
+      "raw_non_null": 10327,
+      "raw_non_null_pct": 100.0,
+      "real_non_null": 9468,
+      "real_non_null_pct": 91.68,
+      "sentinel_backslash_N": 859,
+      "n_distinct_real": 3427
+    },
+    "Block_Name": {
+      "raw_non_null": 10327,
+      "raw_non_null_pct": 100.0,
+      "real_non_null": 7867,
+      "real_non_null_pct": 76.18,
+      "sentinel_backslash_N": 2460,
+      "n_distinct_real": 3555
+    },
+    "state_distinct_list": [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chandigarh",
+      "Chhattisgarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "Delhi",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Puducherry",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telengana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "state_value_counts": {
+      "Tamil Nadu": 2736,
+      "Rajasthan": 971,
+      "Uttar Pradesh": 789,
+      "Maharashtra": 714,
+      "Delhi": 619,
+      "Karnataka": 544,
+      "Odisha": 541,
+      "Madhya Pradesh": 476,
+      "West Bengal": 452,
+      "Jharkhand": 265,
+      "Assam": 246,
+      "Andhra Pradesh": 236,
+      "Punjab": 219,
+      "Haryana": 192,
+      "Chhattisgarh": 182,
+      "Telengana": 173,
+      "Bihar": 161,
+      "Gujarat": 159,
+      "Himachal Pradesh": 152,
+      "Uttarakhand": 126,
+      "Meghalaya": 66,
+      "Chandigarh": 48,
+      "Tripura": 47,
+      "Jammu & Kashmir": 41,
+      "Mizoram": 40,
+      "Arunachal Pradesh": 33,
+      "Nagaland": 32,
+      "Manipur": 22,
+      "Dadra & Nagar Haveli": 16,
+      "Puducherry": 11,
+      "Goa": 9,
+      "Daman & Diu": 4,
+      "Sikkim": 4,
+      "Kerala": 1
+    },
+    "district_issues": {
+      "rows_with_District_suffix": 468,
+      "distinct_with_District_suffix": 34,
+      "rows_with_embedded_newline": 38
+    }
+  },
+  "pincode_quality": {
+    "pincode": {
+      "non_null": 9302,
+      "six_digit": 9302,
+      "not_six_digit": 0,
+      "bad_values": {},
+      "leading_zero": 0,
+      "first_digit_distribution": {
+        "1": 1030,
+        "2": 772,
+        "3": 986,
+        "4": 1299,
+        "5": 781,
+        "6": 2735,
+        "7": 1340,
+        "8": 359
+      }
+    },
+    "Manual_Pincode": {
+      "non_null": 525,
+      "six_digit": 519,
+      "not_six_digit": 6,
+      "bad_values": {
+        "Karnataka 585331": 1,
+        "Karnataka 587201": 1,
+        "Rajasthan 326035": 1,
+        "#REF!": 1,
+        "Karnataka": 1,
+        "Assam": 1
+      },
+      "leading_zero": 0,
+      "first_digit_distribution": {
+        "1": 65,
+        "2": 37,
+        "3": 61,
+        "4": 27,
+        "5": 112,
+        "6": 9,
+        "7": 129,
+        "8": 79
+      }
+    }
+  },
+  "sentinels": {
+    "literal_backslash_N_cells": 3834,
+    "per_column": {
+      "Address": 188,
+      "street": 229,
+      "landmark": 23,
+      "locality": 23,
+      "landline_number": 23,
+      "altitude": 23,
+      "District_Name": 6,
+      "Taluka_Name": 859,
+      "Block_Name": 2460
+    },
+    "note": "'\\N' is the MySQL/mysqldump NULL marker, so this CSV was produced by an SQL export, not by Excel."
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_name_pct": 100.0,
+    "has_geo_pct": 97.86,
+    "has_district": true,
+    "has_district_pct": 99.94,
+    "has_pincode_pct": 90.07,
+    "has_name_and_district_and_geo_pct": 97.8,
+    "unmatchable_row_pct": 0.06,
+    "unmatchable_rows": 6,
+    "weak_match_names_no_facility_keyword": 4465,
+    "weak_match_names_no_facility_keyword_pct": 43.24,
+    "blocking_key_viable": true,
+    "note": "(name, district, geo) is fully viable: 97.80% of rows carry all three and only 6 rows (0.06%) lack a usable name-or-district. The real risk is not missing data but AMBIGUOUS names - 43.24% of names contain no facility-type keyword and are bare place names, and 1293 rows sit on a coordinate shared with a different facility (block-centroid geocoding), so geo alone must not be used to confirm a match at tighter than ~1 km."
+  }
+}

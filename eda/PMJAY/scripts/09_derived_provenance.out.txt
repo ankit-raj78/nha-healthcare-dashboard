@@ -1,0 +1,68 @@
+====================================================================== 
+AUTO SCORE: what does it score?
+ ======================================================================
+pair                                                        corr  mean_ratio  mean_score
+Hospital Name vs Formatted Address                         0.070       0.347       0.578
+Manual Hospital Name vs Formatted Address                  0.053       0.346       0.578
+Hospital Name vs address_py                                0.010       0.259       0.578
+Manual Hospital Name vs address_py                        -0.008       0.251       0.578
+Hospital Address vs address_py                             0.690       0.489       0.578
+Manual Hospital Address vs address_py                      0.812       0.478       0.578
+Hospital Address vs Formatted Address                      0.576       0.454       0.578
+Manual Hospital Address vs Formatted Address               0.608       0.425       0.578
+Hospital Name vs Locality                                  0.182       0.335       0.578
+Hospital Name vs Manual Hospital Name                      0.061       0.929       0.578
+
+jaccard variants:
+  Hospital Name vs Formatted Address                       corr=  0.185 mean=0.276
+  Manual Hospital Name vs Formatted Address                corr=  0.148 mean=0.293
+  Hospital Name vs address_py                              corr=  0.011 mean=0.101
+  Manual Hospital Name vs address_py                       corr= -0.028 mean=0.099
+  Hospital Address vs address_py                           corr=  0.594 mean=0.245
+  Manual Hospital Address vs address_py                    corr=  0.726 mean=0.241
+  Hospital Address vs Formatted Address                    corr=  0.511 mean=0.250
+  Manual Hospital Address vs Formatted Address             corr=  0.592 mean=0.222
+  Hospital Name vs Locality                                corr=  0.170 mean=0.111
+  Hospital Name vs Manual Hospital Name                    corr=  0.099 mean=0.881
+
+Auto Score distribution shape:
+  min 0.490036381 max 0.917169011
+  n < 0.49: 0  n >= 0.5: 10836
+  histogram: [2480, 3467, 2868, 1465, 577, 260, 110, 45, 9, 3]
+  decimals in raw string: {9: 10179, 8: 998, 7: 97, 6: 10}
+
+====================================================================== 
+FORMATTED ADDRESS: assembled from components?
+ ======================================================================
+component     present   contained in Formatted Address
+Road              245        245 (100.0%)
+Locality          569        569 (100.0%)
+City              598        598 (100.0%)
+District          165        165 (100.0%)
+State             598        598 (100.0%)
+Country           600        600 (100.0%)
+Zipcode           565        565 (100.0%)
+
+Formatted Address vs Manual Hospital Name (first segment):
+  first segment == Manual Hospital Name: 11233
+  first segment == Hospital Name       : 7839
+  mean similarity(first segment, Manual Hospital Name) = 0.999
+
+address_py vs components:
+  Road         contained in address_py:   245 (100.0%)
+  Locality     contained in address_py:   146 (25.7%)
+  City         contained in address_py:   598 (100.0%)
+  District     contained in address_py:   165 (100.0%)
+  State        contained in address_py:   598 (100.0%)
+  Country      contained in address_py:   598 (99.7%)
+  Zipcode      contained in address_py:   565 (100.0%)
+
+non-ASCII content (geocoder fingerprint):
+  Hospital Address          :     0 rows non-ASCII  e.g. []
+  Manual Hospital Address   :     1 rows non-ASCII  e.g. ['Nongstoiñ-Mawkyrwat Rd, Mawthawpdah, Meghalaya']
+  address_py                :   421 rows non-ASCII  e.g. ['Gayatary Seva Sadan, Tambo Road, Tāmbo, Chaibasa, Pashchimi Singhbhum, Jharkhand, 833201, India', 'Dr. Awadh Kishore Upadhyay Memorial Hospital, Panki Road SH33, Kacharwātānr, Medininagar, Medininagar(Daltonganj), Palamu, Jharkhand, 822101, India']
+  Formatted Address         :   419 rows non-ASCII  e.g. ['A.K. Upadhyay Memorial Hospital, Panki Road SH33 , Kacharwātānr Medininagar Medininagar(Daltonganj) , Palamu , Jharkhand , India , 822101', 'Aakanchha Nursing Home, राम स्नेही घाट Ramsanehighat , Barabanki , Uttar Pradesh , India , 225409']
+  Locality                  :   411 rows non-ASCII  e.g. ['Gayatary Seva Sadan Tāmbo Chaibasa', 'Kacharwātānr Medininagar Medininagar(Daltonganj)']
+  Road                      :     8 rows non-ASCII  e.g. ['Santa Cruz – Chembur Link Road', 'Bɑːgichɑː Ali (Garden Street) Area']
+  City                      :     2 rows non-ASCII  e.g. ['Medchal–Malkajgiri', 'Medchal–Malkajgiri']
+  State                     :     0 rows non-ASCII  e.g. []

@@ -1,0 +1,267 @@
+# Harmonization contract for the CGHS empanelment registry.
+# Source: 18_SEPTEMBER_23_SRK_CGHS_Correct_Data.csv  (1983 rows x 26 cols)
+# Every claim below is backed by eda/CGHS/scripts/*.py output.
+
+dataset_key: CGHS
+
+read:
+  encoding: utf-8-sig          # file has a UTF-8 BOM; without this the first header is "﻿Unnamed: 0"
+  dtype: str                   # keeps Postcode_py leading zeros and stops silent numeric coercion
+  keep_default_na: false
+  na_values: [""]
+  # no other kwargs needed: no embedded newlines, every record is exactly 26 fields wide, CRLF line endings
+
+source_column_map:
+
+  # ---------- identity ----------
+  Hospital_Id:
+    canonical: source_facility_id
+    confidence: high
+    transform: "strip"
+    notes: >
+      Unique and complete (1983/1983). This is an empanelment APPLICATION id, not a stable facility id -
+      15 groups of rows are the same facility under different ids. Prefix HOSP (1901) / LAB (81);
+      one malformed value '17006035' (row 1050).
+  Hospital_Name:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_internal_whitespace"
+    notes: "36 rows contain double spaces; casing is inconsistent (1424 UPPER / 51 lower / 508 mixed). Do NOT uppercase in place - keep raw and add a normalized column."
+
+  # ---------- admin geo ----------
+  State:
+    canonical: state_raw
+    confidence: high
+    transform: "strip, upper, map 'NCT OF DELHI'->'DELHI', normalize_lgd"
+    notes: "24 distinct values, 0 nulls, already uppercase and internally consistent."
+  District:
+    canonical: district_raw
+    confidence: high
+    transform: "strip, upper, null_if in ['-NA-'], normalize_lgd"
+    notes: "39 rows are the sentinel '-NA-' (all ANDHRA PRADESH) -> must become NULL, not the literal string. 8 values arrive in title case."
+
+  # ---------- point geo ----------
+  Latitude:
+    canonical: latitude
+    confidence: medium
+    transform: "to_float, null_if outside lat 6..38"
+    notes: "Forward-geocoded from the synthetic Address string, NOT surveyed. 2 rows resolve to the USA."
+  Longitude:
+    canonical: longitude
+    confidence: medium
+    transform: "to_float, null_if outside lon 68..98"
+    notes: "Same provenance. 2 rows have negative longitude."
+
+  # ---------- address ----------
+  Postcode_py:
+    canonical: pincode
+    confidence: medium
+    transform: "strip, zfill(6), null_if not regex ^[1-9][0-9]{5}$"
+    notes: >
+      Derived - it is a substring of address_py in 1935/1935 non-null rows, i.e. it comes from the reverse
+      geocode, not from the CGHS registry. It is NOT an independent match signal; it inherits every geocoding
+      error. Row 220 holds '3302' (a US ZIP 03302).
+  address_py:
+    canonical: address_raw
+    confidence: medium
+    transform: "strip"
+    notes: >
+      Reverse-geocoded (Nominatim/OSM-formatted) address for (Latitude, Longitude). The only street-level
+      address text in the file, but it describes where the geocoder landed, not the registered premises.
+      Load it as address_raw with geo_source='reverse_geocode' so it is never mistaken for a filed address.
+
+  # ---------- classify ----------
+  Hospital_Type:
+    canonical: facility_ownership_raw
+    confidence: high
+    transform: "strip, map {Public: government, Private(For Profit): private_for_profit, Private(Not For Profit): private_not_for_profit}"
+    notes: "26.07% null. Enum: Private(For Profit) 1248 / Private(Not For Profit) 186 / Public 32 / null 517."
+
+  # ---------- programs ----------
+  Empanelment_Type:
+    canonical: empanelment_type
+    confidence: high
+    transform: "strip"
+    notes: "Enum: 'Only CGHS' 1914, 'PMJAY and CGHS' 69."
+  Application_Status:
+    canonical: empanelment_status
+    confidence: high
+    transform: "strip"
+    notes: "Constant 'Hospital Approved for Empanelment' (1983/1983). Keep it - it documents that the file is an approved-only slice - but it discriminates nothing within the dataset."
+  OnBoarded_For_Convergence_Scheme:
+    canonical: scheme_membership
+    confidence: medium
+    transform: "map {Yes: true, No: false}; emit as scheme_membership entry 'CGHS_PMJAY_CONVERGENCE'"
+    notes: >
+      Enum: Yes 1015 / No 968. Semantically overlapping but NOT equal to Empanelment_Type (1015 'Yes' vs
+      only 69 'PMJAY and CGHS'), so the two must be kept as separate facts, not reconciled.
+
+  # ---------- clinical ----------
+  Specialities_Selected:
+    canonical: specialty_list
+    confidence: high
+    transform: "split(','), strip each, drop empty, drop token 'NA', dedupe within row, sort"
+    notes: >
+      Multi-value, comma-delimited, trailing comma on all 1746 non-null values and leading comma on 383.
+      47 distinct tokens spanning TWO MUTUALLY EXCLUSIVE codebooks (see proposed_new_fields below).
+      280 rows repeat a token within the row. 237 rows null; 33 rows carry a literal 'NA' token.
+      Codes are NOT expanded anywhere in this file - a codebook must be sourced externally.
+
+  # ---------- contact (PII) ----------
+  Hospital_Contact:
+    canonical: phone
+    confidence: high
+    transform: "strip, null_if in ['-NA-','0'], keep only regex ^[6-9][0-9]{9}$"
+    disposition: pii
+    notes: >
+      PII. 1941/1983 valid 10-digit Indian mobiles; 3 rows literal '0', 1 row '-NA-', 38 rows null.
+      201 rows share a number with at least one other row (max 9810423972 x10) - useful as a weak
+      corporate-group signal, useless as a facility identifier.
+
+  # ---------- redundant / derived / junk : DROP ----------
+  Address:
+    canonical: null
+    disposition: drop
+    reason: >
+      Not an address. It is exactly Hospital_Name + ', ' + District + ', ' + State - byte-identical on
+      1875/1983 rows and identical on 1983/1983 (100%) after whitespace collapsing. Zero incremental
+      information; keeping it would double-count the name in any similarity score.
+  "Unnamed: 0":
+    canonical: null
+    disposition: drop
+    reason: >
+      Junk index. A preserved pandas RangeIndex, monotonic 0..2090 with 108 missing integers -> the
+      upstream frame had 2091 rows and 108 were dropped before export. Unique but meaningless.
+      Retain the fact (not the column) that 108 upstream rows are missing.
+  Submitted_Date:
+    canonical: null
+    disposition: drop
+    reason: "Constant literal '-NA' on all 1983 rows. No date information whatsoever."
+  Status_Updated_Date:
+    canonical: null
+    disposition: drop
+    reason: "Constant literal '-NA' on all 1983 rows. No date information whatsoever."
+
+  "Levenshtein Distance":
+    canonical: null
+    disposition: drop
+    reason: >
+      Prior pipeline artifact. Verified to be 1 - OSA_edit_distance(Address, address_py)/max(len) -
+      a SIMILARITY, not a distance - exact on 1983/1983 rows. Compares a synthetic name+district+state
+      string against its own reverse geocode, so it measures geocoder verbosity, not facility identity.
+  "Jaro Wrinkler Distance":
+    canonical: null
+    disposition: drop
+    reason: "Prior pipeline artifact. Verified = JaroWinkler.similarity(Address, address_py), exact on 1983/1983 rows."
+  "Jaccard Distance":
+    canonical: null
+    disposition: drop
+    reason: >
+      Prior pipeline artifact. Verified = bag-of-CHARACTERS Jaccard similarity of (Address, address_py),
+      exact on 1983/1983 rows. Character-multiset, not tokens - it mostly measures string length and letter
+      casing. Useless.
+  "Cosine Distance":
+    canonical: null
+    disposition: drop
+    reason: "Prior pipeline artifact. Verified = bag-of-CHARACTERS cosine similarity of (Address, address_py), exact on 1983/1983 rows."
+  "Monge Elkan Distance":
+    canonical: null
+    disposition: drop
+    reason: >
+      Prior pipeline artifact. Values lie in 0.0022-0.0134, far outside the [0,1] band a real Monge-Elkan
+      similarity occupies, and no standard Monge-Elkan variant reproduces it (best r=0.81, zero exact rows).
+      Correlates -0.63 with len(Address) - almost certainly a length-divided/buggy implementation. Unresolved,
+      and unusable either way.
+  "BWTRLENCD Distance":
+    canonical: null
+    disposition: drop
+    reason: >
+      Prior pipeline artifact. Verified = 1 - Normalized Compression Distance with a Burrows-Wheeler +
+      run-length-encoding compressor: (C(a)+C(b)-C(ab))/max(C(a),C(b)) over (Address, address_py) -
+      exact on 1931/1983 rows (97.4%), r=0.9985. Negative on 1129 rows, exactly 0 on 259.
+  "Monge Elkan Distance*10":
+    canonical: null
+    disposition: drop
+    reason: "Prior pipeline artifact and exactly 10 x 'Monge Elkan Distance' (max deviation 5e-9). Perfectly redundant."
+  "Auto Score":
+    canonical: null
+    disposition: drop
+    reason: >
+      Prior pipeline artifact. Exactly affine in three of the other artifact columns:
+      0.1867386636*Levenshtein + 0.1975256764*JaroWinkler + 0.6157356594*MongeElkan*10 + 0.4287057853
+      (R^2 = 1.0, max residual 9.0e-10; the three weights sum to 1.000000). Jaccard, Cosine and BWTRLENCD
+      contribute nothing to it. Carries no usable signal: AUC against four independent geocode-correctness
+      proxies is 0.481 / 0.484 / 0.568 / 0.615, and range is a narrow [0.5351, 0.7189] with no documented
+      threshold.
+
+# ------------------------------------------------------------------
+proposed_new_fields:
+
+  - name: specialty_code_system
+    reason: >
+      Specialities_Selected mixes two mutually exclusive code families in one column - 968 rows use only
+      22 two-letter codes (BM, ER, IN, MC, MG, MN, MO, MP, MR, SB, SC, SE, SG, SL, SM, SN, SO, SP, SS, ST,
+      SU, SV), 745 rows use only 24 numeric codes (M1..M8, S1..S16), 33 rows use two-letter codes plus a
+      literal 'NA'; ZERO rows mix them. Without a per-row marker of which codebook applies, the two 'S3's
+      (one from each family) would collide in the specialty codebook. Suggested values:
+      CGHS_ALPHA2 | CGHS_MS_NUMERIC.
+
+  - name: facility_subtype
+    reason: >
+      The Hospital_Id prefix separates 1901 hospitals/clinics (HOSP) from 81 diagnostic labs and imaging
+      centres (LAB) - a real entity-kind distinction (DR LAL PATH LABS, METROPOLIS, AARTHI SCANS ...) that no
+      existing column carries. facility_type_raw is otherwise entirely empty for this dataset.
+      Suggested values: HOSPITAL | DIAGNOSTIC_LAB.
+
+  - name: source_row_ordinal
+    reason: >
+      'Unnamed: 0' proves 108 upstream rows were dropped between the 2091-row source frame and this 1983-row
+      export. Worth persisting once at dataset level (not per row) as a completeness caveat.
+
+  - name: geo_confidence
+    reason: >
+      Coordinates here are geocoder output, and 109 rows sit on one of only 10 administrative centroids
+      (e.g. 15.9128998/79.7399875 = the Andhra Pradesh state centroid, 37 rows; 28.6139391/77.2090212 =
+      Delhi, 20 rows). The existing geo_accuracy field expects a metric radius; what this dataset can supply
+      is a categorical flag. Suggested values: POINT | CENTROID_SUSPECT | OUT_OF_COUNTRY.
+
+# ------------------------------------------------------------------
+canonical_fields_this_dataset_cannot_fill:
+  # listed so the harmonizer does not go looking for them
+  - facility_name_alt
+  - street
+  - locality
+  - landmark
+  - city
+  - country                # implicit India, only asserted via address_py text
+  - subdistrict_raw
+  - block_raw
+  - village_raw
+  - state_lgd_code         # inferable from the Hospital_Id digit block, but 2 of 26 codes disagree with LGD - see questions.md
+  - district_lgd_code
+  - geo_accuracy
+  - altitude
+  - facility_type_raw      # see proposed facility_subtype
+  - facility_category_raw
+  - bed_count
+  - admission_intake
+  - is_24x7
+  - abdm_enabled
+  - specialty_code_empanelled
+  - specialty_code_upgraded
+  - accreditation
+  - email
+  - website
+  - source_sheet_name
+  - record_status
+
+provenance:
+  source_snapshot_date: null
+  snapshot_date_available: false
+  filename_implied_date: "2023-09-18"
+  note: >
+    Both date columns are the constant literal '-NA' on all 1983 rows, so this dataset carries NO usable
+    snapshot date. The only date signal is the '18_SEPTEMBER_23' token in the filename; treat it as an
+    externally asserted date, never as a measured one.
+
+unmapped_columns: []   # every one of the 26 columns is either mapped or explicitly dropped above

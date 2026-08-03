@@ -1,0 +1,2015 @@
+{
+  "dataset_key": "NHA",
+  "source_file": "1_MAR_AR_2025_NHA_WITH_PMJAY_SPECIALITIES_WITH_CODES.csv",
+  "read_kwargs": {
+    "filepath_or_buffer": "1_MAR_AR_2025_NHA_WITH_PMJAY_SPECIALITIES_WITH_CODES.csv",
+    "encoding": "utf-8",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_filter": false,
+    "_comment": "No BOM (file starts with 'Faci'). No embedded newlines, no Unnamed/index columns, no trailing empty columns, no thousands separators. Naive pd.read_csv gives the correct 323460x46 shape but silently coerces Latitude/Longitude to object and S8_emp/S9_emp to float; read as str and cast explicitly."
+  },
+  "n_rows": 323460,
+  "n_cols": 46,
+  "raw_line_count": 323461,
+  "row_count_explanation": "wc -l reports 323461 = 1 header line + 323460 data rows; the file is newline-terminated. The csv module yields exactly 323460 data records, every one with exactly 46 fields, so there are no embedded newlines and no ragged rows. The brief's stated 323,461 rows is the wc -l count and is one too high.",
+  "columns": [
+    {
+      "name": "Facility ID",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 258756,
+      "examples": [
+        "114976",
+        "1320",
+        "139",
+        "775",
+        "161",
+        "140"
+      ],
+      "value_counts": {},
+      "semantic_role": "source_facility_id",
+      "flags": [],
+      "notes": "NHA/HFR facility identifier. NOT unique: 62,300 ids repeat over 127,004 rows (max 220). 93.7% of the repeated groups are a 24/7 yes/no fan-out, not distinct facilities. 258,756 distinct ids.",
+      "top_10": {
+        "364845": 220,
+        "27626": 36,
+        "455145": 18,
+        "461045": 18,
+        "347642": 18,
+        "142920": 12,
+        "302834": 12,
+        "28962": 9,
+        "387555": 8,
+        "143324": 8
+      },
+      "str_len": {
+        "min": 3,
+        "max": 6,
+        "mean": 5.76,
+        "p50": 6,
+        "p95": 6
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 108.0,
+        "max": 588417.0,
+        "mean": 277350.716657,
+        "p01": 6550.59,
+        "p25": 109827.0,
+        "p50": 270687.5,
+        "p75": 446579.25,
+        "p99": 580469.23,
+        "n_zero": 0,
+        "n_negative": 0
+      }
+    },
+    {
+      "name": "hospital_name",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323437,
+      "null_pct": 0.0071,
+      "n_distinct": 217162,
+      "examples": [
+        "APOLLO CLINIC",
+        "AYUSH HOSPITAL",
+        "BISHOP JOHN RICHARDSON HOSPITAL PERKA",
+        "COMMUNITY HEALTH CENTRE BAMBOO FLAT",
+        "COMMUNITY HEALTH CENTRE DIGLIPUR",
+        "COMMUNITY HEALTH CENTRE NANCOWRY"
+      ],
+      "value_counts": {},
+      "semantic_role": "facility_name_raw",
+      "flags": [],
+      "notes": "Uppercase free text. 23 blank, 426 of length<=3, 129 obvious test/dummy records. 217,163 distinct.",
+      "top_10": {
+        "HEALTH AND WELLNESS CENTER": 262,
+        "HOSPITAL": 254,
+        "DR CHOPRAS PATH CLINIC": 220,
+        "PHARMACY": 144,
+        "CITY HOSPITAL": 138,
+        "INDIRA IVF HOSPITAL PRIVATE LIMITED": 132,
+        "SANJEEVINI CLINIC": 121,
+        "ASHWINI CLINIC": 105,
+        "PRADHAN MANTRI BHARTIYA JANAUSHADHI KENDRA": 100,
+        "SUB HEALTH CENTER": 98
+      },
+      "str_len": {
+        "min": 1,
+        "max": 138,
+        "mean": 19.85,
+        "p50": 17,
+        "p95": 41
+      }
+    },
+    {
+      "name": "Name verifier",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "semantic_role": "record_status",
+      "flags": [
+        "derived",
+        "redundant_with:Address verifier",
+        "redundant_with:Facility Type verifier",
+        "redundant_with:Ownership verifier"
+      ],
+      "notes": "NOT a person. Traffic-light quality tier Green/Orange/Blue. Byte-identical to the other three verifier columns on all 323,460 rows."
+    },
+    {
+      "name": "Address",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 221620,
+      "examples": [
+        "192, Garacharma Main Road, Port Blair Port Blair South Andamans, Andaman And Nicobar Islands - 744105",
+        "Junglighat, Port Blair South Andamans, Andaman And Nicobar Islands - 744103",
+        "Car Nicobar, Nicobars, Andaman And Nicobar Islands - 744301",
+        "Baboo Flat, Ferrargunj South Andamans, Andaman And Nicobar Islands - 744103",
+        "Ramakrishnagram, Diglipur, North Andaman, North & Middle Andaman, Andaman & Nicobar Islands, North And Middle Andaman, Andaman And Nicobar Islands - 744202",
+        "Nancowry, Nancowry Nicobars, Andaman And Nicobar Islands - 744303"
+      ],
+      "value_counts": {},
+      "semantic_role": "address_raw",
+      "flags": [],
+      "notes": "Machine-assembled single free-text string '<premise>, <locality> <district>, <State> - <PIN>'. 0 blank. 323,456/323,460 end in '- <6-digit pin>'. No parsed components exist in this dataset.",
+      "top_10": {
+        "III F 8 RAKESH MARG , NEHRU NAGAR GHAZIABAD Ghaziabad Ghaziabad, Uttar Pradesh - 201001": 220,
+        "Varanasi, Varanasi Sadar Varanasi, Uttar Pradesh - 221002": 123,
+        "Etah, Jalesar Etah, Uttar Pradesh - 207302": 121,
+        "Lucknow, Sadar Lucknow, Uttar Pradesh - 226002": 119,
+        "Sambhal, Sambhal Sambhal, Uttar Pradesh - 244302": 113,
+        "Fatehpur, Fatehpur Fatehpur, Uttar Pradesh - 212601": 105,
+        "Saharanpur, Saharanpur Saharanpur, Uttar Pradesh - 247001": 98,
+        "Churu Churu, Churu Churu, Rajasthan - 331001": 91,
+        "Varanasi, Rajatalab Varanasi, Uttar Pradesh - 221311": 89,
+        "Shamli, Shamli Shamli, Uttar Pradesh - 247776": 87
+      },
+      "str_len": {
+        "min": 30,
+        "max": 276,
+        "mean": 79.39,
+        "p50": 75,
+        "p95": 129
+      }
+    },
+    {
+      "name": "Address verifier",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "semantic_role": "record_status",
+      "flags": [
+        "derived",
+        "redundant_with:Name verifier"
+      ],
+      "notes": "Byte-identical duplicate of Name verifier."
+    },
+    {
+      "name": "Google Maps Link",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 212503,
+      "examples": [
+        "11.618024922619043,92.70831659192436",
+        "11.66,92.73",
+        "11.6542660000,92.7315980000",
+        "11.6541690000,92.7320330000",
+        "13.2461840000,92.9786110000",
+        "11.6539130000,92.7319780000"
+      ],
+      "value_counts": {},
+      "semantic_role": "drop",
+      "flags": [
+        "derived",
+        "redundant_with:Latitude",
+        "redundant_with:Longitude"
+      ],
+      "notes": "Not a URL. It is the bare string '<lat>,<lon>'. 0 rows start with http. Agrees with Latitude/Longitude to 4dp on 323,439/323,440 comparable rows (max deviation 1.1e-14 deg). Retains the raw pre-cleaning string, so it is useful only as forensic evidence of the 20 malformed coordinates.",
+      "top_10": {
+        "26.91785800000001,75.80129199999999": 9870,
+        "17.329660,76.833588": 1373,
+        "16.830618,75.711014": 1327,
+        "28.6472799,76.8130644": 923,
+        "15.363709,75.125626": 904,
+        "15.851129,74.498634": 835,
+        "16.429764,74.587471": 483,
+        "15.459199,75.006248": 383,
+        "16.726933,75.061058": 357,
+        "13.932195,75.569519": 330
+      },
+      "str_len": {
+        "min": 3,
+        "max": 39,
+        "mean": 26.71,
+        "p50": 26,
+        "p95": 36
+      }
+    },
+    {
+      "name": "Facility Type",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 37,
+      "examples": [
+        "Hospital",
+        "Ayurveda Hospital/ Nursing Home",
+        "Community Health Centre",
+        "Medical College",
+        "Primary Health Centre",
+        "Health and Wellness Centre"
+      ],
+      "value_counts": {
+        "Sub Centre": 107643,
+        "Hospital": 56799,
+        "Pharmacy": 41290,
+        "Primary Health Centre": 27760,
+        "Clinic/ Dispensary": 23819,
+        "Health and Wellness Centre": 19742,
+        "Diagnostic Laboratory": 14865,
+        "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)": 9539,
+        "Community Health Centre": 8091,
+        "Dental Clinic": 4087,
+        "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)": 3785,
+        "Medical College": 1372,
+        "Imaging Center": 1130,
+        "Ayurveda Hospital/ Nursing Home": 1057,
+        "Unani Dispensary/ Clinic/ Polyclinic (OPD only)": 696,
+        "Physiotherapy Clinic": 280,
+        "Dialysis Center": 247,
+        "Blood Bank": 207,
+        "Homeopathy Hospital/ Nursing Home": 200,
+        "Cath Laboratory": 184,
+        "Ayurveda College": 163,
+        "Dental Hospital": 139,
+        "Unani Hospital/ Nursing Home": 91,
+        "Dental College": 66,
+        "Siddha Dispensary/ Clinic/ Polyclinic (OPD only)": 53,
+        "Homeopathy College": 46,
+        "Siddha Hospital/ Nursing Home": 20,
+        "Day Care center": 19,
+        "Physiotherapy Hospital": 19,
+        "Unani College": 16,
+        "Sowa-Rigpa Dispensary/ Clinic/ Polyclinic (OPD only)": 11,
+        "Sanatorium": 7,
+        "Physiotherapy College": 7,
+        "Siddha College": 5,
+        "Sowa-Rigpa College": 3,
+        "Palliative Care": 1,
+        "Infertility Clinic": 1
+      },
+      "semantic_role": "facility_type_raw",
+      "flags": [],
+      "notes": "37 clean values, no case/whitespace variants. Dominated by Sub Centre (107,643) and Hospital (56,799); includes Pharmacy (41,290) and Diagnostic Laboratory (14,865), which are not care-delivery facilities."
+    },
+    {
+      "name": "Facility Type verifier",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "semantic_role": "record_status",
+      "flags": [
+        "derived",
+        "redundant_with:Name verifier"
+      ],
+      "notes": "Byte-identical duplicate of Name verifier."
+    },
+    {
+      "name": "Ownership",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Private",
+        "Government",
+        "Public-Private-Partnership"
+      ],
+      "value_counts": {
+        "Government": 178537,
+        "Private": 143346,
+        "Public-Private-Partnership": 1577
+      },
+      "semantic_role": "facility_ownership_raw",
+      "flags": [],
+      "notes": "3 clean values: Government 178,537 / Private 143,346 / Public-Private-Partnership 1,577."
+    },
+    {
+      "name": "Ownership verifier",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 3,
+      "examples": [
+        "Green",
+        "Orange",
+        "Blue"
+      ],
+      "value_counts": {
+        "Green": 281386,
+        "Orange": 28615,
+        "Blue": 13459
+      },
+      "semantic_role": "record_status",
+      "flags": [
+        "derived",
+        "redundant_with:Name verifier"
+      ],
+      "notes": "Byte-identical duplicate of Name verifier."
+    },
+    {
+      "name": "ABDM Enabled",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "No",
+        "Yes"
+      ],
+      "value_counts": {
+        "No": 249220,
+        "Yes": 74240
+      },
+      "semantic_role": "abdm_enabled",
+      "flags": [],
+      "notes": "Clean Yes/No. Yes 74,240 (22.95%)."
+    },
+    {
+      "name": "Latitude",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 209952,
+      "examples": [
+        "11.618024922619044",
+        "11.66",
+        "11.654266",
+        "11.654169",
+        "13.246184",
+        "11.653913"
+      ],
+      "value_counts": {},
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "Stored as text; 12 rows unparseable (LTR marks, degree symbols, DMS-style dotted strings). 40 rows have |lat|>90. 63,594 rows carry 15 decimal places (float64 round-trip noise).",
+      "top_10": {
+        "26.91785800000001": 9870,
+        "17.32966": 1345,
+        "16.830618": 1327,
+        "28.6472799": 923,
+        "15.363709": 904,
+        "15.851129": 835,
+        "16.8263": 692,
+        "16.429764": 483,
+        "15.459199": 383,
+        "16.726933": 357
+      },
+      "str_len": {
+        "min": 1,
+        "max": 21,
+        "mean": 12.75,
+        "p50": 10,
+        "p95": 18
+      },
+      "numeric": {
+        "parses_pct": 99.996,
+        "n_unparseable": 12,
+        "min": -77.61770960013205,
+        "max": 26213662278.12914,
+        "mean": 197276.925654,
+        "p01": 9.565937779074519,
+        "p25": 16.994725275,
+        "p50": 23.35009,
+        "p75": 26.91785800000001,
+        "p99": 33.647898455916305,
+        "n_zero": 66,
+        "n_negative": 16
+      }
+    },
+    {
+      "name": "Longitude",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 206851,
+      "examples": [
+        "92.70831659192436",
+        "92.73",
+        "92.731598",
+        "92.732033",
+        "92.978611",
+        "92.731978"
+      ],
+      "value_counts": {},
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "Stored as text; 10 rows unparseable. 41 rows have |lon|>180.",
+      "top_10": {
+        "75.80129199999999": 9870,
+        "76.833588": 1373,
+        "75.711014": 1327,
+        "76.8130644": 923,
+        "75.125626": 904,
+        "74.498634": 835,
+        "74.587471": 483,
+        "75.006248": 383,
+        "75.061058": 357,
+        "75.569519": 330
+      },
+      "str_len": {
+        "min": 1,
+        "max": 19,
+        "mean": 12.85,
+        "p50": 16,
+        "p95": 17
+      },
+      "numeric": {
+        "parses_pct": 99.997,
+        "n_unparseable": 10,
+        "min": -166.16204434539782,
+        "max": 26213662278.12914,
+        "mean": 198011.912197,
+        "p01": 70.45617093000004,
+        "p25": 75.669724,
+        "p50": 77.38181700000004,
+        "p75": 81.147836,
+        "p99": 93.962383,
+        "n_zero": 66,
+        "n_negative": 30
+      }
+    },
+    {
+      "name": "24/7",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "yes",
+        "no"
+      ],
+      "value_counts": {
+        "no": 259444,
+        "yes": 64016
+      },
+      "semantic_role": "is_24x7",
+      "flags": [
+        "unreliable"
+      ],
+      "notes": "UNUSABLE AS-IS. 58,370 facilities (22.56% of distinct ids) carry BOTH yes and no on different rows of the same Facility ID. This column is the axis of the row fan-out."
+    },
+    {
+      "name": "State_name",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "Andaman and Nicobar",
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chandigarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 62801,
+        "Karnataka": 56885,
+        "Maharashtra": 26502,
+        "Rajasthan": 22276,
+        "Andhra Pradesh": 21289,
+        "Gujarat": 18644,
+        "Madhya Pradesh": 17563,
+        "Bihar": 16562,
+        "Chhattisgarh": 15812,
+        "Kerala": 10208,
+        "Assam": 8652,
+        "Haryana": 6851,
+        "Punjab": 6561,
+        "Jammu and Kashmir": 5822,
+        "Delhi": 5439,
+        "Jharkhand": 4946,
+        "Telangana": 4349,
+        "Himachal Pradesh": 3095,
+        "Tamil Nadu": 2567,
+        "Uttarakhand": 1568,
+        "Tripura": 1101,
+        "Nagaland": 620,
+        "Arunachal Pradesh": 586,
+        "Chandigarh": 574,
+        "Mizoram": 474,
+        "The Dadra and Nagar Haveli and Daman and Diu": 331,
+        "Puducherry": 297,
+        "Manipur": 274,
+        "Andaman and Nicobar": 238,
+        "Ladakh": 237,
+        "Sikkim": 173,
+        "Meghalaya": 96,
+        "Goa": 56,
+        "Odisha": 11
+      },
+      "semantic_role": "state_raw",
+      "flags": [
+        "redundant_with:new_state_name"
+      ],
+      "notes": "34 distinct, mixed-case 'and'. Differs from new_state_name only in casing plus 'Andaman and Nicobar' vs 'Andaman And Nicobar Islands' (238 rows)."
+    },
+    {
+      "name": "District_name",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 643,
+      "examples": [
+        "south andamans",
+        "nicobars",
+        "north and middle andaman",
+        "krishna",
+        "ananthapuramu",
+        "ntr"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [
+        "redundant_with:new_district_name"
+      ],
+      "notes": "643 distinct, lowercase. Includes the literal sentinel 'Not Found' (2 rows). Disagrees with new_district_name on 867 rows.",
+      "top_10": {
+        "belagavi": 6493,
+        "agra": 5297,
+        "dharwad": 5080,
+        "vijayapura": 4273,
+        "jammu": 3840,
+        "mysuru": 3650,
+        "lucknow": 3612,
+        "kalaburagi": 3437,
+        "bagalkote": 3426,
+        "pune": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 29,
+        "mean": 8.11,
+        "p50": 7,
+        "p95": 15
+      }
+    },
+    {
+      "name": "new_state_name",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "Andaman And Nicobar Islands",
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chandigarh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 62801,
+        "Karnataka": 56885,
+        "Maharashtra": 26502,
+        "Rajasthan": 22276,
+        "Andhra Pradesh": 21289,
+        "Gujarat": 18644,
+        "Madhya Pradesh": 17563,
+        "Bihar": 16562,
+        "Chhattisgarh": 15812,
+        "Kerala": 10208,
+        "Assam": 8652,
+        "Haryana": 6851,
+        "Punjab": 6561,
+        "Jammu And Kashmir": 5822,
+        "Delhi": 5439,
+        "Jharkhand": 4946,
+        "Telangana": 4349,
+        "Himachal Pradesh": 3095,
+        "Tamil Nadu": 2567,
+        "Uttarakhand": 1568,
+        "Tripura": 1101,
+        "Nagaland": 620,
+        "Arunachal Pradesh": 586,
+        "Chandigarh": 574,
+        "Mizoram": 474,
+        "The Dadra And Nagar Haveli And Daman And Diu": 331,
+        "Puducherry": 297,
+        "Manipur": 274,
+        "Andaman And Nicobar Islands": 238,
+        "Ladakh": 237,
+        "Sikkim": 173,
+        "Meghalaya": 96,
+        "Goa": 56,
+        "Odisha": 11
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": "34 distinct, Title Case. AUTHORITATIVE - it is 1:1 with state_code (LGD)."
+    },
+    {
+      "name": "state_code",
+      "dtype": "float64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 34,
+      "examples": [
+        "35.0",
+        "28.0",
+        "12.0",
+        "18.0",
+        "10.0",
+        "4.0"
+      ],
+      "value_counts": {
+        "9.0": 62801,
+        "29.0": 56885,
+        "27.0": 26502,
+        "8.0": 22276,
+        "28.0": 21289,
+        "24.0": 18644,
+        "23.0": 17563,
+        "10.0": 16562,
+        "22.0": 15812,
+        "32.0": 10208,
+        "18.0": 8652,
+        "6.0": 6851,
+        "3.0": 6561,
+        "1.0": 5822,
+        "7.0": 5439,
+        "20.0": 4946,
+        "36.0": 4349,
+        "2.0": 3095,
+        "33.0": 2567,
+        "5.0": 1568,
+        "16.0": 1101,
+        "13.0": 620,
+        "12.0": 586,
+        "4.0": 574,
+        "15.0": 474,
+        "38.0": 331,
+        "34.0": 297,
+        "14.0": 274,
+        "35.0": 238,
+        "37.0": 237,
+        "11.0": 173,
+        "17.0": 96,
+        "30.0": 56,
+        "21.0": 11
+      },
+      "semantic_role": "state_lgd_code",
+      "flags": [],
+      "notes": "Confirmed LGD state code: 1:1 with new_state_name across all 34 values and matches the published LGD numbering exactly. Read as float ('35.0') - cast to int. Codes 19 (West Bengal) and 31 (Lakshadweep) are absent: those states have ZERO rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 1.0,
+        "max": 38.0,
+        "mean": 18.86505,
+        "p01": 1.0,
+        "p25": 9.0,
+        "p50": 22.0,
+        "p75": 28.0,
+        "p99": 36.0,
+        "n_zero": 0,
+        "n_negative": 0
+      }
+    },
+    {
+      "name": "new_district_name",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 615,
+      "examples": [
+        "South Andamans",
+        "Nicobars",
+        "North And Middle Andaman",
+        "Krishna",
+        "Ananthapuramu",
+        "Ntr"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_raw",
+      "flags": [],
+      "notes": "615 distinct, Title Case. Perfectly 1:1 with district_code (615<->615, no district maps to 2 codes and no code maps to 2 names). Internally consistent but WRONG on the 867 rows where it disagrees with District_name.",
+      "top_10": {
+        "Belagavi": 6493,
+        "Agra": 5297,
+        "Dharwad": 5080,
+        "Vijayapura": 4273,
+        "Jammu": 3840,
+        "Mysuru": 3650,
+        "Lucknow": 3612,
+        "Kalaburagi": 3437,
+        "Bagalkote": 3426,
+        "Pune": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 29,
+        "mean": 8.11,
+        "p50": 7,
+        "p95": 15
+      }
+    },
+    {
+      "name": "district_code",
+      "dtype": "float64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 615,
+      "examples": [
+        "602.0",
+        "603.0",
+        "632.0",
+        "510.0",
+        "502.0",
+        "749.0"
+      ],
+      "value_counts": {},
+      "semantic_role": "district_lgd_code",
+      "flags": [],
+      "notes": "615 distinct, 1:1 with new_district_name. Consistent with LGD district-code ranges but NOT independently verified against an LGD reference file. Read as float.",
+      "top_10": {
+        "527.0": 6493,
+        "118.0": 5297,
+        "536.0": 5080,
+        "530.0": 4273,
+        "5.0": 3840,
+        "545.0": 3650,
+        "162.0": 3612,
+        "538.0": 3437,
+        "524.0": 3426,
+        "490.0": 3095
+      },
+      "str_len": {
+        "min": 3,
+        "max": 5,
+        "mean": 4.87,
+        "p50": 5,
+        "p95": 5
+      },
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 1.0,
+        "max": 782.0,
+        "mean": 362.69463,
+        "p01": 5.0,
+        "p25": 150.0,
+        "p50": 422.0,
+        "p75": 530.0,
+        "p99": 754.0,
+        "n_zero": 0,
+        "n_negative": 0
+      }
+    },
+    {
+      "name": "merged_specialties",
+      "dtype": "object",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 16282,
+      "null_pct": 94.9663,
+      "n_distinct": 1767,
+      "examples": [
+        "Polytrauma, Orthopaedics",
+        "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+        "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Paediatric surgery, Orthopaedics, General Surgery",
+        "-NA-",
+        "General Medicine, Urology, Paediatric medical management, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, Obstetrics & Gynaecology, General Surgery",
+        "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Urology, Paediatric surgery, Obstetrics & Gynaecology, General Surgery"
+      ],
+      "value_counts": {},
+      "semantic_role": "specialty_list",
+      "flags": [],
+      "notes": "THE CODEBOOK. Pipe/comma-delimited specialty names. Non-blank on 16,282 rows (5.03%). 26 distinct tokens. Decodes the 25 M*/S*_emp flag columns by exact set-equality.",
+      "top_10": {
+        "Opthalmology": 902,
+        "General Surgery": 491,
+        "Orthopaedics": 460,
+        "Obstetrics & Gynaecology": 429,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, General Surgery": 414,
+        "-NA-": 409,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Obstetrics & Gynaecology, General Surgery": 361,
+        "Obstetrics & Gynaecology, General Surgery": 321,
+        "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay)": 275,
+        "General Surgery, Otorhinolaryngology, Opthalmology, Obstetrics & Gynaecology, Orthopaedics, Cardio-thoracic & Vascular surgery, Paediatric surgery, Urology, S8, S9, Surgical Oncology, Medical Oncology, Radiation Oncology, Plastic & reconstructive, Burns management, Polytrauma, Oral and Maxillofacial Surgery, Paediatric cancer, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Paediatric medical management, Neo-natal, Cardiology, Mental Disorders Packages": 267
+      },
+      "str_len": {
+        "min": 4,
+        "max": 490,
+        "mean": 152.1,
+        "p50": 123,
+        "p95": 490
+      }
+    },
+    {
+      "name": "M1_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 312808,
+        "1": 10652
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'General Medicine' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.032931,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 312808,
+        "n_negative": 0
+      },
+      "decodes_to": "General Medicine",
+      "n_positive": 10652
+    },
+    {
+      "name": "M10_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 323456,
+        "1": 4
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag",
+        "near_constant"
+      ],
+      "notes": "Binary flag decoding to 'OPD Diagnostic'. Positive on only 4 rows of 323,460.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 1.2e-05,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 323456,
+        "n_negative": 0
+      },
+      "decodes_to": "OPD Diagnostic",
+      "n_positive": 4
+    },
+    {
+      "name": "M2_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 317055,
+        "1": 6405
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Paediatric medical management' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.019802,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 317055,
+        "n_negative": 0
+      },
+      "decodes_to": "Paediatric medical management",
+      "n_positive": 6405
+    },
+    {
+      "name": "M3_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320516,
+        "1": 2944
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Neo-natal' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009102,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320516,
+        "n_negative": 0
+      },
+      "decodes_to": "Neo-natal",
+      "n_positive": 2944
+    },
+    {
+      "name": "M4_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322111,
+        "1": 1349
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Paediatric cancer' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004171,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322111,
+        "n_negative": 0
+      },
+      "decodes_to": "Paediatric cancer",
+      "n_positive": 1349
+    },
+    {
+      "name": "M5_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321677,
+        "1": 1783
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Medical Oncology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.005512,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321677,
+        "n_negative": 0
+      },
+      "decodes_to": "Medical Oncology",
+      "n_positive": 1783
+    },
+    {
+      "name": "M6_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322185,
+        "1": 1275
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Radiation Oncology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.003942,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322185,
+        "n_negative": 0
+      },
+      "decodes_to": "Radiation Oncology",
+      "n_positive": 1275
+    },
+    {
+      "name": "M7_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313139,
+        "1": 10321
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Emergency Room Packages (Care requiring less than 12 hrs stay)' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.031908,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 313139,
+        "n_negative": 0
+      },
+      "decodes_to": "Emergency Room Packages (Care requiring less than 12 hrs stay)",
+      "n_positive": 10321
+    },
+    {
+      "name": "M8_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322064,
+        "1": 1396
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Mental Disorders Packages' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004316,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 322064,
+        "n_negative": 0
+      },
+      "decodes_to": "Mental Disorders Packages",
+      "n_positive": 1396
+    },
+    {
+      "name": "S1_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 311975,
+        "1": 11485
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'General Surgery' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.035507,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 311975,
+        "n_negative": 0
+      },
+      "decodes_to": "General Surgery",
+      "n_positive": 11485
+    },
+    {
+      "name": "S10_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag",
+        "ambiguous"
+      ],
+      "notes": "Binary flag. S10_emp and S11_emp are byte-identical on all rows and their two tokens ('Plastic & reconstructive', 'Burns management') always co-occur, so which column is which cannot be determined from this dataset. Assigned by ordinal position only.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009819,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320284,
+        "n_negative": 0
+      },
+      "decodes_to": "Plastic & reconstructive",
+      "n_positive": 3176
+    },
+    {
+      "name": "S11_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag",
+        "ambiguous"
+      ],
+      "notes": "See S10_emp - identical column, assignment by ordinal position only.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.009819,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320284,
+        "n_negative": 0
+      },
+      "decodes_to": "Burns management",
+      "n_positive": 3176
+    },
+    {
+      "name": "S12_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320654,
+        "1": 2806
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Cardiology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.008675,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320654,
+        "n_negative": 0
+      },
+      "decodes_to": "Cardiology",
+      "n_positive": 2806
+    },
+    {
+      "name": "S13_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321868,
+        "1": 1592
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Cardio-thoracic & Vascular surgery' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.004922,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321868,
+        "n_negative": 0
+      },
+      "decodes_to": "Cardio-thoracic & Vascular surgery",
+      "n_positive": 1592
+    },
+    {
+      "name": "S14_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320875,
+        "1": 2585
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Paediatric surgery' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.007992,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 320875,
+        "n_negative": 0
+      },
+      "decodes_to": "Paediatric surgery",
+      "n_positive": 2585
+    },
+    {
+      "name": "S15_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321518,
+        "1": 1942
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Surgical Oncology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.006004,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 321518,
+        "n_negative": 0
+      },
+      "decodes_to": "Surgical Oncology",
+      "n_positive": 1942
+    },
+    {
+      "name": "S16_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320044,
+        "1": 3416
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Oral and Maxillofacial Surgery' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.010561,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 320044,
+        "n_negative": 0
+      },
+      "decodes_to": "Oral and Maxillofacial Surgery",
+      "n_positive": 3416
+    },
+    {
+      "name": "S2_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318566,
+        "1": 4894
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Otorhinolaryngology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.01513,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318566,
+        "n_negative": 0
+      },
+      "decodes_to": "Otorhinolaryngology",
+      "n_positive": 4894
+    },
+    {
+      "name": "S3_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 319005,
+        "1": 4455
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Opthalmology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.013773,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 319005,
+        "n_negative": 0
+      },
+      "decodes_to": "Opthalmology",
+      "n_positive": 4455
+    },
+    {
+      "name": "S4_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313420,
+        "1": 10040
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Obstetrics & Gynaecology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.031039,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 313420,
+        "n_negative": 0
+      },
+      "decodes_to": "Obstetrics & Gynaecology",
+      "n_positive": 10040
+    },
+    {
+      "name": "S5_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 314613,
+        "1": 8847
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Orthopaedics' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.027351,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 314613,
+        "n_negative": 0
+      },
+      "decodes_to": "Orthopaedics",
+      "n_positive": 8847
+    },
+    {
+      "name": "S6_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318915,
+        "1": 4545
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Polytrauma' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.014051,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318915,
+        "n_negative": 0
+      },
+      "decodes_to": "Polytrauma",
+      "n_positive": 4545
+    },
+    {
+      "name": "S7_emp",
+      "dtype": "int64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 323460,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318673,
+        "1": 4787
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag"
+      ],
+      "notes": "Binary 0/1 flag. Decodes to 'Urology' - proven by exact set-equality with merged_specialties on all 323,460 rows.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.014799,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 318673,
+        "n_negative": 0
+      },
+      "decodes_to": "Urology",
+      "n_positive": 4787
+    },
+    {
+      "name": "S8_emp",
+      "dtype": "float64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 4090,
+      "null_pct": 98.7355,
+      "n_distinct": 1,
+      "examples": [
+        "1.0"
+      ],
+      "value_counts": {
+        "1.0": 4090
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag",
+        "undecoded"
+      ],
+      "notes": "Binary flag stored as '1.0'/BLANK (not 0) - 319,370 blanks. merged_specialties carries the literal string 'S8', so the upstream decoder failed on this code. Specialty name UNKNOWN.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "p01": 1.0,
+        "p25": 1.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "decodes_to": "S8",
+      "n_positive": 4090
+    },
+    {
+      "name": "S9_emp",
+      "dtype": "float64",
+      "dtype_note": "as produced by naive pd.read_csv; profiled as str",
+      "non_null": 3623,
+      "null_pct": 98.8799,
+      "n_distinct": 1,
+      "examples": [
+        "1.0"
+      ],
+      "value_counts": {
+        "1.0": 3623
+      },
+      "semantic_role": "specialty_code_empanelled",
+      "flags": [
+        "binary_flag",
+        "undecoded"
+      ],
+      "notes": "Binary flag stored as '1.0'/BLANK - 319,837 blanks. merged_specialties carries the literal string 'S9'. Specialty name UNKNOWN. S9=1 always implies S8=1.",
+      "numeric": {
+        "parses_pct": 100.0,
+        "n_unparseable": 0,
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0,
+        "p01": 1.0,
+        "p25": 1.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "decodes_to": "S9",
+      "n_positive": 3623
+    }
+  ],
+  "duplicates": {
+    "exact": 6271,
+    "exact_ignoring_facility_id": 10234,
+    "near_dupe_name_geo": 70846,
+    "near_dupe_name_geo_3dp": 71770,
+    "near_dupe_name_district": 81780,
+    "duplicated_facility_ids": 62300,
+    "rows_in_duplicated_facility_ids": 127004,
+    "pct_redundant_name_geo": 21.903,
+    "method": "exact = pandas .duplicated() over all 46 columns, full population. near_dupe = exact-match key on normalised name (NFKD->ascii, lowercase, non-alnum->space, collapse whitespace) + lat/lon rounded to 4 decimals (~11 m). NO SAMPLING - all 323,460 rows. This is a blocking-key count, not fuzzy string matching, so it is a LOWER BOUND on true duplication.",
+    "dominant_cause": "93.69% of the 62,300 repeated Facility IDs are groups where 24/7 takes both 'yes' and 'no'. Dropping the 24/7 column and de-duplicating collapses 323,460 rows to 261,905 (61,555 rows eliminated), after which only 3,146 ids remain repeated."
+  },
+  "geo_quality": {
+    "valid_in_india": 322156,
+    "null": 16,
+    "zero": 66,
+    "out_of_bbox": 1222,
+    "possibly_swapped": 342,
+    "unparseable_latitude": 12,
+    "unparseable_longitude": 10,
+    "abs_lat_gt_90": 40,
+    "abs_lon_gt_180": 41,
+    "bbox_used": {
+      "lat": [
+        6,
+        38
+      ],
+      "lon": [
+        68,
+        98
+      ]
+    },
+    "shared_coordinate_fallback": {
+      "n_distinct_coord_pairs": 215652,
+      "n_rows_sharing_a_coord_with_another_row": 165448,
+      "n_coord_pairs_used_by_ge_50_rows": 65,
+      "n_rows_at_such_coords": 22187,
+      "worst": "26.917858,75.801292 is shared by 9,870 rows spanning 28 Rajasthan districts",
+      "note": "51.1% of rows share their exact coordinate pair with at least one other row. Many are district/city centroid fallbacks, not real facility points."
+    },
+    "precision": {
+      "n_rows_ge_12_decimals": 155023,
+      "pct_ge_12_decimals": 47.93,
+      "n_rows_le_2_decimals": 5249
+    }
+  },
+  "candidate_primary_key": {
+    "column": "Facility ID",
+    "is_unique": false,
+    "n_distinct": 258756,
+    "n_rows": 323460,
+    "max_repeat": 220,
+    "verdict": "Facility ID is NOT a primary key of this file as delivered, but it IS the natural entity key: 62,298 of the 62,300 repeated-id groups carry the same hospital_name, and only 1 group spans two states. After collapsing the 24/7 fan-out it identifies 258,756 facilities. Use (Facility ID) as the source entity key and treat the file as having a broken grain, not colliding ids.",
+    "no_alternative_unique_column": true
+  },
+  "coded_vocabularies": {
+    "_codebook_status": "SOLVED - proven, not inferred",
+    "_proof": "For each of the 25 M*/S*_emp columns, the row set {flag==1} is EXACTLY equal to the row set {token present in merged_specialties} - zero rows in either symmetric difference, across all 323,460 rows. See scripts/05_codebook_verify.py.",
+    "specialty_code_to_name": {
+      "M1_emp": "General Medicine",
+      "M2_emp": "Paediatric medical management",
+      "M3_emp": "Neo-natal",
+      "M4_emp": "Paediatric cancer",
+      "M5_emp": "Medical Oncology",
+      "M6_emp": "Radiation Oncology",
+      "M7_emp": "Emergency Room Packages (Care requiring less than 12 hrs stay)",
+      "M8_emp": "Mental Disorders Packages",
+      "M10_emp": "OPD Diagnostic",
+      "S1_emp": "General Surgery",
+      "S2_emp": "Otorhinolaryngology",
+      "S3_emp": "Opthalmology",
+      "S4_emp": "Obstetrics & Gynaecology",
+      "S5_emp": "Orthopaedics",
+      "S6_emp": "Polytrauma",
+      "S7_emp": "Urology",
+      "S8_emp": "S8",
+      "S9_emp": "S9",
+      "S10_emp": "Plastic & reconstructive",
+      "S11_emp": "Burns management",
+      "S12_emp": "Cardiology",
+      "S13_emp": "Cardio-thoracic & Vascular surgery",
+      "S14_emp": "Paediatric surgery",
+      "S15_emp": "Surgical Oncology",
+      "S16_emp": "Oral and Maxillofacial Surgery"
+    },
+    "unresolved_codes": {
+      "S8": "merged_specialties carries the literal 'S8'; true specialty name unknown",
+      "S9": "merged_specialties carries the literal 'S9'; true specialty name unknown"
+    },
+    "ambiguous_codes": {
+      "S10/S11": "'Plastic & reconstructive' and 'Burns management' - the two columns are byte-identical so the S10<->S11 assignment is by ordinal position only"
+    },
+    "absent_column": "M9_emp does not exist in the file (M1-M8 and M10 are present)",
+    "Facility Type": [
+      "Ayurveda College",
+      "Ayurveda Dispensary/ Clinic/ Polyclinic (OPD only)",
+      "Ayurveda Hospital/ Nursing Home",
+      "Blood Bank",
+      "Cath Laboratory",
+      "Clinic/ Dispensary",
+      "Community Health Centre",
+      "Day Care center",
+      "Dental Clinic",
+      "Dental College",
+      "Dental Hospital",
+      "Diagnostic Laboratory",
+      "Dialysis Center",
+      "Health and Wellness Centre",
+      "Homeopathy College",
+      "Homeopathy Dispensary/ Clinic/ Polyclinic (OPD only)",
+      "Homeopathy Hospital/ Nursing Home",
+      "Hospital",
+      "Imaging Center",
+      "Infertility Clinic",
+      "Medical College",
+      "Palliative Care",
+      "Pharmacy",
+      "Physiotherapy Clinic",
+      "Physiotherapy College",
+      "Physiotherapy Hospital",
+      "Primary Health Centre",
+      "Sanatorium",
+      "Siddha College",
+      "Siddha Dispensary/ Clinic/ Polyclinic (OPD only)",
+      "Siddha Hospital/ Nursing Home",
+      "Sowa-Rigpa College",
+      "Sowa-Rigpa Dispensary/ Clinic/ Polyclinic (OPD only)",
+      "Sub Centre",
+      "Unani College",
+      "Unani Dispensary/ Clinic/ Polyclinic (OPD only)",
+      "Unani Hospital/ Nursing Home"
+    ],
+    "Ownership": [
+      "Government",
+      "Private",
+      "Public-Private-Partnership"
+    ],
+    "ABDM Enabled": [
+      "No",
+      "Yes"
+    ],
+    "24/7": [
+      "no",
+      "yes"
+    ],
+    "verifier_colour": [
+      "Blue",
+      "Green",
+      "Orange"
+    ],
+    "state_code_lgd": {
+      "1.0": "Jammu And Kashmir",
+      "10.0": "Bihar",
+      "11.0": "Sikkim",
+      "12.0": "Arunachal Pradesh",
+      "13.0": "Nagaland",
+      "14.0": "Manipur",
+      "15.0": "Mizoram",
+      "16.0": "Tripura",
+      "17.0": "Meghalaya",
+      "18.0": "Assam",
+      "2.0": "Himachal Pradesh",
+      "20.0": "Jharkhand",
+      "21.0": "Odisha",
+      "22.0": "Chhattisgarh",
+      "23.0": "Madhya Pradesh",
+      "24.0": "Gujarat",
+      "27.0": "Maharashtra",
+      "28.0": "Andhra Pradesh",
+      "29.0": "Karnataka",
+      "3.0": "Punjab",
+      "30.0": "Goa",
+      "32.0": "Kerala",
+      "33.0": "Tamil Nadu",
+      "34.0": "Puducherry",
+      "35.0": "Andaman And Nicobar Islands",
+      "36.0": "Telangana",
+      "37.0": "Ladakh",
+      "38.0": "The Dadra And Nagar Haveli And Daman And Diu",
+      "4.0": "Chandigarh",
+      "5.0": "Uttarakhand",
+      "6.0": "Haryana",
+      "7.0": "Delhi",
+      "8.0": "Rajasthan",
+      "9.0": "Uttar Pradesh"
+    }
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_name_pct": 99.861,
+    "has_geo_pct": 99.597,
+    "has_district": true,
+    "has_district_pct": 100.0,
+    "has_name_geo_district_pct": 99.458,
+    "unmatchable_row_pct": 0.139,
+    "blocking_key_viable": true,
+    "notes": "name+geo+district blocking is viable on 99.46% of rows. The real risk is not missing fields, it is FALSE geo precision: 51.1% of rows share an exact coordinate pair with another row and 6.86% sit on a coordinate shared by >=50 rows, so geo proximity alone will over-merge. Address is 100% populated and carries a 6-digit pincode on 323,454 rows - extract it, it is a better second blocking key than coordinates. No phone/email/website/registration-number column exists."
+  },
+  "coverage_warning": {
+    "states_with_zero_rows": [
+      "West Bengal (LGD 19)",
+      "Lakshadweep (LGD 31)"
+    ],
+    "severely_undercounted_states": {
+      "Odisha": 11,
+      "Goa": 56,
+      "Meghalaya": 96,
+      "Sikkim": 173,
+      "Manipur": 274,
+      "Puducherry": 297,
+      "Andaman And Nicobar Islands": 238,
+      "Ladakh": 237,
+      "Tamil Nadu": 2567,
+      "Uttarakhand": 1568
+    },
+    "note": "This dataset is the project spine by volume but it is NOT a complete national register. Odisha has 11 rows and Tamil Nadu 2,567 against Uttar Pradesh's 62,801. Do not compute national coverage statistics from it."
+  },
+  "pii": {
+    "columns_containing_pii": [],
+    "note": "No phone, email or dedicated person-name column. The four 'verifier' columns are colour tiers, not people. However hospital_name contains individual practitioner names on many rows (e.g. 'DR GAURAV MISHRA', 'DR K K GUPTA'), which is indirect personal data in a sole-practitioner context."
+  }
+}

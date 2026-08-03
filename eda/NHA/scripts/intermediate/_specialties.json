@@ -1,0 +1,1196 @@
+{
+  "spec_columns": [
+    "M1_emp",
+    "M2_emp",
+    "M3_emp",
+    "M4_emp",
+    "M5_emp",
+    "M6_emp",
+    "M7_emp",
+    "M8_emp",
+    "M10_emp",
+    "S1_emp",
+    "S2_emp",
+    "S3_emp",
+    "S4_emp",
+    "S5_emp",
+    "S6_emp",
+    "S7_emp",
+    "S8_emp",
+    "S9_emp",
+    "S10_emp",
+    "S11_emp",
+    "S12_emp",
+    "S13_emp",
+    "S14_emp",
+    "S15_emp",
+    "S16_emp"
+  ],
+  "n_spec_columns": 25,
+  "missing_from_M1_M10": [
+    "M9_emp"
+  ],
+  "missing_from_S1_S16": [],
+  "per_column": {
+    "M1_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 312808,
+        "1": 10652
+      },
+      "n_blank": 0
+    },
+    "M2_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 317055,
+        "1": 6405
+      },
+      "n_blank": 0
+    },
+    "M3_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320516,
+        "1": 2944
+      },
+      "n_blank": 0
+    },
+    "M4_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322111,
+        "1": 1349
+      },
+      "n_blank": 0
+    },
+    "M5_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321677,
+        "1": 1783
+      },
+      "n_blank": 0
+    },
+    "M6_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322185,
+        "1": 1275
+      },
+      "n_blank": 0
+    },
+    "M7_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313139,
+        "1": 10321
+      },
+      "n_blank": 0
+    },
+    "M8_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 322064,
+        "1": 1396
+      },
+      "n_blank": 0
+    },
+    "M10_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 323456,
+        "1": 4
+      },
+      "n_blank": 0
+    },
+    "S1_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 311975,
+        "1": 11485
+      },
+      "n_blank": 0
+    },
+    "S2_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318566,
+        "1": 4894
+      },
+      "n_blank": 0
+    },
+    "S3_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 319005,
+        "1": 4455
+      },
+      "n_blank": 0
+    },
+    "S4_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 313420,
+        "1": 10040
+      },
+      "n_blank": 0
+    },
+    "S5_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 314613,
+        "1": 8847
+      },
+      "n_blank": 0
+    },
+    "S6_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318915,
+        "1": 4545
+      },
+      "n_blank": 0
+    },
+    "S7_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 318673,
+        "1": 4787
+      },
+      "n_blank": 0
+    },
+    "S8_emp": {
+      "distinct_raw_values": [
+        "",
+        "1.0"
+      ],
+      "value_counts": {
+        "": 319370,
+        "1.0": 4090
+      },
+      "n_blank": 319370
+    },
+    "S9_emp": {
+      "distinct_raw_values": [
+        "",
+        "1.0"
+      ],
+      "value_counts": {
+        "": 319837,
+        "1.0": 3623
+      },
+      "n_blank": 319837
+    },
+    "S10_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "n_blank": 0
+    },
+    "S11_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320284,
+        "1": 3176
+      },
+      "n_blank": 0
+    },
+    "S12_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320654,
+        "1": 2806
+      },
+      "n_blank": 0
+    },
+    "S13_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321868,
+        "1": 1592
+      },
+      "n_blank": 0
+    },
+    "S14_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320875,
+        "1": 2585
+      },
+      "n_blank": 0
+    },
+    "S15_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 321518,
+        "1": 1942
+      },
+      "n_blank": 0
+    },
+    "S16_emp": {
+      "distinct_raw_values": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 320044,
+        "1": 3416
+      },
+      "n_blank": 0
+    }
+  },
+  "global_distinct_values_across_all_spec_cols": [
+    0,
+    1
+  ],
+  "n_specialties_per_row": {
+    "hist": {
+      "0": 307587,
+      "1": 2525,
+      "2": 1381,
+      "3": 1532,
+      "4": 1465,
+      "5": 1985,
+      "6": 1188,
+      "7": 759,
+      "8": 667,
+      "9": 505,
+      "10": 373,
+      "11": 551,
+      "12": 355,
+      "13": 296,
+      "14": 184,
+      "15": 202,
+      "16": 154,
+      "17": 373,
+      "18": 151,
+      "19": 66,
+      "20": 80,
+      "21": 47,
+      "22": 18,
+      "23": 51,
+      "24": 965
+    },
+    "n_rows_with_zero_specialties": 307587,
+    "n_rows_with_any_specialty": 15873,
+    "pct_rows_with_any": 4.907,
+    "max": 24,
+    "mean_when_any": 7.03
+  },
+  "per_column_positive_count": {
+    "M1_emp": 10652,
+    "M2_emp": 6405,
+    "M3_emp": 2944,
+    "M4_emp": 1349,
+    "M5_emp": 1783,
+    "M6_emp": 1275,
+    "M7_emp": 10321,
+    "M8_emp": 1396,
+    "M10_emp": 4,
+    "S1_emp": 11485,
+    "S2_emp": 4894,
+    "S3_emp": 4455,
+    "S4_emp": 10040,
+    "S5_emp": 8847,
+    "S6_emp": 4545,
+    "S7_emp": 4787,
+    "S8_emp": 4090,
+    "S9_emp": 3623,
+    "S10_emp": 3176,
+    "S11_emp": 3176,
+    "S12_emp": 2806,
+    "S13_emp": 1592,
+    "S14_emp": 2585,
+    "S15_emp": 1942,
+    "S16_emp": 3416
+  },
+  "merged_specialties": {
+    "n_non_blank": 16282,
+    "pct_non_blank": 5.034,
+    "n_distinct": 1767,
+    "examples": [
+      "Polytrauma, Orthopaedics",
+      "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+      "Polytrauma, Plastic & reconstructive, Burns management, S8, S9, Urology, Paediatric surgery, Orthopaedics, General Surgery",
+      "-NA-",
+      "General Medicine, Urology, Paediatric medical management, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, Obstetrics & Gynaecology, General Surgery",
+      "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Urology, Paediatric surgery, Obstetrics & Gynaecology, General Surgery",
+      "Paediatric medical management, Paediatric surgery",
+      "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Plastic & reconstructive, Burns management, Urology, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+      "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, S8, S9, Urology, Orthopaedics, Otorhinolaryngology, General Surgery",
+      "Opthalmology",
+      "General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Orthopaedics, General Surgery",
+      "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Obstetrics & Gynaecology, General Surgery",
+      "General Medicine, Paediatric medical management, S8, Urology, Cardiology, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Plastic & reconstructive, Burns management, Paediatric surgery, Orthopaedics, Obstetrics & Gynaecology, Opthalmology, Otorhinolaryngology, General Surgery",
+      "Paediatric medical management, General Medicine, Emergency Room Packages (Care requiring less than 12 hrs stay), Polytrauma, Orthopaedics, Obstetrics & Gynaecology, Otorhinolaryngology, General Surgery",
+      "Paediatric medical management, Orthopaedics"
+    ],
+    "overlap_with_flags": {
+      "ms_and_flags": 15873,
+      "ms_only": 409,
+      "flags_only": 0,
+      "neither": 307178
+    },
+    "n_distinct_tokens": 26,
+    "token_counts": {
+      "General Surgery": 11485,
+      "General Medicine": 10652,
+      "Emergency Room Packages (Care requiring less than 12 hrs stay)": 10321,
+      "Obstetrics & Gynaecology": 10040,
+      "Orthopaedics": 8847,
+      "Paediatric medical management": 6405,
+      "Otorhinolaryngology": 4894,
+      "Urology": 4787,
+      "Polytrauma": 4545,
+      "Opthalmology": 4455,
+      "S8": 4090,
+      "S9": 3623,
+      "Oral and Maxillofacial Surgery": 3416,
+      "Plastic & reconstructive": 3176,
+      "Burns management": 3176,
+      "Neo-natal": 2944,
+      "Cardiology": 2806,
+      "Paediatric surgery": 2585,
+      "Surgical Oncology": 1942,
+      "Medical Oncology": 1783,
+      "Cardio-thoracic & Vascular surgery": 1592,
+      "Mental Disorders Packages": 1396,
+      "Paediatric cancer": 1349,
+      "Radiation Oncology": 1275,
+      "-NA-": 409,
+      "OPD Diagnostic": 4
+    },
+    "tokens_per_row_hist": {
+      "1": 2934,
+      "2": 1381,
+      "3": 1532,
+      "4": 1465,
+      "5": 1985,
+      "6": 1188,
+      "7": 759,
+      "8": 667,
+      "9": 505,
+      "10": 373,
+      "11": 551,
+      "12": 355,
+      "13": 296,
+      "14": 184,
+      "15": 202,
+      "16": 154,
+      "17": 373,
+      "18": 151,
+      "19": 66,
+      "20": 80,
+      "21": 47,
+      "22": 18,
+      "23": 51,
+      "24": 965
+    }
+  },
+  "decode_attempt_flag_to_token": {
+    "M1_emp": {
+      "n_rows_flag1_with_merged_specialties": 10652,
+      "n_rows_flag1_total": 10652,
+      "top_tokens": {
+        "General Medicine": 10652,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 10321,
+        "General Surgery": 9103,
+        "Obstetrics & Gynaecology": 7851,
+        "Orthopaedics": 7089,
+        "Paediatric medical management": 5902,
+        "Otorhinolaryngology": 4313,
+        "Urology": 4120
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M2_emp": {
+      "n_rows_flag1_with_merged_specialties": 6405,
+      "n_rows_flag1_total": 6405,
+      "top_tokens": {
+        "Paediatric medical management": 6405,
+        "General Medicine": 5902,
+        "General Surgery": 5784,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 5778,
+        "Obstetrics & Gynaecology": 5652,
+        "Orthopaedics": 4944,
+        "Otorhinolaryngology": 3690,
+        "S8": 3322
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M3_emp": {
+      "n_rows_flag1_with_merged_specialties": 2944,
+      "n_rows_flag1_total": 2944,
+      "top_tokens": {
+        "Neo-natal": 2944,
+        "Paediatric medical management": 2907,
+        "Obstetrics & Gynaecology": 2779,
+        "General Medicine": 2735,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 2699,
+        "General Surgery": 2696,
+        "Orthopaedics": 2521,
+        "Otorhinolaryngology": 2241
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M4_emp": {
+      "n_rows_flag1_with_merged_specialties": 1349,
+      "n_rows_flag1_total": 1349,
+      "top_tokens": {
+        "Paediatric cancer": 1349,
+        "Orthopaedics": 1284,
+        "General Medicine": 1283,
+        "General Surgery": 1281,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 1271,
+        "Obstetrics & Gynaecology": 1270,
+        "Otorhinolaryngology": 1255,
+        "Paediatric surgery": 1228
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M5_emp": {
+      "n_rows_flag1_with_merged_specialties": 1783,
+      "n_rows_flag1_total": 1783,
+      "top_tokens": {
+        "Medical Oncology": 1783,
+        "General Medicine": 1723,
+        "General Surgery": 1684,
+        "Orthopaedics": 1672,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 1661,
+        "Urology": 1600,
+        "Paediatric medical management": 1578,
+        "Surgical Oncology": 1553
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M6_emp": {
+      "n_rows_flag1_with_merged_specialties": 1275,
+      "n_rows_flag1_total": 1275,
+      "top_tokens": {
+        "Radiation Oncology": 1275,
+        "General Surgery": 1226,
+        "Surgical Oncology": 1217,
+        "Otorhinolaryngology": 1208,
+        "Orthopaedics": 1205,
+        "Urology": 1204,
+        "Medical Oncology": 1202,
+        "General Medicine": 1194
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M7_emp": {
+      "n_rows_flag1_with_merged_specialties": 10321,
+      "n_rows_flag1_total": 10321,
+      "top_tokens": {
+        "General Medicine": 10321,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 10321,
+        "General Surgery": 8996,
+        "Obstetrics & Gynaecology": 7778,
+        "Orthopaedics": 6907,
+        "Paediatric medical management": 5778,
+        "Otorhinolaryngology": 4264,
+        "Urology": 3909
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M8_emp": {
+      "n_rows_flag1_with_merged_specialties": 1396,
+      "n_rows_flag1_total": 1396,
+      "top_tokens": {
+        "Mental Disorders Packages": 1396,
+        "General Medicine": 1388,
+        "Obstetrics & Gynaecology": 1383,
+        "General Surgery": 1381,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 1365,
+        "Paediatric medical management": 1364,
+        "Otorhinolaryngology": 1362,
+        "Orthopaedics": 1361
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "M10_emp": {
+      "n_rows_flag1_with_merged_specialties": 4,
+      "n_rows_flag1_total": 4,
+      "top_tokens": {
+        "OPD Diagnostic": 4,
+        "Otorhinolaryngology": 4,
+        "General Medicine": 4,
+        "Paediatric medical management": 4,
+        "Obstetrics & Gynaecology": 4,
+        "General Surgery": 4,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 4,
+        "Oral and Maxillofacial Surgery": 2
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S1_emp": {
+      "n_rows_flag1_with_merged_specialties": 11485,
+      "n_rows_flag1_total": 11485,
+      "top_tokens": {
+        "General Surgery": 11485,
+        "General Medicine": 9103,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 8996,
+        "Obstetrics & Gynaecology": 8569,
+        "Orthopaedics": 7693,
+        "Paediatric medical management": 5784,
+        "Otorhinolaryngology": 4652,
+        "Urology": 4527
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S2_emp": {
+      "n_rows_flag1_with_merged_specialties": 4894,
+      "n_rows_flag1_total": 4894,
+      "top_tokens": {
+        "Otorhinolaryngology": 4894,
+        "General Surgery": 4652,
+        "Orthopaedics": 4366,
+        "Obstetrics & Gynaecology": 4320,
+        "General Medicine": 4313,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 4264,
+        "Paediatric medical management": 3690,
+        "Urology": 3176
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S3_emp": {
+      "n_rows_flag1_with_merged_specialties": 4455,
+      "n_rows_flag1_total": 4455,
+      "top_tokens": {
+        "Opthalmology": 4455,
+        "General Medicine": 3230,
+        "General Surgery": 3224,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3197,
+        "Obstetrics & Gynaecology": 3166,
+        "Orthopaedics": 3018,
+        "Paediatric medical management": 2765,
+        "Otorhinolaryngology": 2711
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S4_emp": {
+      "n_rows_flag1_with_merged_specialties": 10040,
+      "n_rows_flag1_total": 10040,
+      "top_tokens": {
+        "Obstetrics & Gynaecology": 10040,
+        "General Surgery": 8569,
+        "General Medicine": 7851,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 7778,
+        "Orthopaedics": 6180,
+        "Paediatric medical management": 5652,
+        "Otorhinolaryngology": 4320,
+        "Urology": 3819
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S5_emp": {
+      "n_rows_flag1_with_merged_specialties": 8847,
+      "n_rows_flag1_total": 8847,
+      "top_tokens": {
+        "Orthopaedics": 8847,
+        "General Surgery": 7693,
+        "General Medicine": 7089,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 6907,
+        "Obstetrics & Gynaecology": 6180,
+        "Paediatric medical management": 4944,
+        "Polytrauma": 4460,
+        "Otorhinolaryngology": 4366
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S6_emp": {
+      "n_rows_flag1_with_merged_specialties": 4545,
+      "n_rows_flag1_total": 4545,
+      "top_tokens": {
+        "Polytrauma": 4545,
+        "Orthopaedics": 4460,
+        "General Surgery": 4254,
+        "General Medicine": 3950,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3837,
+        "Obstetrics & Gynaecology": 3302,
+        "Urology": 3159,
+        "Paediatric medical management": 2971
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S7_emp": {
+      "n_rows_flag1_with_merged_specialties": 4787,
+      "n_rows_flag1_total": 4787,
+      "top_tokens": {
+        "Urology": 4787,
+        "General Surgery": 4527,
+        "General Medicine": 4120,
+        "Orthopaedics": 4103,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3909,
+        "Obstetrics & Gynaecology": 3819,
+        "Paediatric medical management": 3244,
+        "S8": 3209
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S8_emp": {
+      "n_rows_flag1_with_merged_specialties": 4090,
+      "n_rows_flag1_total": 4090,
+      "top_tokens": {
+        "S8": 4090,
+        "Orthopaedics": 3925,
+        "General Surgery": 3815,
+        "General Medicine": 3760,
+        "S9": 3623,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3595,
+        "Paediatric medical management": 3322,
+        "Obstetrics & Gynaecology": 3280
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S9_emp": {
+      "n_rows_flag1_with_merged_specialties": 3623,
+      "n_rows_flag1_total": 3623,
+      "top_tokens": {
+        "S8": 3623,
+        "S9": 3623,
+        "Orthopaedics": 3502,
+        "General Surgery": 3356,
+        "General Medicine": 3293,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3138,
+        "Obstetrics & Gynaecology": 3006,
+        "Urology": 2883
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S10_emp": {
+      "n_rows_flag1_with_merged_specialties": 3176,
+      "n_rows_flag1_total": 3176,
+      "top_tokens": {
+        "Plastic & reconstructive": 3176,
+        "Burns management": 3176,
+        "General Surgery": 3148,
+        "Orthopaedics": 3094,
+        "General Medicine": 3036,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3005,
+        "Obstetrics & Gynaecology": 2789,
+        "Paediatric medical management": 2765
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S11_emp": {
+      "n_rows_flag1_with_merged_specialties": 3176,
+      "n_rows_flag1_total": 3176,
+      "top_tokens": {
+        "Plastic & reconstructive": 3176,
+        "Burns management": 3176,
+        "General Surgery": 3148,
+        "Orthopaedics": 3094,
+        "General Medicine": 3036,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3005,
+        "Obstetrics & Gynaecology": 2789,
+        "Paediatric medical management": 2765
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S12_emp": {
+      "n_rows_flag1_with_merged_specialties": 2806,
+      "n_rows_flag1_total": 2806,
+      "top_tokens": {
+        "Cardiology": 2806,
+        "Orthopaedics": 2637,
+        "General Surgery": 2603,
+        "General Medicine": 2601,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 2532,
+        "Paediatric medical management": 2353,
+        "Urology": 2348,
+        "S8": 2293
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S13_emp": {
+      "n_rows_flag1_with_merged_specialties": 1592,
+      "n_rows_flag1_total": 1592,
+      "top_tokens": {
+        "Cardio-thoracic & Vascular surgery": 1592,
+        "Cardiology": 1534,
+        "Orthopaedics": 1531,
+        "Urology": 1475,
+        "General Medicine": 1453,
+        "General Surgery": 1450,
+        "Polytrauma": 1437,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 1418
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S14_emp": {
+      "n_rows_flag1_with_merged_specialties": 2585,
+      "n_rows_flag1_total": 2585,
+      "top_tokens": {
+        "Paediatric surgery": 2585,
+        "General Surgery": 2500,
+        "Obstetrics & Gynaecology": 2359,
+        "Orthopaedics": 2337,
+        "General Medicine": 2316,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 2274,
+        "Urology": 2232,
+        "Otorhinolaryngology": 2176
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S15_emp": {
+      "n_rows_flag1_with_merged_specialties": 1942,
+      "n_rows_flag1_total": 1942,
+      "top_tokens": {
+        "Surgical Oncology": 1942,
+        "General Surgery": 1849,
+        "General Medicine": 1817,
+        "Orthopaedics": 1805,
+        "Obstetrics & Gynaecology": 1800,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 1747,
+        "Urology": 1678,
+        "Polytrauma": 1669
+      },
+      "top_token_coverage_pct": 100.0
+    },
+    "S16_emp": {
+      "n_rows_flag1_with_merged_specialties": 3416,
+      "n_rows_flag1_total": 3416,
+      "top_tokens": {
+        "Oral and Maxillofacial Surgery": 3416,
+        "General Medicine": 3096,
+        "Emergency Room Packages (Care requiring less than 12 hrs stay)": 3088,
+        "General Surgery": 3083,
+        "Obstetrics & Gynaecology": 2909,
+        "Orthopaedics": 2780,
+        "Paediatric medical management": 2655,
+        "Otorhinolaryngology": 2397
+      },
+      "top_token_coverage_pct": 100.0
+    }
+  },
+  "decode_attempt_token_to_flag": {
+    "General Surgery": {
+      "n_rows": 11485,
+      "top_flag_rates": {
+        "S1_emp": 1.0,
+        "M1_emp": 0.7926,
+        "M7_emp": 0.7833,
+        "S4_emp": 0.7461
+      }
+    },
+    "General Medicine": {
+      "n_rows": 10652,
+      "top_flag_rates": {
+        "M1_emp": 1.0,
+        "M7_emp": 0.9689,
+        "S1_emp": 0.8546,
+        "S4_emp": 0.737
+      }
+    },
+    "Emergency Room Packages (Care requiring less than 12 hrs stay)": {
+      "n_rows": 10321,
+      "top_flag_rates": {
+        "M1_emp": 1.0,
+        "M7_emp": 1.0,
+        "S1_emp": 0.8716,
+        "S4_emp": 0.7536
+      }
+    },
+    "Obstetrics & Gynaecology": {
+      "n_rows": 10040,
+      "top_flag_rates": {
+        "S4_emp": 1.0,
+        "S1_emp": 0.8535,
+        "M1_emp": 0.782,
+        "M7_emp": 0.7747
+      }
+    },
+    "Orthopaedics": {
+      "n_rows": 8847,
+      "top_flag_rates": {
+        "S5_emp": 1.0,
+        "S1_emp": 0.8696,
+        "M1_emp": 0.8013,
+        "M7_emp": 0.7807
+      }
+    },
+    "Paediatric medical management": {
+      "n_rows": 6405,
+      "top_flag_rates": {
+        "M2_emp": 1.0,
+        "M1_emp": 0.9215,
+        "S1_emp": 0.903,
+        "M7_emp": 0.9021
+      }
+    },
+    "Otorhinolaryngology": {
+      "n_rows": 4894,
+      "top_flag_rates": {
+        "S2_emp": 1.0,
+        "S1_emp": 0.9506,
+        "S5_emp": 0.8921,
+        "S4_emp": 0.8827
+      }
+    },
+    "Urology": {
+      "n_rows": 4787,
+      "top_flag_rates": {
+        "S7_emp": 1.0,
+        "S1_emp": 0.9457,
+        "M1_emp": 0.8607,
+        "S5_emp": 0.8571
+      }
+    },
+    "Polytrauma": {
+      "n_rows": 4545,
+      "top_flag_rates": {
+        "S6_emp": 1.0,
+        "S5_emp": 0.9813,
+        "S1_emp": 0.936,
+        "M1_emp": 0.8691
+      }
+    },
+    "Opthalmology": {
+      "n_rows": 4455,
+      "top_flag_rates": {
+        "S3_emp": 1.0,
+        "M1_emp": 0.725,
+        "S1_emp": 0.7237,
+        "M7_emp": 0.7176
+      }
+    },
+    "S8": {
+      "n_rows": 4090,
+      "top_flag_rates": {
+        "S8_emp": 1.0,
+        "S5_emp": 0.9597,
+        "S1_emp": 0.9328,
+        "M1_emp": 0.9193
+      }
+    },
+    "S9": {
+      "n_rows": 3623,
+      "top_flag_rates": {
+        "S8_emp": 1.0,
+        "S9_emp": 1.0,
+        "S5_emp": 0.9666,
+        "S1_emp": 0.9263
+      }
+    },
+    "Oral and Maxillofacial Surgery": {
+      "n_rows": 3416,
+      "top_flag_rates": {
+        "S16_emp": 1.0,
+        "M1_emp": 0.9063,
+        "M7_emp": 0.904,
+        "S1_emp": 0.9025
+      }
+    },
+    "Plastic & reconstructive": {
+      "n_rows": 3176,
+      "top_flag_rates": {
+        "S10_emp": 1.0,
+        "S11_emp": 1.0,
+        "S1_emp": 0.9912,
+        "S5_emp": 0.9742
+      }
+    },
+    "Burns management": {
+      "n_rows": 3176,
+      "top_flag_rates": {
+        "S10_emp": 1.0,
+        "S11_emp": 1.0,
+        "S1_emp": 0.9912,
+        "S5_emp": 0.9742
+      }
+    },
+    "Neo-natal": {
+      "n_rows": 2944,
+      "top_flag_rates": {
+        "M3_emp": 1.0,
+        "M2_emp": 0.9874,
+        "S4_emp": 0.944,
+        "M1_emp": 0.929
+      }
+    },
+    "Cardiology": {
+      "n_rows": 2806,
+      "top_flag_rates": {
+        "S12_emp": 1.0,
+        "S5_emp": 0.9398,
+        "S1_emp": 0.9277,
+        "M1_emp": 0.9269
+      }
+    },
+    "Paediatric surgery": {
+      "n_rows": 2585,
+      "top_flag_rates": {
+        "S14_emp": 1.0,
+        "S1_emp": 0.9671,
+        "S4_emp": 0.9126,
+        "S5_emp": 0.9041
+      }
+    },
+    "Surgical Oncology": {
+      "n_rows": 1942,
+      "top_flag_rates": {
+        "S15_emp": 1.0,
+        "S1_emp": 0.9521,
+        "M1_emp": 0.9356,
+        "S5_emp": 0.9295
+      }
+    },
+    "Medical Oncology": {
+      "n_rows": 1783,
+      "top_flag_rates": {
+        "M5_emp": 1.0,
+        "M1_emp": 0.9663,
+        "S1_emp": 0.9445,
+        "S5_emp": 0.9377
+      }
+    },
+    "Cardio-thoracic & Vascular surgery": {
+      "n_rows": 1592,
+      "top_flag_rates": {
+        "S13_emp": 1.0,
+        "S12_emp": 0.9636,
+        "S5_emp": 0.9617,
+        "S7_emp": 0.9265
+      }
+    },
+    "Mental Disorders Packages": {
+      "n_rows": 1396,
+      "top_flag_rates": {
+        "M8_emp": 1.0,
+        "M1_emp": 0.9943,
+        "S4_emp": 0.9907,
+        "S1_emp": 0.9893
+      }
+    },
+    "Paediatric cancer": {
+      "n_rows": 1349,
+      "top_flag_rates": {
+        "M4_emp": 1.0,
+        "S5_emp": 0.9518,
+        "M1_emp": 0.9511,
+        "S1_emp": 0.9496
+      }
+    },
+    "Radiation Oncology": {
+      "n_rows": 1275,
+      "top_flag_rates": {
+        "M6_emp": 1.0,
+        "S1_emp": 0.9616,
+        "S15_emp": 0.9545,
+        "S2_emp": 0.9475
+      }
+    },
+    "-NA-": {
+      "n_rows": 409,
+      "top_flag_rates": {
+        "M1_emp": 0.0,
+        "M2_emp": 0.0,
+        "M3_emp": 0.0,
+        "M4_emp": 0.0
+      }
+    },
+    "OPD Diagnostic": {
+      "n_rows": 4,
+      "top_flag_rates": {
+        "M1_emp": 1.0,
+        "M2_emp": 1.0,
+        "M7_emp": 1.0,
+        "M10_emp": 1.0
+      }
+    }
+  },
+  "flag_pattern": {
+    "n_distinct_patterns": 1130,
+    "top_patterns": {
+      "0000000000000000000000000": 307587,
+      "1111111101111111111111111": 965,
+      "0000000000010000000000000": 902,
+      "1000001001001000000000000": 587,
+      "0000000001000000000000000": 491,
+      "0000000000000100000000000": 460,
+      "1000001001000110000000000": 459,
+      "0000000001001000000000000": 438,
+      "0000000000001000000000000": 429,
+      "1100001001001000000000000": 379,
+      "1000001001001100000000000": 327,
+      "1000001000001000000000000": 317,
+      "1000001001000000000000000": 293,
+      "1000001000000000000000000": 275,
+      "1100001001001100000000000": 227
+    },
+    "column_order_for_pattern": [
+      "M1_emp",
+      "M2_emp",
+      "M3_emp",
+      "M4_emp",
+      "M5_emp",
+      "M6_emp",
+      "M7_emp",
+      "M8_emp",
+      "M10_emp",
+      "S1_emp",
+      "S2_emp",
+      "S3_emp",
+      "S4_emp",
+      "S5_emp",
+      "S6_emp",
+      "S7_emp",
+      "S8_emp",
+      "S9_emp",
+      "S10_emp",
+      "S11_emp",
+      "S12_emp",
+      "S13_emp",
+      "S14_emp",
+      "S15_emp",
+      "S16_emp"
+    ]
+  },
+  "top_flag_correlations": [
+    {
+      "r": 1.0,
+      "a": "S10_emp",
+      "b": "S11_emp"
+    },
+    {
+      "r": 0.984,
+      "a": "M1_emp",
+      "b": "M7_emp"
+    },
+    {
+      "r": 0.94,
+      "a": "S8_emp",
+      "b": "S9_emp"
+    },
+    {
+      "r": 0.834,
+      "a": "M5_emp",
+      "b": "S15_emp"
+    },
+    {
+      "r": 0.82,
+      "a": "M7_emp",
+      "b": "S1_emp"
+    },
+    {
+      "r": 0.817,
+      "a": "M1_emp",
+      "b": "S1_emp"
+    },
+    {
+      "r": 0.813,
+      "a": "M4_emp",
+      "b": "M6_emp"
+    },
+    {
+      "r": 0.796,
+      "a": "M5_emp",
+      "b": "M6_emp"
+    },
+    {
+      "r": 0.791,
+      "a": "S1_emp",
+      "b": "S4_emp"
+    },
+    {
+      "r": 0.772,
+      "a": "M6_emp",
+      "b": "S15_emp"
+    },
+    {
+      "r": 0.77,
+      "a": "M6_emp",
+      "b": "S13_emp"
+    },
+    {
+      "r": 0.756,
+      "a": "S1_emp",
+      "b": "S5_emp"
+    },
+    {
+      "r": 0.756,
+      "a": "M7_emp",
+      "b": "S4_emp"
+    },
+    {
+      "r": 0.751,
+      "a": "M6_emp",
+      "b": "M8_emp"
+    },
+    {
+      "r": 0.751,
+      "a": "M4_emp",
+      "b": "M5_emp"
+    }
+  ]
+}

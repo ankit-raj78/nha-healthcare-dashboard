@@ -1,0 +1,254 @@
+====================================================================== 
+NAME+GEO NEAR DUPES (the credible ones)
+ ======================================================================
+groups=23  rows involved=46  redundant rows=23
+
+  group (2 rows): P K|11.3593|77.7029
+    row 6749 SrNo=  6751 | HN='P K HOSPITAL'
+             addr='2, Sathy Erode Road, Krishnapuram, Kavandapadi, Erode, Tamil' email=pkh_kvp@yahoo.in type=Private (For Profit)
+             emp='M1, M7, S7, S5, S4, S1'
+    row 6750 SrNo=  6752 | HN='P K Hospital, Erode TN.'
+             addr='2, Sathy-Erode Road, Krishnapuram, Kavundapadi, Erode, Tamil' email=pkh_kvp@yahoo.in type=Private (For Profit)
+             emp='S4'
+
+  group (2 rows): ST IGNATIUS|14.2873|74.4543
+    row 10585 SrNo= 10587 | HN='ST IGNATIUS HOSPITAL'
+             addr='Prabhat Nagar, Uttara Kannada, Karnataka' email=anritasra@yahoo.co.in type=Private (For Profit)
+             emp='S12, S7, S14, S13, S5, S4, S1'
+    row 10586 SrNo= 10588 | HN='ST IGNATIUS HOSPITAL'
+             addr='Prabhatnagar, Honavar, Uttara Kannada, Karnataka' email=anritasra@yahoo.co.in type=Private (For Profit)
+             emp='S5'
+
+  group (2 rows): ASHISH WELFARE TRUST RELIEF GYNEC GENERAL|23.588|72.3693
+    row 747 SrNo=   749 | HN='Ashish Welfare Trust Relief Gynec General Hospit'
+             addr='Mahesana, Gujarat' email=najar88888@gmail.com type=Private (For Profit)
+             emp='M1, M7, S1'
+    row 748 SrNo=   750 | HN='Ashish Welfare Trust Relief Gynec General Hospit'
+             addr='1st Flor Diwane Plaza Opposite Bus Stop Vadnagar, Mahesana, ' email=najar88888@gmail.com type=Private (For Profit)
+             emp='S4, S1'
+
+  group (2 rows): ARASAN EYE|11.36|77.7534
+    row 592 SrNo=   594 | HN='Arasan Eye Hospital'
+             addr='26 Annamalai Layout, Opposite To Royal Theatre, Near Bus Sta' email=arasaneyehospital@gmail.com type=Private (Not for Profit)
+             emp='S3'
+    row 593 SrNo=   595 | HN='Arasan Eye Hospital, Royal Theatre, Erode TN.'
+             addr='No 26 Annamalai Layout Opposite To Royal Theatre Near Bus St' email=arasaneyehospital@gmaul.com type=Private (For Profit)
+             emp='S3'
+
+  group (2 rows): KGR SURGICAL NURSING HOME|11.506|77.2464
+    row 5349 SrNo=  5351 | HN='KGR SURGICAL NURSING HOME'
+             addr='9, Kottanakara Street, Athani Road, Sathyamangalam, Erode, T' email=rangasurgery@yahoo.com type=Private (For Profit)
+             emp='S8, S9, S5, S4, S1, M5, S10, S11, S6, M1, M7, M2, S7'
+    row 5350 SrNo=  5352 | HN='KGR Surgical Nursing Home, Erode TN.'
+             addr='9, Kottanakara Street, Athani Road, Erode, Tamil Nadu' email=rangasurgery@yahoo.com type=Private (For Profit)
+             emp='M1, M2, S8, M7, S10, S11, M5, S9, S7, S5, S4, S1'
+
+  group (2 rows): DRR EYE CARE OCULOPLASTY|13.0459|80.1136
+    row 3900 SrNo=  3902 | HN='DRR EYE CARE & OCULOPLASTY HOSPITAL'
+             addr='No 399 Trunk Road, Karayanchavadi, Tiruvallur, Tamil Nadu' email=drreyecare@gmail.com type=Private (For Profit)
+             emp='S3'
+    row 3901 SrNo=  3903 | HN='DRR Eye Care Oculoplasty Hospital, Thiruvallur T'
+             addr='No 399, Trunk Road, Karayanchavadi, Poonamallee, Tiruvallur,' email=drreyehospital@gmail.com type=Private (For Profit)
+             emp='S3'
+
+  group (2 rows): SATELLITE|26.2389|73.0243
+    row 9550 SrNo=  9552 | HN='Satellite Hospital, Diggi Kala, Jodhpur'
+             addr='Diggi Kala, Jodhpur, Rajasthan' email=nan type=Public
+             emp='M2, M1, M7, S5, S4, S2, S1'
+    row 9551 SrNo=  9553 | HN='Satellite Hospital, Pratap Nagar Housing Board, '
+             addr='Pratap Nagar Housing Board, Jodhpur, Rajasthan' email=nan type=Public
+             emp='M2, M1, M7, S5, S4, S2, S1'
+
+  group (2 rows): PHC RANAKANDORANA|21.6417|69.6293
+    row 8395 SrNo=  8397 | HN='Primary Health Centre Ranakandorana'
+             addr='Porbandar, Gujarat' email=phckandorana.health.porbandar@gmail.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8396 SrNo=  8398 | HN='Primary Health centre Ranakandorana'
+             addr='Porbandar, Gujarat' email=drratadiya@gmail.com type=Public
+             emp='M1, M2, S8, M8, M7, S3, S2, S1, S4, S5, S13, S14, S7, S9, S1'
+
+  group (2 rows): S K|11.3344|77.7165
+    row 9151 SrNo=  9153 | HN='S.K HOSPITAL'
+             addr='4, Poosarichennimalai Street, E.V.N Road, Erode, Erode, Tami' email=skhospitalerode@gmail.com type=Private (For Profit)
+             emp='S5'
+    row 9152 SrNo=  9154 | HN='S.K Hospital, E.V.N Road, Erode TN.'
+             addr='4, Poosari Chennimalai Street, EVN Road, Erode, Tamil Nadu' email=skhospitalerode@gmail.com type=Private (For Profit)
+             emp='S5'
+
+  group (2 rows): ADHITHYA NURSING HOME|11.2302|78.1854
+    row 151 SrNo=   152 | HN='ADHITHYA NURSING HOME'
+             addr='Sendhamangalam Road, Namakkal, Tamil Nadu' email=mitu.ksr@gmail.com type=Private (For Profit)
+             emp='S3'
+    row 152 SrNo=   153 | HN='Adhithya Nursing Home, Namakkal, TN.'
+             addr='15, Sendhamangalam Road, Namakkal, Tamil Nadu' email=kumana.boopathy@gmail.com type=Private (For Profit)
+             emp='S3'
+
+  group (2 rows): PHC KADACHH|21.6417|69.6293
+    row 8203 SrNo=  8205 | HN='Primary Health Centre KADACHH'
+             addr='Near Kandhali Mataji Temple, Porbandar, Gujarat' email=phckadachha.health.porbandar@gmail.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8204 SrNo=  8206 | HN='Primary Health centre Kadachh'
+             addr='Porbandar, Gujarat' email=phcgarej.health.porbandar@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+  group (2 rows): MYCURE HOSPITALSA UNIT OF SAHRUDAYA HELATH CARE|17.6868|83.2185
+    row 6321 SrNo=  6323 | HN='MyCure HospitalsA Unit of Sahrudaya Helath Care '
+             addr='Visakhapatnam, Vishakhapatnam, Andhra Pradesh' email=manipal@gmail.com type=Private (For Profit)
+             emp='M1, M2, S8, M7, S6, S10, S11, S9, S7, S14, S5, S4, S2, S1'
+    row 6322 SrNo=  6324 | HN='MyCure HospitalsA Unit of Sahrudaya Helath Care '
+             addr='Door No 15-2-9, Vishakhapatnam, Andhra Pradesh' email=padmaja@manipalhospitals.com type=Private (For Profit)
+             emp='M1, S7, S12, S6, S13, S5, S2, S1'
+
+  group (2 rows): PHC DESHALPAR|23.7337|69.8597
+    row 8137 SrNo=  8139 | HN='Primary Health centre Deshalpar-G'
+             addr='Kachchh, Gujarat' email=phcdeshalpar.health.kutch@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+    row 8138 SrNo=  8140 | HN='Primary Health centre Deshalpar-V'
+             addr='Kachchh, Gujarat' email=phcdeshalparg.health.kutch@gmail.com type=Public
+             emp='S10, S11, S6, S16, M4, M2, M3, S12, M1, S7, S8, M8, M7, S3, '
+
+  group (2 rows): PHC VAGDIYA|22.7115|71.6733
+    row 7735 SrNo=  7737 | HN='PHC Vagdiya'
+             addr='Surendra Nagar, Gujarat' email=mophc_vagadiya2009@yahoo.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8519 SrNo=  8521 | HN='Primary Health Centre VAGDIYA'
+             addr='Surendra Nagar, Gujarat' email=mophc_vagadiya2009@yahoo.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+  group (2 rows): CHC PATAN|27.8027|75.9788
+    row 2248 SrNo=  2250 | HN='CHC PATAN'
+             addr='Dabla Road, Patan, Sikar, Rajasthan' email=CHCpatan@gmail.com type=Public
+             emp='M2, M1, M7, S4, S1'
+    row 2249 SrNo=  2251 | HN='CHC Patan'
+             addr='Dabla road, Sikar, Rajasthan' email=CHCpatan@gmail.com type=Public
+             emp='S16, M2, M1, M7, S4, S1'
+
+  group (2 rows): ASHWIN|11.333|77.7198
+    row 763 SrNo=   765 | HN='Ashwin hospital'
+             addr='545 Skc Road, Erode, Tamil Nadu' email=ashwinthangavel615@gmail.com type=Private (For Profit)
+             emp='S14, S5, M2, M1, M7, S4, S1, S10, S11'
+    row 764 SrNo=   766 | HN='Ashwin Hospital, Erode TN.'
+             addr='545, Skc Road, Kaikolar Thottam, Chidambaram Colony, Erode, ' email=ashwinerode@gmail.com type=Private (For Profit)
+             emp='M1, M7, S5, S4, S1'
+
+  group (2 rows): LVS EYE|11.3398|77.7173
+    row 5551 SrNo=  5553 | HN='L.V.S Eye Hospital, Palaniappa Street, Erode TN.'
+             addr='13 A, Palaniappa Street, Opposite To G H, Erode, Tamil Nadu' email=drlvs@yahoo.com type=Private (For Profit)
+             emp='S3'
+    row 5552 SrNo=  5554 | HN='L.V.S.EYE HOSPITAL'
+             addr='13 A, Palaniappa Street, Opposite To GH, Erode, Tamil Nadu' email=drlvs@yahoo.com type=Private (Not for Profit)
+             emp='S3'
+
+  group (2 rows): PHC MODHWADA|21.6417|69.6293
+    row 8316 SrNo=  8318 | HN='Primary Health Centre Modhwada'
+             addr='Porbandar, Gujarat' email=phcmodhwada.health.porbandar@gmail.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8317 SrNo=  8319 | HN='Primary Health centre modhwada'
+             addr='Porbandar, Gujarat' email=phckadachha.health.porbandar@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+  group (2 rows): PHC KHERVA|22.7115|71.6733
+    row 7324 SrNo=  7326 | HN='PHC Kherva'
+             addr='Surendra Nagar, Gujarat' email=mehphc_kherva@yahoo.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8251 SrNo=  8253 | HN='Primary Health Centre KHERVA'
+             addr='Surendra Nagar, Gujarat' email=phckherava.health.snagar@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+  group (2 rows): ERODE KIDNEYS|11.3383|77.7164
+    row 3970 SrNo=  3972 | HN='Erode Kidneys Center'
+             addr='13, Muthu Karuppan Street, Gandhi Nagar, Erode, Tamil Nadu' email=goldoferode@gmail.com type=Private (For Profit)
+             emp='S7'
+    row 3971 SrNo=  3973 | HN='Erode Kidneys Center, Erode TN.'
+             addr='13, Muthukaruppan Street, Gandhi Nagar, Erode, Tamil Nadu' email=goldoferode@gmail.com type=Private (For Profit)
+             emp='S7'
+
+  group (2 rows): PHC METHAN|22.7115|71.6733
+    row 8000 SrNo=  8002 | HN='PRIMARY HEALTH CENTER METHAN'
+             addr='Surendra Nagar, Gujarat' email=phcmethan.health.snagar@gmail.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8305 SrNo=  8307 | HN='Primary Health Centre METHAN'
+             addr='Surendra Nagar, Gujarat' email=phcmotimalvan.health.snagar@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+  group (2 rows): ERODE ORTHO|11.3328|77.7192
+    row 3973 SrNo=  3975 | HN='Erode Ortho Center, Erode TN.'
+             addr='Old No 803, New No 384 EVN Road Near Railway Station, Erode,' email=erodeorthocentre@gmail.com type=Private (For Profit)
+             emp='S5'
+    row 3974 SrNo=  3976 | HN='ERODE ORTHO CENTRE'
+             addr='Old No 803, New No 384, EVN Road, Near Railway Statio, Erode' email=erodeorthomanager@gmail.com type=Private (For Profit)
+             emp='S5'
+
+  group (2 rows): PHC DEVDA|21.6417|69.6293
+    row 8141 SrNo=  8143 | HN='Primary Health Centre Devda'
+             addr='Opposite SBI Bank Devda, Porbandar, Gujarat' email=phcdevda.health.porbandar@gmail.com type=Public
+             emp='S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, '
+    row 8370 SrNo=  8372 | HN='Primary Health centre PHC DEVDA'
+             addr='Porbandar, Gujarat' email=phckandorana.health.porbandar@gmail.com type=Public
+             emp='S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16'
+
+====================================================================== 
+STRICTER DUPE KEYS
+ ======================================================================
+  raw Hospital Name + API point               : dup rows=    2 groups=    2
+  raw Hospital Name + Manual Address          : dup rows=    0 groups=    0
+  Manual Name + Manual Address                : dup rows=    6 groups=    6
+  Manual Name + district + state + API point  : dup rows=   20 groups=   20
+  Hospital Address exact                      : dup rows= 1063 groups=  124
+  Hospital E-Mail exact (non-null, valid)     : dup rows=  818 groups=  146
+
+====================================================================== 
+Manual Hospital Name TRUNCATION
+ ======================================================================
+tokens: Hospital Name mean=2.75 Manual mean=2.51
+Manual is shorter: 2133 (18.90%)
+Manual is a strict prefix of Hospital Name (normalised): 1189 (10.54%)  -> location suffix dropped
+Manual is a strict substring of Hospital Name: 1218 (10.79%)
+
+examples of dropped location qualifier:
+  row 20: HN='A G Eye Hospital, Puthur, Trichy TN.'
+          MHN='A G Eye Hospital'
+  row 26: HN='A R Ortho Hospital Pollachi, Coimbatore, TN.'
+          MHN='A R Ortho Hospital'
+  row 28: HN='A. J. Hospital, Trichy TN.'
+          MHN='A. J. Hospital'
+  row 30: HN='a.d vaishnav smriti chikitsalay bhatgaon'
+          MHN='A.D. Vaishnav Smriti Chikitsalay'
+  row 33: HN='A.S Imaging Centre Pvt Ltd, Ariyalur TN.'
+          MHN='A.S Imaging Centre Pvt. Ltd.'
+  row 40: HN='Aakash Hospital Nalagarh'
+          MHN='Aakash Hospital'
+  row 41: HN='Aakash Hospital, Thiruvallur TN.'
+          MHN='Aakash Hospital'
+  row 59: HN='Aarthi Hospital, Tuticorin TN.'
+          MHN='Aarthi Hospital'
+
+Hospital Name: distinct=10739 names_shared_by_gt1=347 rows_on_shared_name=892 (7.90%)
+
+Manual Hospital Name: distinct=10277 names_shared_by_gt1=483 rows_on_shared_name=1490 (13.20%)
+
+====================================================================== 
+BLOCKING VIABILITY: collisions inside (state,district)
+ ======================================================================
+  Hospital Name         : collision rows=91 (0.81%) groups=45
+  Manual Hospital Name  : collision rows=310 (2.75%) groups=120
+
+  pairs colliding on name+district+state: 652
+    within  0.1 km: 24
+    within  0.5 km: 33
+    within    1 km: 40
+    within    5 km: 175
+    within   20 km: 459
+  closest pairs (likely TRUE duplicates):
+           0 m | rows 151,152 | 'ADHITHYA NURSING HOME' vs 'Adhithya Nursing Home, Namakkal, TN.'
+           0 m | rows 592,593 | 'Arasan Eye Hospital' vs 'Arasan Eye Hospital, Royal Theatre, Er'
+           0 m | rows 747,748 | 'Ashish Welfare Trust Relief Gynec Gene' vs 'Ashish Welfare Trust Relief Gynec Gene'
+           0 m | rows 763,764 | 'Ashwin hospital' vs 'Ashwin Hospital, Erode TN.'
+           0 m | rows 2248,2249 | 'CHC PATAN' vs 'CHC Patan'
+           0 m | rows 3900,3901 | 'DRR EYE CARE & OCULOPLASTY HOSPITAL' vs 'DRR Eye Care Oculoplasty Hospital, Thi'
+           0 m | rows 3970,3971 | 'Erode Kidneys Center' vs 'Erode Kidneys Center, Erode TN.'
+           0 m | rows 3973,3974 | 'Erode Ortho Center, Erode TN.' vs 'ERODE ORTHO CENTRE'
+           0 m | rows 5349,5350 | 'KGR SURGICAL NURSING HOME' vs 'KGR Surgical Nursing Home, Erode TN.'
+           0 m | rows 5551,5552 | 'L.V.S Eye Hospital, Palaniappa Street,' vs 'L.V.S.EYE HOSPITAL'
+           0 m | rows 6321,6322 | 'MyCure HospitalsA Unit of Sahrudaya He' vs 'MyCure HospitalsA Unit of Sahrudaya He'
+           0 m | rows 6749,6750 | 'P K HOSPITAL' vs 'P K Hospital, Erode TN.'

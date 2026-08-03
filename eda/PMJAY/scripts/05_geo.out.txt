@@ -1,0 +1,173 @@
+
+===== API Latitude / API Longitude =====
+non-null raw: 11284 / 11284
+parse to numeric: 11284 / 11284
+unparseable lat values: []
+both present     : 11284 (100.00%)
+either exactly 0 : 0   both 0: 0
+valid in India   : 11281 (99.97%)
+possibly swapped : 0
+out of bbox      : 3
+null (either)    : 0
+lat range 8.001156148 .. 52.1386394   lon range -71.5723953 .. 96.1739116
+  out-of-bbox examples (row, lat, lon, name, state):
+    134: 43.1938516, -71.5723953 | 'Acharya Shri Chander College of Medical ' | JAMMU AND KASHMIR
+    6383: 52.1386394, -0.4667782 | 'Nankam Hospital, Nilgiris TN.' | TAMIL NADU
+    8355: 43.1938516, -71.5723953 | 'Primary Health Centre Orwad' | GUJARAT
+lat decimal places: p50=7.0 min=2 max=9
+lat with <=2 decimals (low precision): 1
+
+===== gmaps_Latitude / gmaps_Longitude =====
+non-null raw: 11284 / 11284
+parse to numeric: 11284 / 11284
+unparseable lat values: []
+both present     : 11284 (100.00%)
+either exactly 0 : 0   both 0: 0
+valid in India   : 11246 (99.66%)
+possibly swapped : 0
+out of bbox      : 38
+null (either)    : 0
+lat range -9.7538814 .. 46.8796822   lon range -122.0823261 .. 150.8667511
+  out-of-bbox examples (row, lat, lon, name, state):
+    174: 41.6203186, -83.5961607 | 'ADVANCED SPECIALITY HOSPITAL & RESEARCH ' | MANIPUR
+    207: 39.9478844, -75.1556228 | 'AGRAWAL SURGICAL HOSPITAL & TRAUMA CENTR' | UTTAR PRADESH
+    246: 32.4156265, -81.7701568 | 'Ajay Heart Care & Super Speciality Centr' | PUNJAB
+    417: 42.3375158, -71.1081418 | 'AMERICAN ONCOLOGY INSTITUTE A Unit of CT' | ANDHRA PRADESH
+    427: 43.1938516, -71.5723953 | 'amrapali hospital and truma center' | UTTAR PRADESH
+    518: 39.9459748, -76.7184855 | 'ansh hospital & truma center' | UTTAR PRADESH
+    705: 34.0252517, -118.4912198 | 'ARYA ORTHOPAEDIC HOSPITAL & SKIN CARE' | GUJARAT
+    1089: 26.203171, -80.109887 | 'Bikram Joint & Trauma Centre' | PUNJAB
+    1111: 35.521933, -97.579483 | 'BM MEDICAL & RESEARCH CENTRE PVT.LTD.' | UTTAR PRADESH
+    1147: 42.3472234, -71.0818372 | 'Boston Hospital & Research Institute' | MADHYA PRADESH
+lat decimal places: p50=7.0 min=2 max=8
+lat with <=2 decimals (low precision): 3
+
+===== agreement API vs gmaps =====
+rows with both pairs numeric: 11284
+exactly identical lat&lon: 1495
+
+distance API<->gmaps (km) percentiles:
+count    11284.000000
+mean        73.631635
+std        745.216369
+min          0.000000
+5%           0.000000
+25%          0.142927
+50%          0.902287
+75%         12.817223
+90%         45.563937
+95%         89.031643
+99%       1026.023894
+max      14705.865776
+  <=   0.1 km:   2477 (21.95% of comparable)
+  <=   0.5 km:   4555 (40.37% of comparable)
+  <=     1 km:   5867 (51.99% of comparable)
+  <=     5 km:   7749 (68.67% of comparable)
+  <=    25 km:   9258 (82.05% of comparable)
+  <=   100 km:  10763 (95.38% of comparable)
+  <=   500 km:  11092 (98.30% of comparable)
+  >  500 km: 192
+
+worst disagreements:
+  row 5704: 14706 km | API=(9.9674082,76.3012247) gmaps=(34.069386,-84.263826) | 'Lotus Eye Hospital & Institute' | KERALA
+  row 705: 13623 km | API=(22.2730161,73.7221751) gmaps=(34.0252517,-118.4912198) | 'ARYA ORTHOPAEDIC HOSPITAL & SKIN CA' | GUJARAT
+  row 3707: 13435 km | API=(24.1567553,83.7961198) gmaps=(33.9698219,-84.5516184) | 'DR A Q KHAN MEMORIAL DENTAL HOSPITA' | JHARKHAND
+  row 2767: 13255 km | API=(23.6378704,86.1616134) gmaps=(37.086042,-97.044972) | 'CITY CARE HOSPITAL & HEART CENTRE' | JHARKHAND
+  row 6786: 13231 km | API=(28.8561759,78.5019064) gmaps=(29.5018667,-82.8722048) | 'Panacea Hospital & Research Centre' | UTTAR PRADESH
+  row 1089: 13161 km | API=(30.5841404,74.8255963) gmaps=(26.203171,-80.109887) | 'Bikram Joint & Trauma Centre' | PUNJAB
+  row 3770: 13123 km | API=(28.9707525,77.6613807) gmaps=(32.7901014,-96.7801012) | 'DR MAMTA HOSPITAL & STONE CENTRE' | UTTAR PRADESH
+  row 1111: 13026 km | API=(27.1913578,77.9976212) gmaps=(35.521933,-97.579483) | 'BM MEDICAL & RESEARCH CENTRE PVT.LT' | UTTAR PRADESH
+
+===== gmaps_Accuracy =====
+gmaps_Accuracy
+GEOMETRIC_CENTER      8139
+APPROXIMATE           1777
+ROOFTOP               1245
+Awesome Tables         115
+RANGE_INTERPOLATED       8
+
+accuracy vs India-bbox validity of gmaps point:
+col_0               False  True 
+gmaps_Accuracy                  
+APPROXIMATE             4   1773
+Awesome Tables          0    115
+GEOMETRIC_CENTER        1   8138
+RANGE_INTERPOLATED      0      8
+ROOFTOP                33   1212
+
+median API<->gmaps distance by accuracy class:
+                     count       50%        mean           max
+gmaps_Accuracy                                                
+APPROXIMATE         1777.0  0.499502   60.785810  11649.909645
+Awesome Tables       115.0  0.735392   15.608054    477.050389
+GEOMETRIC_CENTER    8139.0  0.973555   31.922171  12513.319418
+RANGE_INTERPOLATED     8.0  0.173280    0.742228      3.459485
+ROOFTOP             1245.0  0.536203  370.463919  14705.865776
+
+===== Auto Score =====
+count    11284.000000
+mean         0.580134
+std          0.058165
+min          0.490036
+1%           0.492663
+5%           0.501797
+25%          0.537153
+50%          0.571838
+75%          0.611492
+95%          0.690652
+99%          0.764620
+max          0.917169
+n distinct: 10797  n exactly 1.0: 0  n 0: 0
+in [0,1]: 11284 of 11284
+
+Auto Score by gmaps_Accuracy:
+                     count      mean       50%
+gmaps_Accuracy                                
+APPROXIMATE         1777.0  0.606695  0.595242
+Awesome Tables       115.0  0.570711  0.558991
+GEOMETRIC_CENTER    8139.0  0.576968  0.570045
+RANGE_INTERPOLATED     8.0  0.527691  0.520332
+ROOFTOP             1245.0  0.564129  0.559432
+
+correlation Auto Score vs API<->gmaps distance: -0.1046
+Auto Score bucket vs median distance:
+             count     median        mean
+Auto Score                               
+(0.0, 0.5]     448  25.923935  762.480401
+(0.5, 0.7]   10379   0.861081   46.895694
+(0.7, 0.8]     414   0.315154    6.020083
+(0.8, 0.9]      42   0.061048    1.081676
+(0.9, 0.95]      1   0.000000    0.000000
+
+===== usable-point coverage =====
+API usable      : 11281 (99.97%)
+gmaps usable    : 11246 (99.66%)
+either usable   : 11284 (100.00%)
+both usable     : 11243
+neither usable  : 0
+only API usable : 38
+only gmaps usable: 3
+
+===== repeated coordinate points (centroid fallback smell) =====
+
+API: distinct points=8317, points used >1 time=889, rows sharing a point=3856
+  top repeated points:
+24.3454739,71.7622481    143
+22.711454,71.6732681      57
+23.8476704,72.9932969     55
+21.1702401,72.8310607     55
+22.8344992,74.2606185     52
+21.7644725,72.1519304     51
+22.750651,72.6846658      47
+23.5879607,72.3693252     43
+
+gmaps: distinct points=10323, points used >1 time=614, rows sharing a point=1575
+  top repeated points:
+21.7689589,72.1438346    35
+22.720152,71.6508731     19
+26.887112,80.9401158     18
+23.5879607,72.3693251    17
+22.2578477,70.9568625    13
+22.9148115,72.5937022    12
+20.9527556,72.9548863    12
+19.5891767,81.6615983    10

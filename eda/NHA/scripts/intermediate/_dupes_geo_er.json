@@ -1,0 +1,641 @@
+{
+  "exact_dupes": {
+    "n_fully_duplicated_rows_all46cols": 6271,
+    "n_distinct_rows": 317189,
+    "n_dupe_groups": 5647,
+    "n_dupes_ignoring_facility_id": 10234
+  },
+  "near_dupes": {
+    "method": "normalised name = NFKD->ascii, lowercase, non-alnum->space, collapse whitespace. Full-population (no sampling, all 323,460 rows).",
+    "name_geo_4dp": {
+      "label": "name + lat/lon rounded 4dp (~11m)",
+      "n_keys_repeated": 63224,
+      "n_rows_in_repeated_keys": 134070,
+      "n_redundant_rows": 70846,
+      "pct_redundant": 21.903,
+      "max_group": 220,
+      "example_keys": [
+        "dr chopras path clinic|28.6555|77.4466",
+        "lokpriya hospital|28.823|78.7818",
+        "sri sai hospital|16.0512|79.7436",
+        "testing|28.5682|77.2121",
+        "oncocare cancer hospital|28.8474|78.4734"
+      ]
+    },
+    "name_geo_3dp": {
+      "label": "name + lat/lon rounded 3dp (~110m)",
+      "n_keys_repeated": 63356,
+      "n_rows_in_repeated_keys": 135126,
+      "n_redundant_rows": 71770,
+      "pct_redundant": 22.188,
+      "max_group": 220,
+      "example_keys": [
+        "dr chopras path clinic|28.655|77.447",
+        "lokpriya hospital|28.823|78.782",
+        "sri sai hospital|16.051|79.744",
+        "taluka hospital nargund|15.715|75.384",
+        "puhc geeta colony|28.655|77.27"
+      ]
+    },
+    "name_district": {
+      "label": "name + new_district_name (no geo)",
+      "n_keys_repeated": 64818,
+      "n_rows_in_repeated_keys": 146598,
+      "n_redundant_rows": 81780,
+      "pct_redundant": 25.283,
+      "max_group": 220,
+      "example_keys": [
+        "dr chopras path clinic|ghaziabad",
+        "sub health center|balod",
+        "rao nursing home|pune",
+        "lokpriya hospital|moradabad",
+        "health and wellness center|panch mahals"
+      ]
+    },
+    "exact_coord_pair_reuse": {
+      "n_coord_pairs_used_by_multiple_rows": 57640,
+      "n_rows_sharing_a_coord_pair": 165448,
+      "top_reused_coords": {
+        "26.91785800000001,75.80129199999999": 9870,
+        "17.32966,76.833588": 1345,
+        "16.830618,75.711014": 1327,
+        "28.6472799,76.8130644": 923,
+        "15.363709,75.125626": 904,
+        "15.851129,74.498634": 835,
+        "16.429764,74.587471": 483,
+        "15.459199,75.006248": 383,
+        "16.726933,75.061058": 357,
+        "13.932195,75.569519": 330
+      }
+    }
+  },
+  "facility_id_dupes": {
+    "n_dup_ids": 62300,
+    "n_rows": 127004,
+    "groups_identical_on_all_cols": 3922,
+    "groups_same_name": 62298,
+    "groups_same_name_and_coords": 59476,
+    "groups_differing_state": 1,
+    "groups_differing_facility_type": 1,
+    "biggest_id": "364845",
+    "biggest_id_sample": [
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      },
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      },
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      },
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      },
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      },
+      {
+        "Facility ID": "364845",
+        "hospital_name": "DR CHOPRAS PATH CLINIC",
+        "Facility Type": "Diagnostic Laboratory",
+        "new_state_name": "Uttar Pradesh",
+        "new_district_name": "Ghaziabad",
+        "Latitude": "28.65548892417827"
+      }
+    ],
+    "biggest_id_distinct_names": 1,
+    "biggest_id_distinct_states": [
+      "Uttar Pradesh"
+    ],
+    "examples_2row_differing": []
+  },
+  "geo_detail": {
+    "n_rows": 323460,
+    "null_either": 16,
+    "zero_zero": 66,
+    "valid_in_india": 322156,
+    "out_of_bbox_nonnull_nonzero": 1222,
+    "possibly_swapped": 342,
+    "swapped_examples": [
+      {
+        "row": 1162,
+        "Latitude": "77.600594",
+        "Longitude": "14.681888",
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY ANANTAPUR"
+      },
+      {
+        "row": 1163,
+        "Latitude": "79.100327",
+        "Longitude": "13.217176",
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY CHITTOOR"
+      },
+      {
+        "row": 1164,
+        "Latitude": "80.436539",
+        "Longitude": "16.306652",
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY GUNTUR"
+      },
+      {
+        "row": 1165,
+        "Latitude": "78.037277",
+        "Longitude": "15.828126",
+        "state": "Andhra Pradesh",
+        "name": "NIKSHAY KURNOOL"
+      },
+      {
+        "row": 4263,
+        "Latitude": "89.97435",
+        "Longitude": "26.020699",
+        "state": "Assam",
+        "name": "NIKSHAY DHUBRI"
+      },
+      {
+        "row": 5995,
+        "Latitude": "84.666222",
+        "Longitude": "25.244019",
+        "state": "Bihar",
+        "name": "NIKSHAY ARWAL"
+      },
+      {
+        "row": 5996,
+        "Latitude": "85.313118",
+        "Longitude": "25.096075",
+        "state": "Bihar",
+        "name": "NIKSHAY AURANGABAD"
+      },
+      {
+        "row": 5997,
+        "Latitude": "86.919838",
+        "Longitude": "24.887419",
+        "state": "Bihar",
+        "name": "NIKSHAY BANKA"
+      },
+      {
+        "row": 5998,
+        "Latitude": "83.977745",
+        "Longitude": "25.564711",
+        "state": "Bihar",
+        "name": "NIKSHAY BUXAR"
+      },
+      {
+        "row": 5999,
+        "Latitude": "85.896004",
+        "Longitude": "26.111868",
+        "state": "Bihar",
+        "name": "NIKSHAY DARBHANGA"
+      }
+    ],
+    "absurd_magnitude": {
+      "n_abs_lat_gt_90": 40,
+      "n_abs_lon_gt_180": 41,
+      "examples": [
+        {
+          "row": 53747,
+          "Latitude": "2712.28",
+          "Longitude": "781.33",
+          "name": "AGARWAL HOSPITAL",
+          "state": "Uttar Pradesh"
+        },
+        {
+          "row": 56056,
+          "Latitude": "4140338",
+          "Longitude": "4140338",
+          "name": "DR GAURAV MISHRA",
+          "state": "Uttar Pradesh"
+        },
+        {
+          "row": 61442,
+          "Latitude": "26740124",
+          "Longitude": "83364653",
+          "name": "SARVANG HOSPITAL",
+          "state": "Uttar Pradesh"
+        },
+        {
+          "row": 189052,
+          "Latitude": "231489040",
+          "Longitude": "231489040",
+          "name": "AROGY CLINIC AYURVED PANCHKARM EVM HOMIYOPATHY",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 189338,
+          "Latitude": "23134786",
+          "Longitude": "23134786",
+          "name": "BABARIYA CLINIC",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 190932,
+          "Latitude": "6533",
+          "Longitude": "6533",
+          "name": "DR ANIL RAJPUT",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 190937,
+          "Latitude": "5536",
+          "Longitude": "5536",
+          "name": "DR ANSHUMAN DEWAN",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 190977,
+          "Latitude": "5493",
+          "Longitude": "5493",
+          "name": "DR B K SURI",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 191065,
+          "Latitude": "655",
+          "Longitude": "655",
+          "name": "DR J D SUKHANI",
+          "state": "Madhya Pradesh"
+        },
+        {
+          "row": 191087,
+          "Latitude": "26213662278.12914",
+          "Longitude": "26213662278.12914",
+          "name": "DR K K GUPTA",
+          "state": "Madhya Pradesh"
+        }
+      ]
+    },
+    "unparseable_rows": [
+      {
+        "row": 34705,
+        "Latitude": "\u200e24.6673639",
+        "Longitude": "81.8766548",
+        "gmaps": "\u200e24.6673639,81.8766548",
+        "name": "CHC MAUGANJ"
+      },
+      {
+        "row": 34714,
+        "Latitude": "23.834866",
+        "Longitude": "76.235703.",
+        "gmaps": "23.834866,76.235703.",
+        "name": "CHC NALKHEDA"
+      },
+      {
+        "row": 36066,
+        "Latitude": "23. 259933",
+        "Longitude": "77.412613",
+        "gmaps": "23. 259933,77.412613",
+        "name": "MONA MULTISPECIALITY  HOSPITAL"
+      },
+      {
+        "row": 60652,
+        "Latitude": " \u200e26.6827052",
+        "Longitude": "84.0497813",
+        "gmaps": " \u200e26.6827052,84.0497813",
+        "name": "RAJ HOSPITAL"
+      },
+      {
+        "row": 60943,
+        "Latitude": "25.44.56.410",
+        "Longitude": "82.41.55.32",
+        "gmaps": "25.44.56.410,82.41.55.32",
+        "name": "R K HOSPITAL"
+      },
+      {
+        "row": 68156,
+        "Latitude": "16.5062\u00b0 N",
+        "Longitude": "80.6225\u00b0 E",
+        "gmaps": "16.5062\u00b0 N,80.6225\u00b0 E",
+        "name": "KRISHNA LANKA"
+      },
+      {
+        "row": 82276,
+        "Latitude": "16.5062\u00b0 N",
+        "Longitude": "80.6225\u00b0 E",
+        "gmaps": "16.5062\u00b0 N,80.6225\u00b0 E",
+        "name": "VIJAYAWADA"
+      },
+      {
+        "row": 102688,
+        "Latitude": "12.83.32",
+        "Longitude": "28.73.0",
+        "gmaps": "12.83.32,28.73.0",
+        "name": "SHAKTI NAGAR"
+      },
+      {
+        "row": 190136,
+        "Latitude": "\u200e24.6673639",
+        "Longitude": "81.8766548",
+        "gmaps": "\u200e24.6673639,81.8766548",
+        "name": "CHC MAUGANJ"
+      },
+      {
+        "row": 190147,
+        "Latitude": "23.834866",
+        "Longitude": "76.235703.",
+        "gmaps": "23.834866,76.235703.",
+        "name": "CHC NALKHEDA"
+      },
+      {
+        "row": 195816,
+        "Latitude": "23. 259933",
+        "Longitude": "77.412613",
+        "gmaps": "23. 259933,77.412613",
+        "name": "MONA MULTISPECIALITY  HOSPITAL"
+      },
+      {
+        "row": 253537,
+        "Latitude": "27.18259771710056",
+        "Longitude": " ",
+        "gmaps": "27.182597717100556, ,78.01800471271476",
+        "name": "AGRA FORT RAILWAY HEALTH UNIT"
+      },
+      {
+        "row": 277839,
+        "Latitude": " \u200e26.6827052",
+        "Longitude": "84.0497813",
+        "gmaps": " \u200e26.6827052,84.0497813",
+        "name": "RAJ HOSPITAL"
+      },
+      {
+        "row": 278737,
+        "Latitude": "25.44.56.410",
+        "Longitude": "82.41.55.32",
+        "gmaps": "25.44.56.410,82.41.55.32",
+        "name": "R K HOSPITAL"
+      },
+      {
+        "row": 320607,
+        "Latitude": "26.210161338547195",
+        "Longitude": " ",
+        "gmaps": "26.210161338547195, , 84.3548238744555",
+        "name": "SIWAN RAILWAY HEALTH UNIT"
+      },
+      {
+        "row": 323174,
+        "Latitude": "12.83.32",
+        "Longitude": "28.73.0",
+        "gmaps": "12.83.32,28.73.0",
+        "name": "SHAKTI NAGAR"
+      }
+    ],
+    "in_ocean_or_foreign_sample": [
+      {
+        "row": 3023,
+        "lat": 38.960489,
+        "lon": 39.6927249,
+        "state": "Andhra Pradesh",
+        "name": "YAZALI SUB CENTRE"
+      },
+      {
+        "row": 8529,
+        "lat": 39.65506511200636,
+        "lon": 50.0458688536994,
+        "state": "Chhattisgarh",
+        "name": "PHC MADDED"
+      },
+      {
+        "row": 12325,
+        "lat": 1.7524914875102129,
+        "lon": 17.934313478698982,
+        "state": "Chhattisgarh",
+        "name": "UMAMEMORIAL SURGICAL AND ENDOSCOPIC NURSING HOME"
+      },
+      {
+        "row": 21175,
+        "lat": 15.927171587206033,
+        "lon": 66.53751033534002,
+        "state": "Karnataka",
+        "name": "ASHWINI CLINIC"
+      },
+      {
+        "row": 21261,
+        "lat": 1.3713,
+        "lon": 103.835602,
+        "state": "Karnataka",
+        "name": "AVENUE SUPERMARTS LIMITED"
+      },
+      {
+        "row": 21430,
+        "lat": 45.98848,
+        "lon": 95.582718,
+        "state": "Karnataka",
+        "name": "BANU MEDICALS AND GENERAL STORES"
+      },
+      {
+        "row": 21582,
+        "lat": 46.398701,
+        "lon": 25.142401,
+        "state": "Karnataka",
+        "name": "BHAGIRATHI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21605,
+        "lat": 1.3385,
+        "lon": 103.774498,
+        "state": "Karnataka",
+        "name": "BHAIRAV MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21606,
+        "lat": 1.3385,
+        "lon": 103.774498,
+        "state": "Karnataka",
+        "name": "BHAIRAV MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 21672,
+        "lat": 45.544613,
+        "lon": -76.123566,
+        "state": "Karnataka",
+        "name": "BHAVANI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 22724,
+        "lat": 39.398399,
+        "lon": 28.510944,
+        "state": "Karnataka",
+        "name": "FURQAN MEDICAL CENTRE"
+      },
+      {
+        "row": 22829,
+        "lat": 60.591282,
+        "lon": 24.87262,
+        "state": "Karnataka",
+        "name": "GAYATRI MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 22849,
+        "lat": 1.372,
+        "lon": 103.837303,
+        "state": "Karnataka",
+        "name": "GEETHA MEDICAL AND GENERAL STORES"
+      },
+      {
+        "row": 23219,
+        "lat": 1.3713,
+        "lon": 103.835602,
+        "state": "Karnataka",
+        "name": "HEAL HEALTHCARE"
+      },
+      {
+        "row": 23374,
+        "lat": 1.3385,
+        "lon": 103.774498,
+        "state": "Karnataka",
+        "name": "HORMONE AND PHARMA POINT"
+      }
+    ],
+    "out_of_bbox_by_state": {
+      "Uttar Pradesh": 535,
+      "Madhya Pradesh": 140,
+      "Karnataka": 106,
+      "Maharashtra": 89,
+      "Bihar": 47,
+      "Gujarat": 46,
+      "Andhra Pradesh": 34,
+      "Chhattisgarh": 33,
+      "Punjab": 31,
+      "Rajasthan": 27,
+      "Delhi": 22,
+      "Tamil Nadu": 17,
+      "Jammu And Kashmir": 16,
+      "Haryana": 15,
+      "Jharkhand": 13
+    }
+  },
+  "name_address": {
+    "hospital_name_blank": 23,
+    "hospital_name_blank_rows": [
+      52,
+      53,
+      53478,
+      64202,
+      64203,
+      64204,
+      64205,
+      90490,
+      102975,
+      102976,
+      102977,
+      102978,
+      102979,
+      102980,
+      118554,
+      188592,
+      212247,
+      212248,
+      228613,
+      252625,
+      252626,
+      252627,
+      271107
+    ],
+    "hospital_name_len": {
+      "min": 1,
+      "max": 138,
+      "p50": 17
+    },
+    "n_names_len_le_3": 426,
+    "short_name_examples": {
+      "HWC": 61,
+      "OPD": 20,
+      "PHC": 18,
+      "CHC": 14,
+      "ANM": 10,
+      "CHO": 10,
+      "RUI": 9,
+      "ENT": 9,
+      "SHC": 7,
+      "HOL": 7,
+      "HFR": 7,
+      "XYZ": 7,
+      "ALL": 6,
+      "DVC": 5,
+      "EYE": 5
+    },
+    "n_names_purely_numeric": 6,
+    "n_names_needing_strip": 0,
+    "n_distinct_names": 217163,
+    "n_distinct_names_normalised": 216381,
+    "top_names": {
+      "HEALTH AND WELLNESS CENTER": 262,
+      "HOSPITAL": 254,
+      "DR CHOPRAS PATH CLINIC": 220,
+      "PHARMACY": 144,
+      "CITY HOSPITAL": 138,
+      "INDIRA IVF HOSPITAL PRIVATE LIMITED": 132,
+      "SANJEEVINI CLINIC": 121,
+      "ASHWINI CLINIC": 105,
+      "PRADHAN MANTRI BHARTIYA JANAUSHADHI KENDRA": 100,
+      "SUB HEALTH CENTER": 98,
+      "HEALTH AND WELLNESS CENTRE": 92,
+      "LIFE CARE HOSPITAL": 87,
+      "DENTAL CLINIC": 83,
+      "SHREE CLINIC": 79,
+      "LIFE LINE HOSPITAL": 78
+    },
+    "address_blank": 0,
+    "address_len": {
+      "min": 30,
+      "max": 276,
+      "p50": 75,
+      "p95": 129
+    },
+    "n_address_len_lt_10": 0,
+    "short_address_examples": {}
+  },
+  "pincode_in_address": {
+    "n_rows_with_6digit_pin_in_address": 323454,
+    "pct": 100.0,
+    "n_distinct_pins": 15723,
+    "n_pins_starting_0": 13,
+    "examples": [
+      "744105",
+      "744103",
+      "744301",
+      "744103",
+      "744202",
+      "744303",
+      "744205",
+      "744204",
+      "744101",
+      "744210"
+    ],
+    "note": "no dedicated pincode column exists; this is an extraction from free text"
+  },
+  "er_readiness": {
+    "has_name_pct": 99.861,
+    "has_valid_geo_pct": 99.597,
+    "has_district_pct": 100.0,
+    "has_state_pct": 100.0,
+    "has_all_three_pct": 99.458,
+    "unmatchable_rows": 449,
+    "unmatchable_pct": 0.139,
+    "n_rows_name_and_district_but_no_geo": 1304
+  }
+}

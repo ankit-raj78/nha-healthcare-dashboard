@@ -1,0 +1,284 @@
+# Harmonization contract for the NHA dataset.
+# Source: 1_MAR_AR_2025_NHA_WITH_PMJAY_SPECIALITIES_WITH_CODES.csv
+# 323,460 data rows x 46 columns. Every number below is from eda/NHA/scripts/.
+
+dataset_key: NHA
+
+read_kwargs:
+  encoding: utf-8            # no BOM; file begins 'Faci'
+  dtype: str                 # never let pandas infer: it turns Latitude into object
+  keep_default_na: false     # and S8_emp/S9_emp into float64
+  na_filter: false
+  # No Unnamed/index column, no embedded newlines, no ragged rows, no thousands
+  # separators. Naive pd.read_csv yields the correct 323460 x 46 shape.
+
+grain_warning: >
+  The file's grain is NOT one row per facility. 62,300 Facility IDs repeat across
+  127,004 rows and 93.69% of those groups are a '24/7' yes/no fan-out. De-duplicate
+  on all columns except `24/7` BEFORE mapping: 323,460 -> 261,905 rows. The true
+  entity count is 258,756 distinct Facility IDs.
+
+source_column_map:
+
+  # ---------------------------------------------------------------- identity
+  Facility ID:
+    canonical: source_facility_id
+    confidence: high
+    transform: "cast int, prefix 'NHA:'"
+    unique: false           # 258,756 distinct over 323,460 rows; max repeat 220
+    note: "natural entity key, but only after the 24/7 fan-out is collapsed"
+  hospital_name:
+    canonical: facility_name_raw
+    confidence: high
+    transform: "strip, collapse_whitespace"
+    note: "23 blank rows; 426 rows of length<=3; 129 test/dummy records to quarantine"
+
+  # ----------------------------------------------------------------- address
+  Address:
+    canonical: address_raw
+    confidence: high
+    transform: strip
+    note: "100% populated, machine-assembled '<premise>, <locality> <district>, <State> - <PIN>'"
+
+  # --------------------------------------------------------------- admin geo
+  new_state_name:
+    canonical: state_raw
+    confidence: high
+    transform: "upper, normalize_lgd"
+    authoritative: true
+    note: "1:1 with state_code across all 34 values; prefer over State_name"
+  state_code:
+    canonical: state_lgd_code
+    confidence: high
+    transform: "cast int (stored as float, e.g. '35.0')"
+    note: "confirmed LGD state code; codes 19 (West Bengal) and 31 (Lakshadweep) absent"
+  new_district_name:
+    canonical: district_raw
+    confidence: medium
+    transform: "upper, normalize_lgd"
+    authoritative: true
+    note: >
+      1:1 with district_code (615<->615) and no district spans two states, so it is
+      internally consistent - but it is WRONG on the 867 rows where it disagrees with
+      District_name (only 112/867 of its values appear in the row's own Address).
+  district_code:
+    canonical: district_lgd_code
+    confidence: medium
+    transform: "cast int (stored as float)"
+    note: "1:1 with new_district_name; NOT verified against an external LGD reference"
+  State_name:
+    canonical: state_raw
+    disposition: keep_as_secondary
+    confidence: high
+    transform: "upper"
+    note: "redundant with new_state_name; differs only in casing + 238 'Andaman and Nicobar' rows"
+  District_name:
+    canonical: district_raw
+    disposition: keep_as_secondary
+    confidence: medium
+    transform: "upper"
+    note: >
+      keep for adjudication only. On the 867 disagreement rows it matches the row's own
+      Address 600 times vs new_district_name's 112, so it is the better signal there -
+      but 263 of those rows match NEITHER, so neither column can be trusted blindly.
+      Contains the literal sentinel 'Not Found' on 2 rows (2794, 2795).
+
+  # --------------------------------------------------------------- point geo
+  Latitude:
+    canonical: latitude
+    confidence: medium
+    transform: "strip LTR marks (U+200E), to_numeric, null out |lat|>90"
+    note: "12 unparseable rows; 40 rows |lat|>90; 63,594 rows have 15 dp of float noise"
+  Longitude:
+    canonical: longitude
+    confidence: medium
+    transform: "strip LTR marks, to_numeric, null out |lon|>180"
+    note: "10 unparseable rows; 41 rows |lon|>180"
+  Google Maps Link:
+    canonical: null
+    disposition: drop
+    reason: >
+      not a URL - it is the bare string '<lat>,<lon>' and reproduces Latitude/Longitude
+      to 4dp on 323,439 of 323,440 comparable rows (max deviation 1.1e-14 degrees).
+      Retain only as forensic evidence for the 20 malformed coordinate rows.
+
+  # ---------------------------------------------------------------- classify
+  Facility Type:
+    canonical: facility_type_raw
+    confidence: high
+    transform: strip
+    note: "37 clean values, no case/whitespace variants; includes non-care types (Pharmacy 41,290)"
+  Ownership:
+    canonical: facility_ownership_raw
+    confidence: high
+    transform: strip
+    note: "Government 178,537 / Private 143,346 / Public-Private-Partnership 1,577"
+
+  # ---------------------------------------------------------------- capacity
+  24/7:
+    canonical: is_24x7
+    confidence: low
+    disposition: quarantine
+    reason: >
+      58,370 facilities (22.56% of distinct Facility IDs) carry BOTH 'yes' and 'no' on
+      different rows of the same id. This column is the axis of the row fan-out and is
+      self-contradictory. Do not load it as a fact; if it must be kept, aggregate to
+      is_24x7_any / is_24x7_conflicting per Facility ID.
+
+  # ---------------------------------------------------------------- programs
+  ABDM Enabled:
+    canonical: abdm_enabled
+    confidence: high
+    transform: "map {Yes: true, No: false}"
+    note: "clean 2-value enum; Yes on 74,240 rows (22.95%)"
+
+  # ---------------------------------------------------------------- clinical
+  merged_specialties:
+    canonical: specialty_list
+    confidence: high
+    transform: "split on ',' or '|', strip; drop the '-NA-' sentinel (409 rows)"
+    note: >
+      THE CODEBOOK for this project's specialty codes. Non-blank on 16,282 rows (5.03%).
+      26 distinct tokens. Set-equality with the M*/S*_emp flags is EXACT on all rows.
+
+  # 25 binary specialty flags -> specialty_code_empanelled, with the decode proven.
+  # Every one of these: canonical=specialty_code_empanelled, confidence=high,
+  # transform="cast int, treat blank as 0", encoding=binary 0/1.
+  M1_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "General Medicine", n_positive: 10652}
+  M2_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Paediatric medical management", n_positive: 6405}
+  M3_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Neo-natal", n_positive: 2944}
+  M4_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Paediatric cancer", n_positive: 1349}
+  M5_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Medical Oncology", n_positive: 1783}
+  M6_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Radiation Oncology", n_positive: 1275}
+  M7_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Emergency Room Packages (Care requiring less than 12 hrs stay)", n_positive: 10321}
+  M8_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Mental Disorders Packages", n_positive: 1396}
+  M10_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "OPD Diagnostic", n_positive: 4, note: "positive on only 4 rows"}
+  S1_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "General Surgery", n_positive: 11485}
+  S2_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Otorhinolaryngology", n_positive: 4894}
+  S3_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Opthalmology", n_positive: 4455, note: "source spelling; canonical name is Ophthalmology"}
+  S4_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Obstetrics & Gynaecology", n_positive: 10040}
+  S5_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Orthopaedics", n_positive: 8847}
+  S6_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Polytrauma", n_positive: 4545}
+  S7_emp:  {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Urology", n_positive: 4787}
+  S8_emp:
+    canonical: specialty_code_empanelled
+    confidence: low
+    decodes_to: null
+    n_positive: 4090
+    note: >
+      UNRESOLVED. Stored as '1.0'/BLANK rather than 1/0 (319,370 blanks - blank means 0).
+      merged_specialties carries the literal string 'S8', so the upstream decoder failed
+      on this code. Load the flag, leave the name null. See questions.md.
+  S9_emp:
+    canonical: specialty_code_empanelled
+    confidence: low
+    decodes_to: null
+    n_positive: 3623
+    note: >
+      UNRESOLVED, same as S8_emp (319,837 blanks). merged_specialties carries literal 'S9'.
+      S9_emp=1 always implies S8_emp=1 on all 3,623 rows.
+  S10_emp:
+    canonical: specialty_code_empanelled
+    confidence: medium
+    decodes_to: "Plastic & reconstructive"
+    n_positive: 3176
+    note: >
+      AMBIGUOUS. S10_emp and S11_emp are byte-identical on all 323,460 rows and their two
+      tokens always co-occur, so the S10<->S11 assignment is by ordinal position only.
+  S11_emp:
+    canonical: specialty_code_empanelled
+    confidence: medium
+    decodes_to: "Burns management"
+    n_positive: 3176
+    note: "see S10_emp - identical column, assignment by ordinal position only"
+  S12_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Cardiology", n_positive: 2806}
+  S13_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Cardio-thoracic & Vascular surgery", n_positive: 1592}
+  S14_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Paediatric surgery", n_positive: 2585}
+  S15_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Surgical Oncology", n_positive: 1942}
+  S16_emp: {canonical: specialty_code_empanelled, confidence: high, decodes_to: "Oral and Maxillofacial Surgery", n_positive: 3416}
+
+  # -------------------------------------------------------------- provenance
+  Name verifier:
+    canonical: record_status
+    confidence: medium
+    transform: "map to a quality tier enum"
+    note: >
+      NOT a person and NOT PII. A 3-value traffic light: Green 281,386 / Orange 28,615 /
+      Blue 13,459. Semantics of the colours are unknown - see questions.md.
+  Address verifier:
+    canonical: null
+    disposition: drop
+    reason: "byte-identical to `Name verifier` on all 323,460 rows"
+  Facility Type verifier:
+    canonical: null
+    disposition: drop
+    reason: "byte-identical to `Name verifier` on all 323,460 rows"
+  Ownership verifier:
+    canonical: null
+    disposition: drop
+    reason: "byte-identical to `Name verifier` on all 323,460 rows"
+
+proposed_new_fields:
+  - name: record_quality_tier
+    reason: >
+      The four verifier columns collapse to one 3-value ordinal quality flag
+      (Green/Orange/Blue). `record_status` in the canonical vocabulary reads like a
+      lifecycle state (active/closed/merged), which this is not. A distinct
+      `record_quality_tier` avoids overloading it. Applies to NHA and probably to any
+      other dataset that came through the same verification pass.
+  - name: specialty_code_raw
+    reason: >
+      The canonical vocabulary has `specialty_code_empanelled` but no place to keep the
+      ORIGINAL code token ('M1', 'S8'). We need it: S8 and S9 are undecoded here, and
+      preserving the raw code is what will let us join this dataset's specialty codes to
+      PMJAY's parallel `_emp`/`_upg` code columns even before the names are resolved.
+  - name: is_24x7_conflicting
+    reason: >
+      22.56% of facilities carry both yes and no for 24/7. A boolean `is_24x7` silently
+      picks a winner; a companion conflict flag records that the source disagreed with
+      itself, so the LLM agent can exclude those rows from any 24/7 query.
+  - name: geo_is_shared_point
+    reason: >
+      51.1% of rows share their exact coordinate pair with at least one other row, and
+      one Rajasthan point is shared by 9,870 rows across 28 districts. Without a flag
+      marking coordinates that are centroid fallbacks rather than facility points, any
+      distance-based entity resolution will over-merge catastrophically.
+  - name: source_row_index
+    reason: >
+      There is no unique column in this file. Every defect in issues.md is addressed by
+      0-based row index against the documented read_kwargs; carrying that index into the
+      canonical table is the only way to trace a canonical record back to its source row.
+
+unmapped_columns: []
+# All 46 columns are accounted for: 21 mapped to canonical fields, 25 specialty flags
+# mapped to specialty_code_empanelled, 4 dropped (Google Maps Link + 3 verifier
+# duplicates), 1 quarantined (24/7).
+
+fields_in_canonical_vocabulary_with_NO_source_column:
+  # Recorded so the harmonizer does not go looking for them in this dataset.
+  - facility_name_alt
+  - street
+  - locality
+  - landmark
+  - city
+  - pincode            # NOT a column; extractable from Address on 323,454/323,460 rows
+  - country            # constant India, not stated
+  - subdistrict_raw
+  - block_raw
+  - village_raw
+  - geo_source
+  - geo_accuracy
+  - altitude
+  - facility_category_raw
+  - bed_count
+  - admission_intake
+  - scheme_membership
+  - empanelment_type
+  - empanelment_status
+  - specialty_code_upgraded   # NHA has only the '_emp' set; PMJAY has the '_upg' set
+  - accreditation
+  - phone
+  - email
+  - website
+  - source_snapshot_date      # only the filename says MAR 2025
+  - source_sheet_name

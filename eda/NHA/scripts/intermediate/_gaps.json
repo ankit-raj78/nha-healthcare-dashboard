@@ -1,0 +1,425 @@
+{
+  "residual_dup_ids_after_24x7_collapse": {
+    "n_ids": 3146,
+    "varying_cols": {
+      "Latitude": 2822,
+      "Longitude": 485,
+      "Google Maps Link": 31,
+      "Name verifier": 29,
+      "Address verifier": 29,
+      "Facility Type verifier": 29,
+      "Ownership verifier": 29,
+      "Address": 13,
+      "ABDM Enabled": 6,
+      "District_name": 3,
+      "new_district_name": 3,
+      "district_code": 3,
+      "hospital_name": 2,
+      "Facility Type": 1,
+      "State_name": 1,
+      "new_state_name": 1,
+      "state_code": 1
+    },
+    "examples": [
+      {
+        "facility_id": "107655",
+        "differing": [
+          "hospital_name",
+          "Name verifier",
+          "Address",
+          "Address verifier",
+          "Facility Type verifier",
+          "Ownership verifier"
+        ],
+        "values": {
+          "hospital_name": [
+            "WAVE TARFE ASARE",
+            "HWC WAVE TARFE ASARE",
+            "WAVE TARFE ASARE"
+          ],
+          "Name verifier": [
+            "Green",
+            "Orange",
+            "Orange"
+          ],
+          "Address": [
+            "at Wave Tarfe Asare , At- Wave Tarfe Asare, Near Adhiwasi Wadi Sudhagad Raigad, Maharashtra - 410205",
+            "at Wave Tarfe Asare , Pehadali , Sudhagad Raigad, Maharashtra - 410205",
+            "at Wave Tarfe Asare , At- Wave Tarfe Asare, Near Adhiwasi Wadi Wave T. Asare , Sudhagad Raigad, Maharashtra - 410205"
+          ],
+          "Address verifier": [
+            "Green",
+            "Orange",
+            "Orange"
+          ]
+        }
+      },
+      {
+        "facility_id": "350194",
+        "differing": [
+          "Google Maps Link",
+          "Latitude",
+          "Longitude"
+        ],
+        "values": {
+          "Google Maps Link": [
+            "15.351500,75.132599",
+            "15.353791,75.138744",
+            "15.351500,75.132599"
+          ],
+          "Latitude": [
+            "15.351500",
+            "15.353791",
+            "15.3515"
+          ],
+          "Longitude": [
+            "75.132599",
+            "75.138744",
+            "75.132599"
+          ]
+        }
+      },
+      {
+        "facility_id": "283819",
+        "differing": [
+          "Google Maps Link",
+          "Latitude",
+          "Longitude"
+        ],
+        "values": {
+          "Google Maps Link": [
+            "13.030000,76.099998",
+            "13.008481,76.103789",
+            "13.030000,76.099998"
+          ],
+          "Latitude": [
+            "13.030000",
+            "13.008481",
+            "13.03"
+          ],
+          "Longitude": [
+            "76.099998",
+            "76.103789",
+            "76.099998"
+          ]
+        }
+      },
+      {
+        "facility_id": "119529",
+        "differing": [
+          "Latitude"
+        ],
+        "values": {
+          "Latitude": [
+            "21.64193806098189",
+            "21.641938060981886"
+          ]
+        }
+      },
+      {
+        "facility_id": "81655",
+        "differing": [
+          "Latitude"
+        ],
+        "values": {
+          "Latitude": [
+            "19.701796650625695",
+            "19.70179665062569"
+          ]
+        }
+      },
+      {
+        "facility_id": "550860",
+        "differing": [
+          "Latitude"
+        ],
+        "values": {
+          "Latitude": [
+            "28.936467000000135",
+            "28.93646700000013"
+          ]
+        }
+      }
+    ]
+  },
+  "coord_precision": {
+    "decimals_hist": {
+      "0": 41,
+      "1": 460,
+      "2": 4748,
+      "3": 1374,
+      "4": 15035,
+      "5": 20099,
+      "6": 100588,
+      "7": 23398,
+      "8": 1552,
+      "9": 91,
+      "10": 997,
+      "11": 54,
+      "12": 523,
+      "13": 40594,
+      "14": 50301,
+      "15": 63594,
+      "16": 10,
+      "18": 1
+    },
+    "n_ge_12_decimals": 155023,
+    "pct_ge_12_decimals": 47.93,
+    "n_le_2_decimals": 5249,
+    "note": ">=12 decimals is float64 round-trip noise, not survey precision; <=2 decimals is ~1 km or coarser.",
+    "examples_high": [
+      {
+        "Latitude": "11.618024922619044",
+        "Longitude": "92.70831659192436"
+      },
+      {
+        "Latitude": "12.511309046242996",
+        "Longitude": "92.91217680157472"
+      },
+      {
+        "Latitude": "12.912884923373776",
+        "Longitude": "92.90080648144531"
+      },
+      {
+        "Latitude": "11.652983587698015",
+        "Longitude": "92.73132198460098"
+      },
+      {
+        "Latitude": "10.575336407787791",
+        "Longitude": "92.53281198623046"
+      }
+    ],
+    "examples_low": [
+      {
+        "Latitude": "11.66",
+        "Longitude": "92.73",
+        "hospital_name": "AYUSH HOSPITAL"
+      },
+      {
+        "Latitude": "17.68",
+        "Longitude": "82.47",
+        "hospital_name": "AP PHC GOLUGONDA"
+      },
+      {
+        "Latitude": "17.01",
+        "Longitude": "81.79",
+        "hospital_name": "KAMALAKAR HOSPITAL"
+      },
+      {
+        "Latitude": "16.23",
+        "Longitude": "80.31",
+        "hospital_name": "KATURI MEDICAL COLLEGE & HOSPITAL"
+      },
+      {
+        "Latitude": "16.3",
+        "Longitude": "80.46",
+        "hospital_name": "LIFE HOSPITALS"
+      },
+      {
+        "Latitude": "15.66",
+        "Longitude": "79.23",
+        "hospital_name": "MANDALA PRADHAMIKA AROGYA KENDRAM, TARLUPADU"
+      },
+      {
+        "Latitude": "17.92",
+        "Longitude": "83.42",
+        "hospital_name": "NRI INSTITUTION OF MEDIAL SCIENCE , TAGARAPAVALASA ,VSP"
+      },
+      {
+        "Latitude": "17.47",
+        "Longitude": "82.77",
+        "hospital_name": "PHC PENUGOLLU,S.RAYAVARAM"
+      }
+    ]
+  },
+  "address_structure": {
+    "n_ending_with_dash_pin": 323456,
+    "n_containing_state_name": 323460,
+    "n_comma_separated_ge3": 151510,
+    "comma_count_hist": {
+      "2": 171950,
+      "3": 99625,
+      "4": 25215,
+      "5": 15325,
+      "6": 6794,
+      "7": 2551,
+      "8": 1096,
+      "9": 393,
+      "10": 293,
+      "11": 88,
+      "12": 80,
+      "13": 21,
+      "14": 18,
+      "15": 9,
+      "16": 2
+    },
+    "examples": [
+      "192, Garacharma Main Road, Port Blair Port Blair South Andamans, Andaman And Nicobar Islands - 744105",
+      "Junglighat, Port Blair South Andamans, Andaman And Nicobar Islands - 744103",
+      "Car Nicobar, Nicobars, Andaman And Nicobar Islands - 744301",
+      "Baboo Flat, Ferrargunj South Andamans, Andaman And Nicobar Islands - 744103",
+      "Ramakrishnagram, Diglipur, North Andaman, North & Middle Andaman, Andaman & Nicobar Islands, North And Middle Andaman, Andaman And Nicobar Islands - 744202",
+      "Nancowry, Nancowry Nicobars, Andaman And Nicobar Islands - 744303"
+    ],
+    "note": "Address looks machine-assembled: '<premise>, <locality> <district>, <State> - <PIN>'. It is a single free-text column; there are NO parsed components (no street/locality/city/pincode columns) in this dataset."
+  },
+  "address_vs_district": {
+    "n_rows_where_new_district_appears_in_address": 321055,
+    "n_rows_where_old_district_appears_in_address": 323458
+  },
+  "district_mismatch_adjudication": {
+    "n_mismatch_rows": 867,
+    "old_District_name_matches_Address": 865,
+    "new_district_name_matches_Address": 112,
+    "neither_matches": 2,
+    "both_match": 112,
+    "verdict_hint": "whichever side matches the free-text Address more often is the one that survived correctly",
+    "examples": [
+      {
+        "row": 2794,
+        "District_name": "Not Found",
+        "new_district_name": "Ntr",
+        "new_state_name": "Andhra Pradesh",
+        "Address": "10-5-8 RAMARAO PETA NAGESWARA RAO STREET 2nd junction near subbaiah hotel, , Andhra Pradesh - 533001"
+      },
+      {
+        "row": 3034,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Aranalo HWC, Aranalo Village, Dumpurijo Dumporijo Adc Upper Subansiri, Arunachal Pradesh - 791122"
+      },
+      {
+        "row": 3035,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Ayingmuri AHWC, Ayingmuri Village, Nacho Circle Nacho Sdo Upper Subansiri, Arunachal Pradesh - 791122"
+      },
+      {
+        "row": 3042,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Beyakrijo HWC, Beyakrijo village, Dumpurijo Dumporijo Adc Upper Subansiri, Arunachal Pradesh - 791122"
+      },
+      {
+        "row": 3043,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Bui HWC, Bui Village, Gussar Circle, Dumpurijo block Bui , Segi Gusar Circle Upper Subansiri, Arunachal Prades"
+      },
+      {
+        "row": 3045,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Medical Colony, Deomali Adc Tirap, Arunachal Pradesh - 792129"
+      },
+      {
+        "row": 3056,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Chc building, rumgong, Rumgong Adc Siang, Arunachal Pradesh - 791102"
+      },
+      {
+        "row": 3058,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Medical colony,CHC seijosa , NEC PSI road seijosa Upper Seijosa , Seijosa Adc Pakke Kessang, Arunachal Pradesh"
+      },
+      {
+        "row": 3062,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "Pakke-keshang H.q./upper Bazar Line/lower Bazar Line, Pakke Kessang Eac Pakke Kessang, Arunachal Pradesh - 790"
+      },
+      {
+        "row": 3073,
+        "District_name": "una",
+        "new_district_name": "Anjaw",
+        "new_state_name": "Arunachal Pradesh",
+        "Address": "District Hospital, Daporijo, EPI, Hospital road Daporijo Hq Upper Subansiri, Arunachal Pradesh - 791122"
+      }
+    ]
+  },
+  "enum_hygiene": {
+    "Facility Type": {
+      "n_distinct": 37,
+      "n_distinct_strip_lower": 37,
+      "n_rows_with_leading_trailing_ws": 0,
+      "n_rows_with_double_space": 0,
+      "clean": true
+    },
+    "Ownership": {
+      "n_distinct": 3,
+      "n_distinct_strip_lower": 3,
+      "n_rows_with_leading_trailing_ws": 0,
+      "n_rows_with_double_space": 0,
+      "clean": true
+    },
+    "ABDM Enabled": {
+      "n_distinct": 2,
+      "n_distinct_strip_lower": 2,
+      "n_rows_with_leading_trailing_ws": 0,
+      "n_rows_with_double_space": 0,
+      "clean": true
+    },
+    "24/7": {
+      "n_distinct": 2,
+      "n_distinct_strip_lower": 2,
+      "n_rows_with_leading_trailing_ws": 0,
+      "n_rows_with_double_space": 0,
+      "clean": true
+    },
+    "Name verifier": {
+      "n_distinct": 3,
+      "n_distinct_strip_lower": 3,
+      "n_rows_with_leading_trailing_ws": 0,
+      "n_rows_with_double_space": 0,
+      "clean": true
+    }
+  },
+  "geo_name_hygiene": {
+    "State_name": {
+      "n_distinct": 34,
+      "n_distinct_strip_lower": 34,
+      "casing": "title/mixed",
+      "n_blank": 0,
+      "n_literal_not_found": 0
+    },
+    "new_state_name": {
+      "n_distinct": 34,
+      "n_distinct_strip_lower": 34,
+      "casing": "title/mixed",
+      "n_blank": 0,
+      "n_literal_not_found": 0
+    },
+    "District_name": {
+      "n_distinct": 643,
+      "n_distinct_strip_lower": 643,
+      "casing": "title/mixed",
+      "n_blank": 0,
+      "n_literal_not_found": 2
+    },
+    "new_district_name": {
+      "n_distinct": 615,
+      "n_distinct_strip_lower": 615,
+      "casing": "title/mixed",
+      "n_blank": 0,
+      "n_literal_not_found": 0
+    }
+  },
+  "district_name_not_found": {
+    "District_name": 2,
+    "new_district_name": 0,
+    "example_rows": [
+      2794,
+      80782
+    ]
+  }
+}

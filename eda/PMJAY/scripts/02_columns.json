@@ -1,0 +1,3103 @@
+{
+  "n_rows": 11284,
+  "n_cols": 78,
+  "columns": [
+    {
+      "name": "Sr No",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 11284,
+      "examples": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 1.0,
+        "max": 11285.0,
+        "mean": 5643.477667493797,
+        "std": 3257.592375136353,
+        "p01": 113.83,
+        "p25": 2822.75,
+        "p50": 5643.5,
+        "p75": 8464.25,
+        "p99": 11172.17,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 5,
+        "len_mean": 4.02,
+        "len_p50": 4,
+        "len_p90": 5,
+        "len_p99": 5,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "10000"
+      }
+    },
+    {
+      "name": "Hospital Name",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 11031,
+      "examples": [
+        "Gayatri Sevasadan",
+        "100 Bed Combind Hospital Sirauli Gauspur Barabanki",
+        "100 BED districtCOMBIND HOSPITAL CHICHOLI AURAIYA",
+        "100 BEDED COMBINED District Hospital",
+        "100 Beded Combined Hospital Chhibramau Kannauj",
+        "111 SAVE LIFE HOSPITAL"
+      ],
+      "text_stats": {
+        "len_min": 2,
+        "len_max": 102,
+        "len_mean": 24.2,
+        "len_p50": 22,
+        "len_p90": 41,
+        "len_p99": 62,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Ashwini Rural Medical College, Hospital & Research Centre, Kumbhari Tal South Solapur District Solapur"
+      }
+    },
+    {
+      "name": "Manual Hospital Name",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 10376,
+      "examples": [
+        "Gayatri Sevasadan",
+        "100 Bed Combined Hospital",
+        "100 Bed District Combined Hospital",
+        "100 Bedded Combined District Hospital",
+        "100 Bedded Combined Hospital",
+        "111 Save Life Hospital"
+      ],
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 100,
+        "len_mean": 22.08,
+        "len_p50": 19,
+        "len_p90": 38,
+        "len_p99": 60,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Aastha the Center for Geriatric Medicine Palliative Care Hospital Hospice and Social Welfare Society"
+      }
+    },
+    {
+      "name": "Hospital Type",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11013,
+      "null_pct": 2.402,
+      "n_distinct": 3,
+      "examples": [
+        "Private (For Profit)",
+        "Public",
+        "Private (Not for Profit)"
+      ],
+      "value_counts": {
+        "Public": 5289,
+        "Private (For Profit)": 5052,
+        "Private (Not for Profit)": 672
+      },
+      "text_stats": {
+        "len_min": 6,
+        "len_max": 24,
+        "len_mean": 13.52,
+        "len_p50": 20,
+        "len_p90": 20,
+        "len_p99": 24,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Private (Not for Profit)"
+      }
+    },
+    {
+      "name": "Manual Hospital Address",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 9645,
+      "examples": [
+        "Chaibasa, Tungri, Chaibasa, Jharkhand",
+        "Sirauli Gauspur, Barabanki, Uttar Pradesh",
+        "Chicholi, Auraiya, Uttar Pradesh",
+        "Atraulia, Azamgarh, Uttar Pradesh",
+        "Kannauj, Uttar Pradesh",
+        "Near Adityapur Railway Station, Seraikela Kharsawan, Jharkhand"
+      ],
+      "text_stats": {
+        "len_min": 5,
+        "len_max": 144,
+        "len_mean": 44.22,
+        "len_p50": 42,
+        "len_p90": 70,
+        "len_p99": 98,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 1,
+        "longest_example": "Medicine Block, 1St Florr, NH 16 Service Road, Near Medical College, Beside Ntr Health University, Gunadala, Vijayawada, Krishna, Andhra Pradesh"
+      }
+    },
+    {
+      "name": "API Latitude",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 8316,
+      "examples": [
+        "22.5402337",
+        "26.9575908",
+        "26.4605377",
+        "26.3337289",
+        "27.0514156",
+        "22.7831039"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 8.001156148,
+        "max": 52.1386394,
+        "mean": 22.808283632030133,
+        "std": 5.713291271398971,
+        "p01": 9.277661522999999,
+        "p25": 21.092796175,
+        "p50": 23.5317966,
+        "p75": 26.494873475,
+        "p99": 32.143666190000005,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 5,
+        "len_max": 11,
+        "len_mean": 9.84,
+        "len_p50": 10,
+        "len_p90": 10,
+        "len_p99": 10,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "8.001156148"
+      }
+    },
+    {
+      "name": "API Longitude",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 8213,
+      "examples": [
+        "85.8115017",
+        "81.4364825",
+        "79.5112528",
+        "82.9467948",
+        "79.9136731",
+        "86.1590145"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": -71.5723953,
+        "max": 96.1739116,
+        "mean": 79.0184323324034,
+        "std": 5.869588256962647,
+        "p01": 70.05773,
+        "p25": 75.168891675,
+        "p50": 78.0372792,
+        "p75": 82.182257175,
+        "p99": 94.134203076,
+        "n_zero": 0,
+        "n_negative": 3
+      },
+      "text_stats": {
+        "len_min": 6,
+        "len_max": 11,
+        "len_mean": 9.87,
+        "len_p50": 10,
+        "len_p90": 10,
+        "len_p99": 10,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "-71.5723953"
+      }
+    },
+    {
+      "name": "Hospital Address",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 10221,
+      "examples": [
+        "Chaibasa, Tungri, Chaibasa, Jharkhand, India",
+        "100 Bed Combined Hospital Sirauli Gauspur, Barabanki, BARABANKI, UTTAR PRADESH",
+        "100 BED districtCOMBIND HOSPITAL CHICHOLI AURAIYA, AURAIYA, UTTAR PRADESH",
+        "100 Beded Combined Districtic Hospital atraulia Azamgar, AZAMGARH, UTTAR PRADESH",
+        "100 Bed Combined Hospital, KANNAUJ, UTTAR PRADESH",
+        "MAIN ROAD ADITYAPUR 2 NEAR ADITYAPUR RAILWAY STATION, Seraikela Kharsawan, JHARKHAND"
+      ],
+      "text_stats": {
+        "len_min": 12,
+        "len_max": 179,
+        "len_mean": 51.06,
+        "len_p50": 49,
+        "len_p90": 81,
+        "len_p99": 112,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "AARYA MEDICAL CENTRE, SECOND FLOOR, PALLITHAMAM BUILDING, ABOVE ELITE SUPER MARKET, PALIYAM ROAD, NEAR NORTH BUS STAND, THRISSURDistrict, KERALA, INDIA - 680 020, THRISSUR, KERALA"
+      }
+    },
+    {
+      "name": "Hospital E-Mail",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 10964,
+      "null_pct": 2.836,
+      "n_distinct": 10531,
+      "examples": [
+        "chaibasagss@gmail.com",
+        "100bedchsg@gmail.com",
+        "cms.dch.au@gov.in",
+        "cdh.atrauliya@gmail.com",
+        "cmschhibramau@gmail.com",
+        "111slhadityapur@gmail.com"
+      ],
+      "numeric_stats": {
+        "note": "not predominantly numeric",
+        "frac_parseable": 0.0055
+      },
+      "text_stats": {
+        "len_min": 8,
+        "len_max": 81,
+        "len_mean": 24.15,
+        "len_p50": 23,
+        "len_p90": 32,
+        "len_p99": 39,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "cs_jalna@rediffmail.com, csjalna11@gmail.com, mcodhj@gmail.com, mccodhj@gmail.com"
+      }
+    },
+    {
+      "name": "Hospital Contact",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11248,
+      "null_pct": 0.319,
+      "n_distinct": 10248,
+      "examples": [
+        "9199155155",
+        "9415028994",
+        "9415185588",
+        "9415260314",
+        "7317582505",
+        "9771303723"
+      ],
+      "numeric_stats": {
+        "count": 10853,
+        "frac_parseable": 0.9649,
+        "min": 0.0,
+        "max": 987000000000000.0,
+        "mean": 193674799447.8531,
+        "std": 10348421526939.158,
+        "p01": 942633421.2,
+        "p25": 8521427484.0,
+        "p50": 9431113636.0,
+        "p75": 9797018484.0,
+        "p99": 9993386781.36,
+        "n_zero": 38,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 24,
+        "len_mean": 9.76,
+        "len_p50": 10,
+        "len_p90": 10,
+        "len_p99": 10,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "8943594483, 0495-2744446"
+      }
+    },
+    {
+      "name": "Specialities Empanelled",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 3878,
+      "examples": [
+        "S1, M1, M7",
+        "S3, M1, M7, M2",
+        "M1, M7, S4",
+        "S1, S3, S5",
+        "S3",
+        "M1, S7, S12, M7, M4, S10, S11, M5, S3, S1"
+      ],
+      "text_stats": {
+        "len_min": 2,
+        "len_max": 101,
+        "len_mean": 33.67,
+        "len_p50": 18,
+        "len_p90": 101,
+        "len_p99": 101,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "M8, M1, M2, S8, S7, S12, M3, M7, M4, S16, S6, S10, S11, M6, M5, S15, S9, S14, S13, S5, S4, S3, S2, S1"
+      }
+    },
+    {
+      "name": "Specialities Upgraded",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 6742,
+      "null_pct": 40.252,
+      "n_distinct": 774,
+      "examples": [
+        "S5",
+        "-NA-",
+        "S1, M1, M7",
+        "S2, M1, S7, S4, S10, S11",
+        "M1, M7, M2, M3",
+        "S4, M6, S16"
+      ],
+      "text_stats": {
+        "len_min": 2,
+        "len_max": 101,
+        "len_mean": 9.58,
+        "len_p50": 4,
+        "len_p90": 22,
+        "len_p99": 85,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8"
+      }
+    },
+    {
+      "name": "Types of Employees",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 0,
+      "null_pct": 100.0,
+      "n_distinct": 0,
+      "examples": []
+    },
+    {
+      "name": "M1_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "1",
+        "0"
+      ],
+      "value_counts": {
+        "1": 7745,
+        "0": 3539
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.6863700815313718,
+        "std": 0.4639884389919334,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 3539,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "1"
+      }
+    },
+    {
+      "name": "M10_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11259,
+        "1": 25
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.0022155264090747964,
+        "std": 0.04701929153504741,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 11259,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M2_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 6091,
+        "1": 5193
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.4602091456930167,
+        "std": 0.49843625952972415,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 6091,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M3_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8428,
+        "1": 2856
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.2531017369727047,
+        "std": 0.4348080061751122,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8428,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M4_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 9099,
+        "1": 2185
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.1936370081531372,
+        "std": 0.39516522607253746,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 9099,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M5_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8814,
+        "1": 2470
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.21889400921658986,
+        "std": 0.41351490380106637,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 8814,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M6_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 9160,
+        "1": 2124
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.18823112371499467,
+        "std": 0.3909139423100919,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 9160,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M7_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "1",
+        "0"
+      ],
+      "value_counts": {
+        "1": 7430,
+        "0": 3854
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.6584544487770294,
+        "std": 0.4742490059160869,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 3854,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "1"
+      }
+    },
+    {
+      "name": "M8_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 9124,
+        "1": 2160
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.1914214817440624,
+        "std": 0.39343743593049807,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 9124,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S1_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "1",
+        "0"
+      ],
+      "value_counts": {
+        "1": 7570,
+        "0": 3714
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.6708613966678483,
+        "std": 0.46992121994855235,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 3714,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "1"
+      }
+    },
+    {
+      "name": "S10_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8275,
+        "1": 3009
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.26666075859624244,
+        "std": 0.44223311731782056,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8275,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S11_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8275,
+        "1": 3009
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.26666075859624244,
+        "std": 0.44223311731782056,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8275,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S12_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8370,
+        "1": 2914
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.25824175824175827,
+        "std": 0.4376870225075201,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8370,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S13_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8980,
+        "1": 2304
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.20418291386033321,
+        "std": 0.4031211394346581,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 8980,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S14_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8462,
+        "1": 2822
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.250088621056363,
+        "std": 0.4330830457565309,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8462,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S15_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8787,
+        "1": 2497
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.22128677773839064,
+        "std": 0.41513156008244095,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 8787,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S16_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 7700,
+        "1": 3584
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.3176178660049628,
+        "std": 0.46557058148268615,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 7700,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S2_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 6947,
+        "1": 4337
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.38434952144629564,
+        "std": 0.48646267957918826,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 6947,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S3_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 6804,
+        "1": 4480
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.3970223325062035,
+        "std": 0.4893023782578656,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 6804,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S4_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "1": 7391,
+        "0": 3893
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.6549982275788727,
+        "std": 0.47538992144786973,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 3893,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S5_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "1": 5881,
+        "0": 5403
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.5211804324707551,
+        "std": 0.49957332469634524,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 5403,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S6_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 8080,
+        "1": 3204
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.28394186458702586,
+        "std": 0.45092893237507664,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 8080,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S7_emp",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 7361,
+        "1": 3923
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.34766040411201704,
+        "std": 0.4762486198510211,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 1.0,
+        "p99": 1.0,
+        "n_zero": 7361,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M1_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 9672,
+        "1": 1612
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.14285714285714285,
+        "std": 0.3499426125974379,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 9672,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M10_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "0"
+      ],
+      "value_counts": {
+        "0": 11284
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 0.0,
+        "n_zero": 11284,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M2_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10545,
+        "1": 739
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.06549096065225098,
+        "std": 0.24740112971116696,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10545,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M3_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10811,
+        "1": 473
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.041917759659695145,
+        "std": 0.20041013068319213,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10811,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M4_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11135,
+        "1": 149
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.013204537398085785,
+        "std": 0.11415486166009334,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 11135,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M5_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11003,
+        "1": 281
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.02490251683800071,
+        "std": 0.15583495632930366,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 11003,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M6_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11158,
+        "1": 126
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.011166253101736972,
+        "std": 0.10508352152235999,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 11158,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M7_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 9953,
+        "1": 1331
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.11795462601914215,
+        "std": 0.3225686799578876,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 9953,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "M8_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11128,
+        "1": 156
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.013824884792626729,
+        "std": 0.1167688558570348,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 11128,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S1_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10452,
+        "1": 832
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.07373271889400922,
+        "std": 0.2613470070170481,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10452,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S10_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10861,
+        "1": 423
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.03748670684154555,
+        "std": 0.18995960494709666,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10861,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S11_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10861,
+        "1": 423
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.03748670684154555,
+        "std": 0.18995960494709666,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10861,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S12_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10976,
+        "1": 308
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.02729528535980149,
+        "std": 0.16294970351894011,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10976,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S13_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 11094,
+        "1": 190
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.016838000708968452,
+        "std": 0.1286699251839373,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 11094,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S14_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10942,
+        "1": 342
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.03030840127614321,
+        "std": 0.17144213856101348,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10942,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S15_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10994,
+        "1": 290
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.025700106345267634,
+        "std": 0.15824610615287635,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10994,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S16_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10717,
+        "1": 567
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.05024813895781638,
+        "std": 0.21846622885460548,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10717,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S2_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10746,
+        "1": 538
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.04767812832328961,
+        "std": 0.21309375540327333,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10746,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S3_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10747,
+        "1": 537
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.04758950726692662,
+        "std": 0.2129055263441782,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10747,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S4_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10217,
+        "1": 1067
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.0945586671393123,
+        "std": 0.292617350439886,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10217,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S5_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "1",
+        "0"
+      ],
+      "value_counts": {
+        "0": 10613,
+        "1": 671
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.059464728819567526,
+        "std": 0.2365029212156039,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10613,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "1"
+      }
+    },
+    {
+      "name": "S6_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10801,
+        "1": 483
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.042803970223325064,
+        "std": 0.20242386628457765,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10801,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "S7_upg",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 2,
+      "examples": [
+        "0",
+        "1"
+      ],
+      "value_counts": {
+        "0": 10392,
+        "1": 892
+      },
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.07904998227578873,
+        "std": 0.26982871392540225,
+        "p01": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p99": 1.0,
+        "n_zero": 10392,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 1,
+        "len_mean": 1.0,
+        "len_p50": 1,
+        "len_p90": 1,
+        "len_p99": 1,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0"
+      }
+    },
+    {
+      "name": "Manual District",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11247,
+      "null_pct": 0.328,
+      "n_distinct": 622,
+      "examples": [
+        "WEST SINGHBHUM",
+        "BARABANKI",
+        "AURAIYA",
+        "AZAMGARH",
+        "KANNAUJ",
+        "Seraikela Kharsawan"
+      ],
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 25,
+        "len_mean": 8.29,
+        "len_p50": 8,
+        "len_p90": 12,
+        "len_p99": 18,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Shahid Bhagat Singh Nagar"
+      }
+    },
+    {
+      "name": "Manual state",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 36,
+      "examples": [
+        "JHARKHAND",
+        "UTTAR PRADESH",
+        "JAMMU AND KASHMIR",
+        "ASSAM",
+        "MANIPUR",
+        "KARNATAKA"
+      ],
+      "value_counts": {
+        "GUJARAT": 2162,
+        "UTTAR PRADESH": 1786,
+        "CHHATTISGARH": 887,
+        "TAMIL NADU": 656,
+        "KARNATAKA": 655,
+        "PUNJAB": 643,
+        "JHARKHAND": 610,
+        "ANDHRA PRADESH": 596,
+        "BIHAR": 589,
+        "HARYANA": 465,
+        "MADHYA PRADESH": 459,
+        "KERALA": 335,
+        "ASSAM": 296,
+        "MEGHALAYA": 155,
+        "UTTARAKHAND": 139,
+        "MAHARASHTRA": 131,
+        "RAJASTHAN": 128,
+        "HIMACHAL PRADESH": 128,
+        "JAMMU AND KASHMIR": 83,
+        "NAGALAND": 75,
+        "MIZORAM": 73,
+        "TRIPURA": 45,
+        "NCT OF DELHI": 37,
+        "WEST BENGAL": 27,
+        "MANIPUR": 26,
+        "PUDUCHERRY": 20,
+        "CHANDIGARH": 19,
+        "GOA": 17,
+        "TELANGANA": 11,
+        "ODISHA": 10,
+        "SIKKIM": 6,
+        "ARUNACHAL PRADESH": 5,
+        "ANDAMAN AND NICOBAR ISLANDS": 3,
+        "DAMAN AND DIU": 3,
+        "DADRA AND NAGAR HAVELI": 3,
+        "LAKSHADWEEP": 1
+      },
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 27,
+        "len_mean": 9.53,
+        "len_p50": 9,
+        "len_p90": 14,
+        "len_p99": 16,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "ANDAMAN AND NICOBAR ISLANDS"
+      }
+    },
+    {
+      "name": "gmaps_Latitude",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 10321,
+      "examples": [
+        "22.53859413",
+        "26.9268042",
+        "26.4625555",
+        "26.3448443",
+        "27.1576128",
+        "22.7810595"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": -9.7538814,
+        "max": 46.8796822,
+        "mean": 22.81261137440092,
+        "std": 5.7787127363512,
+        "p01": 9.175282,
+        "p25": 21.023508624999998,
+        "p50": 23.4821325,
+        "p75": 26.4969235,
+        "p99": 32.578664445,
+        "n_zero": 0,
+        "n_negative": 1
+      },
+      "text_stats": {
+        "len_min": 5,
+        "len_max": 11,
+        "len_mean": 9.79,
+        "len_p50": 10,
+        "len_p90": 10,
+        "len_p99": 10,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "22.53859413"
+      }
+    },
+    {
+      "name": "gmaps_Longitude",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 10277,
+      "examples": [
+        "85.81070084",
+        "81.1833809",
+        "79.5078883",
+        "82.9237898",
+        "79.5214466",
+        "86.1630838"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": -122.0823261,
+        "max": 150.8667511,
+        "mean": 78.51120065384349,
+        "std": 11.08480302433935,
+        "p01": 69.85653678,
+        "p25": 75.114768275,
+        "p50": 78.0372792,
+        "p75": 82.186031525,
+        "p99": 94.183791194,
+        "n_zero": 0,
+        "n_negative": 36
+      },
+      "text_stats": {
+        "len_min": 6,
+        "len_max": 12,
+        "len_mean": 9.83,
+        "len_p50": 10,
+        "len_p90": 10,
+        "len_p99": 10,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "-118.4912198"
+      }
+    },
+    {
+      "name": "gmaps_Accuracy",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 5,
+      "examples": [
+        "GEOMETRIC_CENTER",
+        "APPROXIMATE",
+        "ROOFTOP",
+        "Awesome Tables",
+        "RANGE_INTERPOLATED"
+      ],
+      "value_counts": {
+        "GEOMETRIC_CENTER": 8139,
+        "APPROXIMATE": 1777,
+        "ROOFTOP": 1245,
+        "Awesome Tables": 115,
+        "RANGE_INTERPOLATED": 8
+      },
+      "text_stats": {
+        "len_min": 7,
+        "len_max": 18,
+        "len_mean": 14.2,
+        "len_p50": 16,
+        "len_p90": 16,
+        "len_p99": 16,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "RANGE_INTERPOLATED"
+      }
+    },
+    {
+      "name": "Specialities_Upgraded_or_Empanelled",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11141,
+      "null_pct": 1.267,
+      "n_distinct": 5464,
+      "examples": [
+        "S1, M1, M7S5",
+        "S3, M1, M7, M2-NA-",
+        "M1, M7, S4",
+        "S1, S3, S5",
+        "S3-NA-",
+        "M1, S7, S12, M7, M4, S10, S11, M5, S3, S1-NA-"
+      ],
+      "text_stats": {
+        "len_min": 2,
+        "len_max": 202,
+        "len_mean": 39.52,
+        "len_p50": 25,
+        "len_p90": 101,
+        "len_p99": 120,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "M8, M1, M2, S8, S7, S12, M3, M7, M4, S16, S6, S10, S11, M6, M5, S15, S9, S14, S13, S5, S4, S3, S2, S1S1, S2, S3, S4, S5, S13, S14, S7, S8, S9, S15, M5, M6, S10, S11, S6, S16, M4, M1, M7, M2, M3, S12, M8"
+      }
+    },
+    {
+      "name": "Test extract",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 8,
+      "null_pct": 99.929,
+      "n_distinct": 8,
+      "examples": [
+        "KOLLAM, KERALA",
+        "TIRUCHIRAPPALLI, TAMIL NADU",
+        "BALRAMPUR, UTTAR PRADESH",
+        "JORHAT, ASSAM",
+        "DAKSHINA KANNADA, KARNATAKA",
+        "Bareilly, Uttar Pradesh"
+      ],
+      "value_counts": {
+        "KOLLAM, KERALA": 1,
+        "TIRUCHIRAPPALLI, TAMIL NADU": 1,
+        "BALRAMPUR, UTTAR PRADESH": 1,
+        "JORHAT, ASSAM": 1,
+        "DAKSHINA KANNADA, KARNATAKA": 1,
+        "Bareilly, Uttar Pradesh": 1,
+        "FIROZPUR, PUNJAB": 1,
+        "COIMBATORE, TAMIL NADU": 1
+      },
+      "text_stats": {
+        "len_min": 13,
+        "len_max": 27,
+        "len_mean": 20.75,
+        "len_p50": 22,
+        "len_p90": 27,
+        "len_p99": 27,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "TIRUCHIRAPPALLI, TAMIL NADU"
+      }
+    },
+    {
+      "name": "is_RU",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11276,
+      "null_pct": 0.071,
+      "n_distinct": 2,
+      "examples": [
+        "urban",
+        "rural"
+      ],
+      "value_counts": {
+        "urban": 8400,
+        "rural": 2876
+      },
+      "text_stats": {
+        "len_min": 5,
+        "len_max": 5,
+        "len_mean": 5.0,
+        "len_p50": 5,
+        "len_p90": 5,
+        "len_p99": 5,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "urban"
+      }
+    },
+    {
+      "name": "pincode_py",
+      "dtype_str_read": "object",
+      "dtype_inferred": "int64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 4381,
+      "examples": [
+        "833201",
+        "225001",
+        "206122",
+        "223223",
+        "209721",
+        "831013"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.0,
+        "max": 881103.0,
+        "mean": 415656.9459411556,
+        "std": 243080.90419660741,
+        "p01": 0.0,
+        "p25": 221102.0,
+        "p50": 390004.5,
+        "p75": 585211.0,
+        "p99": 847427.0,
+        "n_zero": 875,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 1,
+        "len_max": 6,
+        "len_mean": 5.61,
+        "len_p50": 6,
+        "len_p90": 6,
+        "len_p99": 6,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "833201"
+      }
+    },
+    {
+      "name": "address_py",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 8882,
+      "examples": [
+        "Gayatary Seva Sadan, Tambo Road, T\u0101mbo, Chaibasa, Pashchimi Singhbhum, Jharkhand, 833201, India",
+        "NH727H, Barabanki, Nawabganj, Barabanki, Uttar Pradesh, 225001, India",
+        "District Hospital, NH19, Auraiya, Uttar Pradesh, 206122, India",
+        "PGI Hospital, NH28, Burhanpur, Azamgarh, Uttar Pradesh, 223223, India",
+        "Chhibramau, Kannauj, Uttar Pradesh, 209721, India",
+        "Bhetia, Adityapur, Adityapur(Gamharia), Seraikela Kharsawan, Jharkhand, 831013, India"
+      ],
+      "text_stats": {
+        "len_min": 19,
+        "len_max": 229,
+        "len_mean": 80.78,
+        "len_p50": 76,
+        "len_p90": 122,
+        "len_p99": 165,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 11,
+        "n_nonascii": 421,
+        "longest_example": "South Central Railway Central Hospital Lallaguda, Lalaguda Bridge, Lalaguda North, Ward 144 Mettuguda, Greater Hyderabad Municipal Corporation North Zone, Hyderabad, Malkajgiri mandal, Medchal\u2013Malkajgiri, Telangana, 500003, India"
+      }
+    },
+    {
+      "name": "Auto Score",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 10797,
+      "examples": [
+        "0.57891503",
+        "0.606127332",
+        "0.627489646",
+        "0.594390099",
+        "0.62753476",
+        "0.706734337"
+      ],
+      "numeric_stats": {
+        "count": 11284,
+        "frac_parseable": 1.0,
+        "min": 0.490036381,
+        "max": 0.917169011,
+        "mean": 0.5801342206587203,
+        "std": 0.05816518018626059,
+        "p01": 0.49266335945,
+        "p25": 0.537152794,
+        "p50": 0.5718382465,
+        "p75": 0.61149153475,
+        "p99": 0.7646201046800001,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 8,
+        "len_max": 11,
+        "len_mean": 10.89,
+        "len_p50": 11,
+        "len_p90": 11,
+        "len_p99": 11,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "0.606127332"
+      }
+    },
+    {
+      "name": "Road",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 4593,
+      "null_pct": 59.296,
+      "n_distinct": 1876,
+      "examples": [
+        "Tambo Road",
+        "NH727H",
+        "NH19",
+        "NH28",
+        "NH144A",
+        "NH31"
+      ],
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 83,
+        "len_mean": 13.04,
+        "len_p50": 11,
+        "len_p90": 27,
+        "len_p99": 48,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 7,
+        "n_nonascii": 8,
+        "longest_example": "Musiri - Kulithalai - Pudukkottai - Alangudi  - Peravurani - Sedupavachattiram Road"
+      }
+    },
+    {
+      "name": "Locality",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 10737,
+      "null_pct": 4.848,
+      "n_distinct": 6901,
+      "examples": [
+        "Gayatary Seva Sadan T\u0101mbo Chaibasa",
+        "Nawabganj Barabanki",
+        "Burhanpur",
+        "Chhibramau",
+        "Bhetia Adityapur Adityapur(Gamharia)",
+        "Dr. Wahab Homoeopathic Clinic Rajouri Rajauri"
+      ],
+      "numeric_stats": {
+        "note": "not predominantly numeric",
+        "frac_parseable": 0.0001
+      },
+      "text_stats": {
+        "len_min": 2,
+        "len_max": 139,
+        "len_mean": 26.79,
+        "len_p50": 23,
+        "len_p90": 50,
+        "len_p99": 84,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 12,
+        "n_nonascii": 411,
+        "longest_example": "NEPHROPLUS KIDNEY CARE HOSPITALS Bhavani Nagar Banjara Hills Greater Hyderabad Municipal Corporation Central Zone Shaikpet mandal Hyderabad"
+      }
+    },
+    {
+      "name": "District",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 3176,
+      "null_pct": 71.854,
+      "n_distinct": 115,
+      "examples": [
+        "Rampur District",
+        "Tiruchirappalli District",
+        "Bareilly District",
+        "Coimbatore District",
+        "Sabar Kantha District",
+        "Patna District"
+      ],
+      "text_stats": {
+        "len_min": 13,
+        "len_max": 26,
+        "len_mean": 17.37,
+        "len_p50": 17,
+        "len_p90": 21,
+        "len_p99": 25,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Sri Muktsar Sahib District"
+      }
+    },
+    {
+      "name": "City",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11244,
+      "null_pct": 0.354,
+      "n_distinct": 699,
+      "examples": [
+        "Pashchimi Singhbhum",
+        "Barabanki",
+        "Auraiya",
+        "Azamgarh",
+        "Kannauj",
+        "Seraikela Kharsawan"
+      ],
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 34,
+        "len_mean": 9.24,
+        "len_p50": 8,
+        "len_p90": 15,
+        "len_p99": 24,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 2,
+        "longest_example": "Villupuram Puducherry Nagapattinam"
+      }
+    },
+    {
+      "name": "State",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11244,
+      "null_pct": 0.354,
+      "n_distinct": 45,
+      "examples": [
+        "Jharkhand",
+        "Uttar Pradesh",
+        "Jammu and Kashmir",
+        "Assam",
+        "Manipur",
+        "Karnataka"
+      ],
+      "value_counts": {
+        "Gujarat": 2165,
+        "Uttar Pradesh": 1808,
+        "Chhattisgarh": 862,
+        "Tamil Nadu": 659,
+        "Karnataka": 654,
+        "Punjab": 612,
+        "Jharkhand": 607,
+        "Andhra Pradesh": 594,
+        "Bihar": 575,
+        "Haryana": 458,
+        "Madhya Pradesh": 456,
+        "Kerala": 333,
+        "Assam": 297,
+        "Meghalaya": 149,
+        "Maharashtra": 146,
+        "Uttarakhand": 143,
+        "Rajasthan": 136,
+        "Himachal Pradesh": 124,
+        "Jammu and Kashmir": 82,
+        "Nagaland": 74,
+        "Mizoram": 72,
+        "Tripura": 45,
+        "West Bengal": 29,
+        "Manipur": 26,
+        "Puducherry": 19,
+        "Goa": 17,
+        "Chandigarh": 17,
+        "Telangana": 14,
+        "Odisha": 10,
+        "West Delhi": 9,
+        "New Delhi": 7,
+        "Sikkim": 6,
+        "Central Delhi": 6,
+        "Dadra and Nagar Haveli and Daman and Diu": 6,
+        "Arunachal Pradesh": 5,
+        "South East Delhi": 4,
+        "North West Delhi": 3,
+        "East Delhi": 3,
+        "Andaman and Nicobar Islands": 3,
+        "Dwarka Tehsil": 3,
+        "North Delhi": 2,
+        "South Delhi": 1,
+        "Lakshadweep": 1,
+        "Kapashera Tehsil": 1,
+        "Bahadurgarh": 1
+      },
+      "text_stats": {
+        "len_min": 3,
+        "len_max": 40,
+        "len_mean": 9.55,
+        "len_p50": 9,
+        "len_p90": 14,
+        "len_p99": 16,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "Dadra and Nagar Haveli and Daman and Diu"
+      }
+    },
+    {
+      "name": "Country",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "India"
+      ],
+      "value_counts": {
+        "India": 11284
+      },
+      "text_stats": {
+        "len_min": 5,
+        "len_max": 5,
+        "len_mean": 5.0,
+        "len_p50": 5,
+        "len_p90": 5,
+        "len_p99": 5,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "India"
+      }
+    },
+    {
+      "name": "Zipcode",
+      "dtype_str_read": "object",
+      "dtype_inferred": "float64",
+      "non_null": 10374,
+      "null_pct": 8.065,
+      "n_distinct": 4345,
+      "examples": [
+        "833201",
+        "225001",
+        "206122",
+        "223223",
+        "209721",
+        "831013"
+      ],
+      "numeric_stats": {
+        "count": 10374,
+        "frac_parseable": 1.0,
+        "min": 110001.0,
+        "max": 881103.0,
+        "mean": 451952.22411798727,
+        "std": 218917.01805064015,
+        "p01": 122505.0,
+        "p25": 247340.25,
+        "p50": 400064.5,
+        "p75": 603283.25,
+        "p99": 848104.78,
+        "n_zero": 0,
+        "n_negative": 0
+      },
+      "text_stats": {
+        "len_min": 6,
+        "len_max": 6,
+        "len_mean": 6.0,
+        "len_p50": 6,
+        "len_p90": 6,
+        "len_p99": 6,
+        "n_leading_trailing_ws": 0,
+        "n_internal_double_space": 0,
+        "n_nonascii": 0,
+        "longest_example": "833201"
+      }
+    },
+    {
+      "name": "Formatted Address",
+      "dtype_str_read": "object",
+      "dtype_inferred": "object",
+      "non_null": 11284,
+      "null_pct": 0.0,
+      "n_distinct": 11015,
+      "examples": [
+        "Gayatri Sevasadan, Tambo Road , Pashchimi Singhbhum , Jharkhand , India , 833201",
+        "100 Bed Combined Hospital, NH727H , Nawabganj Barabanki , Barabanki , Uttar Pradesh , India , 225001",
+        "100 Bed District Combined Hospital, NH19 , Auraiya , Uttar Pradesh , India , 206122",
+        "100 Bedded Combined District Hospital, NH28 , Burhanpur , Azamgarh , Uttar Pradesh , India , 223223",
+        "100 Bedded Combined Hospital, Chhibramau , Kannauj , Uttar Pradesh , India , 209721",
+        "111 Save Life Hospital, Bhetia Adityapur Adityapur(Gamharia) , Seraikela Kharsawan , Jharkhand , India , 831013"
+      ],
+      "text_stats": {
+        "len_min": 37,
+        "len_max": 245,
+        "len_mean": 103.19,
+        "len_p50": 99,
+        "len_p90": 144,
+        "len_p99": 188,
+        "n_leading_trailing_ws": 910,
+        "n_internal_double_space": 3184,
+        "n_nonascii": 419,
+        "longest_example": "Prathima Hospitals (A Unit Of Sri Sai Balaji Healthcare India Pvt. Ltd.), barkat pura circle Barkatpura Ward 80 Kachiguda Greater Hyderabad Municipal Corporation Central Zone Himayatnagar mandal Hyderabad , Hyderabad , Telangana , India , 500027"
+      }
+    }
+  ]
+}

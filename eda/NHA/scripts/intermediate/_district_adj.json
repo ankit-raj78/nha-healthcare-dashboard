@@ -1,0 +1,210 @@
+{
+  "wordboundary_district_in_address_full_population": {
+    "District_name_found_in_Address": 317793,
+    "new_district_name_found_in_Address": 317305,
+    "n_rows": 323460,
+    "note": "word-boundary match of the district token inside the normalised Address"
+  },
+  "disagreeing_rows": {
+    "n": 867,
+    "old_matches_address": 600,
+    "new_matches_address": 112,
+    "neither_matches": 263,
+    "both_match": 108,
+    "verdict": "Neither side is trustworthy on the disagreeing rows: 263/867 rows have a district value that appears on neither side of the Address text."
+  },
+  "disagreeing_examples": [
+    {
+      "row": 2794,
+      "District_name": "Not Found",
+      "new_district_name": "Ntr",
+      "district_code": "749.0",
+      "new_state_name": "Andhra Pradesh",
+      "Address": "10-5-8 RAMARAO PETA NAGESWARA RAO STREET 2nd junction near subbaiah hotel, , Andhra Pradesh - 533001"
+    },
+    {
+      "row": 3034,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Aranalo HWC, Aranalo Village, Dumpurijo Dumporijo Adc Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3035,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Ayingmuri AHWC, Ayingmuri Village, Nacho Circle Nacho Sdo Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3042,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Beyakrijo HWC, Beyakrijo village, Dumpurijo Dumporijo Adc Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3043,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Bui HWC, Bui Village, Gussar Circle, Dumpurijo block Bui , Segi Gusar Circle Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3045,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Medical Colony, Deomali Adc Tirap, Arunachal Pradesh - 792129"
+    },
+    {
+      "row": 3056,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Chc building, rumgong, Rumgong Adc Siang, Arunachal Pradesh - 791102"
+    },
+    {
+      "row": 3058,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Medical colony,CHC seijosa , NEC PSI road seijosa Upper Seijosa , Seijosa Adc Pakke Kessang, Arunachal Pradesh - 790103"
+    },
+    {
+      "row": 3062,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Pakke-keshang H.q./upper Bazar Line/lower Bazar Line, Pakke Kessang Eac Pakke Kessang, Arunachal Pradesh - 790103"
+    },
+    {
+      "row": 3073,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "District Hospital, Daporijo, EPI, Hospital road Daporijo Hq Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3084,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Dula HWC, Dula village Dula , Maro Circle Upper Subansiri, Arunachal Pradesh - 791122"
+    },
+    {
+      "row": 3085,
+      "District_name": "una",
+      "new_district_name": "Anjaw",
+      "district_code": "628.0",
+      "new_state_name": "Arunachal Pradesh",
+      "Address": "Dumpurijo CHC, Dumpurijo town, Upper Subansiri Dumporijo Adc Upper Subansiri, Arunachal Pradesh - 791122"
+    }
+  ],
+  "district_name_not_found": {
+    "n_rows": 2,
+    "their_new_district_name": {
+      "Ntr": 2
+    },
+    "example_rows": [
+      {
+        "row": 2794,
+        "new_district_name": "Ntr",
+        "Address": "10-5-8 RAMARAO PETA NAGESWARA RAO STREET 2nd junction near subbaiah hotel, , Andhra Pradesh - 533001"
+      },
+      {
+        "row": 80782,
+        "new_district_name": "Ntr",
+        "Address": "10-5-8 RAMARAO PETA NAGESWARA RAO STREET 2nd junction near subbaiah hotel, , Andhra Pradesh - 533001"
+      }
+    ]
+  },
+  "district_state_consistency": {
+    "n_districts_spanning_multiple_states": 0,
+    "examples": {},
+    "old_District_name_spanning_multiple_states": 0,
+    "old_examples": {}
+  },
+  "districts_per_state": {
+    "Uttar Pradesh": 67,
+    "Madhya Pradesh": 46,
+    "Rajasthan": 43,
+    "Bihar": 38,
+    "Tamil Nadu": 34,
+    "Maharashtra": 32,
+    "Telangana": 31,
+    "Gujarat": 31,
+    "Assam": 30,
+    "Karnataka": 29,
+    "Chhattisgarh": 27,
+    "Andhra Pradesh": 26,
+    "Punjab": 22,
+    "Jharkhand": 22,
+    "Haryana": 21,
+    "Arunachal Pradesh": 20,
+    "Kerala": 14,
+    "Manipur": 13,
+    "Nagaland": 11,
+    "Himachal Pradesh": 9,
+    "Uttarakhand": 8,
+    "Jammu And Kashmir": 7,
+    "Delhi": 7,
+    "Mizoram": 5,
+    "Sikkim": 4,
+    "Tripura": 4,
+    "Odisha": 3,
+    "Andaman And Nicobar Islands": 3,
+    "Ladakh": 2,
+    "Goa": 2,
+    "Meghalaya": 1,
+    "Puducherry": 1,
+    "The Dadra And Nagar Haveli And Daman And Diu": 1,
+    "Chandigarh": 1
+  },
+  "rows_per_state": {
+    "Uttar Pradesh": 62801,
+    "Karnataka": 56885,
+    "Maharashtra": 26502,
+    "Rajasthan": 22276,
+    "Andhra Pradesh": 21289,
+    "Gujarat": 18644,
+    "Madhya Pradesh": 17563,
+    "Bihar": 16562,
+    "Chhattisgarh": 15812,
+    "Kerala": 10208,
+    "Assam": 8652,
+    "Haryana": 6851,
+    "Punjab": 6561,
+    "Jammu And Kashmir": 5822,
+    "Delhi": 5439,
+    "Jharkhand": 4946,
+    "Telangana": 4349,
+    "Himachal Pradesh": 3095,
+    "Tamil Nadu": 2567,
+    "Uttarakhand": 1568,
+    "Tripura": 1101,
+    "Nagaland": 620,
+    "Arunachal Pradesh": 586,
+    "Chandigarh": 574,
+    "Mizoram": 474,
+    "The Dadra And Nagar Haveli And Daman And Diu": 331,
+    "Puducherry": 297,
+    "Manipur": 274,
+    "Andaman And Nicobar Islands": 238,
+    "Ladakh": 237,
+    "Sikkim": 173,
+    "Meghalaya": 96,
+    "Goa": 56,
+    "Odisha": 11
+  }
+}

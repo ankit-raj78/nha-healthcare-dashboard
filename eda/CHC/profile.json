@@ -1,0 +1,599 @@
+{
+  "dataset_key": "CHC",
+  "source_file": "21_June_2024_AM_CHC.csv",
+  "read_kwargs": {
+    "encoding": "utf-8",
+    "sep": ",",
+    "dtype": "str",
+    "keep_default_na": false,
+    "na_values": [],
+    "note": "read as str to preserve ID zero-padding and avoid float coercion; numerics cast explicitly downstream"
+  },
+  "n_rows": 4237,
+  "n_cols": 9,
+  "raw_line_count": 4238,
+  "raw_file_facts": {
+    "bytes": 389761,
+    "newline_count": 4237,
+    "ends_with_newline": false,
+    "physical_lines": 4238,
+    "has_bom": false,
+    "has_cr": true,
+    "n_embedded_quotes": 40
+  },
+  "row_count_explanation": "`wc -l` reports 4237 because the file does not end with a newline (False). Physical lines = 4238 = 1 header + 4237 data lines. pandas returns 4237 rows, which matches exactly: no embedded newlines (double-quote chars in file = 40), no BOM (False), no CR (True), no Unnamed/trailing-empty columns.",
+  "columns": [
+    {
+      "name": "STATE_NAME",
+      "dtype": "object(str as read); string",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 29,
+      "examples": [
+        "Andhra Pradesh",
+        "Andhra Pradesh",
+        "Andhra Pradesh",
+        "Andhra Pradesh",
+        "Andhra Pradesh"
+      ],
+      "value_counts": {
+        "Uttar Pradesh": 760,
+        "Rajasthan": 479,
+        "Odisha": 324,
+        "Madhya Pradesh": 225,
+        "Gujarat": 211,
+        "Bihar": 208,
+        "Jharkhand": 205,
+        "Maharashtra": 204,
+        "Karnataka": 204,
+        "Kerala": 166,
+        "Punjab": 153,
+        "Andhra Pradesh": 149,
+        "Haryana": 143,
+        "Assam": 107,
+        "Himachal Pradesh": 104,
+        "Tamilnadu": 98,
+        "Chhattisgarh": 96,
+        "Uttarakhand": 93,
+        "Telangana": 85,
+        "Arunachal Pradesh": 63,
+        "Jammu And Kashmir": 33,
+        "Nagaland": 31,
+        "Meghalaya": 28,
+        "Tripura": 22,
+        "Manipur": 19,
+        "West Bengal": 16,
+        "Ladakh": 5,
+        "Mizoram": 4,
+        "Sikkim": 2
+      },
+      "semantic_role": "state_raw",
+      "flags": [],
+      "notes": "Indian state/UT, title case. 29 distinct. Only 'Tamilnadu' deviates from the LGD spelling ('Tamil Nadu'). 8 states/UTs absent entirely."
+    },
+    {
+      "name": "DISTRICT_NAME",
+      "dtype": "object(str as read); string",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 596,
+      "examples": [
+        "Anantapur",
+        "Sri Potti Sriramulu Nell*",
+        "Guntur",
+        "Srikakulam",
+        "Kurnool"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "Ahmadnagar": 95,
+        "Bijnor": 61,
+        "Jhunjhunun": 60,
+        "Ghazipur": 40,
+        "Sultanpur": 38,
+        "Udaipur": 29,
+        "Kangra": 29,
+        "Alwar": 27,
+        "Barwani": 27,
+        "Mayurbhanj": 25
+      },
+      "semantic_role": "district_raw",
+      "flags": [
+        "truncated",
+        "placeholder_values"
+      ],
+      "notes": "District name. Hard-truncated at 25 chars with a literal '*' marker for 3 values. Some rows carry the placeholder 'Unknown'. Not unique across states - always key on (state, district)."
+    },
+    {
+      "name": "BLOCK_ID",
+      "dtype": "object(str as read); int64-castable",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 2644,
+      "examples": [
+        "5892",
+        "5107",
+        "3456",
+        "5408",
+        "94"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "6171": 55,
+        "4060": 31,
+        "4930": 24,
+        "3126": 21,
+        "4924": 19,
+        "4096": 19,
+        "3186": 15,
+        "3337": 14,
+        "3850": 13,
+        "5478": 13
+      },
+      "semantic_role": "block_lgd_code",
+      "flags": [
+        "unverified_code_authority"
+      ],
+      "notes": "Integer block id. VERIFIED: 0 blocks span >1 district across the 6252-block PHC+CHC union, so it is a real national block namespace shared by both files. But it is NOT confirmed to be the LGD block code - do not join to LGD on it."
+    },
+    {
+      "name": "HAB_ID",
+      "dtype": "object(str as read); int64-castable",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 4174,
+      "examples": [
+        "1030870",
+        "912545",
+        "1029353",
+        "184457",
+        "26246"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "63939": 2,
+        "1152789": 2,
+        "561596": 2,
+        "69236": 2,
+        "589871": 2,
+        "911833": 2,
+        "688285": 2,
+        "924055": 2,
+        "437282": 2,
+        "160813": 2
+      },
+      "semantic_role": "village_lgd_code",
+      "flags": [
+        "unverified_code_authority",
+        "not_unique"
+      ],
+      "notes": "Integer habitation id. VERIFIED: 0 of 35189 union HAB_IDs span >1 block or district - nests perfectly inside BLOCK_ID. Repeats within a file mean 'several facilities in one habitation', NOT duplicate rows. Authority unconfirmed; village_lgd_code is a low-confidence fit since a habitation is finer than a revenue village."
+    },
+    {
+      "name": "FACILITY_ID",
+      "dtype": "object(str as read); int64-castable",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 4237,
+      "examples": [
+        "98958",
+        "198923",
+        "379633",
+        "529863",
+        "647369"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "98958": 1,
+        "23202": 1,
+        "1389": 1,
+        "39629": 1,
+        "39727": 1,
+        "9754": 1,
+        "10847": 1,
+        "11515": 1,
+        "12026": 1,
+        "15663": 1
+      },
+      "semantic_role": "source_facility_id",
+      "flags": [
+        "shared_namespace_with_sibling_file"
+      ],
+      "notes": "Integer facility id, unique within this file. Shares its namespace with the sibling PHC/CHC file: 21 ids appear in both, and in every case the entire 9-column row is byte-identical. Unique across the 36174-row deduplicated union, so it is a valid PK for the pair."
+    },
+    {
+      "name": "FAC_DESC",
+      "dtype": "object(str as read); string",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 1967,
+      "examples": [
+        "Community health centre",
+        "community health centre",
+        "Community health centre",
+        "Community Health Centre",
+        "community health center"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "CHC": 558,
+        "community health center": 331,
+        "Community Health Centre": 262,
+        "community health centre": 259,
+        "Community Health Center": 151,
+        "chc": 150,
+        "Community health centre": 111,
+        "Community health center": 100,
+        "Community Health centre": 33,
+        "COMMUNITY HEALTH CENTRE": 26
+      },
+      "semantic_role": "facility_name_raw",
+      "flags": [
+        "low_information",
+        "whitespace_defects"
+      ],
+      "notes": "Free-text facility name - but in practice the facility TYPE, hand-typed with chaotic spelling. Majority of rows carry no place information at all. Defects: literal tabs, double spaces, trailing periods, no-space concatenations."
+    },
+    {
+      "name": "FAC_CATEGO",
+      "dtype": "object(str as read); string",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 1,
+      "examples": [
+        "Medical",
+        "Medical",
+        "Medical",
+        "Medical",
+        "Medical"
+      ],
+      "value_counts": {
+        "Medical": 4237
+      },
+      "semantic_role": "junk",
+      "flags": [
+        "constant",
+        "junk",
+        "drop"
+      ],
+      "notes": "Constant 'Medical' in BOTH the PHC and CHC files. Zero information; does not distinguish the two tiers. Almost certainly an amenity category inherited from a larger habitation-survey parent table. DROP - do not map to facility_category_raw."
+    },
+    {
+      "name": "Longitude",
+      "dtype": "object(str as read); float64 after to_numeric",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 4232,
+      "examples": [
+        "78.195205",
+        "79.53267076",
+        "79.38421115",
+        "84.01159065",
+        "78.51434771"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "84.61846231": 2,
+        "85.14356554": 2,
+        "85.94641708": 2,
+        "91.64109839": 2,
+        "85.49423353": 2,
+        "75.49344833": 1,
+        "75.62181464": 1,
+        "76.4478779": 1,
+        "72.99053189": 1,
+        "75.56178869": 1
+      },
+      "semantic_role": "longitude",
+      "flags": [],
+      "notes": "Decimal degrees, WGS84 assumed. 100% parseable, zero nulls/zeros/blanks, 100% inside the India bbox."
+    },
+    {
+      "name": "Latitude",
+      "dtype": "object(str as read); float64 after to_numeric",
+      "non_null": 4237,
+      "null_pct": 0.0,
+      "n_distinct": 4232,
+      "examples": [
+        "13.91745",
+        "14.19994353",
+        "16.51680493",
+        "18.54536308",
+        "15.13327294"
+      ],
+      "value_counts": {},
+      "top_10": {
+        "26.80024312": 2,
+        "25.07923432": 2,
+        "26.2946078": 2,
+        "25.56342879": 2,
+        "25.74601764": 2,
+        "27.741895": 1,
+        "27.89888118": 1,
+        "27.78090269": 1,
+        "26.12829077": 1,
+        "27.91291249": 1
+      },
+      "semantic_role": "latitude",
+      "flags": [],
+      "notes": "Decimal degrees, WGS84 assumed. 100% parseable, zero nulls/zeros/blanks, 100% inside the India bbox, zero plausibly swapped."
+    }
+  ],
+  "duplicates": {
+    "exact": 0,
+    "exact_rows_involved": 0,
+    "near_dupe_name_geo": 1,
+    "near_dupe_name_geo_rows_involved": 2,
+    "near_dupe_name_geo3dp": 22,
+    "near_dupe_district_name": 1476,
+    "method": "exact = df.duplicated() over all 9 columns. near_dupe_name_geo = duplicated() over (lowercased/punctuation-stripped FAC_DESC, raw Longitude string, raw Latitude string). 3dp variant rounds coords to 3 decimals (~110 m) before keying. Counts reported are removable duplicates (keep-first); *_rows_involved is the total rows in any dup group."
+  },
+  "geo_quality": {
+    "valid_in_india": 4237,
+    "null": 0,
+    "blank_string_lon": 0,
+    "blank_string_lat": 0,
+    "zero": 0,
+    "out_of_bbox": 0,
+    "possibly_swapped": 0,
+    "lon_min": 68.83128849,
+    "lon_max": 96.79954833,
+    "lat_min": 8.20358463,
+    "lat_max": 34.50122685,
+    "lon_mean": 79.91965134159075,
+    "lat_mean": 23.52038455911612,
+    "lon_p1": 71.2015150456,
+    "lat_p1": 9.2980190792,
+    "lon_p5": 73.142021568,
+    "lat_p5": 11.614465948,
+    "lon_p25": 75.91373779,
+    "lat_p25": 20.422355,
+    "lon_p50": 78.55678171,
+    "lat_p50": 24.93789192,
+    "lon_p75": 83.51179054,
+    "lat_p75": 27.206565,
+    "lon_p95": 91.393430348,
+    "lat_p95": 30.949124217999994,
+    "lon_p99": 94.864671704,
+    "lat_p99": 32.54984963640002,
+    "n_distinct_points": 4232,
+    "n_rows_sharing_a_point": 10,
+    "max_rows_at_one_point": 2,
+    "n_rows_sharing_point_4dp": 32,
+    "gt_100km_from_own_district_median": 30,
+    "pct_usable_after_district_sanity_filter": 99.29,
+    "n_rows_alone_in_1p1km_cell": 4054,
+    "pct_rows_alone_in_1p1km_cell": 95.68,
+    "max_rows_in_one_1p1km_cell": 3
+  },
+  "id_column_stats": {
+    "BLOCK_ID": {
+      "n_distinct": 2644,
+      "is_unique": false,
+      "n_non_numeric": 0,
+      "min": 1.0,
+      "max": 8145.0,
+      "n_leading_zero": 0,
+      "len_dist": {
+        "1": 4,
+        "2": 58,
+        "3": 561,
+        "4": 3614
+      },
+      "n_dup_rows": 2389,
+      "max_repeat": 55
+    },
+    "HAB_ID": {
+      "n_distinct": 4174,
+      "is_unique": false,
+      "n_non_numeric": 0,
+      "min": 349.0,
+      "max": 1428938.0,
+      "n_leading_zero": 0,
+      "len_dist": {
+        "3": 4,
+        "4": 15,
+        "5": 298,
+        "6": 3012,
+        "7": 908
+      },
+      "n_dup_rows": 126,
+      "max_repeat": 2
+    },
+    "FACILITY_ID": {
+      "n_distinct": 4237,
+      "is_unique": true,
+      "n_non_numeric": 0,
+      "min": 1389.0,
+      "max": 1058927.0,
+      "n_leading_zero": 0,
+      "len_dist": {
+        "4": 55,
+        "5": 475,
+        "6": 3494,
+        "7": 213
+      },
+      "n_dup_rows": 0,
+      "max_repeat": 1
+    }
+  },
+  "composite_key_candidates": {
+    "FACILITY_ID": {
+      "n_distinct": 4237,
+      "is_unique": true
+    },
+    "HAB_ID": {
+      "n_distinct": 4174,
+      "is_unique": false
+    },
+    "FACILITY_ID+HAB_ID": {
+      "n_distinct": 4237,
+      "is_unique": true
+    },
+    "STATE_NAME+FACILITY_ID": {
+      "n_distinct": 4237,
+      "is_unique": true
+    },
+    "BLOCK_ID+HAB_ID+FACILITY_ID": {
+      "n_distinct": 4237,
+      "is_unique": true
+    },
+    "Longitude+Latitude": {
+      "n_distinct": 4232,
+      "is_unique": false
+    },
+    "FACILITY_ID+Longitude+Latitude": {
+      "n_distinct": 4237,
+      "is_unique": true
+    }
+  },
+  "candidate_primary_key": {
+    "column": "FACILITY_ID",
+    "is_unique": true
+  },
+  "coded_vocabularies": {
+    "FAC_CATEGO": [
+      "Medical"
+    ],
+    "FAC_CATEGO_note": "single constant value in BOTH files; not a usable vocabulary, no codebook available - see questions.md Q3",
+    "STATE_NAME": [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu And Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Ladakh",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamilnadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "BLOCK_ID_note": "2644 distinct integer codes, unverified authority - see questions.md Q1. Not enumerated here.",
+    "HAB_ID_note": "4174 distinct integer codes, unverified authority - see questions.md Q2. Not enumerated here."
+  },
+  "state_district": {
+    "n_states": 29,
+    "states": [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu And Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Ladakh",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamilnadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ],
+    "n_districts": 596,
+    "n_districts_truncated": 3,
+    "truncated_districts": [
+      "North Twenty Four Pargan*",
+      "South Twenty Four Pargan*",
+      "Sri Potti Sriramulu Nell*"
+    ],
+    "district_names_in_multiple_states": {
+      "Aurangabad": 2,
+      "Balrampur": 2,
+      "Bijapur": 2,
+      "Bilaspur": 2,
+      "Hamirpur": 2,
+      "Pratapgarh": 2
+    }
+  },
+  "name_quality": {
+    "n_distinct_fac_desc": 1967,
+    "n_rows_len_le_3": 729,
+    "pct_rows_len_le_3": 17.21,
+    "n_rows_zero_place_information": 2395,
+    "pct_rows_zero_place_information": 56.53,
+    "n_rows_uniquely_keyed_by_state_district_placetoken": 1776,
+    "pct_rows_uniquely_keyed_by_state_district_placetoken": 41.92,
+    "method": "normalise (lowercase, strip punctuation), remove generic facility-type words and digits; a row with an empty residual carries no place information."
+  },
+  "er_readiness": {
+    "has_name": true,
+    "has_name_with_place_information_pct": 43.47,
+    "has_geo_pct": 100.0,
+    "has_geo_pct_after_district_sanity_filter": 99.29,
+    "has_district": true,
+    "has_pincode": false,
+    "has_address": false,
+    "has_phone": false,
+    "unmatchable_row_pct": 56.53,
+    "unmatchable_definition": "rows whose FAC_DESC reduces to nothing but generic facility-type words, leaving the coordinate as the only matching evidence",
+    "blocking_key_viable": true,
+    "recommended_blocking_strategy": "GEO-PRIMARY: coordinate within 100-500 m, blocked by (state, district); name similarity as tiebreak only. The project-default name+geo+district key isolates only 53.32% of rows, whereas a ~1.1 km geo cell isolates 95.68%.",
+    "blocking_singleton_pct": {
+      "state+district": 1.7,
+      "state+district+name": 53.32,
+      "block_id": 43.62,
+      "block_id+name": 76.89,
+      "geo_cell_1p1km": 95.68
+    }
+  },
+  "tier_reliability": {
+    "note": "The PHC/CHC distinction exists ONLY in the filename - the schemas are identical and FAC_CATEGO is the same constant in both. Evidence indicates the split was a keyword rule over FAC_DESC: all 5 rows in either file naming both tiers, and all 10 rows named exactly 'HSC', appear in BOTH files.",
+    "rows_duplicated_into_both_files": 21,
+    "rows_named_as_sub_centre": 39,
+    "rows_named_as_block_phc_or_rural_hospital": 4,
+    "distinct_rows_with_unreliable_tier": 50,
+    "pct_rows_with_unreliable_tier": 1.18
+  },
+  "cross_file": {
+    "sibling_dataset_key": "PHC",
+    "sibling_file": "21_June_2024_AM_PHC.csv",
+    "schema_identical": true,
+    "shared_id_namespace": true,
+    "namespace_evidence": "0 of 6252 union BLOCK_IDs span more than one district; 0 of 35189 union HAB_IDs span more than one block. All 21 shared FACILITY_IDs resolve to byte-identical rows.",
+    "exact_row_overlap_with_sibling": 21,
+    "shared_block_ids": 2506,
+    "shared_hab_ids": 376,
+    "shared_facility_ids": 21,
+    "fac_catego_disjoint_from_sibling": false,
+    "union_rows_naive": 36195,
+    "union_rows_deduplicated": 36174,
+    "union_facility_id_is_unique": true,
+    "union_is_safe": true,
+    "warning": "Do NOT prefix FACILITY_ID per file - that creates 21 duplicate canonical entities. Load PHC+CHC as ONE source with a facility_tier column.",
+    "see": "eda/PHC/CROSS_PHC_CHC.md"
+  }
+}
