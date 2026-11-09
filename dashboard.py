@@ -76,31 +76,40 @@ def render_queries(queries: list) -> None:
 # ---------------------------------------------------------------- preflight
 if not os.path.exists(agent.DB):
     st.error(f"Database not found at `{agent.DB}`")
-    st.code(".venv/bin/python eda/build_v0.py", language="bash")
+    st.code(".venv/bin/python eda/build_v0.py && .venv/bin/python eda/build_v1.py",
+            language="bash")
     st.stop()
 
 # ------------------------------------------------------------------- sidebar
 with st.sidebar:
     st.subheader("Database")
     stats = load_stats()
-    total = int(stats["records"].sum()) if not stats.empty else 0
-    st.metric("Source records", f"{total:,}")
+    summary = agent.resolution_summary()
+    c1, c2 = st.columns(2)
+    c1.metric("Facilities", f"{int(summary.get('facilities', 0)):,}")
+    c2.metric("Source records", f"{int(summary.get('records', 0)):,}")
+    st.caption(f"{int(summary.get('multi_source', 0)):,} facilities are confirmed "
+               "by more than one source.")
     st.dataframe(stats, width="stretch", hide_index=True,
-                 column_config={"records": st.column_config.NumberColumn(format="%d")})
+                 column_config={
+                     "records": st.column_config.NumberColumn(format="%d"),
+                     "facilities": st.column_config.NumberColumn(format="%d")})
 
     st.caption(f"Model: `{agent.MODEL}`  ·  adaptive thinking")
 
     st.divider()
     st.subheader("Known limits")
     st.markdown("""
-- **Totals are upper bounds.** No cross-source entity resolution yet — a facility
-  in both NHA and PMJAY counts twice.
-- **Districts aren't normalized.** 1,051 spellings for ~790 districts.
+- **The matcher is unvalidated.** Entity resolution has run, but with no
+  hand-labeled pairs there is no precision/recall figure. It is deliberately
+  conservative, so totals are a slight over-count.
+- **Districts are clustered, not authoritative.** 1,051 spellings → 914; India
+  has ~790 districts, so renames (Gurgaon/Gurugram) are still split.
 - **Specialties can't be answered.** The `M1`/`S7` codes have no codebook, and
   only 7% of records carry one at all.
 - **Bed counts** are 0.1% populated.
 """)
-    st.caption("Detail: `eda/03_GAP_REGISTER.md`")
+    st.caption("Detail: `eda/04_MERGE_REPORT.md` · `eda/03_GAP_REGISTER.md`")
 
     st.divider()
     if st.button("Clear conversation", width="stretch"):
@@ -113,9 +122,9 @@ st.title("🏥 Health Facility Explorer")
 st.caption("Ask in plain English. DuckDB produces every number — the model only writes the SQL.")
 
 st.markdown(
-    '<div class="caveat"><b>v0 data.</b> Records are deduplicated within each source '
-    'but not across sources, so counts are an upper bound on real facilities. '
-    'The assistant states this where it matters.</div>',
+    '<div class="caveat"><b>v1 data.</b> 341,720 source records resolved to 323,359 '
+    'facilities. The matcher is conservative and has no measured precision yet, so '
+    'totals still lean high. The assistant states this where it matters.</div>',
     unsafe_allow_html=True)
 st.write("")
 
@@ -128,11 +137,11 @@ if not st.session_state.turns:
     st.markdown("**Try one of these**")
     examples = [
         "Which states have the most facilities?",
-        "How many CHCs are there, counting all the spelling variants?",
+        "How many CHCs are there?",
         "Public vs private ownership split",
         "Blood banks vs blood storage units",
-        "Which records appear in more than one source?",
-        "What fraction of records have trustworthy coordinates?",
+        "Which facilities are confirmed by more than one source?",
+        "How much did entity resolution collapse each source?",
     ]
     cols = st.columns(3)
     for i, ex in enumerate(examples):

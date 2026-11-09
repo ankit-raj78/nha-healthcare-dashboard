@@ -1,7 +1,23 @@
 # Gap Register — what's missing between here and the goal
 
-Built from `eda/facilities_v0.duckdb` (341,720 source records, all 10 datasets harmonized).
+Built from `db/facilities_v0.duckdb` (341,720 source records, all 10 datasets harmonized).
 Every number below came from querying that database.
+
+> **Status update — v1.** Gaps 2, 3 and 4 have since been worked as far as they go
+> without external data; see **[04_MERGE_REPORT.md](04_MERGE_REPORT.md)**.
+> `db/facilities_v1.duckdb` now holds 323,359 resolved facilities.
+>
+> - **Gap 3 — closed.** `facility_type` is a 22-value enum, `ownership` a 5-value enum.
+> - **Gap 2 — partly closed.** 1,051 district spellings → 914. The remaining ~120 are
+>   *renames*, not typos, and still need the LGD master. Shopping-list item #2 stands.
+> - **Gap 4 — implemented, unvalidated.** Geo-primary blocking, 8 named match rules,
+>   transitive closure. 5.4% of records absorbed. There is still **no labeled pair set**,
+>   so shopping-list item #8 remains the binding constraint on trusting the number.
+> - **Gaps 1, 5, 6, 6a, 7 — unchanged.** All need external artifacts.
+>
+> The 8,408 figure below is superseded: it counted exact `name + district` collisions,
+> and most are false. 93 distinct facilities in Nanded share the name
+> "PRIMARY HEALTH CENTER". Geo, not name, is what actually resolves these.
 
 ---
 

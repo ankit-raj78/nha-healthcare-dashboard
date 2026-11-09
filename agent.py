@@ -15,14 +15,14 @@ import pandas as pd
 from anthropic import beta_tool
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DB = os.path.join(HERE, "db", "facilities_v0.duckdb")
+DB = os.path.join(HERE, "db", "facilities_v1.duckdb")
 
 MODEL = "claude-opus-5"
 MAX_TOKENS = 16000
 
-# The agent binds to v_facility, never the base table — v_facility is PII-free by
+# The agent binds to the two views, never the base tables. Both are PII-free by
 # construction (NIN's `Coder` column of internal staff names is never ingested).
-VIEW = "v_facility"
+VIEWS = ("v_facility", "v_source_record")
 
 # Populated by run_sql during a turn so callers can show their work.
 # Each entry: {"sql": str, "df": DataFrame | None, "error": str | None}
@@ -36,57 +36,72 @@ def reset_log() -> None:
 SCHEMA_CARD = """
 # facility database — schema card
 
-One table you may query: `v_facility` (341,720 rows). Read-only.
+Two read-only views:
 
-## THE CAVEAT THAT GOVERNS EVERY ANSWER
-This is v0: harmonized and deduplicated WITHIN each source, but there is NO
-cross-source entity resolution yet. A facility listed in both NHA and PMJAY is
-two rows. At least 8,408 name+district groups already span multiple sources.
+- **`v_facility`** — 323,359 rows, ONE ROW PER RESOLVED FACILITY. Query this for
+  counts, rankings, and anything about facilities.
+- **`v_source_record`** — 341,720 rows, one per source record, with
+  `facility_uid` linking back to `v_facility`. Query this for provenance
+  ("which datasets list this?") and per-source questions.
 
-So `count(*)` is an UPPER BOUND ON SOURCE RECORDS, not a facility count.
-Whenever you report a total, say so plainly. Never state a bare number as "the
-number of hospitals in India".
+## THE CAVEAT THAT GOVERNS EVERY TOTAL
+Cross-source entity resolution HAS been run (v1), so `count(*)` on `v_facility`
+is a facility count, not a record count. But the matcher is UNVALIDATED — there
+is no hand-labeled pair set yet, so no precision/recall figure exists.
 
-## Columns
+It is deliberately conservative: it merged 18,361 records (5.4%). Missed matches
+are far more likely than false ones, so a total from `v_facility` is best read
+as a SLIGHT OVER-COUNT — much closer to the truth than v0's 341,720, but still
+an upper bound. Say this when you report a national or state total. Do not
+present it as an exact census.
+
+## v_facility columns (one row per facility)
 
 | column | notes |
 |---|---|
-| record_uid | PK, e.g. "NHA:12345" |
-| source_dataset | NHA 261905 · PHC 31958 · PMGSY 13700 · PMJAY 11284 · NIN 10327 · CDAC_BB 5678 · CHC 4237 · CGHS 1983 · NHP 648 |
-| source_facility_id | source's own ID, prefixed |
-| name | 100% populated |
-| name_norm | uppercased, punctuation stripped — USE THIS FOR MATCHING |
-| address | 96% populated |
-| state | 100%, normalized to 36 values, UPPERCASE (e.g. 'BIHAR', 'TAMIL NADU', 'NCT OF DELHI') |
-| district | 99.8% but NOT normalized — 1,051 distinct values for ~790 real districts |
-| block_raw, village_raw, city, pincode | sparse; pincode only 11% |
-| latitude, longitude | 100% populated |
-| facility_type | 96% but UNCONTROLLED VOCABULARY — see below |
-| ownership | 82%; raw strings like 'Public', 'Private For-Profit', 'Govt.', 'Trust' |
-| phone, email | 8.6% / sparse; CDAC_BB phones are largely corrupt |
-| specialty_raw | only 7.0% — see below |
-| specialty_code_system | 'PMJAY_MS' or 'CGHS_2L' |
+| facility_uid | PK, e.g. "F0012345" |
+| name, name_norm | 100%. `name_core` is the name minus type words ('PHC KHERA' -> 'KHERA') |
+| facility_type | 99.6% — CONTROLLED ENUM, see below |
+| type_class | CARE / BLOOD / DIAG / RETAIL — coarse grouping |
+| ownership | GOVERNMENT 160688 · PRIVATE_FOR_PROFIT 112091 · UNKNOWN 47490 · PRIVATE_NOT_FOR_PROFIT 1975 · PPP 1115 |
+| state | 100%, 36 values, UPPERCASE ('BIHAR', 'TAMIL NADU', 'NCT OF DELHI') |
+| district | 99.9%, clustered to 914 canonical spellings (see Trap 2) |
+| block, village, city, pincode | sparse; pincode 10.5% |
+| latitude, longitude, geo_trust | position is the median of the cluster's trusted points; geo_trust true on 83.0% |
+| phone, email, address | phone 4.4% (only digits that are actually dialable are kept) |
+| specialty_raw, specialty_code_system | 7% — see Trap 3 |
 | bed_count | 0.1% — effectively unusable |
-| is_24x7, abdm_enabled | NHA only ('Yes'/'No') |
-| source_snapshot_date | assigned from FILENAMES, not data. Sources span 2022-2025. |
-| geo_in_bbox | boolean, inside India |
-| geo_trust | boolean — in-bbox AND not centroid-stacked. 285,630 true (83.6%). |
+| n_source_records, n_sources, sources | e.g. n_sources=3, sources='CGHS,NHA,PMJAY' |
+| resolution_status | SINGLE_SOURCE 309868 · MERGED_CROSS_SOURCE 13479 · REVIEW_LARGE_CLUSTER 12 |
+| first_snapshot, last_snapshot | date range of the contributing sources |
 
-## Trap 1 — facility_type spellings do not reconcile
-The same tier appears under several strings. Always match with LIKE/ILIKE or an
-IN-list covering the variants, never `= 'CHC'`:
-  Sub Centre 96439 · Hospital 37797 · PHC 31958 · Pharmacy 29959 ·
-  Primary Health Centre 22497 · Clinic/ Dispensary 21265 ·
-  Health and Wellness Centre 17564 · Community Health Centre 12109 ·
-  Diagnostic Laboratory 10143 · Bedded Hospital 7307 ·
-  Community Health Center 4786 · CHC 4237 · BLOOD_BANK 4231 ·
-  BLOOD_STORAGE_UNIT 1447 · MEDICAL_COLLEGE 648
-PHC/CHC tier labels are themselves unreliable (~4% mislabelled — West Bengal's
-CHC-equivalent is named "Block Primary Health Centre" and sits in the PHC file).
+## v_source_record columns (provenance)
+`record_uid`, `facility_uid`, `source_dataset`, `source_facility_id`, plus the
+raw and canonical forms of each field: `facility_type_raw` vs `facility_type`,
+`district_raw` vs `district`, `facility_ownership_raw` vs `ownership`.
+Source sizes: NHA 261905 · PHC 31958 · PMGSY 13700 · PMJAY 11284 · NIN 10327 ·
+CDAC_BB 5678 · CHC 4237 · CGHS 1983 · NHP 648.
 
-## Trap 2 — district is not normalized
-e.g. KERALA has both 'KASARAGOD' (386) and 'KASARGOD' (11) — the same district.
-District-level counts are APPROXIMATE. Say so when you report one.
+## Trap 1 — facility_type is now an enum; use `=`, not LIKE
+SUB_CENTRE 86587 · PHC 52053 · HOSPITAL 44568 · PHARMACY 29659 ·
+WELLNESS_CENTRE 28123 · CLINIC 17904 · CHC 13974 · DIAGNOSTIC_LAB 10878 ·
+DISPENSARY 7686 · AYUSH 6951 · MATERNITY_HOME 5452 · DENTAL 5319 ·
+BLOOD_BANK 3400 · DISTRICT_HOSPITAL 2978 · MEDICAL_COLLEGE 2183 ·
+BLOOD_STORAGE_UNIT 1473 · UNKNOWN 1256 · OTHER 858 ·
+SUB_DISTRICT_HOSPITAL 761 · IMAGING_CENTRE 722 · PHYSIOTHERAPY 344 ·
+DIALYSIS_CENTRE 230
+The label is derived from NAME TOKENS first (70% of rows), source type column
+second, because the source columns are unreliable — PHC/CHC carry the filename
+tier (~4% leak) and NHP's was a constant. `WELLNESS_CENTRE` is mostly PHCs and
+sub-centres relabelled as HWCs under Ayushman Bharat, so counting "PHCs" may
+warrant including it; mention that rather than silently choosing.
+
+## Trap 2 — district is clustered, not authoritative
+1,051 raw spellings were clustered within state to 914 canonical values
+(KASARGOD -> KASARAGOD). India has ~790 districts, so ~120 spellings are still
+unmerged — clustering catches typos, not renames (Gurgaon/Gurugram,
+Allahabad/Prayagraj are still separate). District counts remain APPROXIMATE and
+you should say so. `v_source_record.district_raw` holds the original.
 
 ## Trap 3 — specialties are undecoded AND nearly absent
 `specialty_raw` holds opaque codes (`M1`, `S7`, …). There is no codebook: the
@@ -97,7 +112,7 @@ explain that the PM-JAY Health Benefit Package specialty master is needed.
 Never guess what a code means.
 
 ## Trap 4 — geo
-Use `geo_trust` for anything spatial. 16.4% of records fail it (centroid
+Use `geo_trust` for anything spatial. 17% of facilities fail it (centroid
 stacking, shared points, out-of-bbox). Distance: DuckDB has no PostGIS; use the
 haversine formula in raw SQL.
 
@@ -117,20 +132,23 @@ Q: How many facilities in Bihar?
    SELECT count(*) FROM v_facility WHERE state = 'BIHAR';
 
 Q: Public vs private split
-   SELECT CASE WHEN upper(ownership) LIKE '%PUBLIC%' OR upper(ownership) LIKE '%GOVT%'
-                 OR upper(ownership) LIKE '%GOVERNMENT%' THEN 'PUBLIC'
-               WHEN upper(ownership) LIKE '%PRIVATE%' OR upper(ownership) LIKE '%TRUST%'
-                 THEN 'PRIVATE/TRUST' ELSE 'OTHER' END AS grp, count(*)
-   FROM v_facility WHERE ownership IS NOT NULL GROUP BY 1 ORDER BY 2 DESC;
+   SELECT ownership, count(*) FROM v_facility GROUP BY 1 ORDER BY 2 DESC;
 
-Q: How many CHCs are there?   (note the spelling variants)
-   SELECT count(*) FROM v_facility
-   WHERE facility_type ILIKE '%community health cent%' OR facility_type = 'CHC';
+Q: How many CHCs are there?
+   SELECT count(*) FROM v_facility WHERE facility_type = 'CHC';
 
-Q: Which records look like cross-source duplicates?
-   SELECT name_norm, district, count(DISTINCT source_dataset) n
-   FROM v_facility WHERE name_norm IS NOT NULL AND district IS NOT NULL
-   GROUP BY 1,2 HAVING count(DISTINCT source_dataset) > 1 ORDER BY 3 DESC;
+Q: Which facilities are confirmed by more than one source?
+   SELECT sources, count(*) n FROM v_facility WHERE n_sources > 1
+   GROUP BY 1 ORDER BY 2 DESC;
+
+Q: Which datasets list a particular facility, and what did each call it?
+   SELECT s.source_dataset, s.name, s.facility_type_raw
+   FROM v_source_record s JOIN v_facility f USING (facility_uid)
+   WHERE f.name ILIKE '%devamatha%';
+
+Q: How much did resolution actually collapse, per source?
+   SELECT source_dataset, count(*) records, count(DISTINCT facility_uid) facilities
+   FROM v_source_record GROUP BY 1 ORDER BY 2 DESC;
 
 Q: Facilities within 10km of a point (lat0, lon0)
    SELECT name, state, district,
@@ -187,8 +205,10 @@ def run_sql(query: str) -> str:
     """Run a read-only DuckDB SELECT against the facility database.
 
     Args:
-        query: A single SELECT (or WITH ... SELECT) statement. Only `v_facility`
-            may be queried. Results are truncated to 100 rows.
+        query: A single SELECT (or WITH ... SELECT) statement. Query
+            `v_facility` (one row per resolved facility) and `v_source_record`
+            (provenance); they join on `facility_uid`. Results are truncated to
+            100 rows.
     """
     df, err = execute_sql(query)
     QUERY_LOG.append({"sql": query.strip(), "df": df, "error": err})
@@ -252,8 +272,18 @@ def answer(client: anthropic.Anthropic, messages: list) -> tuple[str, list, list
 
 
 def db_stats() -> pd.DataFrame:
-    """Per-source record counts, for the dashboard sidebar."""
+    """Per-source record counts and the facilities they resolve to, for the sidebar."""
     df, _ = execute_sql(
-        "SELECT source_dataset AS source, count(*) AS records "
-        "FROM v_facility GROUP BY 1 ORDER BY 2 DESC")
+        "SELECT source_dataset AS source, count(*) AS records, "
+        "       count(DISTINCT facility_uid) AS facilities "
+        "FROM v_source_record GROUP BY 1 ORDER BY 2 DESC")
     return df if df is not None else pd.DataFrame()
+
+
+def resolution_summary() -> dict:
+    """Headline v1 numbers for the dashboard."""
+    df, _ = execute_sql(
+        "SELECT (SELECT count(*) FROM v_source_record) AS records, "
+        "       (SELECT count(*) FROM v_facility) AS facilities, "
+        "       (SELECT count(*) FROM v_facility WHERE n_sources > 1) AS multi_source")
+    return df.iloc[0].to_dict() if df is not None and not df.empty else {}

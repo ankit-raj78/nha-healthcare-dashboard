@@ -27,7 +27,10 @@ Model: `claude-opus-5` with adaptive thinking ($5 / $25 per MTok).
 | `launch.sh` | Builds the DB if missing, then starts the dashboard |
 | `datasets/` | The 10 source CSVs — untracked, 124 MB |
 | `eda/` | Per-dataset profiles, the plan, and the gap register |
-| `eda/build_v0.py` | Ingests all 10 CSVs → `db/facilities_v0.duckdb` |
+| `eda/build_v0.py` | Ingests all 10 CSVs → `db/facilities_v0.duckdb` (one row per source record) |
+| `eda/build_v1.py` | Homogenizes vocabularies + resolves entities → `db/facilities_v1.duckdb` (one row per facility) |
+| `eda/homogenize.py` | Controlled enums for type/ownership, within-state district clustering |
+| `eda/resolve.py` | Geo-primary blocking, rule-based matching, transitive closure |
 | `db/` | Built database — untracked, regenerate with the script above |
 | `archive/` | Superseded prior work (see below) |
 
@@ -37,7 +40,9 @@ guardrails cannot drift between the two interfaces.
 Start with **[eda/00_PLAN.md](eda/00_PLAN.md)** for the architecture,
 **[eda/02_PHASE1_FINDINGS.md](eda/02_PHASE1_FINDINGS.md)** for what the data
 actually contains, and **[eda/03_GAP_REGISTER.md](eda/03_GAP_REGISTER.md)** for
-what's missing and what to go fetch.
+what's missing and what to go fetch, and
+**[eda/04_MERGE_REPORT.md](eda/04_MERGE_REPORT.md)** for how the merge works and
+what it does not prove.
 
 ## The data
 
@@ -53,15 +58,23 @@ blank-row blocks, and duplicated files inflated them by 8,100 rows before any
 deduplication. NHA's 323,460 raw rows collapse to **258,756 real facilities**
 once a `24/7` yes/no fan-out is removed.
 
-**This is v0: harmonized and deduplicated within each source, but with no
-cross-source entity resolution yet.** `count(*)` is an upper bound on source
-records, not a facility count — at least 8,408 name+district groups span more
-than one source. The agent is instructed to state this on every total.
+**v1 resolves these to 323,359 facilities** — 18,361 records absorbed (5.4%),
+13,491 facilities confirmed by more than one source. `facility_type` is a
+22-value enum, `ownership` a 5-value enum, and district spellings are clustered
+1,051 → 914.
+
+**The matcher has no measured precision.** There is no hand-labeled pair set, so
+the 5.4% is unvalidated. It is deliberately conservative — a false merge destroys
+a facility invisibly, a missed merge only leaves the count high — so totals still
+lean high, and the agent is instructed to say so. `eda/er_review_sample.csv`
+holds 285 stratified pairs; labeling them is what turns this into a number.
 
 ## What it can and can't answer
 
-Works: counts and rankings by state, source composition, ownership splits, blood
-bank vs storage unit, geographic and radius queries, single-facility lookup.
+Works: facility counts and rankings by state, type counts against a real enum,
+ownership splits, blood bank vs storage unit, geographic and radius queries,
+single-facility lookup, and provenance — which datasets list a given facility and
+what each one called it.
 
 Doesn't work yet:
 

@@ -20,7 +20,8 @@ import agent
 def main() -> None:
     if not os.path.exists(agent.DB):
         sys.exit(f"Database not found at {agent.DB}\n"
-                 "Build it first:  .venv/bin/python eda/build_v0.py")
+                 "Build it first:  .venv/bin/python eda/build_v0.py "
+                 "&& .venv/bin/python eda/build_v1.py")
     try:
         client = agent.build_client()
     except Exception as e:

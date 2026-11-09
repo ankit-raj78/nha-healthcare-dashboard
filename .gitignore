@@ -36,3 +36,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# built exports — regenerate with:  .venv/bin/python eda/export.py
+exports/
